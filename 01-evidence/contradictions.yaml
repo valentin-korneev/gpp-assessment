@@ -1,0 +1,14 @@
+contradictions:
+  - id: CONTR-GPP-001
+    area: channels
+    statement_ru: >-
+      Общая страница GPP на сайте CBA продолжает упоминать официальный Internet resource GPP как канал платежей,
+      тогда как отдельное уведомление CBA сообщает о прекращении gpp.az и mobile app с 10.01.2024.
+    evidence:
+      - EV-PUB-003
+      - EV-PUB-008
+    status: active
+    handling_ru: >-
+      Для текущего AS-IS состояния каналов приоритет отдается специализированному уведомлению о прекращении.
+      Утверждение общей страницы сохраняется как temporal/currentness inconsistency и не используется как
+      подтверждение текущей доступности собственного web-канала.

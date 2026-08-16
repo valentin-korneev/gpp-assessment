@@ -1,0 +1,30 @@
+capabilities:
+  - id: CAP-ASIS-001
+    name_ru: Централизованный сбор бюджетных и массовых платежей
+    statement_ru: >-
+      GPP предоставляет единую инфраструктуру для электронного сбора бюджетных платежей и платежей
+      за массовые услуги.
+    evidence:
+      - EV-PUB-001
+    temporal_scope:
+      currentness: unverified
+
+  - id: CAP-ASIS-002
+    name_ru: Доступ к платежам через интегрированные внешние цифровые каналы
+    statement_ru: >-
+      После прекращения gpp.az и mobile app платежи GPP выполняются через интегрированные
+      интернет- и мобильные сервисы банков и небанковских поставщиков платежных услуг.
+    evidence:
+      - EV-PUB-004
+    temporal_scope:
+      currentness: current
+
+  - id: CAP-ASIS-003
+    name_ru: Передача платежной информации и reconciliation с участниками
+    statement_ru: >-
+      Публичное описание CBA предусматривает real-time передачу платежной информации во внутренние системы
+      участников и электронную reconciliation по итогам операционного дня.
+    evidence:
+      - EV-PUB-006
+    temporal_scope:
+      currentness: unverified

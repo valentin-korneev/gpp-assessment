@@ -1,0 +1,90 @@
+source_families:
+  - id: gpp-public-bootstrap
+    title_ru: Базовый публичный контекст GPP
+    relationship_ru: >-
+      Связанное семейство открытых источников: официальные страницы Центрального банка
+      используются для статуса, назначения и эволюции GPP; страница SINAM используется
+      только как self-report поставщика о своем историческом участии в разработке.
+    sources:
+      - SRC-PUB-001
+      - SRC-PUB-002
+      - SRC-PUB-003
+      - SRC-PUB-004
+
+sources:
+  - id: SRC-PUB-001
+    title: The Government Payment Portal (GPP)
+    publisher: Central Bank of the Republic of Azerbaijan
+    url: https://www.cbar.az/page-481/the-government-payment-portal-gpp?language=en
+    source_family: gpp-public-bootstrap
+    relationship: official-product-description
+    version: null
+    date: null
+    version_confidence: low
+    ingest_profile: public-source
+    authority: primary-official
+    currentness: unverified
+    sensitivity: public
+    visual_review_mode: targeted-if-needed
+    normalization_requirements: none
+    retrieved_at: 2026-08-17
+    notes_ru: >-
+      Страница доступна на текущем сайте CBA, но содержит упоминание официального Internet resource GPP,
+      которое конфликтует по времени с отдельным уведомлением о прекращении gpp.az с 10.01.2024.
+      Поэтому технические утверждения страницы не считаются автоматически current production state.
+
+  - id: SRC-PUB-002
+    title: Payment systems
+    publisher: Central Bank of the Republic of Azerbaijan
+    url: https://www.cbar.az/page-474/payment-systems?language=en
+    source_family: gpp-public-bootstrap
+    relationship: official-historical-overview
+    version: null
+    date: null
+    version_confidence: low
+    ingest_profile: public-source
+    authority: primary-official
+    currentness: unverified
+    sensitivity: public
+    visual_review_mode: not-required
+    normalization_requirements: none
+    retrieved_at: 2026-08-17
+
+  - id: SRC-PUB-003
+    title: DİQQƏT! - notice on GPP web site and mobile application
+    publisher: Central Bank of the Republic of Azerbaijan
+    url: https://www.cbar.az/gpp/index.html
+    source_family: gpp-public-bootstrap
+    relationship: official-channel-status-notice
+    version: null
+    date: null
+    version_confidence: medium
+    ingest_profile: public-source
+    authority: primary-official
+    currentness: current
+    sensitivity: public
+    visual_review_mode: not-required
+    normalization_requirements: none
+    retrieved_at: 2026-08-17
+    notes_ru: >-
+      Внутри уведомления явно указана дата изменения состояния каналов: 10.01.2024.
+
+  - id: SRC-PUB-004
+    title: Automated System for Mass Payments - Development of the Government Payment Portal (GPP)
+    publisher: SINAM Ltd
+    url: https://www.sinam.net/en/solutions/asmp
+    source_family: gpp-public-bootstrap
+    relationship: vendor-case-study
+    version: null
+    date: null
+    version_confidence: low
+    ingest_profile: public-source
+    authority: vendor-self-report
+    currentness: unverified
+    sensitivity: public
+    visual_review_mode: not-required
+    normalization_requirements: none
+    retrieved_at: 2026-08-17
+    notes_ru: >-
+      Источник подтверждает только заявленное SINAM историческое участие в проекте.
+      Он не используется как подтверждение текущей роли SINAM в сопровождении, развитии или эксплуатации GPP.

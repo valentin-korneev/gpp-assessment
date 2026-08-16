@@ -1,0 +1,96 @@
+evidence:
+  - id: EV-PUB-001
+    source: SRC-PUB-001
+    section: The Government Payment Portal (GPP)
+    locator:
+      type: section
+      value: purpose-and-goals
+    evidence_type: text
+    provenance: documented
+    statement_ru: >-
+      CBA описывает GPP как единую платформу для электронного сбора бюджетных платежей и платежей
+      за коммунальные, коммуникационные, страховые и другие услуги.
+
+  - id: EV-PUB-002
+    source: SRC-PUB-002
+    section: Payment systems
+    locator:
+      type: section
+      value: national-payment-system-history
+    evidence_type: text
+    provenance: documented
+    statement_ru: >-
+      CBA указывает, что CISMS был запущен 11.07.2008, а GPP - в 2012 году с использованием
+      инфраструктурных возможностей CISMS.
+
+  - id: EV-PUB-003
+    source: SRC-PUB-003
+    section: DİQQƏT!
+    locator:
+      type: section
+      value: channel-discontinuation
+    evidence_type: text
+    provenance: documented
+    statement_ru: >-
+      CBA сообщает, что с 10.01.2024 работа интернет-страницы gpp.az и мобильного приложения GPP прекращена.
+
+  - id: EV-PUB-004
+    source: SRC-PUB-003
+    section: DİQQƏT!
+    locator:
+      type: section
+      value: replacement-access-channels
+    evidence_type: text
+    provenance: documented
+    statement_ru: >-
+      После прекращения gpp.az и mobile app платежи GPP можно выполнять через интегрированные
+      интернет- и мобильные сервисы банков и небанковских поставщиков платежных услуг.
+
+  - id: EV-PUB-005
+    source: SRC-PUB-004
+    section: Development of the Government Payment Portal (GPP)
+    locator:
+      type: section
+      value: client-project-period
+    evidence_type: text
+    provenance: documented
+    statement_ru: >-
+      SINAM публикует case study Development of the Government Payment Portal (GPP) с клиентом
+      Central Bank, Republic of Azerbaijan и project period 2008.
+
+  - id: EV-PUB-006
+    source: SRC-PUB-001
+    section: The Government Payment Portal (GPP)
+    locator:
+      type: section
+      value: participant-information-and-reconciliation
+    evidence_type: text
+    provenance: documented
+    statement_ru: >-
+      CBA описывает передачу информации о платежах во внутренние системы участвующих организаций
+      в real time и электронную reconciliation по итогам операционного дня; применимость к текущему
+      production state требует подтверждения.
+
+  - id: EV-PUB-007
+    source: SRC-PUB-001
+    section: The Government Payment Portal (GPP)
+    locator:
+      type: section
+      value: closed-telecommunication-network
+    evidence_type: text
+    provenance: documented
+    statement_ru: >-
+      CBA описывает обмен информацией между участниками GPP через Closed Telecommunication Network
+      с использованием электронных сертификатов Bank Certificate Center CBA; текущая применимость не подтверждена.
+
+  - id: EV-PUB-008
+    source: SRC-PUB-001
+    section: The Government Payment Portal (GPP)
+    locator:
+      type: section
+      value: official-internet-resource
+    evidence_type: text
+    provenance: documented
+    statement_ru: >-
+      Общая страница GPP на сайте CBA утверждает, что некоторые платежи могут выполняться через
+      официальный Internet resource GPP, что требует temporal reconciliation с уведомлением 2024 года.

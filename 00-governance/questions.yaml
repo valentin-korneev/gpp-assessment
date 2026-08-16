@@ -1,0 +1,24 @@
+questions:
+  - id: Q-SCOPE-001
+    area: scope
+    question_ru: >-
+      Где проходит подтвержденная системная граница GPP относительно банков, PSP, государственных органов,
+      поставщиков массовых услуг и иных подключенных систем?
+    reason_ru: >-
+      Boundary влияет на component/context model, ownership и классификацию interfaces.
+    priority: important
+    status: open
+    related_assumptions:
+      - ASM-SCOPE-001
+
+  - id: Q-VND-001
+    area: vendor-ownership
+    question_ru: >-
+      Какова текущая роль SINAM в сопровождении, развитии или эксплуатации GPP?
+    reason_ru: >-
+      Публичный сайт SINAM подтверждает историческое участие в разработке, но не подтверждает текущую роль.
+      Ожидается отдельный документ по сопровождению, который должен иметь более высокий приоритет для ответа.
+    priority: important
+    status: open
+    related_sources:
+      - SRC-PUB-004

@@ -1,0 +1,91 @@
+facts:
+  - id: FACT-GPP-001
+    area: purpose
+    statement_ru: >-
+      GPP создан для централизованного электронного сбора бюджетных и массовых платежей через единую платформу.
+    evidence:
+      - EV-PUB-001
+    confidence: confirmed
+    temporal_scope:
+      source_date: null
+      currentness: unverified
+    status: active
+
+  - id: FACT-GPP-002
+    area: history
+    statement_ru: >-
+      CBA запустил CISMS 11.07.2008; GPP был запущен в 2012 году с использованием инфраструктурных возможностей CISMS.
+    evidence:
+      - EV-PUB-002
+    confidence: confirmed
+    temporal_scope:
+      source_date: null
+      currentness: historical
+    status: active
+
+  - id: FACT-GPP-003
+    area: channels
+    statement_ru: >-
+      Интернет-страница gpp.az и мобильное приложение GPP прекратили работу с 10.01.2024.
+    evidence:
+      - EV-PUB-003
+    confidence: confirmed
+    temporal_scope:
+      source_date: 2024-01-10
+      currentness: current
+    status: active
+
+  - id: FACT-GPP-004
+    area: channels
+    statement_ru: >-
+      После прекращения собственных web/mobile каналов платежи через GPP доступны через интегрированные
+      интернет- и мобильные сервисы банков и небанковских поставщиков платежных услуг.
+    evidence:
+      - EV-PUB-004
+    confidence: confirmed
+    temporal_scope:
+      source_date: 2024-01-10
+      currentness: current
+    status: active
+
+  - id: FACT-GPP-005
+    area: vendor-history
+    statement_ru: >-
+      SINAM на собственном сайте публикует case study Development of the Government Payment Portal (GPP)
+      для Central Bank, Republic of Azerbaijan с указанным project period 2008.
+    evidence:
+      - EV-PUB-005
+    confidence: confirmed
+    temporal_scope:
+      source_date: null
+      currentness: historical
+    status: active
+    notes_ru: >-
+      Факт подтверждает содержание vendor self-report, но не текущую роль SINAM и не используется
+      как доказательство того, что GPP как портал был запущен в 2008 году.
+
+  - id: FACT-GPP-006
+    area: integration
+    statement_ru: >-
+      Публичная страница CBA описывает передачу информации о платежах во внутренние системы участников
+      в real time и электронную reconciliation по итогам операционного дня.
+    evidence:
+      - EV-PUB-006
+    confidence: confirmed
+    temporal_scope:
+      source_date: null
+      currentness: unverified
+    status: active
+
+  - id: FACT-GPP-007
+    area: integration-security
+    statement_ru: >-
+      Публичная страница CBA описывает обмен информацией GPP через Closed Telecommunication Network
+      с использованием электронных сертификатов Bank Certificate Center CBA.
+    evidence:
+      - EV-PUB-007
+    confidence: confirmed
+    temporal_scope:
+      source_date: null
+      currentness: unverified
+    status: active

@@ -1,0 +1,29 @@
+terms:
+  - id: TERM-GPP-001
+    term: GPP
+    name_ru: Government Payment Portal / Hökumət Ödəniş Portalı (HÖP)
+    definition_ru: >-
+      Централизованный платежный портал/инфраструктура, созданный для сбора бюджетных
+      и массовых платежей через единую платформу.
+    sources:
+      - SRC-PUB-001
+      - SRC-PUB-002
+
+  - id: TERM-GPP-002
+    term: CISMS
+    name_ru: Centralized Information System on Mass Payments
+    definition_ru: >-
+      Предшествующая инфраструктура массовых платежей, запущенная CBA 11.07.2008;
+      GPP был запущен в 2012 году с использованием ее инфраструктурных возможностей.
+    sources:
+      - SRC-PUB-002
+
+  - id: TERM-GPP-003
+    term: ASMP
+    name_ru: Automated System for Mass Payments
+    definition_ru: >-
+      Термин, используемый SINAM для решения/кейса массовых платежей, связанного на странице поставщика
+      с Development of the Government Payment Portal (GPP). Эквивалентность ASMP и CISMS как системных
+      имен пока не считается подтвержденной.
+    sources:
+      - SRC-PUB-004
