@@ -1,0 +1,12 @@
+# Local source documents
+/sources/
+
+# Generated final documents and presentations
+/deliverables/
+
+# Local OS files
+.DS_Store
+Thumbs.db
+
+# JetBrains
+.idea
