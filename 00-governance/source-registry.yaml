@@ -1,90 +1,167 @@
 source_families:
-  - id: gpp-public-bootstrap
-    title_ru: Базовый публичный контекст GPP
-    relationship_ru: >-
-      Связанное семейство открытых источников: официальные страницы Центрального банка
-      используются для статуса, назначения и эволюции GPP; страница SINAM используется
-      только как self-report поставщика о своем историческом участии в разработке.
-    sources:
-      - SRC-PUB-001
-      - SRC-PUB-002
-      - SRC-PUB-003
-      - SRC-PUB-004
+- id: gpp-public-bootstrap
+  title_ru: Базовый публичный контекст GPP
+  relationship_ru: 'Связанное семейство открытых источников: официальные страницы Центрального банка используются
+    для статуса, назначения и эволюции GPP; страница SINAM используется только как self-report поставщика о своем
+    историческом участии в разработке.'
+  sources:
+  - SRC-PUB-001
+  - SRC-PUB-002
+  - SRC-PUB-003
+  - SRC-PUB-004
+
+- id: gpp-functional-specification-2023
+  title_ru: Функциональное описание GPP - семейство рабочих редакций
+  relationship_ru: Два сильно перекрывающихся внутренних артефакта с неоднозначным relationship. Имена файлов содержат
+    hints v005 и v006, но оба файла внутри идентифицируют документ как GPP_System Functional Specification_v001,
+    историю версии 0.01 и дату 05.05.2023. По сообщению архитектора assessment, DOCX с filename hint v005 был передан
+    позже и является более полным по содержанию; одновременно сохраняется рабочая гипотеза, что артефакты могут
+    быть независимыми рабочими документами, а не последовательными версиями. Эти сведения не доказывают authoritative/current
+    precedence. Shared content используется без дублирования facts, delta сохраняется source-specific.
+  sources:
+  - SRC-FS-001
+  - SRC-FS-002
+  - SRC-STK-001
+  precedence: unresolved
+  relationship_classification: ambiguous-overlap
+  stakeholder_context_source: SRC-STK-001
 
 sources:
-  - id: SRC-PUB-001
-    title: The Government Payment Portal (GPP)
-    publisher: Central Bank of the Republic of Azerbaijan
-    url: https://www.cbar.az/page-481/the-government-payment-portal-gpp?language=en
-    source_family: gpp-public-bootstrap
-    relationship: official-product-description
-    version: null
-    date: null
-    version_confidence: low
-    ingest_profile: public-source
-    authority: primary-official
-    currentness: unverified
-    sensitivity: public
-    visual_review_mode: targeted-if-needed
-    normalization_requirements: none
-    retrieved_at: 2026-08-17
-    notes_ru: >-
-      Страница доступна на текущем сайте CBA, но содержит упоминание официального Internet resource GPP,
-      которое конфликтует по времени с отдельным уведомлением о прекращении gpp.az с 10.01.2024.
-      Поэтому технические утверждения страницы не считаются автоматически current production state.
+- id: SRC-PUB-001
+  title: The Government Payment Portal (GPP)
+  publisher: Central Bank of the Republic of Azerbaijan
+  url: https://www.cbar.az/page-481/the-government-payment-portal-gpp?language=en
+  source_family: gpp-public-bootstrap
+  relationship: official-product-description
+  version: null
+  date: null
+  version_confidence: low
+  ingest_profile: public-source
+  authority: primary-official
+  currentness: unverified
+  sensitivity: public
+  visual_review_mode: targeted-if-needed
+  normalization_requirements: none
+  retrieved_at: 2026-08-17
+  notes_ru: Страница доступна на текущем сайте CBA, но содержит упоминание официального Internet resource GPP, которое
+    конфликтует по времени с отдельным уведомлением о прекращении gpp.az с 10.01.2024. Поэтому технические утверждения
+    страницы не считаются автоматически current production state.
 
-  - id: SRC-PUB-002
-    title: Payment systems
-    publisher: Central Bank of the Republic of Azerbaijan
-    url: https://www.cbar.az/page-474/payment-systems?language=en
-    source_family: gpp-public-bootstrap
-    relationship: official-historical-overview
-    version: null
-    date: null
-    version_confidence: low
-    ingest_profile: public-source
-    authority: primary-official
-    currentness: unverified
-    sensitivity: public
-    visual_review_mode: not-required
-    normalization_requirements: none
-    retrieved_at: 2026-08-17
+- id: SRC-PUB-002
+  title: Payment systems
+  publisher: Central Bank of the Republic of Azerbaijan
+  url: https://www.cbar.az/page-474/payment-systems?language=en
+  source_family: gpp-public-bootstrap
+  relationship: official-historical-overview
+  version: null
+  date: null
+  version_confidence: low
+  ingest_profile: public-source
+  authority: primary-official
+  currentness: unverified
+  sensitivity: public
+  visual_review_mode: not-required
+  normalization_requirements: none
+  retrieved_at: 2026-08-17
 
-  - id: SRC-PUB-003
-    title: DİQQƏT! - notice on GPP web site and mobile application
-    publisher: Central Bank of the Republic of Azerbaijan
-    url: https://www.cbar.az/gpp/index.html
-    source_family: gpp-public-bootstrap
-    relationship: official-channel-status-notice
-    version: null
-    date: null
-    version_confidence: medium
-    ingest_profile: public-source
-    authority: primary-official
-    currentness: current
-    sensitivity: public
-    visual_review_mode: not-required
-    normalization_requirements: none
-    retrieved_at: 2026-08-17
-    notes_ru: >-
-      Внутри уведомления явно указана дата изменения состояния каналов: 10.01.2024.
+- id: SRC-PUB-003
+  title: DİQQƏT! - notice on GPP web site and mobile application
+  publisher: Central Bank of the Republic of Azerbaijan
+  url: https://www.cbar.az/gpp/index.html
+  source_family: gpp-public-bootstrap
+  relationship: official-channel-status-notice
+  version: null
+  date: null
+  version_confidence: medium
+  ingest_profile: public-source
+  authority: primary-official
+  currentness: current
+  sensitivity: public
+  visual_review_mode: not-required
+  normalization_requirements: none
+  retrieved_at: 2026-08-17
+  notes_ru: 'Внутри уведомления явно указана дата изменения состояния каналов: 10.01.2024.'
 
-  - id: SRC-PUB-004
-    title: Automated System for Mass Payments - Development of the Government Payment Portal (GPP)
-    publisher: SINAM Ltd
-    url: https://www.sinam.net/en/solutions/asmp
-    source_family: gpp-public-bootstrap
-    relationship: vendor-case-study
-    version: null
-    date: null
-    version_confidence: low
-    ingest_profile: public-source
-    authority: vendor-self-report
-    currentness: unverified
-    sensitivity: public
-    visual_review_mode: not-required
-    normalization_requirements: none
-    retrieved_at: 2026-08-17
-    notes_ru: >-
-      Источник подтверждает только заявленное SINAM историческое участие в проекте.
-      Он не используется как подтверждение текущей роли SINAM в сопровождении, развитии или эксплуатации GPP.
+- id: SRC-PUB-004
+  title: Automated System for Mass Payments - Development of the Government Payment Portal (GPP)
+  publisher: SINAM Ltd
+  url: https://www.sinam.net/en/solutions/asmp
+  source_family: gpp-public-bootstrap
+  relationship: vendor-case-study
+  version: null
+  date: null
+  version_confidence: low
+  ingest_profile: public-source
+  authority: vendor-self-report
+  currentness: unverified
+  sensitivity: public
+  visual_review_mode: not-required
+  normalization_requirements: none
+  retrieved_at: 2026-08-17
+  notes_ru: Источник подтверждает только заявленное SINAM историческое участие в проекте. Он не используется как
+    подтверждение текущей роли SINAM в сопровождении, развитии или эксплуатации GPP.
+
+- id: SRC-FS-001
+  title: HÖKUMƏT ÖDƏNİŞ PORTALI - sistemin funksional təsviri
+  file_name: GPP_System Functional Specification_v005 2(HÖP sisteminin funksional təsviri).docx
+  source_family: gpp-functional-specification-2023
+  relationship: overlapping-working-variant
+  filename_version_hint: v005
+  internal_document_id: GPP_System Functional Specification_v001
+  internal_history_version: '0.01'
+  date: '2023-05-05'
+  version_confidence: low
+  ingest_profile: functional-specification
+  authority: internal-functional-specification
+  currentness: current-at-source-date
+  sensitivity: internal
+  visual_review_mode: text-first-targeted
+  normalization_requirements: interface-classification-only; contract-normalization-deferred
+  notes_ru: Внутренние version/date metadata не подтверждают filename hint v005. Артефакт содержит reviewer comments
+    и подробные screenshot-based UI procedures. В canonical files не переносятся внутренние IP/operational URLs,
+    примеры реквизитов и персональные данные из UI, если конкретное значение не требуется как evidence. По stakeholder
+    response этот DOCX был передан позже PDF и воспринимается как более полный; это не считается доказательством
+    version authority.
+  delivery_context:
+    reported_sequence: later-than-SRC-FS-002
+    reported_relative_completeness: more-complete
+    evidence: EV-STK-001
+
+- id: SRC-FS-002
+  title: HÖKUMƏT ÖDƏNİŞ PORTALI - SİSTEMİN FUNKSİONAL TƏSVİRİ
+  file_name: GPP_System Functional Specification_v006.pdf
+  source_family: gpp-functional-specification-2023
+  relationship: overlapping-consolidated-variant
+  filename_version_hint: v006
+  internal_document_id: GPP_System Functional Specification_v001
+  internal_history_version: '0.01'
+  date: '2023-05-05'
+  version_confidence: low
+  ingest_profile: functional-specification
+  authority: internal-functional-specification
+  currentness: current-at-source-date
+  sensitivity: internal
+  visual_review_mode: targeted
+  normalization_requirements: interface-classification-only; contract-normalization-deferred
+  notes_ru: Внутренние version/date metadata совпадают с SRC-FS-001 и не подтверждают filename hint v006. PDF metadata
+    показывает генерацию артефакта в 2026 году, но это не принимается как business/version precedence. Документ
+    консолидирует organization fields и разделы 3.2-3.4, при этом содержит незакрытые редакционные пометки. В canonical
+    files не копируются внутренние operational values из screenshots/tables без необходимости.
+  delivery_context:
+    reported_sequence: earlier-than-SRC-FS-001
+    evidence: EV-STK-001
+
+- id: SRC-STK-001
+  title: Ответы архитектора по reconciliation functional specification
+  source_family: gpp-functional-specification-2023
+  relationship: stakeholder-clarification
+  date: '2026-08-17'
+  version_confidence: not-applicable
+  ingest_profile: stakeholder-response
+  authority: project-architect-response
+  currentness: current
+  sensitivity: internal
+  visual_review_mode: not-required
+  normalization_requirements: none
+  notes_ru: Уточняет порядок передачи артефактов, нормализацию XÖHK/XÖHKS и рабочую boundary-классификацию IAMAS/AVIS.
+    Не устанавливает version authority функциональной спецификации.

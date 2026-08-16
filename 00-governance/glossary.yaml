@@ -1,29 +1,89 @@
 terms:
-  - id: TERM-GPP-001
-    term: GPP
-    name_ru: Government Payment Portal / Hökumət Ödəniş Portalı (HÖP)
-    definition_ru: >-
-      Централизованный платежный портал/инфраструктура, созданный для сбора бюджетных
-      и массовых платежей через единую платформу.
-    sources:
-      - SRC-PUB-001
-      - SRC-PUB-002
+- id: TERM-GPP-001
+  term: GPP
+  name_ru: Government Payment Portal / Hökumət Ödəniş Portalı (HÖP)
+  definition_ru: Централизованный платежный портал/инфраструктура, созданный для сбора бюджетных и массовых платежей
+    через единую платформу.
+  sources:
+  - SRC-PUB-001
+  - SRC-PUB-002
 
-  - id: TERM-GPP-002
-    term: CISMS
-    name_ru: Centralized Information System on Mass Payments
-    definition_ru: >-
-      Предшествующая инфраструктура массовых платежей, запущенная CBA 11.07.2008;
-      GPP был запущен в 2012 году с использованием ее инфраструктурных возможностей.
-    sources:
-      - SRC-PUB-002
+- id: TERM-GPP-002
+  term: CISMS
+  name_ru: Centralized Information System on Mass Payments
+  definition_ru: Предшествующая инфраструктура массовых платежей, запущенная CBA 11.07.2008; GPP был запущен в 2012
+    году с использованием ее инфраструктурных возможностей.
+  sources:
+  - SRC-PUB-002
 
-  - id: TERM-GPP-003
-    term: ASMP
-    name_ru: Automated System for Mass Payments
-    definition_ru: >-
-      Термин, используемый SINAM для решения/кейса массовых платежей, связанного на странице поставщика
-      с Development of the Government Payment Portal (GPP). Эквивалентность ASMP и CISMS как системных
-      имен пока не считается подтвержденной.
-    sources:
-      - SRC-PUB-004
+- id: TERM-GPP-003
+  term: ASMP
+  name_ru: Automated System for Mass Payments
+  definition_ru: Термин, используемый SINAM для решения/кейса массовых платежей, связанного на странице поставщика
+    с Development of the Government Payment Portal (GPP). Эквивалентность ASMP и CISMS как системных имен пока не
+    считается подтвержденной.
+  sources:
+  - SRC-PUB-004
+
+- id: TERM-GPP-004
+  term: KXM
+  name_ru: Kütləvi Xidmət Müəssisəsi
+  definition_ru: Интегрированная в GPP негосударственная service organization, в пользу которой собираются платежи.
+  sources:
+  - SRC-FS-001
+  - SRC-FS-002
+
+- id: TERM-GPP-005
+  term: KPM
+  name_ru: Kart Prossesinq Mərkəzi
+  definition_ru: Card processing center; в спецификации относится к participant organizations и выполняет authorization
+    card operations.
+  sources:
+  - SRC-FS-001
+  - SRC-FS-002
+
+- id: TERM-GPP-006
+  term: PSP
+  name_ru: Payment service provider
+  definition_ru: В контексте спецификации - банки, почта, card processing centers и другие payment organizations,
+    электронные каналы которых интегрируются с GPP через PaymentService.
+  sources:
+  - SRC-FS-001
+  - SRC-FS-002
+
+- id: TERM-GPP-007
+  term: XÖHKS
+  name_ru: XÖHKS
+  definition_ru: Внешняя расчетная/платежная система, с которой спецификация связывает LVPCSS и передачу MT150/152
+    files. Расшифровка аббревиатуры в текущем source family не фиксируется.
+  sources:
+  - SRC-FS-001
+  - SRC-FS-002
+
+- id: TERM-GPP-008
+  term: IPS
+  name_ru: Ani Ödənişlər Sistemi / Instant Payment System
+  definition_ru: Внешняя instant payment system, информационный обмен с которой выполняет IPSClient.
+  sources:
+  - SRC-FS-001
+  - SRC-FS-002
+
+- id: TERM-GPP-009
+  term: IAMAS
+  name_ru: IAMAS
+  definition_ru: Внешняя в рабочей AS-IS boundary система/источник идентификационных данных, упоминаемый в функциональной
+    спецификации как Source для identification и как источник данных перед последующим debt lookup. Расшифровка,
+    ownership и contract пока не подтверждены.
+  sources:
+  - SRC-FS-001
+  - SRC-FS-002
+
+- id: TERM-GPP-010
+  term: AVIS
+  name_ru: AVIS
+  definition_ru: Внешняя в рабочей AS-IS boundary система/источник идентификационных данных, упоминаемый в функциональной
+    спецификации как Source для identification и как источник данных перед последующим debt lookup. Расшифровка,
+    ownership и contract пока не подтверждены.
+  sources:
+  - SRC-FS-001
+  - SRC-FS-002

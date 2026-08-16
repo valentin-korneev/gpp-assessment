@@ -1,0 +1,105 @@
+interfaces:
+- id: IF-GPP-001
+  name: Mobile applications - MobilApi
+  interface_type: rest
+  from: CMP-GPP-004
+  to: CMP-GPP-005
+  evidence:
+  - EV-FS-002
+  status: superseded
+  temporal_scope:
+    currentness: historical
+  contract_source:
+    status: not-referenced
+
+- id: IF-GPP-002
+  name: PSP electronic channels - PaymentService
+  interface_type: unknown
+  from_external: PSP electronic channels
+  to: CMP-GPP-006
+  evidence:
+  - EV-FS-015
+  status: active
+  temporal_scope:
+    currentness: current-at-source-date
+  contract_source:
+    status: not-referenced
+
+- id: IF-GPP-003
+  name: Authorization centers - PacPmtProc
+  interface_type: unknown
+  from_external: Payment authorization centers
+  to: CMP-GPP-003
+  evidence:
+  - EV-FS-015
+  status: active
+  temporal_scope:
+    currentness: current-at-source-date
+  contract_source:
+    status: not-referenced
+
+- id: IF-GPP-004
+  name: Loader Generators - participant organizations
+  interface_type: file
+  from: CMP-GPP-009
+  to_external: Participant organizations
+  evidence:
+  - EV-FS-015
+  status: active
+  temporal_scope:
+    currentness: current-at-source-date
+  contract_source:
+    status: not-referenced
+
+- id: IF-GPP-005
+  name: Loader Generators - XÖHKS MT150/152
+  interface_type: file
+  from: CMP-GPP-009
+  to_external: XÖHKS
+  evidence:
+  - EV-FS-015
+  status: active
+  temporal_scope:
+    currentness: current-at-source-date
+  contract_source:
+    status: referenced-unavailable
+  notes_ru: Упомянуты MT150/152 files, но сами file format/specification artifacts не предоставлены.
+
+- id: IF-GPP-006
+  name: LVPCSS - XÖHKS
+  interface_type: unknown
+  from: CMP-GPP-010
+  to_external: XÖHKS
+  evidence:
+  - EV-FS-015
+  status: active
+  temporal_scope:
+    currentness: current-at-source-date
+  contract_source:
+    status: not-referenced
+
+- id: IF-GPP-007
+  name: IPSClient - Instant Payment System
+  interface_type: unknown
+  from: CMP-GPP-011
+  to_external: Instant Payment System
+  evidence:
+  - EV-FS-015
+  status: active
+  temporal_scope:
+    currentness: current-at-source-date
+  contract_source:
+    status: not-referenced
+
+- id: IF-GPP-008
+  name: Service organization internet resources - WebPortalVC
+  interface_type: unknown
+  from_external: Integrated service organizations
+  to: CMP-GPP-002
+  evidence:
+  - EV-FS-002
+  status: active
+  temporal_scope:
+    currentness: current-at-source-date
+  contract_source:
+    status: not-referenced

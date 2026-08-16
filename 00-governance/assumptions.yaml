@@ -1,14 +1,47 @@
 assumptions:
-  - id: ASM-SCOPE-001
-    area: scope
-    statement_ru: >-
-      До уточнения системной границы GPP рассматривается как центральная платежная/integration platform,
-      а банки, небанковские поставщики платежных услуг, государственные органы, поставщики массовых услуг
-      и иные подключенные организации - как внешние участники, если последующие sources не показывают иное.
-    confidence: tentative
-    status: active
-    reason_ru: >-
-      Публичные источники описывают GPP как единую/централизованную платформу и перечисляют подключенные
-      организации и каналы, но не задают формальную архитектурную boundary.
-    related_questions:
-      - Q-SCOPE-001
+- id: ASM-SCOPE-001
+  area: scope
+  statement_ru: До уточнения системной границы GPP рассматривается как центральная платежная/integration platform,
+    а банки, небанковские поставщики платежных услуг, государственные органы, поставщики массовых услуг и иные подключенные
+    организации - как внешние участники, если последующие sources не показывают иное.
+  confidence: tentative
+  status: superseded
+  reason_ru: Публичные источники описывают GPP как единую/централизованную платформу и перечисляют подключенные
+    организации и каналы, но не задают формальную архитектурную boundary.
+  related_questions:
+  - Q-SCOPE-001
+  superseded_by:
+  - FACT-GPP-008
+  - FACT-GPP-010
+  notes_ru: Функциональная спецификация теперь явно отделяет GPP infrastructure modules от integrated participant
+    organizations.
+
+- id: ASM-SRC-001
+  area: source-versioning
+  statement_ru: SRC-FS-001 и SRC-FS-002 могут быть независимыми рабочими документами с большим overlap, а не последовательными
+    версиями одной редакционной ветки.
+  confidence: tentative
+  status: active
+  reason_ru: Внутренняя metadata обоих артефактов совпадает и не подтверждает filename version hints; stakeholder
+    сообщает более позднюю передачу и большую полноту DOCX, но не подтверждает version authority.
+  related_questions:
+  - Q-SRC-001
+  related_sources:
+  - SRC-FS-001
+  - SRC-FS-002
+  - SRC-STK-001
+
+- id: ASM-EXT-001
+  area: system-context
+  statement_ru: IAMAS и AVIS рассматриваются как внешние по отношению к GPP системы/источники идентификационных
+    данных до получения evidence, показывающего иную boundary.
+  confidence: tentative
+  status: active
+  reason_ru: Спецификация использует IAMAS и AVIS как значения Source и описывает получение от них данных, но не
+    фиксирует формальную ownership/boundary модель. Рабочая классификация подтверждена архитектором assessment.
+  related_sources:
+  - SRC-FS-001
+  - SRC-FS-002
+  - SRC-STK-001
+  related_questions:
+  - Q-EXT-002

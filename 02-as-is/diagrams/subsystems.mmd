@@ -1,0 +1,57 @@
+flowchart TB
+    subgraph Channels["Пользовательские каналы"]
+        WP["WebPortal<br/>(выведен из эксплуатации)"]:::historical
+        MA["Mobile applications<br/>(выведены из эксплуатации)"]:::historical
+        MAPI["MobilApi<br/>(текущая актуальность не подтверждена)"]:::unverified
+        MA -->|"REST, IF-GPP-001 (историческая связь)"| MAPI
+    end
+
+    subgraph Participant["Интеграция организаций-участников и PSP"]
+        WVC["WebPortalVC"]
+        PS["PaymentService"]
+    end
+
+    subgraph Authorization["Авторизация платежей"]
+        PAC["PacPmtProc"]
+    end
+
+    subgraph Teller["Операторский прием платежей"]
+        TWP["TellerWP (BankPayment)"]
+    end
+
+    subgraph Admin["Администрирование и конфигурация"]
+        AC["AdminConsole"]
+    end
+
+    subgraph Reporting["Отчетность и экспорт расчетов"]
+        LG["Loader Generators"]
+    end
+
+    subgraph ExternalPayments["Интеграция с внешними платежными и расчетными системами"]
+        LV["LVPCSS"]
+        IPSC["IPSClient"]
+    end
+
+    CORE["Центральная обработка платежей / хранение состояния<br/>компонент не идентифицирован источником<br/>Q-ARCH-001"]:::unknown
+
+    INF1["INF-ARCH-001<br/>AdminConsole логически выступает централизованным<br/>контуром управления и конфигурации"]:::inference
+    INF2["INF-ARCH-002<br/>существенная часть поведения GPP<br/>управляется конфигурацией"]:::inference
+
+    AC -. "архитектурный вывод" .-> INF1
+    AC -. "архитектурный вывод" .-> INF2
+
+    Channels ~~~ Participant
+    Participant ~~~ Authorization
+    Authorization ~~~ Teller
+    Teller ~~~ Admin
+    Admin ~~~ Reporting
+    Reporting ~~~ ExternalPayments
+    ExternalPayments ~~~ CORE
+
+    LEG["Сплошная стрелка = подтвержденная связь<br/>Пунктирная стрелка = ASM/INF<br/>~~~ используется только для компоновки"]:::legend
+
+    classDef historical stroke-dasharray:6 4;
+    classDef unverified stroke-dasharray:2 3;
+    classDef unknown stroke-dasharray:1 4;
+    classDef inference stroke-dasharray:3 3;
+    classDef legend stroke-dasharray:2 2;

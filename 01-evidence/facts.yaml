@@ -1,91 +1,267 @@
 facts:
-  - id: FACT-GPP-001
-    area: purpose
-    statement_ru: >-
-      GPP создан для централизованного электронного сбора бюджетных и массовых платежей через единую платформу.
-    evidence:
-      - EV-PUB-001
-    confidence: confirmed
-    temporal_scope:
-      source_date: null
-      currentness: unverified
-    status: active
+- id: FACT-GPP-001
+  area: purpose
+  statement_ru: GPP создан для централизованного электронного сбора бюджетных и массовых платежей через единую платформу.
+  evidence:
+  - EV-PUB-001
+  - EV-FS-001
+  confidence: confirmed
+  temporal_scope:
+    source_date: null
+    currentness: unverified
+  status: active
 
-  - id: FACT-GPP-002
-    area: history
-    statement_ru: >-
-      CBA запустил CISMS 11.07.2008; GPP был запущен в 2012 году с использованием инфраструктурных возможностей CISMS.
-    evidence:
-      - EV-PUB-002
-    confidence: confirmed
-    temporal_scope:
-      source_date: null
-      currentness: historical
-    status: active
+- id: FACT-GPP-002
+  area: history
+  statement_ru: CBA запустил CISMS 11.07.2008; GPP был запущен в 2012 году с использованием инфраструктурных возможностей
+    CISMS.
+  evidence:
+  - EV-PUB-002
+  confidence: confirmed
+  temporal_scope:
+    source_date: null
+    currentness: historical
+  status: active
 
-  - id: FACT-GPP-003
-    area: channels
-    statement_ru: >-
-      Интернет-страница gpp.az и мобильное приложение GPP прекратили работу с 10.01.2024.
-    evidence:
-      - EV-PUB-003
-    confidence: confirmed
-    temporal_scope:
-      source_date: 2024-01-10
-      currentness: current
-    status: active
+- id: FACT-GPP-003
+  area: channels
+  statement_ru: Интернет-страница gpp.az и мобильное приложение GPP прекратили работу с 10.01.2024.
+  evidence:
+  - EV-PUB-003
+  confidence: confirmed
+  temporal_scope:
+    source_date: 2024-01-10
+    currentness: current
+  status: active
 
-  - id: FACT-GPP-004
-    area: channels
-    statement_ru: >-
-      После прекращения собственных web/mobile каналов платежи через GPP доступны через интегрированные
-      интернет- и мобильные сервисы банков и небанковских поставщиков платежных услуг.
-    evidence:
-      - EV-PUB-004
-    confidence: confirmed
-    temporal_scope:
-      source_date: 2024-01-10
-      currentness: current
-    status: active
+- id: FACT-GPP-004
+  area: channels
+  statement_ru: После прекращения собственных web/mobile каналов платежи через GPP доступны через интегрированные интернет-
+    и мобильные сервисы банков и небанковских поставщиков платежных услуг.
+  evidence:
+  - EV-PUB-004
+  confidence: confirmed
+  temporal_scope:
+    source_date: 2024-01-10
+    currentness: current
+  status: active
 
-  - id: FACT-GPP-005
-    area: vendor-history
-    statement_ru: >-
-      SINAM на собственном сайте публикует case study Development of the Government Payment Portal (GPP)
-      для Central Bank, Republic of Azerbaijan с указанным project period 2008.
-    evidence:
-      - EV-PUB-005
-    confidence: confirmed
-    temporal_scope:
-      source_date: null
-      currentness: historical
-    status: active
-    notes_ru: >-
-      Факт подтверждает содержание vendor self-report, но не текущую роль SINAM и не используется
-      как доказательство того, что GPP как портал был запущен в 2008 году.
+- id: FACT-GPP-005
+  area: vendor-history
+  statement_ru: SINAM на собственном сайте публикует case study Development of the Government Payment Portal (GPP) для Central
+    Bank, Republic of Azerbaijan с указанным project period 2008.
+  evidence:
+  - EV-PUB-005
+  confidence: confirmed
+  temporal_scope:
+    source_date: null
+    currentness: historical
+  status: active
+  notes_ru: Факт подтверждает содержание vendor self-report, но не текущую роль SINAM и не используется как доказательство
+    того, что GPP как портал был запущен в 2008 году.
 
-  - id: FACT-GPP-006
-    area: integration
-    statement_ru: >-
-      Публичная страница CBA описывает передачу информации о платежах во внутренние системы участников
-      в real time и электронную reconciliation по итогам операционного дня.
-    evidence:
-      - EV-PUB-006
-    confidence: confirmed
-    temporal_scope:
-      source_date: null
-      currentness: unverified
-    status: active
+- id: FACT-GPP-006
+  area: integration
+  statement_ru: Публичная страница CBA описывает передачу информации о платежах во внутренние системы участников в real time
+    и электронную reconciliation по итогам операционного дня.
+  evidence:
+  - EV-PUB-006
+  confidence: confirmed
+  temporal_scope:
+    source_date: null
+    currentness: unverified
+  status: active
 
-  - id: FACT-GPP-007
-    area: integration-security
-    statement_ru: >-
-      Публичная страница CBA описывает обмен информацией GPP через Closed Telecommunication Network
-      с использованием электронных сертификатов Bank Certificate Center CBA.
-    evidence:
-      - EV-PUB-007
-    confidence: confirmed
-    temporal_scope:
-      source_date: null
-      currentness: unverified
-    status: active
+- id: FACT-GPP-007
+  area: integration-security
+  statement_ru: Публичная страница CBA описывает обмен информацией GPP через Closed Telecommunication Network с использованием
+    электронных сертификатов Bank Certificate Center CBA.
+  evidence:
+  - EV-PUB-007
+  confidence: confirmed
+  temporal_scope:
+    source_date: null
+    currentness: unverified
+  status: active
+
+- id: FACT-GPP-008
+  area: architecture
+  statement_ru: 'Функциональная спецификация 2023 года перечисляет 11 именованных элементов инфраструктуры GPP: WebPortal,
+    WebPortalVC, PacPmtProc, mobile applications, MobilApi, PaymentService, TellerWP, AdminConsole, Loader Generators, LVPCSS
+    и IPSClient.'
+  evidence:
+  - EV-FS-002
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+
+- id: FACT-GPP-009
+  area: administration
+  statement_ru: 'AdminConsole предназначен для нескольких административных ролей: системного администратора Центрального банка,
+    администратора participant organization, bank security administrator, bank controller и KXM administrator.'
+  evidence:
+  - EV-FS-003
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+
+- id: FACT-GPP-010
+  area: participants
+  statement_ru: Функциональная спецификация выделяет KXM, бюджетные организации, банки, card processing centers и service
+    centers как типы participant organizations GPP.
+  evidence:
+  - EV-FS-004
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+
+- id: FACT-GPP-011
+  area: administration
+  statement_ru: UI AdminConsole 2023 года показывает функциональные области reports, payment audit, management tools, security,
+    queries и monitoring.
+  evidence:
+  - EV-FS-005
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+
+- id: FACT-GPP-012
+  area: configuration
+  statement_ru: AdminConsole предусматривает управление participant organizations и их configuration fields, включая organization-specific
+    applicability.
+  evidence:
+  - EV-FS-006
+  - EV-FS-007
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+
+- id: FACT-GPP-013
+  area: configuration
+  statement_ru: GPP предусматривает управление payment/service types and groups, identification types и service fee tariff
+    rates.
+  evidence:
+  - EV-FS-008
+  - EV-FS-009
+  - EV-FS-010
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+
+- id: FACT-GPP-014
+  area: organization-hierarchy
+  statement_ru: DOCX variant описывает административное управление филиалами participant organizations и подразделениями service
+    centers.
+  evidence:
+  - EV-FS-011
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+  notes_ru: PDF variant не содержит соответствующих процедурных разделов; отсутствие раздела не трактуется как доказательство
+    отсутствия функциональности.
+
+- id: FACT-GPP-015
+  area: integration
+  statement_ru: Спецификация назначает отдельным модулям роли интеграции с PSP channels, authorization centers, participant
+    reporting/settlement files, XÖHKS и Instant Payment System.
+  evidence:
+  - EV-FS-015
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+
+- id: FACT-GPP-016
+  area: terminology
+  statement_ru: Упоминание XÖHK в описании Loader Generators относится к XÖHKS и является опечаткой в исходном документе.
+  evidence:
+  - EV-STK-002
+  confidence: confirmed
+  status: active
+
+- id: FACT-GPP-017
+  area: domain-configuration
+  statement_ru: Функциональная модель GPP содержит устойчивые конфигурационные объекты participant organization и его hierarchy,
+    service types/groups, identification types, service fee tariffs и расчетные банковские счета.
+  evidence:
+  - EV-FS-004
+  - EV-FS-007
+  - EV-FS-008
+  - EV-FS-009
+  - EV-FS-010
+  - EV-FS-011
+  - EV-FS-025
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+
+- id: FACT-GPP-018
+  area: payment-state
+  statement_ru: Service type configuration задает правила advance/partial/full payment, возможность отмены платежа и поведение
+    invoice/statement state после оплаты.
+  evidence:
+  - EV-FS-024
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+
+inferences:
+- id: INF-ARCH-001
+  area: architecture
+  statement_ru: AdminConsole выполняет роль централизованного control/configuration plane GPP для административного управления
+    системой.
+  based_on_facts:
+  - FACT-GPP-009
+  - FACT-GPP-011
+  - FACT-GPP-012
+  - FACT-GPP-013
+  evidence:
+  - EV-FS-003
+  - EV-FS-005
+  - EV-FS-006
+  - EV-FS-007
+  - EV-FS-008
+  - EV-FS-009
+  - EV-FS-010
+  confidence: supported
+  status: active
+  limitations_ru: Это логическая архитектурная роль, а не утверждение о выделенном physical control-plane deployment или отдельном
+    runtime layer.
+
+- id: INF-ARCH-002
+  area: architecture
+  statement_ru: 'Существенная часть поведения GPP является configuration-driven: organization properties и service-type parameters
+    управляют integration, routing, limits, payment state и fee/settlement behavior.'
+  based_on_facts:
+  - FACT-GPP-012
+  - FACT-GPP-013
+  - FACT-GPP-017
+  - FACT-GPP-018
+  evidence:
+  - EV-FS-007
+  - EV-FS-008
+  - EV-FS-024
+  - EV-FS-025
+  confidence: supported
+  status: active
+  limitations_ru: Inference не означает, что вся business logic хранится в configuration и не является finding о качестве
+    такой модели.
