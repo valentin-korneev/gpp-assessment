@@ -1,0 +1,34 @@
+id: NORM-XSD-001
+type: soap-message-types
+format: xsd
+status: reconstructed
+interface: unresolved
+contract_source:
+  status: not-referenced
+sources:
+- SRC-INT-001
+artifacts:
+- debt-notification-types.xsd
+completeness:
+  operations: unknown
+  service: unknown
+  direction: unknown
+  schemas: high
+  binding: unknown
+  endpoint: unknown
+evidence_map:
+  regUnRegDebtNotificationRequest:
+  - EV-INT-012
+  debtNotificationRequest:
+  - EV-INT-012
+  notifServiceAccountInvoices:
+  - EV-INT-012
+  notifServiceAccount:
+  - EV-INT-012
+  notifInvoice:
+  - EV-INT-012
+limitations:
+- Источник содержит фрагменты SOAP/XSD-типов, но не содержит имен operations, привязки к service, направления или endpoint для этих типов.
+- WSDL не создается, поскольку это потребовало бы выдумать не подтвержденную evidence связь portType/service.
+- Используется assessment-only target namespace, поскольку исходный namespace этой группы типов не установлен доступным контекстом фрагментов.
+- См. Q-INT-001.

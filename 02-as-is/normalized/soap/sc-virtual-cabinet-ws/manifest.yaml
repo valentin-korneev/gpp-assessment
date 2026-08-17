@@ -1,0 +1,38 @@
+id: NORM-SOAP-003
+type: soap-service
+format: wsdl-1.1-plus-xsd
+status: reconstructed
+interface: IF-GPP-010
+contract_source:
+  status: referenced-unavailable
+  reference: https://gpp.az/wsdls/sc/vircab/1.0.3/SCVirtualCabinetWS.xml
+sources:
+- SRC-INT-001
+artifacts:
+- sc-virtual-cabinet.wsdl
+- sc-virtual-cabinet.xsd
+- interface.yaml
+completeness:
+  operations: high
+  messages: medium
+  schemas: medium
+  errors: medium
+  binding: unknown
+  service: unknown
+  endpoint: unknown
+  security: low
+  retry: unknown
+evidence_map:
+  SCVirtualCabinetWS.operations:
+  - EV-INT-007
+  CompletePayment:
+  - EV-INT-008
+  CompletePaymentWithError:
+  - EV-INT-008
+  asynchronous-process-link:
+  - EV-INT-006
+limitations:
+- Указанный в источнике WSDL не предоставлен; binding/service/endpoint не реконструируются.
+- Источник показывает CompletePaymentResponse как wrapper успешного ответа для CompletePaymentWithError. Реконструированный abstract WSDL сохраняет наблюдаемый wrapper и не выдумывает CompletePaymentWithErrorResponse; см. CONTR-INT-002.
+- Business process асинхронен относительно InitiatePayment, но каждый callback сам является request/ack exchange.
+- Поведение SOAP callback retry/time-out в источнике не документировано.

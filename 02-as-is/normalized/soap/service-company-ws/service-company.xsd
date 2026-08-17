@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://services.ws.gpp.sinam.net/"
+           xmlns:tns="http://services.ws.gpp.sinam.net/"
+           elementFormDefault="qualified">
+  <xs:annotation><xs:documentation>Schema реконструирована по SRC-INT-001. Это не недоступный исходный WSDL/XSD; неподтвержденные исходные imports и binding details намеренно не добавляются.</xs:documentation></xs:annotation>
+
+  <xs:simpleType name="companyCode"><xs:restriction base="xs:int"><xs:minInclusive value="100000"/><xs:maxInclusive value="999999"/></xs:restriction></xs:simpleType>
+  <xs:simpleType name="transactionId"><xs:restriction base="xs:string"><xs:pattern value="[0-9]{1,32}"/></xs:restriction></xs:simpleType>
+  <xs:simpleType name="identificationSubtype"><xs:restriction base="xs:string"><xs:minLength value="4"/><xs:maxLength value="8"/></xs:restriction></xs:simpleType>
+  <xs:simpleType name="abonCode"><xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="16"/></xs:restriction></xs:simpleType>
+  <xs:simpleType name="invoiceCode"><xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="32"/></xs:restriction></xs:simpleType>
+  <xs:simpleType name="receiptNumber"><xs:restriction base="xs:string"><xs:pattern value="[0-9]{1,16}"/></xs:restriction></xs:simpleType>
+  <xs:simpleType name="amount"><xs:restriction base="xs:decimal"><xs:minInclusive value="0.00"/><xs:maxInclusive value="9999999999.99"/><xs:fractionDigits value="2"/></xs:restriction></xs:simpleType>
+
+  <xs:complexType name="messageHeader"><xs:sequence>
+    <xs:element name="userID" type="tns:companyCode"/>
+    <xs:element name="receiverID" type="tns:companyCode"/>
+    <xs:element name="transactionID" type="tns:transactionId"/>
+    <xs:element name="messageDateTime" type="xs:dateTime" minOccurs="0"/>
+    <xs:element name="messageTimestamp" type="xs:long" minOccurs="0"/>
+  </xs:sequence></xs:complexType>
+  <xs:element name="messageHeader" type="tns:messageHeader"/>
+
+  <xs:complexType name="identificationData"><xs:sequence>
+    <xs:element name="identificationSubtype" type="tns:identificationSubtype"/>
+    <xs:element name="code" type="xs:string"/>
+  </xs:sequence></xs:complexType>
+
+  <xs:complexType name="serviceAccount"><xs:sequence>
+    <xs:element name="scCode" type="tns:companyCode"/>
+    <xs:element name="identificationSubtype" type="tns:identificationSubtype"/>
+    <xs:element name="branchID" type="tns:companyCode"/>
+    <xs:element name="abonCode" type="tns:abonCode"/>
+    <xs:element name="abonType" type="xs:string"/>
+    <xs:element name="pinCode" type="xs:string" minOccurs="0"/>
+    <xs:element name="abonSerial" type="xs:string" minOccurs="0"/>
+    <xs:element name="abonNumber" type="xs:string" minOccurs="0"/>
+    <xs:element name="name" type="xs:string" minOccurs="0"/>
+    <xs:element name="surname" type="xs:string" minOccurs="0"/>
+    <xs:element name="patronymic" type="xs:string" minOccurs="0"/>
+    <xs:element name="description" type="xs:string"/>
+    <xs:element name="address" type="xs:string" minOccurs="0"/>
+    <xs:element name="districtCode" type="xs:string" minOccurs="0"/>
+    <xs:element name="mobileNumber" type="xs:string" minOccurs="0"/>
+    <xs:element name="phoneNumber" type="xs:string" minOccurs="0"/>
+    <xs:element name="smartMeter" type="xs:boolean" minOccurs="0"/>
+    <xs:element name="taxNumber" type="xs:string" minOccurs="0"/>
+  </xs:sequence></xs:complexType>
+
+  <xs:complexType name="serviceAccountPartial"><xs:sequence>
+    <xs:element name="scCode" type="tns:companyCode"/>
+    <xs:element name="identificationSubtype" type="tns:identificationSubtype"/>
+    <xs:element name="abonCode" type="tns:abonCode"/>
+  </xs:sequence></xs:complexType>
+
+  <xs:complexType name="invoiceDefaultRequest"><xs:sequence>
+    <xs:element name="scCode" type="tns:companyCode"/>
+    <xs:element name="identificationSubtype" type="tns:identificationSubtype"/>
+    <xs:element name="abonSerial" type="xs:string" minOccurs="0"/>
+    <xs:element name="abonNumber" type="xs:string" minOccurs="0"/>
+    <xs:element name="abonCode" type="tns:abonCode"/>
+    <xs:element name="districtCode" type="xs:string" minOccurs="0"/>
+  </xs:sequence></xs:complexType>
+
+  <xs:complexType name="payee"><xs:sequence>
+    <xs:element name="identificationSubtype" type="tns:identificationSubtype"/>
+    <xs:element name="code" type="tns:abonCode"/>
+    <xs:element name="pinCode" type="xs:string" minOccurs="0"/>
+    <xs:element name="abonType" type="xs:string"/>
+    <xs:element name="description" type="xs:string" minOccurs="0"/>
+    <xs:element name="taxNumber" type="xs:string" minOccurs="0"/>
+    <xs:element name="bankCode" type="tns:companyCode"/>
+    <xs:element name="bankBranchCode" type="tns:companyCode" minOccurs="0"/>
+    <xs:element name="bankAccountNumber" type="xs:string"/>
+  </xs:sequence></xs:complexType>
+
+  <xs:complexType name="invoicePartial"><xs:sequence>
+    <xs:element name="amount" type="tns:amount"/>
+    <xs:element name="invoiceCode" type="tns:invoiceCode"/>
+    <xs:element name="serviceCode" type="xs:int"/>
+    <xs:element name="paymentReceiverCode" type="tns:companyCode" minOccurs="0"/>
+    <xs:element name="payee" type="tns:payee" minOccurs="0"/>
+  </xs:sequence></xs:complexType>
+
+  <xs:complexType name="meteringData"><xs:sequence>
+    <xs:element name="meteringType" type="xs:string"/><xs:element name="meteringCode" type="xs:string"/>
+    <xs:element name="previousReadingDate" type="xs:dateTime"/><xs:element name="previousMeterReading" type="xs:decimal"/>
+    <xs:element name="lastReadingDate" type="xs:dateTime"/><xs:element name="lastMeterReading" type="xs:decimal"/>
+    <xs:element name="consumption" type="xs:decimal"/><xs:element name="tariff" type="xs:decimal"/>
+    <xs:element name="amount" type="tns:amount"/><xs:element name="amountWithVAT" type="tns:amount"/>
+  </xs:sequence></xs:complexType>
+
+  <xs:complexType name="invoice"><xs:sequence>
+    <xs:element name="identificationSubtype" type="tns:identificationSubtype" minOccurs="0"/>
+    <xs:element name="invoiceType" type="xs:string"/>
+    <xs:element name="invoiceCode" type="tns:invoiceCode" minOccurs="0"/>
+    <xs:element name="invoiceDate" type="xs:date" minOccurs="0"/>
+    <xs:element name="billingPeriodStartDate" type="xs:date" minOccurs="0"/>
+    <xs:element name="billingPeriodEndDate" type="xs:date" minOccurs="0"/>
+    <xs:element name="outstandingDebt" type="tns:amount" minOccurs="0"/>
+    <xs:element name="penaltyStartDate" type="xs:date" minOccurs="0"/>
+    <xs:element name="penaltyAmount" type="tns:amount" minOccurs="0"/>
+    <xs:element name="discountAmount" type="tns:amount" minOccurs="0"/>
+    <xs:element name="amount" type="tns:amount" minOccurs="0"/>
+    <xs:element name="amountDue" type="tns:amount" minOccurs="0"/>
+    <xs:element name="currentDebt" type="tns:amount" minOccurs="0"/>
+    <xs:element name="minAllowedAmount" type="tns:amount" minOccurs="0"/>
+    <xs:element name="maxAllowedAmount" type="tns:amount" minOccurs="0"/>
+    <xs:element name="maxAllowedAmountForCash" type="tns:amount" minOccurs="0"/>
+    <xs:element name="maxAllowedAmountForCard" type="tns:amount" minOccurs="0"/>
+    <xs:element name="maxAllowedAmountForBankAccount" type="tns:amount" minOccurs="0"/>
+    <xs:element name="serviceCode" type="xs:int" minOccurs="0"/>
+    <xs:element name="paymentReceiverCode" type="tns:companyCode" minOccurs="0"/>
+    <xs:element name="payee" type="tns:payee" minOccurs="0"/>
+    <xs:element name="spBranchCode" type="tns:companyCode" minOccurs="0"/>
+    <xs:element name="specialCode" type="tns:invoiceCode" minOccurs="0"/>
+    <xs:element name="stateCode" type="xs:string" minOccurs="0"/>
+    <xs:element name="allowedPayableAmount" type="xs:boolean" minOccurs="0" nillable="true"/>
+    <xs:element name="meteringDataList" type="tns:meteringData" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+    <xs:element name="childInvoiceList" type="tns:invoicePartial" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+  </xs:sequence></xs:complexType>
+
+  <xs:complexType name="invoiceQueryResult"><xs:sequence>
+    <xs:element name="serviceAccountPartial" type="tns:serviceAccountPartial"/>
+    <xs:element name="invoiceList" type="tns:invoice" minOccurs="0" maxOccurs="unbounded"/>
+    <xs:element name="prePaidServiceCodeList" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence></xs:complexType>
+
+  <xs:complexType name="invoiceAmountDetail"><xs:sequence>
+    <xs:element name="identificationSubtype" type="tns:identificationSubtype"/><xs:element name="invoiceType" type="xs:string"/>
+    <xs:element name="invoiceCode" type="tns:invoiceCode"/><xs:element name="invoiceDate" type="xs:date"/>
+    <xs:element name="amount" type="tns:amount"/>
+    <xs:element name="childInvoiceList" type="tns:invoicePartial" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence></xs:complexType>
+
+  <xs:complexType name="initiator"><xs:sequence><xs:element name="type" type="xs:string"/><xs:element name="code" type="tns:companyCode"/></xs:sequence></xs:complexType>
+  <xs:complexType name="tellerInfo"><xs:sequence><xs:element name="bankCode" type="tns:companyCode"/><xs:element name="bankBranchCode" type="tns:companyCode" minOccurs="0"/><xs:element name="tellerCode" type="xs:string" minOccurs="0"/><xs:element name="tellerFullName" type="xs:string" minOccurs="0"/></xs:sequence></xs:complexType>
+  <xs:complexType name="payment"><xs:sequence>
+    <xs:element name="spBranchCode" type="tns:companyCode" minOccurs="0"/><xs:element name="identificationSubtype" type="tns:identificationSubtype"/>
+    <xs:element name="invoiceCode" type="tns:invoiceCode" minOccurs="0"/><xs:element name="groupInvoiceCode" type="tns:invoiceCode" minOccurs="0"/>
+    <xs:element name="serviceCode" type="xs:int"/><xs:element name="amount" type="tns:amount"/><xs:element name="specialCode" type="tns:invoiceCode" minOccurs="0"/>
+    <xs:element name="paymentReceiverCode" type="tns:companyCode" minOccurs="0"/><xs:element name="receiptNumber" type="tns:receiptNumber"/>
+    <xs:element name="paymentDateTime" type="xs:dateTime"/><xs:element name="paymentState" type="xs:string"/><xs:element name="cancelDateTime" type="xs:dateTime" minOccurs="0"/>
+    <xs:element name="receiptPrintContent" type="xs:string" minOccurs="0"/><xs:element name="payee" type="tns:payee" minOccurs="0"/>
+    <xs:element name="clearingDate" type="xs:dateTime"/><xs:element name="clearingSystem" type="xs:string"/><xs:element name="processTransactionId" type="xs:string"/>
+  </xs:sequence></xs:complexType>
+  <xs:complexType name="onlinePaymentResultRequest"><xs:sequence><xs:element name="initiator" type="tns:initiator"/><xs:element name="tellerInfo" type="tns:tellerInfo"/><xs:element name="serviceAccount" type="tns:serviceAccount"/><xs:element name="paymentList" type="tns:payment" maxOccurs="unbounded"/></xs:sequence></xs:complexType>
+
+  <xs:complexType name="errorDetail"><xs:sequence><xs:element name="fieldName" type="xs:string"/><xs:element name="invalidFieldValue" type="xs:string"/><xs:element name="referenceData" type="xs:anyType" maxOccurs="unbounded" nillable="true"/><xs:element name="subErrorCode" type="xs:string"/><xs:element name="fieldErrorDetailList" type="tns:errorDetail" minOccurs="0" maxOccurs="unbounded" nillable="true"/></xs:sequence></xs:complexType>
+  <xs:complexType name="errorType"><xs:sequence><xs:element name="errorObjectType" type="xs:string"/><xs:element name="errorCode" type="xs:string"/><xs:element name="errorData" type="xs:anyType" maxOccurs="unbounded"/><xs:element name="errorDateTime" type="xs:dateTime"/><xs:element name="errorDetailList" type="tns:errorDetail" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType>
+  <xs:complexType name="errorNotificationRequest"><xs:sequence><xs:element name="messageMethodName" type="xs:string"/><xs:element name="error" type="tns:errorType"/></xs:sequence></xs:complexType>
+  <xs:complexType name="WSException"><xs:sequence><xs:element name="errorObjectType" type="xs:string"/><xs:element name="errorCode" type="xs:string"/><xs:element name="errorData" type="xs:anyType"/><xs:element name="errorDescription" type="xs:string"/><xs:element name="errorDateTime" type="xs:dateTime"/></xs:sequence></xs:complexType>
+  <xs:element name="WSException" type="tns:WSException"/>
+
+  <xs:complexType name="emptyResponse"><xs:sequence/></xs:complexType>
+  <xs:complexType name="paymentCancelAllocationCheckRequest"><xs:sequence><xs:element name="receiptNumber" type="tns:receiptNumber"/><xs:element name="controllerCheck" type="xs:boolean"/></xs:sequence></xs:complexType>
+  <xs:complexType name="canceledPayment"><xs:sequence><xs:element name="receiptNumber" type="tns:receiptNumber"/><xs:element name="cancelDateTime" type="xs:dateTime"/></xs:sequence></xs:complexType>
+  <xs:complexType name="onlinePaymentCancelRequest"><xs:sequence><xs:element name="canceledPayment" type="tns:canceledPayment"/></xs:sequence></xs:complexType>
+
+  <xs:element name="GetAccountInfo"><xs:complexType><xs:sequence><xs:element name="SCCode" type="tns:companyCode"/><xs:element name="IdentificationSubtype" type="tns:identificationSubtype"/><xs:element name="AbonCode" type="tns:abonCode"/><xs:element name="additionalIdentification" type="tns:identificationData" minOccurs="0"/><xs:element name="juridicalPersonSignedData" type="xs:string" minOccurs="0"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="GetAccountInfoResponse"><xs:complexType><xs:sequence><xs:element name="return" type="tns:serviceAccount"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="GetAccountInfoByDocumentNum"><xs:complexType><xs:sequence><xs:element name="SCCode" type="tns:companyCode"/><xs:element name="IdentificationSubtype" type="tns:identificationSubtype"/><xs:element name="DocumentNum" type="xs:string"/><xs:element name="additionalIdentification" type="tns:identificationData" minOccurs="0"/><xs:element name="juridicalPersonSignedData" type="xs:string" minOccurs="0"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="GetAccountInfoByDocumentNumResponse"><xs:complexType><xs:sequence><xs:element name="return" type="tns:serviceAccount"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="GetInvoiceInfo"><xs:complexType><xs:sequence><xs:element name="InvoiceDefaultRequest" type="tns:invoiceDefaultRequest"/><xs:element name="additionalIdentification" type="tns:identificationData" minOccurs="0"/><xs:element name="juridicalPersonSignedData" type="xs:string" minOccurs="0"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="GetInvoiceInfoResponse"><xs:complexType><xs:sequence><xs:element name="return" type="tns:invoiceQueryResult" minOccurs="0"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="GetInvoiceInfoByDocumentNum"><xs:complexType><xs:sequence><xs:element name="SCCode" type="tns:companyCode"/><xs:element name="IdentificationSubtype" type="tns:identificationSubtype"/><xs:element name="DocumentNum" type="xs:string"/><xs:element name="additionalIdentification" type="tns:identificationData" minOccurs="0"/><xs:element name="juridicalPersonSignedData" type="xs:string" minOccurs="0"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="GetInvoiceInfoByDocumentNumResponse"><xs:complexType><xs:sequence><xs:element name="return" type="tns:invoiceQueryResult" minOccurs="0"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="GetInvoiceInfoByServiceCodeList"><xs:complexType><xs:sequence><xs:element name="InvoiceDefaultRequest" type="tns:invoiceDefaultRequest"/><xs:element name="ServiceCodeList" type="xs:int" maxOccurs="unbounded"/><xs:element name="additionalIdentification" type="tns:identificationData" minOccurs="0"/><xs:element name="juridicalPersonSignedData" type="xs:string" minOccurs="0"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="GetInvoiceInfoByServiceCodeListResponse"><xs:complexType><xs:sequence><xs:element name="return" type="tns:invoiceQueryResult" minOccurs="0"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="GetPayableAmountDetail"><xs:complexType><xs:sequence><xs:element name="scCode" type="tns:companyCode"/><xs:element name="IdentificationSubtype" type="tns:identificationSubtype"/><xs:element name="invoiceCode" type="tns:invoiceCode"/><xs:element name="partialPaymentAmount" type="tns:amount"/><xs:element name="additionalIdentification" type="tns:identificationData" minOccurs="0"/><xs:element name="juridicalPersonSignedData" type="xs:string" minOccurs="0"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="GetPayableAmountDetailResponse"><xs:complexType><xs:sequence><xs:element name="return" type="tns:invoiceAmountDetail" minOccurs="0"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="NotifyAboutPayment"><xs:complexType><xs:sequence><xs:element name="OnlinePaymentResultRequest" type="tns:onlinePaymentResultRequest"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="NotifyAboutPaymentResponse" type="tns:emptyResponse"/>
+  <xs:element name="CheckIfPaymentCancelAllowed"><xs:complexType><xs:sequence><xs:element name="PaymentCancelAllocationCheckRequest" type="tns:paymentCancelAllocationCheckRequest"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="CheckIfPaymentCancelAllowedResponse" type="tns:emptyResponse"/>
+  <xs:element name="NotifyAboutPaymentCancel"><xs:complexType><xs:sequence><xs:element name="OnlinePaymentCancelRequest" type="tns:onlinePaymentCancelRequest"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="NotifyAboutPaymentCancelResponse" type="tns:emptyResponse"/>
+  <xs:element name="NotifyAboutError"><xs:complexType><xs:sequence><xs:element name="ErrorNotificationRequest" type="tns:errorNotificationRequest"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="NotifyAboutErrorResponse" type="tns:emptyResponse"/>
+</xs:schema>

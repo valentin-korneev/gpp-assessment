@@ -2,7 +2,7 @@
 
 ## Текущая фаза
 
-AS-IS evidence collection. Published baseline `SNAPSHOT-004` дополнен текущим WIP по `SRC-OPS-001` - нормативно-operational правилам 2015 года - и cross-source reconciliation с functional model 2023 и public signals 2024-2025. WIP добавляет historical roles/access model, operational day semantics, backup/archive expectations и DR/deployment topology, а также temporal/currentness, role/capability и payment-lifecycle derived views, не перенося технологии и инфраструктуру 2015 года в current AS-IS.
+AS-IS evidence collection. Текущая canonical state включает `SRC-INT-001` - integration contract версии 1.16 от 18.08.2025. Интерфейсы классифицированы до normalization; восстановлены SOAP/HTTP-XML integration flows, request/response/callback и retry/asynchronous semantics, добавлены evidence-bounded normalized WSDL/XSD artifacts и integration view. Не предоставленные WSDL, binding/service/production endpoints и противоречивые contract details не достраиваются предположениями.
 
 ## Объект assessment
 
@@ -27,6 +27,7 @@ Government Payment Portal (GPP / HÖP) Азербайджана рассматр
 - Для `MobilApi` и остальных modules из specification 2023 года текущий production status требует подтверждения (`Q-CUR-001`).
 - После прекращения собственных web/mobile channels платежи через GPP продолжают быть доступны через интегрированные internet/mobile services банков и небанковских PSP.
 - System-level эксплуатация GPP подтверждена официальным обзором CBA за 2025 год: через GPP выполнено 114,4 млн платежей на сумму 8,6 млрд манатов. Это не подтверждает component-level currentness модулей из specification 2023 года.
+- Integration contract `SRC-INT-001` имеет внутреннюю дату 18.08.2025 и используется как `current-at-source-date` для documented interface semantics; он не доказывает runtime availability referenced URLs или production endpoints.
 
 ## Source-family constraint
 
@@ -38,6 +39,6 @@ Shared content консолидируется без дублирующих fact
 
 - Authoritative/current редакция functional specification не определена.
 - Внутренние sources 2023 года содержат operational values и screenshots; sensitive values не переносятся в canonical model без необходимости.
-- Machine-readable contracts не предоставлены. Из specification извлекается только interface classification и confirmed relationship; REST/SOAP/file details не придумываются.
+- Authoritative WSDL artifacts для `ServiceCompanyWS`, `GPPPaymentWS` и `SCVirtualCabinetWS` не предоставлены. SOAP normalization ограничена abstract WSDL/XSD reconstruction из documented envelopes, operation tables и type fragments; binding/service/SOAPAction/production endpoints не придумываются. Для reconciliation HTTP/XML inline XSD восстанавливается отдельно и сохраняет source contradictions без молчаливого исправления.
 - Historical source 2015 года подтверждает тогдашние Oracle persistence/replication и three-site DR topology, но current core payment processing, persistence, runtime/deployment topology и database architecture по-прежнему не подтверждены.
 - Findings по source quality не создаются как findings системы.

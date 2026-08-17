@@ -1,0 +1,31 @@
+id: IF-GPP-011
+name: Сверка HÖP с сервисной организацией - XML
+interface_type: http-xml
+direction: HÖP -> XT
+http:
+  method: POST
+  media_type: application/gpp.message+xml
+  charset: UTF-8
+  endpoint: unknown
+  success_status: 200
+  response_body: none-required
+messages:
+- type: INVOICE_PAY_APUS
+  cadence: настраиваемый интервал; в источнике указано 30 секунд на дату документа
+- type: DAY_PAYMENTS
+  cadence: конец операционного дня HÖP
+- type: DAY_PAYMENTS_FROM_BANK
+  cadence: конец операционного дня HÖP
+retry:
+  trigger: любой ответ, отличный от HTTP 200
+  action: повторная отправка при следующем цикле генерации
+  backoff_timeout: unknown
+idempotency_and_identity:
+  payment_uniqueness: receiptNumber
+  message_reference: UserID + SerialNumber
+schema:
+  root: Data
+  inline_xsd_in_source: true
+notes:
+- Источник также рекомендует формат уведомления Bank -> XT о зачислении средств, но не документирует transport.
+- Примеры Content-Type для DAY_PAYMENTS и DAY_PAYMENTS_FROM_BANK противоречат значениям Msg/Type.

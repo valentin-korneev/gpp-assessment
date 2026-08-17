@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:tns="http://vircab.sc.ws.gpp.sinam.net/" xmlns:cmn="http://services.ws.gpp.sinam.net/"
+                  targetNamespace="http://vircab.sc.ws.gpp.sinam.net/"
+                  name="SCVirtualCabinetWS">
+  <wsdl:documentation>Assessment-реконструкция по SRC-INT-001. Содержит только abstract messages и portType. Binding, service, SOAPAction и endpoint не утверждаются, поскольку указанный исходный WSDL недоступен.</wsdl:documentation>
+  <wsdl:types>
+    <xs:schema>
+        <xs:import namespace="http://vircab.sc.ws.gpp.sinam.net/" schemaLocation="sc-virtual-cabinet.xsd"/>
+        <xs:import namespace="http://services.ws.gpp.sinam.net/" schemaLocation="../service-company-ws/service-company.xsd"/>
+    </xs:schema>
+  </wsdl:types>
+
+  <wsdl:message name="CompletePaymentRequestMessage">
+    <wsdl:part name="header" element="cmn:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:CompletePayment"/>
+  </wsdl:message>
+  <wsdl:message name="CompletePaymentResponseMessage">
+    <wsdl:part name="parameters" element="tns:CompletePaymentResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CompletePaymentFaultMessage">
+    <wsdl:part name="fault" element="cmn:WSException"/>
+  </wsdl:message>
+  <wsdl:message name="CompletePaymentWithErrorRequestMessage">
+    <wsdl:part name="header" element="cmn:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:CompletePaymentWithError"/>
+  </wsdl:message>
+  <wsdl:message name="CompletePaymentWithErrorResponseMessage">
+    <wsdl:part name="parameters" element="tns:CompletePaymentResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CompletePaymentWithErrorFaultMessage">
+    <wsdl:part name="fault" element="cmn:WSException"/>
+  </wsdl:message>
+
+  <wsdl:portType name="SCVirtualCabinetWSPortType">
+    <wsdl:operation name="CompletePayment">
+      <wsdl:input message="tns:CompletePaymentRequestMessage"/>
+      <wsdl:output message="tns:CompletePaymentResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:CompletePaymentFaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="CompletePaymentWithError">
+      <wsdl:input message="tns:CompletePaymentWithErrorRequestMessage"/>
+      <wsdl:output message="tns:CompletePaymentWithErrorResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:CompletePaymentWithErrorFaultMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,43 @@
+id: NORM-SOAP-001
+type: soap-service
+format: wsdl-1.1-plus-xsd
+status: reconstructed
+interface: IF-GPP-009
+contract_source:
+  status: referenced-unavailable
+  reference: https://test.gpp.az/wsdls/sc/1.0.3/ServiceCompanyWS.xml
+sources:
+- SRC-INT-001
+artifacts:
+- service-company.wsdl
+- service-company.xsd
+- interface.yaml
+completeness:
+  operations: high
+  messages: high
+  schemas: medium
+  errors: medium
+  binding: unknown
+  service: unknown
+  endpoint: unknown
+  security: low
+  retry: unknown
+evidence_map:
+  ServiceCompanyWS.operations:
+  - EV-INT-003
+  GetAccountInfo:
+  - EV-INT-004
+  GetInvoiceInfo:
+  - EV-INT-004
+  NotifyAboutPayment:
+  - EV-INT-004
+  messageHeader.transactionID:
+  - EV-INT-005
+  WSException:
+  - EV-INT-004
+limitations:
+- Указанный в источнике WSDL не предоставлен; реконструкция не является оригинальным WSDL.
+- WSDL binding, значения SOAPAction, service/port и endpoint не реконструируются.
+- XSD объединяет наблюдаемые в источнике wrappers и model fragments в самостоятельную assessment schema; исходный import graph и часть именованных aliases простых типов недоступны.
+- Поведение SOAP retry/time-out в источнике не документировано.
+- Фрагменты debt-notification models не привязываются к этому service, поскольку evidence для operation/service отсутствует.

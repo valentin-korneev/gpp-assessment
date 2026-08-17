@@ -1,15 +1,15 @@
 questions:
 - id: Q-SCOPE-001
   area: scope
-  question_ru: Где проходит подтвержденная системная граница GPP относительно банков, PSP, государственных органов,
+  question_ru: Где проходит подтвержденная системная граница GPP относительно банков, PSP, государственных органов, 
     поставщиков массовых услуг и иных подключенных систем?
   reason_ru: Boundary влияет на component/context model, ownership и классификацию interfaces.
   priority: important
   status: resolved
   related_assumptions:
   - ASM-SCOPE-001
-  resolution_ru: Для рабочей AS-IS boundary именованные infrastructure modules из функциональной спецификации считаются
-    внутренними элементами GPP, а participant organizations и внешние payment/settlement systems - внешними сторонами.
+  resolution_ru: Для рабочей AS-IS boundary именованные infrastructure modules из функциональной спецификации считаются 
+    внутренними элементами GPP, а participant organizations и внешние payment/settlement systems - внешними сторонами. 
     Неназванные внутренние core components остаются отдельной неизвестностью Q-ARCH-001.
   related_sources:
   - SRC-FS-001
@@ -18,7 +18,7 @@ questions:
 - id: Q-VND-001
   area: vendor-ownership
   question_ru: Какова текущая роль SINAM в сопровождении, развитии или эксплуатации GPP?
-  reason_ru: Публичный сайт SINAM подтверждает историческое участие в разработке, но не подтверждает текущую роль.
+  reason_ru: Публичный сайт SINAM подтверждает историческое участие в разработке, но не подтверждает текущую роль. 
     Ожидается отдельный документ по сопровождению, который должен иметь более высокий приоритет для ответа.
   priority: important
   status: open
@@ -27,9 +27,9 @@ questions:
 
 - id: Q-SRC-001
   area: source-versioning
-  question_ru: Являются ли SRC-FS-001 и SRC-FS-002 независимыми рабочими документами или редакциями одной версии,
-    и какая редакция authoritative/current?
-  reason_ru: Внутренняя metadata совпадает. Stakeholder сообщает, что DOCX v005 был передан позже и является более
+  question_ru: Являются ли SRC-FS-001 и SRC-FS-002 независимыми рабочими документами или редакциями одной версии, и 
+    какая редакция authoritative/current?
+  reason_ru: Внутренняя metadata совпадает. Stakeholder сообщает, что DOCX v005 был передан позже и является более 
     полным, но это не доказывает version authority и допускает независимое происхождение документов.
   priority: important
   status: open
@@ -37,17 +37,17 @@ questions:
   - SRC-FS-001
   - SRC-FS-002
   - SRC-STK-001
-  stakeholder_context_ru: DOCX filename v005 был передан позже PDF и воспринимается как более полный; возможная
+  stakeholder_context_ru: DOCX filename v005 был передан позже PDF и воспринимается как более полный; возможная 
     независимость документов остается рабочей гипотезой.
 
 - id: Q-ARCH-001
   area: architecture
-  question_ru: Какие компоненты реализуют центральную обработку платежей, состояние счетов/инвойсов и persistence,
-    если они не названы в перечне infrastructure modules?
-  reason_ru: Система как целое принимает и обрабатывает платежи. Публичное описание дополнительно подтверждает централизованное
-    хранение reference/master data в базе данных портала. Исторический нормативно-operational source 2015 года подтверждает
-    Oracle-based persistence/replication topology на ту дату, но не идентифицирует current core processing component и не
-    доказывает текущую physical persistence topology.
+  question_ru: Какие компоненты реализуют центральную обработку платежей, состояние счетов/инвойсов и persistence, если 
+    они не названы в перечне infrastructure modules?
+  reason_ru: Система как целое принимает и обрабатывает платежи. Публичное описание дополнительно подтверждает 
+    централизованное хранение reference/master data в базе данных портала. Исторический нормативно-operational source 
+    2015 года подтверждает Oracle-based persistence/replication topology на ту дату, но не идентифицирует current core 
+    processing component и не доказывает текущую physical persistence topology.
   priority: important
   status: open
   related_facts:
@@ -58,11 +58,11 @@ questions:
 
 - id: Q-CUR-001
   area: currentness
-  question_ru: Какие из модулей, описанных функциональной спецификацией 05.05.2023, остаются в текущем production
-    state и в каком виде?
-  reason_ru: WebPortal и mobile app подтвержденно прекращены в 2024 году, а system-level обработка платежей через GPP
-    подтверждена за 2025 год. Исторический source 2015 года добавляет deployment, security и technology context, но не
-    повышает currentness этих деталей. Для остальных named modules и operational mechanisms актуальность после дат их
+  question_ru: Какие из модулей, описанных функциональной спецификацией 05.05.2023, остаются в текущем production state 
+    и в каком виде?
+  reason_ru: WebPortal и mobile app подтвержденно прекращены в 2024 году, а system-level обработка платежей через GPP 
+    подтверждена за 2025 год. Исторический source 2015 года добавляет deployment, security и technology context, но не 
+    повышает currentness этих деталей. Для остальных named modules и operational mechanisms актуальность после дат их 
     источников по-прежнему не подтверждена.
   priority: important
   status: open
@@ -79,8 +79,8 @@ questions:
 - id: Q-EXT-001
   area: external-systems
   question_ru: Обозначают ли XÖHK и XÖHKS одну внешнюю систему?
-  reason_ru: Разные написания встречаются в описании Loader Generators и LVPCSS и влияют на нормализацию context/interface
-    model.
+  reason_ru: Разные написания встречаются в описании Loader Generators и LVPCSS и влияют на нормализацию 
+    context/interface model.
   priority: important
   status: resolved
   resolution_ru: Да. По stakeholder confirmation XÖHK является опечаткой и должен нормализоваться как XÖHKS.
@@ -95,8 +95,9 @@ questions:
   reason_ru: Спецификация использует их как identification Source, но формальная system boundary не описана.
   priority: important
   status: resolved
-  resolution_ru: Да. Публичная страница CBA прямо идентифицирует IAMAS и AVIS как информационные системы внешних
-    государственных ведомств, используемые GPP для идентификации. Точный GPP component, protocol и contract остаются неизвестными.
+  resolution_ru: Да. Публичная страница CBA прямо идентифицирует IAMAS и AVIS как внешние государственные информационные
+    системы, а integration contract 2025 подтверждает real-time web-service calls HÖP -> IAMAS/AVIS. Созданы IF-GPP-013 
+    и IF-GPP-014 с interface_type unknown; точный GPP component, protocol, payload и contract остаются неизвестными.
   related_assumptions:
   - ASM-EXT-001
   related_sources:
@@ -111,11 +112,11 @@ questions:
 
 - id: Q-ID-001
   area: identification-management
-  question_ru: 'Как в текущей реализации организовано управление identification types: централизованно или через
-    повторяющиеся organization properties, и должны ли GetOnlineStatementsAfterIAMAS/AVIS-подобные настройки быть
-    связаны с конкретным identification type?'
-  reason_ru: Reviewer comments указывают на дублирование configuration и риск ошибок при раздельных properties.
-    Более актуального подтверждения пока нет.
+  question_ru: 'Как в текущей реализации организовано управление identification types: централизованно или через повторяющиеся
+    organization properties, и должны ли GetOnlineStatementsAfterIAMAS/AVIS-подобные настройки быть связаны с конкретным identification
+    type?'
+  reason_ru: Reviewer comments указывают на дублирование configuration и риск ошибок при раздельных properties. Более 
+    актуального подтверждения пока нет.
   priority: important
   status: open
   related_evidence:
@@ -123,10 +124,10 @@ questions:
 
 - id: Q-CFG-001
   area: organization-configuration
-  question_ru: Используется ли VirtualBranchID в текущей реализации и для каких organization types он действительно
+  question_ru: Используется ли VirtualBranchID в текущей реализации и для каких organization types он действительно 
     необходим?
-  reason_ru: Reviewer comment предлагает отказаться от property, но source одновременно описывает его назначение
-    для организаций без real branch.
+  reason_ru: Reviewer comment предлагает отказаться от property, но source одновременно описывает его назначение для 
+    организаций без real branch.
   priority: important
   status: open
   related_evidence:
@@ -134,10 +135,10 @@ questions:
 
 - id: Q-PAY-001
   area: payment-rules
-  question_ru: Каков точный precedence MaxPaymentAmount между лимитом организации и максимальной суммой, возвращенной
-    в invoice/debt response?
-  reason_ru: Источник описывает сравнение лимитов, но reviewer comment требует более точного объяснения взаимодействия
-    с похожими properties.
+  question_ru: Каков точный precedence MaxPaymentAmount между лимитом организации и максимальной суммой, возвращенной в 
+    invoice/debt response?
+  reason_ru: Источник описывает сравнение лимитов, но reviewer comment требует более точного объяснения взаимодействия с
+    похожими properties.
   priority: important
   status: open
   related_evidence:
@@ -145,10 +146,10 @@ questions:
 
 - id: Q-SETTLE-001
   area: settlement-reporting
-  question_ru: Как IncludeServiceCode влияет на MT/file outputs и какой default value является фактическим для текущей
+  question_ru: Как IncludeServiceCode влияет на MT/file outputs и какой default value является фактическим для текущей 
     реализации?
-  reason_ru: Reviewer comment требует уточнить связь property с MT и утверждает необходимость default=true; authoritative
-    semantics пока не подтверждены.
+  reason_ru: Reviewer comment требует уточнить связь property с MT и утверждает необходимость default=true; 
+    authoritative semantics пока не подтверждены.
   priority: important
   status: open
   related_evidence:
@@ -156,12 +157,12 @@ questions:
 
 - id: Q-IPS-001
   area: ips-integration
-  question_ru: Каково точное назначение IpsTransitAccountConsent, для каких организаций property применяется и какие
+  question_ru: Каково точное назначение IpsTransitAccountConsent, для каких организаций property применяется и какие 
     модули/flows оно изменяет?
-  reason_ru: Reviewer comment прямо отмечает недостаточность описания scope и impact; source приводит только частичное
-    объяснение TopUp authentication/consent. Cross-source reconciliation показывает, что operational settlement model 2015 года
-    явно опиралась на XÖHKS, тогда как IPS появляется отдельным integration concern только в specification 2023; relationship
-    IPS к XÖHKS и payment lifecycle не установлен.
+  reason_ru: Reviewer comment прямо отмечает недостаточность описания scope и impact; source приводит только частичное 
+    объяснение TopUp authentication/consent. Cross-source reconciliation показывает, что operational settlement model 
+    2015 года явно опиралась на XÖHKS, тогда как IPS появляется отдельным integration concern только в specification 
+    2023; relationship IPS к XÖHKS и payment lifecycle не установлен.
   priority: important
   status: open
   related_evidence:
@@ -169,8 +170,8 @@ questions:
 
 - id: Q-FEE-001
   area: fees-tax
-  question_ru: Каковы фактические текущие semantics IgnoreServiceFee и IgnoreVatCalculationOnReport, включая влияние
-    на generators, reports и invoice generation?
+  question_ru: Каковы фактические текущие semantics IgnoreServiceFee и IgnoreVatCalculationOnReport, включая влияние на 
+    generators, reports и invoice generation?
   reason_ru: Reviewer comments уточняют/оспаривают текст спецификации, а одна из формулировок отмечена как непонятная.
   priority: important
   status: open
@@ -179,8 +180,9 @@ questions:
 
 - id: Q-PAY-002
   area: invoice-state
-  question_ru: Используется ли еще настройка архивирования invoice, или она действительно заменена концепцией Whole_payment?
-  reason_ru: PDF содержит явную редакционную пометку о необходимости отменить прежний concept и заменить его full
+  question_ru: Используется ли еще настройка архивирования invoice, или она действительно заменена концепцией 
+    Whole_payment?
+  reason_ru: PDF содержит явную редакционную пометку о необходимости отменить прежний concept и заменить его full 
     payment, но не подтверждает факт внедрения.
   priority: important
   status: open
@@ -198,10 +200,10 @@ questions:
 
 - id: Q-PSP-001
   area: psp-integration
-  question_ru: Какова точная semantics supported_psp_code_list и означает ли она разрешение PSP отправлять payment
+  question_ru: Какова точная semantics supported_psp_code_list и означает ли она разрешение PSP отправлять payment 
     request от имени банка, а не acquiring relationship?
-  reason_ru: Reviewer comment явно исправляет потенциальную интерпретацию property; contract-level подтверждения
-    пока нет.
+  reason_ru: Reviewer comment явно исправляет потенциальную интерпретацию property; contract-level подтверждения пока 
+    нет.
   priority: important
   status: open
   related_evidence:
@@ -210,8 +212,8 @@ questions:
 - id: Q-BIN-001
   area: card-configuration
   question_ru: Где в текущей реализации управляются BIN codes и какая роль имеет право их редактировать?
-  reason_ru: Reviewer comment утверждает, что отдельный functional уже существует, но Central Bank users требуется
-    edit capability; текущая implementation/permission model не подтверждена.
+  reason_ru: Reviewer comment утверждает, что отдельный functional уже существует, но Central Bank users требуется edit 
+    capability; текущая implementation/permission model не подтверждена.
   priority: important
   status: open
   related_evidence:
@@ -219,11 +221,12 @@ questions:
 
 - id: Q-OPS-001
   area: operations
-  question_ru: Каковы текущие границы operational/business day GPP, next-business-day reporting/settlement windows и
+  question_ru: Каковы текущие границы operational/business day GPP, next-business-day reporting/settlement windows и 
     сохраняется ли описанная в 2015 году роль XÖHKS в этих расчетах?
-  reason_ru: Исторический нормативный регламент задает точные временные окна и последовательность. Stakeholder сообщил,
-    что это последняя переданная редакция правил, но переносить schedule 2015 года в current operations без подтверждения
-    фактического состояния нельзя; спецификация 2023 года подтверждает XÖHKS integration, но не актуальный day schedule.
+  reason_ru: Исторический нормативный регламент задает точные временные окна и последовательность. Stakeholder сообщил, 
+    что это последняя переданная редакция правил, но переносить schedule 2015 года в current operations без 
+    подтверждения фактического состояния нельзя; спецификация 2023 года подтверждает XÖHKS integration, но не актуальный
+    day schedule.
   priority: important
   status: open
   related_sources:
@@ -237,11 +240,12 @@ questions:
 
 - id: Q-SEC-001
   area: security-access
-  question_ru: Как устроены текущие authentication/authorization и segregation-of-duties для system/security/certificate,
-    participant administrators и operators, включая использование электронных сертификатов, MFA и emergency credential handling?
-  reason_ru: Правила 2015 года задают certificate + username/password access и раздельные operational roles, а specification
-    2023 года подтверждает permissions/dual authorization и измененный набор administrative roles. Current security control model
-    и сохранение исторических mechanisms не подтверждены.
+  question_ru: Как устроены текущие authentication/authorization и segregation-of-duties для 
+    system/security/certificate, participant administrators и operators, включая использование электронных сертификатов,
+    MFA и emergency credential handling?
+  reason_ru: Правила 2015 года задают certificate + username/password access и раздельные operational roles, а 
+    specification 2023 года подтверждает permissions/dual authorization и измененный набор administrative roles. Current
+    security control model и сохранение исторических mechanisms не подтверждены.
   priority: important
   status: open
   related_sources:
@@ -258,8 +262,8 @@ questions:
 - id: Q-BCK-001
   area: backup-recovery
   question_ru: Каковы текущие backup frequency, retention, offsite/offline copy strategy, restore testing и RPO для GPP?
-  reason_ru: Правила 2015 года подробно описывают TSM/Oracle backup и archive media process, но эти технологии и retention
-    mechanics являются историческими и требуют current подтверждения.
+  reason_ru: Правила 2015 года подробно описывают TSM/Oracle backup и archive media process, но эти технологии и 
+    retention mechanics являются историческими и требуют current подтверждения.
   priority: important
   status: open
   related_sources:
@@ -271,10 +275,11 @@ questions:
 
 - id: Q-DR-001
   area: disaster-recovery
-  question_ru: Какова текущая production/DR topology GPP, replication model, RTO/RPO, failover trigger и failback procedure?
-  reason_ru: Диаграмма и план 2015 года подтверждают three-site topology с Main/Alternative shared-storage cluster и отдельным
-    Backup site, а также часовой threshold перехода в DR. Это сильный historical evidence, но не доказательство current topology
-    или действующих recovery objectives.
+  question_ru: Какова текущая production/DR topology GPP, replication model, RTO/RPO, failover trigger и failback 
+    procedure?
+  reason_ru: Диаграмма и план 2015 года подтверждают three-site topology с Main/Alternative shared-storage cluster и 
+    отдельным Backup site, а также часовой threshold перехода в DR. Это сильный historical evidence, но не 
+    доказательство current topology или действующих recovery objectives.
   priority: important
   status: open
   related_sources:
@@ -283,3 +288,41 @@ questions:
   related_facts:
   - FACT-GPP-026
   - FACT-GPP-027
+
+- id: Q-INT-001
+  area: integration-contract
+  question_ru: К каким SOAP operations/services относятся regUnRegDebtNotificationRequest и debtNotificationRequest и 
+    каковы направление, callback semantics и endpoint этих debt-notification exchanges?
+  reason_ru: SRC-INT-001 содержит фрагменты XSD соответствующих SOAP types и сообщает о функциональности debt 
+    notifications, но не предоставляет разделы operations или привязку к service. Выдумывать имена operations или WSDL 
+    portType нельзя.
+  priority: important
+  status: open
+  related_sources:
+  - SRC-INT-001
+  related_evidence:
+  - EV-INT-001
+  - EV-INT-012
+  stakeholder_context_ru: На 17.08.2026 stakeholder не располагает дополнительными ответами; вопрос сохраняется открытым
+    и не блокирует продолжение AS-IS.
+
+- id: Q-INT-002
+  area: integration-contract
+  question_ru: Доступны ли authoritative WSDL artifacts ServiceCompanyWS, GPPPaymentWS и SCVirtualCabinetWS, актуальные 
+    endpoint/binding/security details и уточненная редакция контракта сверки, разрешающая выявленные message/schema 
+    inconsistencies?
+  reason_ru: Человекочитаемый источник позволяет восстановить operations/messages/types и часть metadata endpoint, но 
+    URL WSDL не предоставлены как artifacts. В источнике также есть расхождения Content-Type и Msg/Type, wrapper ответа 
+    CompletePaymentWithError, описание ответа InitiatePayment и XSD сверки относительно examples.
+  priority: important
+  status: open
+  related_sources:
+  - SRC-INT-001
+  related_evidence:
+  - EV-INT-006
+  - EV-INT-015
+  - EV-INT-016
+  - EV-INT-017
+  - EV-INT-018
+  stakeholder_context_ru: На 17.08.2026 stakeholder не располагает authoritative WSDL/endpoint/schema clarification; все
+    связанные неопределенности контракта сохраняются как явные UNKNOWN/unverified/contradiction и не блокируют snapshot.

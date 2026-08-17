@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation>Реконструировано по inline XSD из SRC-INT-001, страницы 81-82. Ограничения источника сохранены даже там, где примеры и таблицы им противоречат.</xs:documentation>
+  </xs:annotation>
+  <xs:element name="Data" type="data"/>
+  <xs:complexType name="data">
+    <xs:sequence>
+      <xs:element name="Header" type="xs:string"/>
+      <xs:element name="Msg" type="msg"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="msg">
+    <xs:sequence>
+      <xs:element name="Type" type="xs:string"/>
+      <xs:element name="UserID" type="xs:decimal"/>
+      <xs:element name="SerialNumber" type="xs:string"/>
+      <xs:element name="DateTime" type="xs:dateTime"/>
+      <xs:element name="UCUserID" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="UCName" type="xs:string" minOccurs="0"/>
+      <xs:element name="TrnAmount" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="TrnSum" type="amount" minOccurs="0"/>
+      <xs:element name="Rows" type="rows"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="rows">
+    <xs:sequence>
+      <xs:element name="Row" type="payment_row" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="payment_row">
+    <xs:sequence>
+      <xs:element name="InvoiceCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="ServiceCode" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="SpecialCode" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="BranchID" type="xs:decimal"/>
+      <xs:element name="AbonCode" type="xs:string"/>
+      <xs:element name="Amount" type="amount"/>
+      <xs:element name="PaymentDate" type="xs:dateTime"/>
+      <xs:element name="UCBankAccount" type="xs:string" minOccurs="0"/>
+      <xs:element name="ReceiptNumber" type="xs:string"/>
+      <xs:element name="ClearingDate" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="PaymentInstrument" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="PaymentSite" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="BankHeadOfficeCode" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="amount">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0"/>
+      <xs:fractionDigits value="2"/>
+      <xs:totalDigits value="10"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,60 @@
+id: IF-GPP-009
+name: ServiceCompanyWS
+interface_type: soap
+direction: HÖP -> XT
+interaction_mode: real-time-request-response-and-notification
+soap_version_evidence: SOAP-1.1-envelope-namespace
+http:
+  content_type: text/xml
+  charset: UTF-8
+  documented_status_codes: [200, 500]
+soap_header:
+  element: messageHeader
+  fields: [userID, receiverID, transactionID, messageDateTime, messageTimestamp]
+correlation:
+  field: transactionID
+  semantics: идентификатор корреляции на уровне процесса, генерируемый инициатором процесса
+operations:
+- name: GetAccountInfo
+  request: GetAccountInfo
+  response: GetAccountInfoResponse
+  result_type: serviceAccount
+- name: GetAccountInfoByDocumentNum
+  request: GetAccountInfoByDocumentNum
+  response: GetAccountInfoByDocumentNumResponse
+  result_type: serviceAccount
+- name: GetInvoiceInfo
+  request: GetInvoiceInfo
+  response: GetInvoiceInfoResponse
+  result_type: invoiceQueryResult
+- name: GetInvoiceInfoByDocumentNum
+  request: GetInvoiceInfoByDocumentNum
+  response: GetInvoiceInfoByDocumentNumResponse
+  result_type: invoiceQueryResult
+- name: GetInvoiceInfoByServiceCodeList
+  request: GetInvoiceInfoByServiceCodeList
+  response: GetInvoiceInfoByServiceCodeListResponse
+  result_type: invoiceQueryResult
+- name: GetPayableAmountDetail
+  request: GetPayableAmountDetail
+  response: GetPayableAmountDetailResponse
+  result_type: invoiceAmountDetail
+- name: NotifyAboutPayment
+  request: NotifyAboutPayment
+  response: NotifyAboutPaymentResponse
+  semantics: уведомление о завершенном платеже с пустым подтверждением
+- name: CheckIfPaymentCancelAllowed
+  request: CheckIfPaymentCancelAllowed
+  response: CheckIfPaymentCancelAllowedResponse
+  semantics: пустой успешный ответ означает, что отмена разрешена; иначе возвращается fault
+- name: NotifyAboutPaymentCancel
+  request: NotifyAboutPaymentCancel
+  response: NotifyAboutPaymentCancelResponse
+  semantics: уведомление об отмене платежа с пустым подтверждением
+- name: NotifyAboutError
+  request: NotifyAboutError
+  response: NotifyAboutErrorResponse
+  semantics: уведомление об ошибке валидации с пустым подтверждением
+fault:
+  observed_detail_element: WSException
+retry_semantics: unknown

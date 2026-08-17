@@ -1,25 +1,25 @@
 flowchart TB
-    subgraph MAIN_CENTER["Основной центр - historical 2015"]
+    subgraph MAIN_CENTER["Основной центр - историческое состояние 2015"]
         MAIN["Основной сайт"]:::historical
         ALT["Альтернативный сайт"]:::historical
-        SHARED[("Общий disk array")]:::historical
+        SHARED[("Общий дисковый массив")]:::historical
         MAIN --> SHARED
         ALT --> SHARED
-        MAIN -. "автоматический cluster failover при локальном отказе" .-> ALT
+        MAIN -. "автоматическое переключение cluster failover при локальном отказе" .-> ALT
     end
 
-    subgraph BACKUP_CENTER["Резервный центр - historical 2015"]
+    subgraph BACKUP_CENTER["Резервный центр - историческое состояние 2015"]
         DR["Резервный сайт"]:::historical
-        DRDISK[("Отдельный disk array")]:::historical
+        DRDISK[("Отдельный дисковый массив")]:::historical
         DR --> DRDISK
     end
 
     MAIN -->|"Oracle replication"| DR
-    ALT -. "если Main + Alternative не восстановлены в течение 1 часа: переход в one-site mode" .-> DR
-    DR -. "failback после синхронизации; возврат traffic и replication" .-> MAIN
+    ALT -. "если Основной + Альтернативный сайты не восстановлены в течение 1 часа: переход в one-site mode" .-> DR
+    DR -. "failback после синхронизации; возврат трафика и replication" .-> MAIN
 
-    CUR["Current DR topology / RTO / RPO не подтверждены\nQ-DR-001"]:::unknown
-    DR -. "historical evidence не переносится автоматически" .-> CUR
+    CUR["Текущая DR topology / RTO / RPO не подтверждена\nQ-DR-001"]:::unknown
+    DR -. "историческое подтверждение не переносится автоматически" .-> CUR
 
     LEG["Источник: SRC-OPS-001, 13.08.2015\nFACT-GPP-026; currentness = historical"]:::legend
 

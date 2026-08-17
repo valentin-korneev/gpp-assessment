@@ -1,0 +1,29 @@
+id: IF-GPP-010
+name: SCVirtualCabinetWS
+interface_type: soap
+direction: HÖP -> XT
+interaction_mode: real-time-callback
+process_semantics: асинхронный callback завершения для InitiatePayment из IF-GPP-008
+soap_version_evidence: SOAP-1.1-envelope-namespace
+http:
+  content_type: text/xml
+  charset: UTF-8
+  documented_status_codes: [200, 500]
+soap_header:
+  element: messageHeader
+correlation:
+  field: transactionID
+operations:
+- name: CompletePayment
+  request: CompletePayment
+  request_type: paymentCompletionRequest
+  response: CompletePaymentResponse
+  semantics: пустой ответ подтверждает прием запроса
+- name: CompletePaymentWithError
+  request: CompletePaymentWithError
+  request_type: errorType
+  observed_success_response: CompletePaymentResponse
+  response_semantics: ambiguous-in-source
+fault:
+  observed_detail_element: WSException
+retry_semantics: unknown

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:tns="http://vircab.portal.ws.gpp.sinam.net/" xmlns:cmn="http://services.ws.gpp.sinam.net/"
+                  targetNamespace="http://vircab.portal.ws.gpp.sinam.net/"
+                  name="GPPPaymentWS">
+  <wsdl:documentation>Assessment-реконструкция по SRC-INT-001. Содержит только abstract messages и portType. Binding, service, SOAPAction и endpoint не утверждаются, поскольку указанный исходный WSDL недоступен.</wsdl:documentation>
+  <wsdl:types>
+    <xs:schema>
+        <xs:import namespace="http://vircab.portal.ws.gpp.sinam.net/" schemaLocation="gpp-payment.xsd"/>
+        <xs:import namespace="http://services.ws.gpp.sinam.net/" schemaLocation="../service-company-ws/service-company.xsd"/>
+    </xs:schema>
+  </wsdl:types>
+
+  <wsdl:message name="GetAccountInfoRequestMessage">
+    <wsdl:part name="header" element="cmn:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:GetAccountInfo"/>
+  </wsdl:message>
+  <wsdl:message name="GetAccountInfoResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountInfoResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetAccountInfoFaultMessage">
+    <wsdl:part name="fault" element="cmn:WSException"/>
+  </wsdl:message>
+  <wsdl:message name="InitiatePaymentRequestMessage">
+    <wsdl:part name="header" element="cmn:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:InitiatePayment"/>
+  </wsdl:message>
+  <wsdl:message name="InitiatePaymentResponseMessage">
+    <wsdl:part name="parameters" element="tns:InitiatePaymentResponse"/>
+  </wsdl:message>
+  <wsdl:message name="InitiatePaymentFaultMessage">
+    <wsdl:part name="fault" element="cmn:WSException"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyAboutErrorRequestMessage">
+    <wsdl:part name="header" element="cmn:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:NotifyAboutError"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyAboutErrorResponseMessage">
+    <wsdl:part name="parameters" element="tns:NotifyAboutErrorResponse"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyAboutErrorFaultMessage">
+    <wsdl:part name="fault" element="cmn:WSException"/>
+  </wsdl:message>
+  <wsdl:message name="GetBankListRequestMessage">
+    <wsdl:part name="header" element="cmn:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:GetBankList"/>
+  </wsdl:message>
+  <wsdl:message name="GetBankListResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetBankListResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetBankListFaultMessage">
+    <wsdl:part name="fault" element="cmn:WSException"/>
+  </wsdl:message>
+
+  <wsdl:portType name="GPPPaymentWSPortType">
+    <wsdl:operation name="GetAccountInfo">
+      <wsdl:input message="tns:GetAccountInfoRequestMessage"/>
+      <wsdl:output message="tns:GetAccountInfoResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:GetAccountInfoFaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="InitiatePayment">
+      <wsdl:input message="tns:InitiatePaymentRequestMessage"/>
+      <wsdl:output message="tns:InitiatePaymentResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:InitiatePaymentFaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyAboutError">
+      <wsdl:input message="tns:NotifyAboutErrorRequestMessage"/>
+      <wsdl:output message="tns:NotifyAboutErrorResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:NotifyAboutErrorFaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankList">
+      <wsdl:input message="tns:GetBankListRequestMessage"/>
+      <wsdl:output message="tns:GetBankListResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:GetBankListFaultMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

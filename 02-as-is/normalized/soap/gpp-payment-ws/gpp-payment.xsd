@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://vircab.portal.ws.gpp.sinam.net/"
+           xmlns:tns="http://vircab.portal.ws.gpp.sinam.net/"
+           xmlns:cmn="http://services.ws.gpp.sinam.net/"
+           elementFormDefault="qualified">
+  <xs:annotation><xs:documentation>Реконструировано по SRC-INT-001. Исходный WSDL и его import graph недоступны; общие типы импортируются из assessment-реконструкции документированных service models.</xs:documentation></xs:annotation>
+  <xs:import namespace="http://services.ws.gpp.sinam.net/" schemaLocation="../service-company-ws/service-company.xsd"/>
+
+  <xs:complexType name="serviceAccountRequest"><xs:sequence>
+    <xs:element name="scCode" type="cmn:companyCode"/>
+    <xs:element name="identificationSubtype" type="cmn:identificationSubtype"/>
+    <xs:element name="abonSerial" type="xs:string" minOccurs="0"/>
+    <xs:element name="abonCode" type="cmn:abonCode"/>
+  </xs:sequence></xs:complexType>
+  <xs:complexType name="paymentMethodInfo"><xs:sequence>
+    <xs:element name="paymentMethod" type="xs:string"/>
+    <xs:element name="data" type="xs:string" maxOccurs="unbounded"/>
+  </xs:sequence></xs:complexType>
+  <xs:complexType name="identificationData"><xs:sequence>
+    <xs:element name="identificationSubtype" type="cmn:identificationSubtype"/>
+    <xs:element name="code" type="xs:string"/>
+  </xs:sequence></xs:complexType>
+  <xs:complexType name="payment"><xs:sequence>
+    <xs:element name="amountToPay" type="cmn:amount"/>
+    <xs:element name="invoice" type="cmn:invoice"/>
+  </xs:sequence></xs:complexType>
+  <xs:complexType name="paymentInitiationRequest"><xs:sequence>
+    <xs:element name="locale" type="xs:string" minOccurs="0"/>
+    <xs:element name="redirectURL" type="xs:string" minOccurs="0"/>
+    <xs:element name="paymentMethodInfo" type="tns:paymentMethodInfo" minOccurs="0"/>
+    <xs:element name="serviceAccount" type="cmn:serviceAccount" minOccurs="0"/>
+    <xs:element name="additionalIdentification" type="tns:identificationData" minOccurs="0"/>
+    <xs:element name="paymentList" type="tns:payment" maxOccurs="unbounded"/>
+  </xs:sequence></xs:complexType>
+  <xs:complexType name="redirectResult"><xs:sequence><xs:element name="redirectURL" type="xs:string"/></xs:sequence></xs:complexType>
+
+  <xs:complexType name="bank"><xs:sequence>
+    <xs:element name="name" type="xs:string"/>
+    <xs:element name="code" type="cmn:companyCode"/>
+    <xs:element name="description" type="xs:string"/>
+    <xs:element name="swiftBic" type="xs:string"/>
+  </xs:sequence></xs:complexType>
+
+  <xs:element name="GetAccountInfo"><xs:complexType><xs:sequence><xs:element name="ServiceAccountRequest" type="tns:serviceAccountRequest"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="GetAccountInfoResponse"><xs:complexType><xs:sequence><xs:element name="return" type="cmn:serviceAccount"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="InitiatePayment"><xs:complexType><xs:sequence><xs:element name="PaymentInitiationRequest" type="tns:paymentInitiationRequest"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="InitiatePaymentResponse"><xs:complexType><xs:sequence><xs:element name="return" type="tns:redirectResult"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="NotifyAboutError"><xs:complexType><xs:sequence><xs:element name="ErrorNotificationRequest" type="cmn:errorNotificationRequest"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="NotifyAboutErrorResponse" type="cmn:emptyResponse"/>
+  <xs:element name="GetBankList" type="cmn:emptyResponse"/>
+  <xs:element name="GetBankListResponse"><xs:complexType><xs:sequence><xs:element name="return" type="tns:bank" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element>
+</xs:schema>

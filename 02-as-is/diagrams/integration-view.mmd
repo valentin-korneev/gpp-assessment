@@ -1,0 +1,29 @@
+flowchart LR
+    XT["Сервисная организация (XT / SC)"]
+    BANK["Обслуживающий банк"]
+    IAMAS["IAMAS"]
+    AVIS["AVIS"]
+
+    subgraph GPP["Граница интеграции HÖP / GPP - состояние контракта на 18.08.2025"]
+        WVC["WebPortalVC / поверхность GPPPaymentWS\nCMP-GPP-002"]
+        INT["Внутренний вызов интеграций HÖP / формирователь сверки\nкомпонент не идентифицирован"]
+    end
+
+    XT -->|"IF-GPP-008 SOAP GPPPaymentWS\nGetAccountInfo / InitiatePayment / NotifyAboutError / GetBankList"| WVC
+    INT -->|"IF-GPP-009 SOAP ServiceCompanyWS\nидентификация / задолженность / платеж / отмена / ошибка"| XT
+    INT -->|"IF-GPP-010 SOAP SCVirtualCabinetWS\ncallback CompletePayment / CompletePaymentWithError"| XT
+    INT -->|"IF-GPP-011 HTTP POST + XML\nINVOICE_PAY_APUS / DAY_PAYMENTS / DAY_PAYMENTS_FROM_BANK"| XT
+
+    INT -->|"IF-GPP-013 web-service в реальном времени\nпротокол/контракт неизвестны"| IAMAS
+    INT -->|"IF-GPP-014 web-service в реальном времени\nпротокол/контракт неизвестны"| AVIS
+    BANK -.->|"IF-GPP-012 рекомендованное уведомление о зачислении\nтранспорт/протокол неизвестны"| XT
+
+    ASYNC["Асинхронная бизнес-семантика:\nXT InitiatePayment -> HÖP; позднее HÖP -> XT callback завершения"]
+    CORR["Корреляция SOAP:\nmessageHeader.transactionID в рамках одного платежного процесса"]
+    PROV["URL WSDL являются только ссылками; исходные WSDL-артефакты недоступны.\nBinding/service/production endpoint не выводятся предположением."]
+
+    WVC --- ASYNC
+    INT --- ASYNC
+    WVC --- CORR
+    INT --- CORR
+    INT --- PROV

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://vircab.sc.ws.gpp.sinam.net/"
+           xmlns:tns="http://vircab.sc.ws.gpp.sinam.net/"
+           xmlns:cmn="http://services.ws.gpp.sinam.net/"
+           elementFormDefault="qualified">
+  <xs:annotation><xs:documentation>Реконструировано по SRC-INT-001. Исходный WSDL и его import graph недоступны.</xs:documentation></xs:annotation>
+  <xs:import namespace="http://services.ws.gpp.sinam.net/" schemaLocation="../service-company-ws/service-company.xsd"/>
+
+  <xs:complexType name="paymentCompletionRequest"><xs:sequence>
+    <xs:element name="tellerInfo" type="cmn:tellerInfo"/>
+    <xs:element name="serviceAccountPartial" type="cmn:serviceAccountPartial"/>
+    <xs:element name="paymentList" type="cmn:payment" maxOccurs="unbounded"/>
+  </xs:sequence></xs:complexType>
+
+  <xs:element name="CompletePayment"><xs:complexType><xs:sequence><xs:element name="PaymentCompletionRequest" type="tns:paymentCompletionRequest"/></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="CompletePaymentResponse" type="cmn:emptyResponse"/>
+  <xs:element name="CompletePaymentWithError"><xs:complexType><xs:sequence><xs:element name="error" type="cmn:errorType"/></xs:sequence></xs:complexType></xs:element>
+  <!-- Источник показывает CompletePaymentResponse как wrapper успешного ответа для CompletePaymentWithError. Выдуманный CompletePaymentWithErrorResponse не определяется. -->
+</xs:schema>

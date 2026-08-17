@@ -1,0 +1,37 @@
+id: IF-GPP-008
+name: GPPPaymentWS
+interface_type: soap
+direction: XT -> HÖP
+interaction_mode: real-time-request-response
+process_semantics: InitiatePayment запускает асинхронный платежный процесс, который завершается через IF-GPP-010
+soap_version_evidence: SOAP-1.1-envelope-namespace
+http:
+  content_type: text/xml
+  charset: UTF-8
+  documented_status_codes: [200, 500]
+soap_header:
+  element: messageHeader
+correlation:
+  field: transactionID
+operations:
+- name: GetAccountInfo
+  request: GetAccountInfo
+  response: GetAccountInfoResponse
+  result_type: serviceAccount
+  optional_in_process: true
+- name: InitiatePayment
+  request: InitiatePayment
+  request_type: paymentInitiationRequest
+  response: InitiatePaymentResponse
+  observed_result: redirectURL
+- name: NotifyAboutError
+  request: NotifyAboutError
+  request_type: errorNotificationRequest
+  response: NotifyAboutErrorResponse
+- name: GetBankList
+  request: GetBankList
+  response: GetBankListResponse
+  result_type: bank-list
+fault:
+  observed_detail_element: WSException
+retry_semantics: unknown

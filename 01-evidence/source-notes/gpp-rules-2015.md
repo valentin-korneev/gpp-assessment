@@ -1,11 +1,11 @@
-# Source note: GPP operational rules 2015
+# Заметка по источнику: операционные правила GPP 2015
 
 ## Source preflight
 
 - Source: `SRC-OPS-001`.
-- Title: `Hökumət Ödəniş Portalı vasitəsilə əməliyyatların aparılması Qaydaları`.
+- Название: `Hökumət Ödəniş Portalı vasitəsilə əməliyyatların aparılması Qaydaları`.
 - Дата утверждения: 13.08.2015, Правление Центрального банка.
-- Ingest profile: `normative-operational`.
+- Профиль загрузки: `normative-operational`.
 - Currentness: `historical`.
 - Stakeholder clarification: эта редакция была передана assessment как последняя доступная (`EV-STK-003`). Это не является доказательством того, что operational/technology details 2015 года остаются текущими.
 - Filename содержит hint `V14`, но в документе нет соответствующей internal version metadata; filename не используется как version authority.

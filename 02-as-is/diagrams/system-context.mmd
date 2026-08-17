@@ -6,15 +6,15 @@ flowchart LR
     ADM["Администраторы CBA и организаций-участников"]
     AUTH["Центры авторизации платежей"]
     XOHKS["XÖHKS"]
-    IPS["Instant Payment System"]
-    IAMAS["IAMAS / İAMAS<br/>внешний источник идентификационных данных<br/>система МВД по public CBA source"]:::external
-    AVIS["AVIS / AVİS<br/>внешний источник идентификационных данных<br/>налоговая информационная система по public CBA source"]:::external
+    IPS["Система мгновенных платежей"]
+    IAMAS["IAMAS / İAMAS<br/>внешний источник идентификационных данных<br/>система МВД по публичному источнику CBA"]:::external
+    AVIS["AVIS / AVİS<br/>внешний источник идентификационных данных<br/>налоговая информационная система по публичному источнику CBA"]:::external
 
-    subgraph GPP["GPP - system-level эксплуатация подтверждена за 2025; component map в основном 05.05.2023"]
+    subgraph GPP["GPP - эксплуатация на уровне системы подтверждена за 2025; карта компонентов в основном на 05.05.2023"]
         WP["WebPortal<br/>документирован в 2023<br/>выведен из эксплуатации 10.01.2024"]:::historical
         MA["Mobile applications<br/>документированы в 2023<br/>выведены из эксплуатации 10.01.2024"]:::historical
         MAPI["MobilApi<br/>документирован в 2023<br/>текущий статус не подтвержден"]:::unverified
-        WVC["WebPortalVC<br/>документирован в 2023"]:::source2023
+        WVC["WebPortalVC<br/>компонент документирован в 2023; SOAP-контракт GPPPaymentWS документирован 18.08.2025"]:::source2023
         PSPMOD["PaymentService<br/>документирован в 2023"]:::source2023
         PAC["PacPmtProc<br/>документирован в 2023"]:::source2023
         TELL["TellerWP<br/>документирован в 2023"]:::source2023
@@ -23,14 +23,14 @@ flowchart LR
         LV["LVPCSS<br/>документирован в 2023"]:::source2023
         IP["IPSClient<br/>документирован в 2023"]:::source2023
         CORE["Центральная обработка платежей / хранение состояния<br/>компонент не идентифицирован<br/>Q-ARCH-001"]:::unknown
-        IDBOUND["Граница интеграции идентификации<br/>внутренний компонент / protocol неизвестны"]:::unknown
+        IDBOUND["Граница интеграции идентификации<br/>внутренний компонент / протокол неизвестны"]:::unknown
     end
 
     PAYER -->|"подтвержденный исторический канал"| WP
     PAYER -->|"подтвержденный исторический канал"| MA
     MA -->|"REST, IF-GPP-001 (историческая связь)"| MAPI
 
-    SVC <--> WVC
+    SVC -->|"SOAP GPPPaymentWS, IF-GPP-008; контракт 18.08.2025"| WVC
     PSP <--> PSPMOD
     AUTH <--> PAC
     OPS --> TELL
@@ -40,14 +40,14 @@ flowchart LR
     LV <--> XOHKS
     IP <--> IPS
 
-    IAMAS -->|"identification data; точный interface неизвестен"| IDBOUND
-    AVIS -->|"identification data; точный interface неизвестен"| IDBOUND
+    IDBOUND -->|"IF-GPP-013 web-service в реальном времени; протокол неизвестен"| IAMAS
+    IDBOUND -->|"IF-GPP-014 web-service в реальном времени; протокол неизвестен"| AVIS
 
     LEG1["Документировано на 05.05.2023<br/>актуальность после даты источника не подтверждена"]:::source2023
     LEG2["Выведено из эксплуатации по более позднему подтверждению"]:::historical
     LEG3["Текущий статус специально не подтвержден"]:::unverified
-    LEG4["Неизвестная внутренняя граница / component"]:::unknown
-    LEG5["System-level GPP activity подтверждена за 2025; component-level currentness не следует автоматически"]:::current
+    LEG4["Неизвестная внутренняя граница / компонент"]:::unknown
+    LEG5["Активность GPP на уровне системы подтверждена за 2025; актуальность на уровне компонентов не следует автоматически"]:::current
 
     classDef current stroke-width:3px;
     classDef source2023 stroke-dasharray:4 2;

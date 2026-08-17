@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:tns="http://services.ws.gpp.sinam.net/"
+                  targetNamespace="http://services.ws.gpp.sinam.net/"
+                  name="ServiceCompanyWS">
+  <wsdl:documentation>Assessment-реконструкция по SRC-INT-001. Содержит только abstract messages и portType. Binding, service, SOAPAction и endpoint не утверждаются, поскольку указанный исходный WSDL недоступен.</wsdl:documentation>
+  <wsdl:types>
+    <xs:schema>
+        <xs:import namespace="http://services.ws.gpp.sinam.net/" schemaLocation="service-company.xsd"/>
+    </xs:schema>
+  </wsdl:types>
+
+  <wsdl:message name="GetAccountInfoRequestMessage">
+    <wsdl:part name="header" element="tns:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:GetAccountInfo"/>
+  </wsdl:message>
+  <wsdl:message name="GetAccountInfoResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountInfoResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetAccountInfoFaultMessage">
+    <wsdl:part name="fault" element="tns:WSException"/>
+  </wsdl:message>
+  <wsdl:message name="GetAccountInfoByDocumentNumRequestMessage">
+    <wsdl:part name="header" element="tns:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:GetAccountInfoByDocumentNum"/>
+  </wsdl:message>
+  <wsdl:message name="GetAccountInfoByDocumentNumResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountInfoByDocumentNumResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetAccountInfoByDocumentNumFaultMessage">
+    <wsdl:part name="fault" element="tns:WSException"/>
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceInfoRequestMessage">
+    <wsdl:part name="header" element="tns:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:GetInvoiceInfo"/>
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceInfoResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceInfoResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceInfoFaultMessage">
+    <wsdl:part name="fault" element="tns:WSException"/>
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceInfoByDocumentNumRequestMessage">
+    <wsdl:part name="header" element="tns:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:GetInvoiceInfoByDocumentNum"/>
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceInfoByDocumentNumResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceInfoByDocumentNumResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceInfoByDocumentNumFaultMessage">
+    <wsdl:part name="fault" element="tns:WSException"/>
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceInfoByServiceCodeListRequestMessage">
+    <wsdl:part name="header" element="tns:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:GetInvoiceInfoByServiceCodeList"/>
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceInfoByServiceCodeListResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetInvoiceInfoByServiceCodeListResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceInfoByServiceCodeListFaultMessage">
+    <wsdl:part name="fault" element="tns:WSException"/>
+  </wsdl:message>
+  <wsdl:message name="GetPayableAmountDetailRequestMessage">
+    <wsdl:part name="header" element="tns:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:GetPayableAmountDetail"/>
+  </wsdl:message>
+  <wsdl:message name="GetPayableAmountDetailResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetPayableAmountDetailResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetPayableAmountDetailFaultMessage">
+    <wsdl:part name="fault" element="tns:WSException"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyAboutPaymentRequestMessage">
+    <wsdl:part name="header" element="tns:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:NotifyAboutPayment"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyAboutPaymentResponseMessage">
+    <wsdl:part name="parameters" element="tns:NotifyAboutPaymentResponse"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyAboutPaymentFaultMessage">
+    <wsdl:part name="fault" element="tns:WSException"/>
+  </wsdl:message>
+  <wsdl:message name="CheckIfPaymentCancelAllowedRequestMessage">
+    <wsdl:part name="header" element="tns:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:CheckIfPaymentCancelAllowed"/>
+  </wsdl:message>
+  <wsdl:message name="CheckIfPaymentCancelAllowedResponseMessage">
+    <wsdl:part name="parameters" element="tns:CheckIfPaymentCancelAllowedResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CheckIfPaymentCancelAllowedFaultMessage">
+    <wsdl:part name="fault" element="tns:WSException"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyAboutPaymentCancelRequestMessage">
+    <wsdl:part name="header" element="tns:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:NotifyAboutPaymentCancel"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyAboutPaymentCancelResponseMessage">
+    <wsdl:part name="parameters" element="tns:NotifyAboutPaymentCancelResponse"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyAboutPaymentCancelFaultMessage">
+    <wsdl:part name="fault" element="tns:WSException"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyAboutErrorRequestMessage">
+    <wsdl:part name="header" element="tns:messageHeader"/>
+    <wsdl:part name="parameters" element="tns:NotifyAboutError"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyAboutErrorResponseMessage">
+    <wsdl:part name="parameters" element="tns:NotifyAboutErrorResponse"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyAboutErrorFaultMessage">
+    <wsdl:part name="fault" element="tns:WSException"/>
+  </wsdl:message>
+
+  <wsdl:portType name="ServiceCompanyWSPortType">
+    <wsdl:operation name="GetAccountInfo">
+      <wsdl:input message="tns:GetAccountInfoRequestMessage"/>
+      <wsdl:output message="tns:GetAccountInfoResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:GetAccountInfoFaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountInfoByDocumentNum">
+      <wsdl:input message="tns:GetAccountInfoByDocumentNumRequestMessage"/>
+      <wsdl:output message="tns:GetAccountInfoByDocumentNumResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:GetAccountInfoByDocumentNumFaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceInfo">
+      <wsdl:input message="tns:GetInvoiceInfoRequestMessage"/>
+      <wsdl:output message="tns:GetInvoiceInfoResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:GetInvoiceInfoFaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceInfoByDocumentNum">
+      <wsdl:input message="tns:GetInvoiceInfoByDocumentNumRequestMessage"/>
+      <wsdl:output message="tns:GetInvoiceInfoByDocumentNumResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:GetInvoiceInfoByDocumentNumFaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceInfoByServiceCodeList">
+      <wsdl:input message="tns:GetInvoiceInfoByServiceCodeListRequestMessage"/>
+      <wsdl:output message="tns:GetInvoiceInfoByServiceCodeListResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:GetInvoiceInfoByServiceCodeListFaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetPayableAmountDetail">
+      <wsdl:input message="tns:GetPayableAmountDetailRequestMessage"/>
+      <wsdl:output message="tns:GetPayableAmountDetailResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:GetPayableAmountDetailFaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyAboutPayment">
+      <wsdl:input message="tns:NotifyAboutPaymentRequestMessage"/>
+      <wsdl:output message="tns:NotifyAboutPaymentResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:NotifyAboutPaymentFaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfPaymentCancelAllowed">
+      <wsdl:input message="tns:CheckIfPaymentCancelAllowedRequestMessage"/>
+      <wsdl:output message="tns:CheckIfPaymentCancelAllowedResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:CheckIfPaymentCancelAllowedFaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyAboutPaymentCancel">
+      <wsdl:input message="tns:NotifyAboutPaymentCancelRequestMessage"/>
+      <wsdl:output message="tns:NotifyAboutPaymentCancelResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:NotifyAboutPaymentCancelFaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyAboutError">
+      <wsdl:input message="tns:NotifyAboutErrorRequestMessage"/>
+      <wsdl:output message="tns:NotifyAboutErrorResponseMessage"/>
+      <wsdl:fault name="WSException" message="tns:NotifyAboutErrorFaultMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

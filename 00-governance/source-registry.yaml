@@ -38,6 +38,15 @@ source_families:
   stakeholder_context_source: SRC-STK-002
 
 
+- id: gpp-integration-contract-2025
+  title_ru: Техническая спецификация интеграции сервисных организаций с HÖP - семейство контрактов 2025
+  relationship_ru: Версия 1.16 от 18.08.2025 является предоставленным человекочитаемым интеграционным контрактом. Документ
+    содержит примеры SOAP-сообщений и фрагменты XSD, а также отдельный HTTP/XML-контракт сверки. Указанные
+    в тексте URL WSDL не являются предоставленными WSDL artifacts и учитываются только как ссылки на ресурсы
+    со статусом referenced-unavailable или referenced-unverified.
+  sources:
+  - SRC-INT-001
+
 sources:
 - id: SRC-PUB-001
   title: The Government Payment Portal (GPP)
@@ -240,3 +249,26 @@ sources:
   notes_ru: Архитектор assessment сообщил, что SRC-OPS-001 был передан как последняя доступная редакция правил. Это
     относится к provenance переданного source set и не подтверждает, что описанные в документе 2015 года технологии,
     инфраструктура, security controls, operational schedule или DR procedures остаются текущими.
+
+- id: SRC-INT-001
+  title: HÖKUMƏT ÖDƏNİŞ PORTALI - TƏŞKİLATLARIN HÖP İNFRASTRUKTURUNA İNTEQRASİYASI
+  file_name: CMA-SS 550-19 TN 070 1.16 Message Detailed Specifications SC 1(Xidmət təşkilatlarının HÖP infrastrukturuna inteərasiyasının texniki spesifikasiyası).pdf
+  source_family: gpp-integration-contract-2025
+  relationship: primary-human-readable-integration-contract
+  internal_document_id: CMA-SS 550-19 TN 070 1.16
+  version: '1.16'
+  date: '2025-08-18'
+  version_confidence: high
+  ingest_profile: integration-contract
+  authority: internal-integration-specification
+  currentness: current-at-source-date
+  sensitivity: internal
+  visual_review_mode: targeted
+  normalization_requirements: interface-classification; soap-wsdl-xsd-reconstruction; http-xml-xsd-reconstruction
+  notes_ru: Внутренние титульные данные и история версий подтверждают версию 1.16 и дату 18.08.2025. Документ отдельно описывает
+    SOAP services и HTTP/XML-сверку; весь источник не классифицируется как SOAP. URL WSDL в тексте не считаются
+    предоставленными контрактами. Для GPPPaymentWS указана ссылка на test endpoint, но его текущая доступность
+    не проверялась и он не используется как доказательство production endpoint. Production links должны были
+    передаваться отдельно после приемки тестирования и в источнике отсутствуют. Внутренние IP-адреса в canonical model не
+    переносятся, поскольку они не требуются для архитектурного evidence. Выполнен целевой визуальный просмотр схемы бизнес-процесса
+    на странице 7 и таблиц/XSD сверки на страницах 78-83.

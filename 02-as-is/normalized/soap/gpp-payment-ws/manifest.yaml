@@ -1,0 +1,46 @@
+id: NORM-SOAP-002
+type: soap-service
+format: wsdl-1.1-plus-xsd
+status: reconstructed
+interface: IF-GPP-008
+contract_source:
+  status: referenced-unavailable
+  reference: https://gpp.az/wsdls/sc/vircab/1.0.5/GPPPaymentWS.xml
+endpoint_reference:
+  status: referenced-unverified
+  environment: test
+  reference: https://testservices.gpp.az/WebPortalVC/GPPPaymentWS
+sources:
+- SRC-INT-001
+artifacts:
+- gpp-payment.wsdl
+- gpp-payment.xsd
+- interface.yaml
+completeness:
+  operations: high
+  messages: high
+  schemas: medium
+  errors: medium
+  binding: unknown
+  service: unknown
+  endpoint: medium
+  security: low
+  retry: unknown
+evidence_map:
+  GPPPaymentWS.operations:
+  - EV-INT-007
+  asynchronous-process-link:
+  - EV-INT-006
+  GetAccountInfo:
+  - EV-INT-007
+  InitiatePayment:
+  - EV-INT-007
+  NotifyAboutError:
+  - EV-INT-007
+  GetBankList:
+  - EV-INT-007
+limitations:
+- Указанный в источнике WSDL не предоставлен; это абстрактная реконструкция без binding/service.
+- Документированный test endpoint сохранен только как metadata со статусом referenced-unverified; его доступность и актуальность не проверены, production endpoint неизвестен.
+- В XML для InitiatePayment показан redirectURL, тогда как таблица описания ответа указывает ServiceAccount; реконструкция использует наблюдаемую XML-форму и фиксирует CONTR-INT-003.
+- Поведение SOAP retry/time-out в источнике не документировано.

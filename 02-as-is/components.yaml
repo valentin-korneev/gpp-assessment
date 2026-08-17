@@ -2,7 +2,7 @@ components:
 - id: CMP-GPP-001
   name: WebPortal
   subsystem_ru: Пользовательские каналы
-  responsibility_ru: Интернет-портал для online payments, регистрации, personal cabinet и истории платежей.
+  responsibility_ru: Интернет-портал для онлайн-платежей, регистрации, личного кабинета и истории платежей.
   evidence:
   - EV-FS-002
   - EV-PUB-003
@@ -10,25 +10,30 @@ components:
   temporal_scope:
     source_date: '2023-05-05'
     currentness: historical
-  notes_ru: Собственный web channel прекращен с 10.01.2024.
+  notes_ru: Собственный web-канал прекращен с 10.01.2024.
 
 - id: CMP-GPP-002
   name: WebPortalVC
-  subsystem_ru: Каналы participant organizations
-  responsibility_ru: Virtual Cabinet / механизм, позволяющий integrated service organizations использовать свои
-    internet resources для сбора платежей в GPP infrastructure.
+  subsystem_ru: Каналы организаций-участников
+  responsibility_ru: Virtual Cabinet - механизм, позволяющий интегрированным сервисным организациям использовать 
+    собственные интернет-/мобильные ресурсы для сбора платежей в инфраструктуре GPP; интеграционный контракт 2025 
+    связывает эту границу с SOAP GPPPaymentWS и асинхронным callback завершения.
   evidence:
   - EV-FS-002
+  - EV-INT-006
+  - EV-INT-007
   status: active
   temporal_scope:
-    source_date: '2023-05-05'
+    source_date: '2025-08-18'
     currentness: current-at-source-date
+  notes_ru: Более новый источник подтверждает contract-level роль WebPortalVC/GPPPaymentWS на дату документа, но ссылка 
+    на test endpoint не является доказательством доступности production runtime.
 
 - id: CMP-GPP-003
   name: PacPmtProc
   subsystem_ru: Авторизация платежей
-  responsibility_ru: Информационный обмен с payment authorization centers и обработка authorization requests для
-    payment instruments.
+  responsibility_ru: Информационный обмен с центрами авторизации платежей и обработка запросов авторизации для платежных
+    инструментов.
   evidence:
   - EV-FS-002
   - EV-FS-015
@@ -48,24 +53,25 @@ components:
   temporal_scope:
     source_date: '2023-05-05'
     currentness: historical
-  notes_ru: Собственное mobile application прекращено с 10.01.2024.
+  notes_ru: Собственное мобильное приложение прекращено с 10.01.2024.
 
 - id: CMP-GPP-005
   name: MobilApi
   subsystem_ru: Пользовательские каналы
-  responsibility_ru: RESTful web services, обеспечивавшие system functionality для mobile applications.
+  responsibility_ru: RESTful web services, обеспечивавшие системную функциональность для мобильных приложений.
   evidence:
   - EV-FS-002
   status: active
   temporal_scope:
     source_date: '2023-05-05'
     currentness: current-at-source-date
-  notes_ru: Текущий runtime status после закрытия mobile app не подтвержден.
+  notes_ru: Текущий runtime status после закрытия мобильного приложения не подтвержден.
 
 - id: CMP-GPP-006
   name: PaymentService
   subsystem_ru: Интеграция с PSP
-  responsibility_ru: Информационный обмен при интеграции электронных банковских и payment channels PSP с GPP infrastructure.
+  responsibility_ru: Информационный обмен при интеграции электронных банковских и платежных каналов PSP с 
+    инфраструктурой GPP.
   evidence:
   - EV-FS-002
   - EV-FS-015
@@ -77,8 +83,8 @@ components:
 - id: CMP-GPP-007
   name: TellerWP (BankPayment)
   subsystem_ru: Операторский прием платежей
-  responsibility_ru: Automated workplace для операторов банков, почты и других финансовых организаций, принимающих
-    GPP payments в филиалах.
+  responsibility_ru: Автоматизированное рабочее место для операторов банков, почты и других финансовых организаций, 
+    принимающих платежи GPP в филиалах.
   evidence:
   - EV-FS-002
   status: active
@@ -89,8 +95,9 @@ components:
 - id: CMP-GPP-008
   name: AdminConsole
   subsystem_ru: Администрирование и конфигурация
-  responsibility_ru: Administrative workplace для системных администраторов, participant administrators, security
-    administrators и controllers; управление configuration, security, audit, reports и monitoring.
+  responsibility_ru: Административное рабочее место для системных администраторов, администраторов участников, 
+    администраторов безопасности и контролеров; управление конфигурацией, безопасностью, аудитом, отчетами и 
+    мониторингом.
   evidence:
   - EV-FS-003
   - EV-FS-005
@@ -103,8 +110,8 @@ components:
 
 - id: CMP-GPP-009
   name: Loader Generators
-  subsystem_ru: Отчетность и settlement export
-  responsibility_ru: Формирование отчетов по GPP payments для participants и MT150/152 files для межорганизационных
+  subsystem_ru: Отчетность и экспорт расчетов
+  responsibility_ru: Формирование отчетов по платежам GPP для участников и файлов MT150/152 для межорганизационных 
     расчетов через XÖHKS.
   evidence:
   - EV-FS-015
@@ -127,7 +134,7 @@ components:
 - id: CMP-GPP-011
   name: IPSClient
   subsystem_ru: Интеграция с расчетными системами
-  responsibility_ru: Информационный обмен с Instant Payment System.
+  responsibility_ru: Информационный обмен с системой мгновенных платежей.
   evidence:
   - EV-FS-015
   status: active

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="urn:gpp:assessment:debt-notification-types:reconstructed"
+           xmlns:tns="urn:gpp:assessment:debt-notification-types:reconstructed"
+           elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:documentation>Реконструирована schema только для типов из разделов 1.29-1.33 SRC-INT-001. Исходный namespace service/operation не установлен доступным evidence, поэтому намеренно используется assessment namespace.</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="identificationSubtype"><xs:restriction base="xs:string"><xs:minLength value="4"/><xs:maxLength value="8"/></xs:restriction></xs:simpleType>
+  <xs:simpleType name="abonCode"><xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="16"/></xs:restriction></xs:simpleType>
+  <xs:simpleType name="invoiceCode"><xs:restriction base="xs:string"><xs:minLength value="1"/><xs:maxLength value="32"/></xs:restriction></xs:simpleType>
+  <xs:simpleType name="amount"><xs:restriction base="xs:decimal"><xs:minInclusive value="0.00"/><xs:maxInclusive value="9999999999.99"/><xs:fractionDigits value="2"/></xs:restriction></xs:simpleType>
+  <xs:complexType name="regUnRegDebtNotificationRequest"><xs:sequence>
+    <xs:element name="identificationSubtype" type="tns:identificationSubtype"/>
+    <xs:element name="abonCode" type="tns:abonCode"/>
+    <xs:element name="mobilePhoneNumber" type="xs:string" minOccurs="0"/>
+    <xs:element name="emailAddress" type="xs:string" minOccurs="0"/>
+  </xs:sequence></xs:complexType>
+  <xs:complexType name="notifServiceAccount"><xs:sequence>
+    <xs:element name="identificationSubtype" type="tns:identificationSubtype"/>
+    <xs:element name="abonCode" type="tns:abonCode"/>
+  </xs:sequence></xs:complexType>
+  <xs:complexType name="notifInvoice"><xs:sequence>
+    <xs:element name="identificationSubtype" type="tns:identificationSubtype"/>
+    <xs:element name="invoiceCode" type="tns:invoiceCode"/>
+    <xs:element name="invoiceDate" type="xs:date"/>
+    <xs:element name="serviceCode" type="xs:int"/>
+    <xs:element name="amountDue" type="tns:amount"/>
+    <xs:element name="penaltyStartDate" type="xs:date"/>
+  </xs:sequence></xs:complexType>
+  <xs:complexType name="notifServiceAccountInvoices"><xs:sequence>
+    <xs:element name="serviceAccount" type="tns:notifServiceAccount"/>
+    <xs:element name="invoiceList" type="tns:notifInvoice" maxOccurs="unbounded"/>
+  </xs:sequence></xs:complexType>
+  <xs:complexType name="debtNotificationRequest"><xs:sequence>
+    <xs:element name="serviceAccountInvoicesList" type="tns:notifServiceAccountInvoices" maxOccurs="unbounded"/>
+  </xs:sequence></xs:complexType>
+</xs:schema>

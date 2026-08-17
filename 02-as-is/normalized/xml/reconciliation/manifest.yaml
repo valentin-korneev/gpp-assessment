@@ -1,0 +1,42 @@
+id: NORM-XML-001
+type: http-xml-interface
+format: interface-yaml-plus-xsd
+status: reconstructed
+interface: IF-GPP-011
+contract_source:
+  status: not-referenced
+  inline_schema_evidence: true
+sources:
+- SRC-INT-001
+artifacts:
+- interface.yaml
+- reconciliation.xsd
+completeness:
+  messages: high
+  schemas: high
+  http-method: high
+  responses: high
+  retry: high
+  idempotency: medium
+  endpoint: unknown
+  security: unknown
+evidence_map:
+  INVOICE_PAY_APUS:
+  - EV-INT-009
+  - EV-INT-010
+  DAY_PAYMENTS:
+  - EV-INT-009
+  - EV-INT-010
+  DAY_PAYMENTS_FROM_BANK:
+  - EV-INT-009
+  - EV-INT-010
+  Data-Msg-Rows-Row-XSD:
+  - EV-INT-011
+  retry-and-ack:
+  - EV-INT-010
+limitations:
+- Отдельный XSD artifact не предоставлен; reconciliation.xsd реконструирован из inline XSD, напечатанного в PDF.
+- HTTP endpoint, профиль TLS/authentication, timeout, retry backoff, максимальное число попыток и dead-letter handling не документированы.
+- В примерах Content-Type для DAY_PAYMENTS и DAY_PAYMENTS_FROM_BANK используется type=INVOICE_PAY_APUS, хотя Msg/Type отличается; см. CONTR-INT-001.
+- Inline XSD противоречит field table/examples по ограничениям BranchID и TrnSum; ограничения source XSD сохранены; см. CONTR-INT-004.
+- Отдельная рекомендация Bank -> XT по уведомлению о зачислении не нормализуется как HTTP/XML или file/XML, поскольку transport не указан.

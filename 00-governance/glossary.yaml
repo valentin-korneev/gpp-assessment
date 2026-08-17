@@ -1,7 +1,7 @@
 terms:
 - id: TERM-GPP-001
   term: GPP
-  name_ru: Government Payment Portal / Hökumət Ödəniş Portalı (HÖP)
+  name_ru: Государственный платежный портал / Hökumət Ödəniş Portalı (HÖP)
   definition_ru: Централизованный платежный портал/инфраструктура, созданный для сбора бюджетных и массовых платежей
     через единую платформу.
   sources:
@@ -10,7 +10,7 @@ terms:
 
 - id: TERM-GPP-002
   term: CISMS
-  name_ru: Centralized Information System on Mass Payments
+  name_ru: Централизованная информационная система массовых платежей
   definition_ru: Предшествующая инфраструктура массовых платежей, запущенная CBA 11.07.2008; GPP был запущен в 2012
     году с использованием ее инфраструктурных возможностей.
   sources:
@@ -18,7 +18,7 @@ terms:
 
 - id: TERM-GPP-003
   term: ASMP
-  name_ru: Automated System for Mass Payments
+  name_ru: Автоматизированная система массовых платежей
   definition_ru: Термин, используемый SINAM для решения/кейса массовых платежей, связанного на странице поставщика
     с Development of the Government Payment Portal (GPP). Эквивалентность ASMP и CISMS как системных имен пока не
     считается подтвержденной.
@@ -27,7 +27,7 @@ terms:
 
 - id: TERM-GPP-004
   term: KXM
-  name_ru: Kütləvi Xidmət Müəssisəsi
+  name_ru: Предприятие массовых услуг / Kütləvi Xidmət Müəssisəsi
   definition_ru: Интегрированная в GPP негосударственная service organization, в пользу которой собираются платежи.
   sources:
   - SRC-FS-001
@@ -35,7 +35,7 @@ terms:
 
 - id: TERM-GPP-005
   term: KPM
-  name_ru: Kart Prossesinq Mərkəzi
+  name_ru: Карточный процессинговый центр / Kart Prossesinq Mərkəzi
   definition_ru: Card processing center; в спецификации относится к participant organizations и выполняет authorization
     card operations.
   sources:
@@ -44,7 +44,7 @@ terms:
 
 - id: TERM-GPP-006
   term: PSP
-  name_ru: Payment service provider
+  name_ru: Поставщик платежных услуг
   definition_ru: В контексте спецификации - банки, почта, card processing centers и другие payment organizations,
     электронные каналы которых интегрируются с GPP через PaymentService.
   sources:
@@ -53,7 +53,7 @@ terms:
 
 - id: TERM-GPP-007
   term: XÖHKS
-  name_ru: Xırda Ödənişlər üzrə Hesablaşma Klirinq Sistemi (XÖHKS)
+  name_ru: Система расчетов и клиринга по мелким платежам / Xırda Ödənişlər üzrə Hesablaşma Klirinq Sistemi (XÖHKS)
   definition_ru: Внешняя расчетная/клиринговая система. Нормативный source 2015 года раскрывает аббревиатуру как
     Xırda Ödənişlər üzrə Hesablaşma Klirinq Sistemi и связывает ее с next-business-day settlement; functional specification
     2023 года связывает XÖHKS с LVPCSS и передачей MT150/152 files.
@@ -64,7 +64,7 @@ terms:
 
 - id: TERM-GPP-008
   term: IPS
-  name_ru: Ani Ödənişlər Sistemi / Instant Payment System
+  name_ru: Система мгновенных платежей / Ani Ödənişlər Sistemi
   definition_ru: Внешняя instant payment system, информационный обмен с которой выполняет IPSClient.
   sources:
   - SRC-FS-001
@@ -124,3 +124,17 @@ terms:
     операций через GPP. Текущая юридическая конструкция участия отдельно не подтверждена.
   sources:
   - SRC-OPS-001
+
+- id: TERM-GPP-015
+  term: XT
+  name_ru: Сервисная организация / Xidmət Təşkilatı
+  definition_ru: Интегрированная с HÖP организация, в пользу которой собираются платежи. В отдельных англоязычных identifiers и headings того же integration contract используется сокращение SC (Service Company) для той же роли участника.
+  sources:
+  - SRC-INT-001
+
+- id: TERM-GPP-016
+  term: ÖXT
+  name_ru: Поставщик платежных услуг / Ödəniş Xidməti Təchizatçısı
+  definition_ru: Поставщик платежных услуг, чьи payment channels могут использовать инфраструктуру HÖP для приема платежей; в assessment сопоставляется с более ранним термином PSP без утверждения полной юридической эквивалентности терминов вне контекста source.
+  sources:
+  - SRC-INT-001

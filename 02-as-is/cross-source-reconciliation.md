@@ -1,4 +1,4 @@
-# Cross-source temporal reconciliation
+# Временная сверка между источниками
 
 ## 1. Назначение
 
@@ -13,7 +13,7 @@ Temporal labels используются в смысле `ASSESSMENT_PROTOCOL.md
 - `current` - более поздний evidence подтверждает текущее для соответствующего периода состояние;
 - `unverified` / `UNKNOWN` - актуальность или механизм не подтверждены.
 
-## 2. Temporal cross-source matrix
+## 2. Временная матрица источников
 
 | Область | 2015 - `SRC-OPS-001` | 2023 - `SRC-FS-001/002` | 2024 public | 2025 public | Current AS-IS handling |
 |---|---|---|---|---|---|
@@ -47,7 +47,7 @@ Cross-source evidence показывает устойчивость самого
 
 Обозначения: `C` - direct source mapping подтверждает роль и функцию; `S` - role/surface/domain видимы, но точное назначение capability этой роли не доказано; `-` - соответствующий mapping не подтвержден source evidence.
 
-| Role / source date | Platform/service admin | Participant/user admin | Security/PKI | Operational day | Payment acceptance | Reports/audit/monitoring |
+| Роль / дата источника | Администрирование platform/service | Администрирование participant/user | Security/PKI | Операционный день | Прием платежей | Reports/audit/monitoring |
 |---|---:|---:|---:|---:|---:|---:|
 | System administrator - 2015 | C | C | - | C | - | C |
 | Security administrator - 2015 | - | - | C | - | - | - |
@@ -81,7 +81,7 @@ Cross-source evidence показывает устойчивость самого
 
 ### 5.1. Логическая последовательность
 
-| Stage | 2015 evidence | 2023 evidence | Later evidence / current handling |
+| Этап | Evidence 2015 | Evidence 2023 | Более позднее evidence / текущая трактовка |
 |---|---|---|---|
 | 1. Payer/obligation context | Participants передают payer-base changes и obligations в течение operational day (`FACT-GPP-024`) | Identification/service/payment configuration и invoice/payment-state rules существуют (`FACT-GPP-013/017/018`) | Exact current inbound obligation flow не подтвержден |
 | 2. Payment initiation/acceptance | Payments принимаются через financial service points и регистрируются в GPP (`FACT-GPP-024`) | WebPortal/mobile/TellerWP/PSP integration modules описывают несколько entry channels (`FACT-GPP-008/015`) | 2024 own web/mobile discontinued, integrated external bank/non-bank channels подтверждены (`FACT-GPP-003/004`) |
@@ -98,7 +98,7 @@ Cross-source evidence поддерживает логическое раздел
 
 Эта reconciliation закреплена как `INF-ARCH-004`; exact current orchestration остается ограничена `Q-ARCH-001`, `Q-OPS-001`, `Q-SETTLE-001` и `Q-CUR-001`.
 
-## 6. XÖHKS / IPS continuity check
+## 6. Проверка преемственности XÖHKS / IPS
 
 ### XÖHKS
 
@@ -126,33 +126,33 @@ Cross-source evidence поддерживает логическое раздел
 - Named modules `CMP-GPP-002/003/005..011`, кроме уже superseded собственных web/mobile channel elements;
 - AdminConsole roles/domains и configuration capabilities;
 - XÖHKS и IPS integration responsibilities;
-- payment-state/configuration semantics.
+- семантика состояния платежа и конфигурации.
 
 Эти элементы не повышаются до current 2026 только из-за того, что система продолжала работать в 2025 году.
 
 ### 7.3. `unverified` public context
 
 - real-time participant information и end-of-day reconciliation (`FACT-GPP-006`);
-- Closed Telecommunication Network + CBA certificate exchange (`FACT-GPP-007`);
-- external identity sources IAMAS/AVIS (`FACT-GPP-019`);
-- centralized reference/master data persistence (`FACT-GPP-021`).
+- Closed Telecommunication Network + обмен сертификатами CBA (`FACT-GPP-007`);
+- внешние источники идентификационных данных IAMAS/AVIS (`FACT-GPP-019`);
+- централизованное хранение справочных/master data (`FACT-GPP-021`).
 
 ### 7.4. `historical` 2015
 
-- role/access mechanics (`FACT-GPP-022/023`);
-- operational day exact windows (`FACT-GPP-024`);
-- backup/archive implementation (`FACT-GPP-025`);
-- three-site DR/deployment topology (`FACT-GPP-026`);
-- technology stack (`FACT-GPP-027`).
+- механика ролей/доступа (`FACT-GPP-022/023`);
+- точные временные окна операционного дня (`FACT-GPP-024`);
+- реализация backup/archive (`FACT-GPP-025`);
+- трехсайтовая DR/deployment topology (`FACT-GPP-026`);
+- технологический стек (`FACT-GPP-027`).
 
 ### 7.5. Ключевые current UNKNOWN
 
-- physical core payment-processing and persistence component/topology - `Q-ARCH-001`;
+- физический component/topology основной обработки платежей и persistence - `Q-ARCH-001`;
 - current status большинства modules 2023 - `Q-CUR-001`;
-- operational day/settlement schedule - `Q-OPS-001`;
-- authentication/authorization/SoD - `Q-SEC-001`;
-- backup/retention/RPO - `Q-BCK-001`;
-- DR topology/RTO/RPO/failover - `Q-DR-001`.
+- расписание операционного дня/settlement - `Q-OPS-001`;
+- аутентификация/авторизация/SoD - `Q-SEC-001`;
+- резервное копирование/retention/RPO - `Q-BCK-001`;
+- топология DR, RTO/RPO и failover - `Q-DR-001`.
 
 ## 8. Historical leakage check
 
@@ -176,3 +176,14 @@ Scope:
 - current system-context diagram не содержит 2015 physical deployment nodes или technologies.
 
 На текущем WIP historical leakage не обнаружен.
+
+## Интеграционный контракт 2025 и функциональная спецификация 2023
+
+`SRC-INT-001` уточняет ряд interfaces, которые в functional specification 2023 были видимы только на уровне module relationship.
+
+- `IF-GPP-008` больше не остается `unknown`: для service organization internet/mobile resources -> `WebPortalVC` подтвержден SOAP `GPPPaymentWS` и real-time operation set.
+- HÖP -> XT interaction раскрывается как отдельный SOAP `ServiceCompanyWS` (`IF-GPP-009`), а завершение XT-initiated payment - как отдельный callback SOAP `SCVirtualCabinetWS` (`IF-GPP-010`). Это важное разделение направлений и responsibilities, которого component list 2023 не давал.
+- Reconciliation payment information (`IF-GPP-011`) подтвержден как HTTP POST/XML с explicit retry/ack semantics. Его нельзя смешивать с `Loader Generators` file interfaces: новый source описывает другой transport contract и не связывает его с `CMP-GPP-009`.
+- IAMAS/AVIS boundary теперь имеет достаточное evidence для system-level interface objects `IF-GPP-013`/`IF-GPP-014`, но protocol и responsible internal component остаются unknown.
+
+Документ 2025 имеет более высокую temporal relevance именно для integration contract semantics, но не используется для автоматического объявления всех named modules 2023 текущими production components. WSDL/endpoint references также не считаются доказательством runtime availability.
