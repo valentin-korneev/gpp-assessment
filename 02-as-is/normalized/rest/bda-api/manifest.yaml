@@ -1,0 +1,229 @@
+normalized_contract:
+  id: NORM-REST-001
+  name: BDA REST API - реконструированный OpenAPI 3.1
+  source: SRC-BDA-002
+  source_version: 0.0.2
+  source_date: '2025-04-02'
+  format: OpenAPI 3.1.0
+  status: evidence-based-partial
+  operation_count: 39
+  file: openapi.yaml
+  model_registry: api-models.yaml
+reconstruction_policy:
+  rule_ru: Документированные HTTP-методы, пути, модели ответов и коды статусов сохраняются. Неописанные тела запросов, 
+    тела ошибок, полезная нагрузка/тип экспорта и физическое хранение не выдумываются.
+  request_body_policy_ru: Тело запроса добавлено только для login как явный INFERENCE из username/password и 
+    application/json; остальные тела изменяющих запросов оставлены как пробел документации.
+  authentication_policy_ru: Источник подтверждает выдачу JWT для дальнейшего использования API, но не документирует 
+    способ передачи Authorization/Bearer. OpenAPI содержит HTTP Bearer только как явно маркированный INFERENCE.
+  sensitive_examples_policy_ru: JWT, команды с учетными данными, внутренние/частные адреса и полезные нагрузки из 
+    примеров источника не копируются. Используются заполнители <REDACTED_...>.
+operation_groups:
+  Templates:
+  - operation_id: listTemplates
+    method: GET
+    path: /api/v1/templates
+    tag: Templates
+  - operation_id: createTemplate
+    method: POST
+    path: /api/v1/templates
+    tag: Templates
+  - operation_id: getTemplateParametersByPeriod
+    method: GET
+    path: /api/v1/templates/period/{periodId}/parameters
+    tag: Templates
+  - operation_id: getTemplateParameters
+    method: GET
+    path: /api/v1/templates/{templateId}/parameters
+    tag: Templates
+  - operation_id: getTemplate
+    method: GET
+    path: /api/v1/templates/{templateId}
+    tag: Templates
+  - operation_id: updateTemplate
+    method: PUT
+    path: /api/v1/templates/{templateId}
+    tag: Templates
+  - operation_id: deleteTemplate
+    method: DELETE
+    path: /api/v1/templates/{templateId}
+    tag: Templates
+  Processes:
+  - operation_id: listProcesses
+    method: GET
+    path: /api/v1/periods
+    tag: Processes
+  - operation_id: createProcess
+    method: POST
+    path: /api/v1/periods
+    tag: Processes
+  - operation_id: listProcessesByOperationDay
+    method: GET
+    path: /api/v1/periods/operation-day/{operationDayId}
+    tag: Processes
+  - operation_id: getProcessParameters
+    method: GET
+    path: /api/v1/periods/{periodId}/parameters
+    tag: Processes
+  - operation_id: updateProcess
+    method: PUT
+    path: /api/v1/periods/{id}
+    tag: Processes
+  - operation_id: deleteProcess
+    method: DELETE
+    path: /api/v1/periods/{periodId}
+    tag: Processes
+  OperationDays:
+  - operation_id: listOperationDays
+    method: GET
+    path: /api/v1/operation-days
+    tag: OperationDays
+  - operation_id: closeOperationDay
+    method: PUT
+    path: /api/v1/operation-days/{operationDayId}/close
+    tag: OperationDays
+  - operation_id: getOperationDay
+    method: GET
+    path: /api/v1/operation-days/{operationDayId}
+    tag: OperationDays
+  - operation_id: updateOperationDay
+    method: PUT
+    path: /api/v1/operation-days/{operationDayId}
+    tag: OperationDays
+  - operation_id: deleteOperationDay
+    method: DELETE
+    path: /api/v1/operation-days/{operationDayId}
+    tag: OperationDays
+  - operation_id: createOperationDayFromTemplate
+    method: POST
+    path: /api/v1/operation-days/templates/{templateId}
+    tag: OperationDays
+  Archives:
+  - operation_id: listArchives
+    method: GET
+    path: /api/v1/archives
+    tag: Archives
+  - operation_id: archiveOperationDay
+    method: POST
+    path: /api/v1/archives/operation-day/{operationDayId}
+    tag: Archives
+  - operation_id: exportFromArchive
+    method: GET
+    path: /api/v1/archives/exportFromArchive
+    tag: Archives
+  - operation_id: getArchivedProcessDetails
+    method: GET
+    path: /api/v1/archives/findDetailedInfosForArchiveProcess/{archiveOperationPeriodId}
+    tag: Archives
+  - operation_id: listArchivedOperationProcesses
+    method: GET
+    path: /api/v1/archives/{archiveId}/operation-periods
+    tag: Archives
+  - operation_id: getArchive
+    method: GET
+    path: /api/v1/archives/{archiveId}
+    tag: Archives
+  Authentication:
+  - operation_id: login
+    method: POST
+    path: /api/auth/login
+    tag: Authentication
+  - operation_id: getCurrentUsername
+    method: GET
+    path: /api/v1/users/username
+    tag: Authentication
+  OperationProcesses:
+  - operation_id: getOperationProcessDetailsByDay
+    method: GET
+    path: /api/v1/period-details/findByOperationId/{operationDayId}
+    tag: OperationProcesses
+  - operation_id: startOperationProcess
+    method: POST
+    path: /api/v1/operation-period/start/{operationPeriodId}
+    tag: OperationProcesses
+  - operation_id: getOperationProcessParameters
+    method: GET
+    path: /api/v1/operation-period/period/{operationPeriodId}/parameters
+    tag: OperationProcesses
+  - operation_id: updateOperationProcessParameters
+    method: PUT
+    path: /api/v1/operation-period/{operationPeriodId}/updateParameters
+    tag: OperationProcesses
+  - operation_id: addProcessToOperationDay
+    method: POST
+    path: /api/v1/operation-period/add-process/{operationDayId}/{periodId}
+    tag: OperationProcesses
+  Monitoring:
+  - operation_id: getXohksCalculation
+    method: GET
+    path: /api/v1/monitoring-menus/xohksCalculation
+    tag: Monitoring
+  - operation_id: getSuccessfulXohksPayments
+    method: GET
+    path: /api/v1/monitoring-menus/successXOHKS
+    tag: Monitoring
+  - operation_id: getStatusAndPrice
+    method: GET
+    path: /api/v1/monitoring-menus/statusAndPrice
+    tag: Monitoring
+  - operation_id: getMonitoringProcessDetails
+    method: GET
+    path: /api/v1/monitoring-menus/findMonitoringInfos/{operationPeriodId}
+    tag: Monitoring
+  - operation_id: getFailedXohksFiles
+    method: GET
+    path: /api/v1/monitoring-menus/failedXOHKS
+    tag: Monitoring
+  - operation_id: exportFromOperationDay
+    method: GET
+    path: /api/v1/monitoring-menus/exportFromOperationDay
+    tag: Monitoring
+  - operation_id: getMtFileMonitoring
+    method: GET
+    path: /api/v1/monitoring-menus/MtFileMonitoring
+    tag: Monitoring
+documented_response_semantics:
+  common_codes:
+  - '200'
+  - '400'
+  - '401'
+  special_codes:
+  - operation_id: listTemplates
+    code: '404'
+    basis_ru: 404 явно приведен только в детальном разделе 2.1.
+  error_body_schema: unknown
+  export_response_media_type: unknown
+  notes_ru: 400 описан как ошибочный ответ, 401 как ошибка аутентификации. Унифицированная оболочка ошибки, семантика 
+    403/5xx и повторных попыток не документированы.
+source_conflicts_and_gaps:
+- topic: Путь получения списка шаблонов
+  reconstruction_choice: GET /api/v1/templates
+  contradiction_ref: CONTR-BDA-001
+- topic: Путь получения процессов операционного дня
+  reconstruction_choice: GET /api/v1/period-details/findByOperationId/{operationDayId}
+  contradiction_ref: CONTR-BDA-002
+- topic: 'Структура модели Parameter: оболочка и дочерний элемент'
+  reconstruction_choice: Разделение на ParameterValue и ParameterSet
+  contradiction_ref: CONTR-BDA-003
+- topic: Имена и типы полей OperationPeriod
+  reconstruction_choice: Имена полей из JSON-примеров; operationDayName как строка/дата
+  contradiction_ref: CONTR-BDA-004
+- topic: Для Parameter.days не документирована колонка БД
+  reconstruction_choice: Поле API сохранено; физическое отображение остается UNKNOWN
+  contradiction_ref: CONTR-BDA-005
+- topic: Тела изменяющих запросов
+  status: documentation-gap
+- topic: Расположение параметров экспорта и тип содержимого
+  status: documentation-gap
+- topic: Тела ответов с ошибками
+  status: documentation-gap
+- topic: Точный способ передачи JWT и его жизненный цикл
+  status: unknown
+  question: Q-BDA-003
+validation_targets:
+- Разбор YAML OpenAPI
+- 39 уникальных значений operationId
+- Все параметры шаблонов путей объявлены
+- Все внутренние ссылки $ref разрешаются
+- Чувствительные значения из примеров источника отсутствуют
+- Межслойные связи не требуют, чтобы каждый workflow доходил до физической таблицы

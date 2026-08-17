@@ -2,23 +2,24 @@ terms:
 - id: TERM-GPP-001
   term: GPP
   name_ru: Государственный платежный портал / Hökumət Ödəniş Portalı (HÖP)
-  definition_ru: Централизованный платежный портал/инфраструктура, созданный для сбора бюджетных и массовых платежей через
-    единую платформу.
+  definition_ru: Централизованный платежный портал/инфраструктура, созданный для сбора бюджетных и массовых платежей 
+    через единую платформу.
   sources:
   - SRC-PUB-001
   - SRC-PUB-002
 - id: TERM-GPP-002
   term: CISMS
   name_ru: Централизованная информационная система массовых платежей
-  definition_ru: Предшествующая инфраструктура массовых платежей, запущенная CBA 11.07.2008; GPP был запущен в 2012 году с
-    использованием ее инфраструктурных возможностей.
+  definition_ru: Предшествующая инфраструктура массовых платежей, запущенная CBA 11.07.2008; GPP был запущен в 2012 году
+    с использованием ее инфраструктурных возможностей.
   sources:
   - SRC-PUB-002
 - id: TERM-GPP-003
   term: ASMP
   name_ru: Автоматизированная система массовых платежей
-  definition_ru: Термин, используемый SINAM для решения/кейса массовых платежей, связанного на странице поставщика с Development
-    of the Government Payment Portal (GPP). Эквивалентность ASMP и CISMS как системных имен пока не считается подтвержденной.
+  definition_ru: Термин, используемый SINAM для решения/кейса массовых платежей, связанного на странице поставщика с 
+    Development of the Government Payment Portal (GPP). Эквивалентность ASMP и CISMS как системных имен пока не 
+    считается подтвержденной.
   sources:
   - SRC-PUB-004
 - id: TERM-GPP-004
@@ -31,25 +32,25 @@ terms:
 - id: TERM-GPP-005
   term: KPM
   name_ru: Карточный процессинговый центр / Kart Prossesinq Mərkəzi
-  definition_ru: Card processing center; в спецификации относится к participant organizations и выполняет authorization card
-    operations.
+  definition_ru: Card processing center; в спецификации относится к participant organizations и выполняет authorization 
+    card operations.
   sources:
   - SRC-FS-001
   - SRC-FS-002
 - id: TERM-GPP-006
   term: PSP
   name_ru: Поставщик платежных услуг
-  definition_ru: В контексте спецификации - банки, почта, card processing centers и другие payment organizations, электронные
-    каналы которых интегрируются с GPP через PaymentService.
+  definition_ru: В контексте спецификации - банки, почта, card processing centers и другие payment organizations, 
+    электронные каналы которых интегрируются с GPP через PaymentService.
   sources:
   - SRC-FS-001
   - SRC-FS-002
 - id: TERM-GPP-007
   term: XÖHKS
   name_ru: Система расчетов и клиринга по мелким платежам / Xırda Ödənişlər üzrə Hesablaşma Klirinq Sistemi (XÖHKS)
-  definition_ru: Внешняя расчетная/клиринговая система. Нормативный source 2015 года раскрывает аббревиатуру как Xırda Ödənişlər
-    üzrə Hesablaşma Klirinq Sistemi и связывает ее с next-business-day settlement; functional specification 2023 года связывает
-    XÖHKS с LVPCSS и передачей MT150/152 files.
+  definition_ru: Внешняя расчетная/клиринговая система. Нормативный source 2015 года раскрывает аббревиатуру как Xırda 
+    Ödənişlər üzrə Hesablaşma Klirinq Sistemi и связывает ее с next-business-day settlement; functional specification 
+    2023 года связывает XÖHKS с LVPCSS и передачей MT150/152 files.
   sources:
   - SRC-OPS-001
   - SRC-FS-001
@@ -64,10 +65,10 @@ terms:
 - id: TERM-GPP-009
   term: IAMAS
   name_ru: IAMAS / İAMAS
-  definition_ru: Внешняя по отношению к GPP система идентификационных данных. Азербайджанская версия публичной страницы CBA
-    раскрывает ее как İdarələrarası Avtomatlaşdırılmış Məlumat Axtarış Sistemi Министерства внутренних дел; functional specification
-    использует IAMAS как Source для identification и как источник данных перед последующим debt lookup. Точный interface contract
-    и current organizational ownership не подтверждены.
+  definition_ru: Внешняя по отношению к GPP система идентификационных данных. Азербайджанская версия публичной страницы 
+    CBA раскрывает ее как İdarələrarası Avtomatlaşdırılmış Məlumat Axtarış Sistemi Министерства внутренних дел; 
+    functional specification использует IAMAS как Source для identification и как источник данных перед последующим debt
+    lookup. Точный interface contract и current organizational ownership не подтверждены.
   sources:
   - SRC-PUB-001
   - SRC-FS-001
@@ -75,10 +76,10 @@ terms:
 - id: TERM-GPP-010
   term: AVIS
   name_ru: AVIS / AVİS
-  definition_ru: Внешняя по отношению к GPP система идентификационных данных. Азербайджанская версия публичной страницы CBA
-    раскрывает ее как Avtomatlaşdırılmış Vergi İnformasiya Sistemi и связывает с налоговым ведомством; functional specification
-    использует AVIS как Source для identification и как источник данных перед последующим debt lookup. Точный interface contract
-    и current organizational ownership не подтверждены.
+  definition_ru: Внешняя по отношению к GPP система идентификационных данных. Азербайджанская версия публичной страницы 
+    CBA раскрывает ее как Avtomatlaşdırılmış Vergi İnformasiya Sistemi и связывает с налоговым ведомством; functional 
+    specification использует AVIS как Source для identification и как источник данных перед последующим debt lookup. 
+    Точный interface contract и current organizational ownership не подтверждены.
   sources:
   - SRC-PUB-001
   - SRC-FS-001
@@ -86,65 +87,68 @@ terms:
 - id: TERM-GPP-011
   term: Əməliyyat günü
   name_ru: Операционный день GPP
-  definition_ru: В правилах 2015 года - период 00:00-24:00, в течение которого платежи регистрируются в GPP и выполняется
-    operational data exchange; последующие reporting/settlement activities привязаны к следующему рабочему дню. Текущая семантика
-    операционного дня не подтверждена.
+  definition_ru: В правилах 2015 года - период 00:00-24:00, в течение которого платежи регистрируются в GPP и 
+    выполняется operational data exchange; последующие reporting/settlement activities привязаны к следующему рабочему 
+    дню. Текущая семантика операционного дня не подтверждена.
   sources:
   - SRC-OPS-001
 - id: TERM-GPP-012
   term: Əsas mərkəz
   name_ru: Основной центр
-  definition_ru: Исторический термин правил 2015 года для здания, где размещались основные servers и другое оборудование GPP.
+  definition_ru: Исторический термин правил 2015 года для здания, где размещались основные servers и другое оборудование
+    GPP.
   sources:
   - SRC-OPS-001
 - id: TERM-GPP-013
   term: Ehtiyat mərkəz
   name_ru: Резервный центр
-  definition_ru: Исторический термин правил 2015 года для здания, где размещались резервные servers и другое оборудование
-    GPP.
+  definition_ru: Исторический термин правил 2015 года для здания, где размещались резервные servers и другое 
+    оборудование GPP.
   sources:
   - SRC-OPS-001
 - id: TERM-GPP-014
   term: İştirakçı
   name_ru: Участник GPP
-  definition_ru: В нормативной модели 2015 года - организация, являющаяся стороной коллективного соглашения о проведении операций
-    через GPP. Текущая юридическая конструкция участия отдельно не подтверждена.
+  definition_ru: В нормативной модели 2015 года - организация, являющаяся стороной коллективного соглашения о проведении
+    операций через GPP. Текущая юридическая конструкция участия отдельно не подтверждена.
   sources:
   - SRC-OPS-001
 - id: TERM-GPP-015
   term: XT
   name_ru: Сервисная организация / Xidmət Təşkilatı
-  definition_ru: Интегрированная с HÖP организация, в пользу которой собираются платежи. В отдельных англоязычных identifiers
-    и headings того же integration contract используется сокращение SC (Service Company) для той же роли участника.
+  definition_ru: Интегрированная с HÖP организация, в пользу которой собираются платежи. В отдельных англоязычных 
+    identifiers и headings того же integration contract используется сокращение SC (Service Company) для той же роли 
+    участника.
   sources:
   - SRC-INT-001
 - id: TERM-GPP-016
   term: ÖXT
   name_ru: Поставщик платежных услуг / Ödəniş Xidməti Təchizatçısı
-  definition_ru: Поставщик платежных услуг, чьи payment channels могут использовать инфраструктуру HÖP для приема платежей;
-    в assessment сопоставляется с более ранним термином PSP без утверждения полной юридической эквивалентности терминов вне
-    контекста source.
+  definition_ru: Поставщик платежных услуг, чьи payment channels могут использовать инфраструктуру HÖP для приема 
+    платежей; в assessment сопоставляется с более ранним термином PSP без утверждения полной юридической эквивалентности
+    терминов вне контекста source.
   sources:
   - SRC-INT-001
 - id: TERM-GPP-017
   term: CF Transaction DB
   name_ru: Транзакционная база данных CF
-  definition_ru: В physical database source 2015 года - основная часть базы GPP для проведения платежных операций и синхронизации
-    данных в отчетный контур. Текущая production applicability не подтверждена.
+  definition_ru: В physical database source 2015 года - основная часть базы GPP для проведения платежных операций и 
+    синхронизации данных в отчетный контур. Текущая production applicability не подтверждена.
   sources:
   - SRC-DB-001
 - id: TERM-GPP-018
   term: APUS Reporting DB
   name_ru: Отчетная база данных APUS
-  definition_ru: В physical database source 2015 года - отдельная область/instance базы GPP для отчетности, документированная
-    отдельно от CF Transaction DB. Текущая production applicability не подтверждена.
+  definition_ru: В physical database source 2015 года - отдельная область/instance базы GPP для отчетности, 
+    документированная отдельно от CF Transaction DB. Текущая production applicability не подтверждена.
   sources:
   - SRC-DB-001
 - id: TERM-GPP-019
   term: BDA
   name_ru: Модуль управления операционным днем
-  definition_ru: Assessment label для модуля `Əməliyyat gününün idarə olunması`, функционально охватывающего Processes, Templates,
-    Operational days, Archive и Monitoring. Acronym BDA встречается в source reference к Process-Commands.txt; точная техническая
-    expansion/сервисная граница должна подтверждаться технической specification.
+  definition_ru: Рабочее обозначение assessment для модуля `Əməliyyat gününün idarə olunması`, функционально 
+    охватывающего процессы, шаблоны, операционные дни, архив и мониторинг. Сокращение BDA встречается в ссылке источника
+    на Process-Commands.txt; точная расшифровка сокращения и сервисная граница должны подтверждаться технической 
+    спецификацией.
   sources:
   - SRC-BDA-001

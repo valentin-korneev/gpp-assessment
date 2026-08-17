@@ -1,154 +1,616 @@
 model:
-  name: BDA cross-layer AS-IS model
+  name: Межслойная AS-IS модель BDA
   component: CMP-GPP-012
-  status: functional-layer-established
+  status: functional-and-technical-layers-established-with-gaps
   sources:
-    - SRC-BDA-001
+  - SRC-BDA-001
+  - SRC-BDA-002
   temporal_scope:
-    source_date: '2025-03-10'
+    latest_source_date: '2025-04-02'
     currentness: current-at-source-date
-
+  normalized_contract: NORM-REST-001
+  physical_database_model: DB-BDA-001
 functional_layer:
   actors:
-    - key: central-bank-administrator
-      name_ru: Администратор Центрального банка
-      type: human
-      evidence:
-        - EV-BDA-001
-      responsibilities_ru:
-        - Вход в BDA administrative UI.
-        - Управление process definitions и templates.
-        - Создание и lifecycle management operational day.
-        - Запуск и контроль day processes.
-        - Просмотр archive и monitoring views.
+  - key: central-bank-administrator
+    name_ru: Администратор Центрального банка
+    type: human
+    evidence:
+    - EV-BDA-001
+    - EV-BDA-015
+    responsibilities_ru:
+    - Вход в административный интерфейс BDA.
+    - Управление определениями процессов и шаблонами.
+    - Создание и управление жизненным циклом операционного дня.
+    - Запуск и контроль процессов операционного дня.
+    - Просмотр архива и мониторинга.
   functional_surfaces:
-    - Processes
-    - Templates
-    - Operational days
-    - Archive
-    - Monitoring
+  - Процессы
+  - Шаблоны
+  - Операционные дни
+  - Архив
+  - Мониторинг
   capabilities:
-    - CAP-ASIS-014
-    - CAP-ASIS-015
-    - CAP-ASIS-016
-    - CAP-ASIS-017
-    - CAP-ASIS-018
-    - CAP-ASIS-019
+  - CAP-ASIS-014
+  - CAP-ASIS-015
+  - CAP-ASIS-016
+  - CAP-ASIS-017
+  - CAP-ASIS-018
+  - CAP-ASIS-019
+  - CAP-ASIS-020
   entities:
-    - DATA-GPP-010
-    - DATA-GPP-011
-    - DATA-GPP-012
-    - DATA-GPP-013
-    - DATA-GPP-014
-    - DATA-GPP-015
-
+  - DATA-GPP-010
+  - DATA-GPP-011
+  - DATA-GPP-012
+  - DATA-GPP-013
+  - DATA-GPP-014
+  - DATA-GPP-015
   configuration_chain:
-    - step: 1
-      object: DATA-GPP-010
-      action_ru: Создать/изменить process definition с type, command и parameters.
-      evidence: [EV-BDA-002]
-    - step: 2
-      object: DATA-GPP-012
-      action_ru: Собрать template из выбранных processes и при необходимости переопределить parameter values.
-      evidence: [EV-BDA-004]
-    - step: 3
-      object: DATA-GPP-013
-      action_ru: Создать operational day по имени и выбранному template.
-      evidence: [EV-BDA-005]
-    - step: 4
-      object: DATA-GPP-014
-      action_ru: Настроить day-specific parameter values и запускать processes с execution trace.
-      evidence: [EV-BDA-006]
-
+  - step: 1
+    object: DATA-GPP-010
+    action_ru: Создать/изменить определение процесса с типом, командой и параметрами.
+    evidence:
+    - EV-BDA-002
+    - EV-BDA-018
+  - step: 2
+    object: DATA-GPP-012
+    action_ru: Собрать шаблон из выбранных процессов и переопределить значения параметров.
+    evidence:
+    - EV-BDA-004
+    - EV-BDA-017
+    - EV-BDA-018
+  - step: 3
+    object: DATA-GPP-013
+    action_ru: Создать операционный день из выбранного шаблона.
+    evidence:
+    - EV-BDA-005
+    - EV-BDA-014
+  - step: 4
+    object: DATA-GPP-014
+    action_ru: Настроить параметры экземпляра процесса, добавить/упорядочить процессы и запускать выполнение с фиксацией
+      трассы.
+    evidence:
+    - EV-BDA-006
+    - EV-BDA-016
+    - EV-BDA-017
   operational_day_workflow:
     states:
-      - id: current
-        source_literal: Cari
-        evidence: [EV-BDA-007]
-      - id: closed
-        source_literal: Bağlanmış
-        evidence: [EV-BDA-007]
-      - id: archived
-        source_literal: Arxiv
-        evidence: [EV-BDA-005, EV-BDA-008]
-    actions:
-      - create-from-template
-      - open-process-list
-      - rename
-      - delete
-      - close
-      - archive
-    archive_precondition_ru: Все processes operational day должны быть завершены.
-    archive_precondition_evidence: [EV-BDA-005]
+    - id: current
+      source_literal: Cari
+      technical_value: CURRENT
+      mapping_assertion: inference
+      evidence:
+      - EV-BDA-007
+      - EV-BDA-020
+    - id: closed
+      source_literal: Bağlanmış
+      technical_value: CLOSED
+      mapping_assertion: inference
+      evidence:
+      - EV-BDA-007
+      - EV-BDA-020
+    - id: archived
+      source_literal: Arxiv
+      technical_representation: схема BDA_ARCHIVE
+      mapping_assertion: supported
+      evidence:
+      - EV-BDA-008
+      - EV-BDA-019
+    actions_ru:
+    - Создать из шаблона
+    - Открыть список процессов
+    - Переименовать/обновить
+    - Удалить
+    - Закрыть
+    - Архивировать
+    archive_precondition_ru: Все процессы операционного дня должны быть завершены.
+    archive_precondition_evidence:
+    - EV-BDA-005
     process_execution:
       editable_parameter_values: true
       start_action: true
+      add_process_action: true
+      process_order_persisted: true
       trace_fields:
-        - start_time
-        - executor
-        - status
-        - end_time
+      - start_time
+      - executor
+      - status
+      - end_time
       statuses:
-        - id: running
-          source_literal: İcradadır
-        - id: completed
-          source_literal: Tamamlanıb
-      xml_artifact_download: true
-      evidence: [EV-BDA-006]
-
+      - ui_literal: İcradadır
+        technical_value: IN_PROGRESS
+        assertion: inference
+      - ui_literal: Tamamlanıb
+        technical_value: DONE
+        assertion: inference
+      - ui_literal:
+        technical_value: HAS_ERROR
+        assertion: fact-technical-only
+      start_semantics: asynchronous-response-message
+      xml_artifact_download_or_export: true
+      evidence:
+      - EV-BDA-006
+      - EV-BDA-016
+      - EV-BDA-020
   archive_scenarios:
-    scenarios:
-      - Open archived operational day and review contained processes.
-      - Open process details in archive.
-      - Download process XML artifact from archive details.
-    evidence: [EV-BDA-008]
-
+    scenarios_ru:
+    - Открыть архивированный операционный день и просмотреть его процессы.
+    - Открыть детальную информацию архивированного процесса.
+    - Экспортировать артефакт/файл архивированного процесса.
+    evidence:
+    - EV-BDA-008
+    - EV-BDA-014
+    - EV-BDA-019
   monitoring_scenarios:
-    - id: xohks-files
-      name_ru: Мониторинг файлов XÖHKS
-      evidence: [EV-BDA-009, EV-BDA-010]
-    - id: xohks-successful-payments
-      name_ru: Мониторинг успешных платежей XÖHKS
-      evidence: [EV-BDA-009, EV-BDA-010]
-    - id: previous-current-day-payments
-      name_ru: Мониторинг платежей между предыдущим и текущим операционными днями
-      evidence: [EV-BDA-009, EV-BDA-010]
-    - id: unsent-files
-      name_ru: Мониторинг файлов, которые не удалось отправить
-      evidence: [EV-BDA-009, EV-BDA-010]
-    - id: mt-files
-      name_ru: Мониторинг MT-файлов
-      evidence: [EV-BDA-009, EV-BDA-010]
-
+  - id: xohks-files
+    name_ru: Мониторинг файлов XÖHKS
+  - id: xohks-successful-payments
+    name_ru: Мониторинг успешных платежей XÖHKS
+  - id: previous-current-day-payments
+    name_ru: Мониторинг платежей между предыдущим и текущим операционными днями
+  - id: unsent-files
+    name_ru: Мониторинг файлов, которые не удалось отправить
+  - id: mt-files
+    name_ru: Мониторинг MT-файлов
   functional_boundaries:
-    inside_confirmed:
-      - Administrative process-definition and parameter management.
-      - Template composition and parameter overrides.
-      - Operational-day lifecycle control.
-      - Day-process launch and execution-state visibility.
-      - Archive browsing and XML artifact retrieval.
-      - Operational monitoring views for XÖHKS/payment/file/MT concerns.
-    outside_or_not_proven:
-      - item_ru: Ownership of payment processing and settlement execution.
-        basis: INF-ARCH-008
-      - item_ru: Ownership of XÖHKS integration/file transport runtime.
-        basis: INF-ARCH-008
-      - item_ru: Exact process execution engine and command runner.
-        basis: Q-BDA-001
-      - item_ru: Persistence/storage ownership for BDA objects and XML artifacts.
-        basis: Q-BDA-001
-      - item_ru: Exact relationship to AdminConsole.
-        basis: Q-BDA-001
-      - item_ru: Complete authoritative process/command catalog.
-        basis: Q-BDA-002
-
+    inside_confirmed_ru:
+    - Управление определениями процессов и параметрами.
+    - Композиция шаблонов и переопределение параметров.
+    - Управление жизненным циклом операционного дня.
+    - Запуск процессов дня и наблюдение за состоянием выполнения.
+    - Просмотр архива и экспорт артефактов процессов.
+    - Операционный мониторинг XÖHKS, платежей, файлов и MT.
+    not_proven_ru:
+    - Владение BDA механизмом исполнения обработки и расчетов платежей.
+    - Владение BDA механизмом транспорта XÖHKS/файлов.
+    - Точное размещение command-runner/механизма исполнения команд.
+    - Физическое хранение XML-артефактов.
+    - Точное отношение к AdminConsole.
+    - Полный авторитетный каталог процессов/команд.
 technical_layer:
-  status: deferred-until-rest-specification
-  source_ids: []
-  interfaces: []
-  api_operations: []
-  persistence_mappings: []
-  execution_service_mappings: []
-  note_ru: Техническая сторона намеренно не реконструируется из UI. Следующая REST specification должна добавить endpoints/operations/schemas и explicit links к functional actors/actions/entities.
-
-cross_layer_links: []
+  status: established-partial
+  source_ids:
+  - SRC-BDA-002
+  interface: IF-GPP-015
+  normalized_contract: NORM-REST-001
+  rest_operation_count: 39
+  rest_groups:
+    Templates:
+    - operation_id: listTemplates
+      method: GET
+      path: /api/v1/templates
+    - operation_id: createTemplate
+      method: POST
+      path: /api/v1/templates
+    - operation_id: getTemplateParametersByPeriod
+      method: GET
+      path: /api/v1/templates/period/{periodId}/parameters
+    - operation_id: getTemplateParameters
+      method: GET
+      path: /api/v1/templates/{templateId}/parameters
+    - operation_id: getTemplate
+      method: GET
+      path: /api/v1/templates/{templateId}
+    - operation_id: updateTemplate
+      method: PUT
+      path: /api/v1/templates/{templateId}
+    - operation_id: deleteTemplate
+      method: DELETE
+      path: /api/v1/templates/{templateId}
+    Processes:
+    - operation_id: listProcesses
+      method: GET
+      path: /api/v1/periods
+    - operation_id: createProcess
+      method: POST
+      path: /api/v1/periods
+    - operation_id: listProcessesByOperationDay
+      method: GET
+      path: /api/v1/periods/operation-day/{operationDayId}
+    - operation_id: getProcessParameters
+      method: GET
+      path: /api/v1/periods/{periodId}/parameters
+    - operation_id: updateProcess
+      method: PUT
+      path: /api/v1/periods/{id}
+    - operation_id: deleteProcess
+      method: DELETE
+      path: /api/v1/periods/{periodId}
+    OperationDays:
+    - operation_id: listOperationDays
+      method: GET
+      path: /api/v1/operation-days
+    - operation_id: closeOperationDay
+      method: PUT
+      path: /api/v1/operation-days/{operationDayId}/close
+    - operation_id: getOperationDay
+      method: GET
+      path: /api/v1/operation-days/{operationDayId}
+    - operation_id: updateOperationDay
+      method: PUT
+      path: /api/v1/operation-days/{operationDayId}
+    - operation_id: deleteOperationDay
+      method: DELETE
+      path: /api/v1/operation-days/{operationDayId}
+    - operation_id: createOperationDayFromTemplate
+      method: POST
+      path: /api/v1/operation-days/templates/{templateId}
+    Archives:
+    - operation_id: listArchives
+      method: GET
+      path: /api/v1/archives
+    - operation_id: archiveOperationDay
+      method: POST
+      path: /api/v1/archives/operation-day/{operationDayId}
+    - operation_id: exportFromArchive
+      method: GET
+      path: /api/v1/archives/exportFromArchive
+    - operation_id: getArchivedProcessDetails
+      method: GET
+      path: /api/v1/archives/findDetailedInfosForArchiveProcess/{archiveOperationPeriodId}
+    - operation_id: listArchivedOperationProcesses
+      method: GET
+      path: /api/v1/archives/{archiveId}/operation-periods
+    - operation_id: getArchive
+      method: GET
+      path: /api/v1/archives/{archiveId}
+    Authentication:
+    - operation_id: login
+      method: POST
+      path: /api/auth/login
+    - operation_id: getCurrentUsername
+      method: GET
+      path: /api/v1/users/username
+    OperationProcesses:
+    - operation_id: getOperationProcessDetailsByDay
+      method: GET
+      path: /api/v1/period-details/findByOperationId/{operationDayId}
+    - operation_id: startOperationProcess
+      method: POST
+      path: /api/v1/operation-period/start/{operationPeriodId}
+    - operation_id: getOperationProcessParameters
+      method: GET
+      path: /api/v1/operation-period/period/{operationPeriodId}/parameters
+    - operation_id: updateOperationProcessParameters
+      method: PUT
+      path: /api/v1/operation-period/{operationPeriodId}/updateParameters
+    - operation_id: addProcessToOperationDay
+      method: POST
+      path: /api/v1/operation-period/add-process/{operationDayId}/{periodId}
+    Monitoring:
+    - operation_id: getXohksCalculation
+      method: GET
+      path: /api/v1/monitoring-menus/xohksCalculation
+    - operation_id: getSuccessfulXohksPayments
+      method: GET
+      path: /api/v1/monitoring-menus/successXOHKS
+    - operation_id: getStatusAndPrice
+      method: GET
+      path: /api/v1/monitoring-menus/statusAndPrice
+    - operation_id: getMonitoringProcessDetails
+      method: GET
+      path: /api/v1/monitoring-menus/findMonitoringInfos/{operationPeriodId}
+    - operation_id: getFailedXohksFiles
+      method: GET
+      path: /api/v1/monitoring-menus/failedXOHKS
+    - operation_id: exportFromOperationDay
+      method: GET
+      path: /api/v1/monitoring-menus/exportFromOperationDay
+    - operation_id: getMtFileMonitoring
+      method: GET
+      path: /api/v1/monitoring-menus/MtFileMonitoring
+  api_models:
+    source_named:
+    - Template
+    - Period
+    - Parameter
+    - OperationDay
+    - Archive
+    - ArchiveOperationPeriod
+    - Login
+    - Authority
+    - OperationPeriod
+    - XohksCalculation
+    - SuccessXohks
+    - StatusAndPrice
+    - FindMonitoringInfos
+    - FailedXohks
+    - MtFileMonitoring
+    reconstructed_helpers:
+    - ParameterValue
+    - ParameterSet
+    - LoginRequest
+    - Username
+    - StartProcessResult
+    registry: 02-as-is/normalized/rest/bda-api/api-models.yaml
+  authentication:
+    documented:
+    - POST /api/auth/login принимает username/password.
+    - Успешный вход возвращает JWT и authorities.
+    - BDA.USERS.PASSWORD должен храниться в bcrypt-хэшированном виде.
+    - Разделы API обычно указывают код 401 как ошибку аутентификации.
+    inferred:
+    - Передача HTTP Bearer в реконструированном OpenAPI.
+    unknown:
+    - Точный заголовок/схема Authorization.
+    - Управление ключами и подписью.
+    - Срок действия, обновление, отзыв и выход.
+    - Интеграция MFA/SSO.
+    question: Q-BDA-003
+  error_semantics:
+    documented:
+    - 200 успешный ответ
+    - 400 ошибочный запрос
+    - 401 ошибка аутентификации
+    - 404 не найдено только в детальном разделе 2.1
+    unknown:
+    - Схема тела ответа с ошибкой
+    - Поведение для 403/5xx
+    - Семантика повторных попыток административного API
+    evidence:
+    - EV-BDA-014
+    - EV-BDA-015
+    - EV-BDA-022
+  physical_database:
+    model: DB-BDA-001
+    schemas:
+    - BDA
+    - BDA_ARCHIVE
+    tables:
+    - DB-BDA-TBL-001
+    - DB-BDA-TBL-002
+    - DB-BDA-TBL-003
+    - DB-BDA-TBL-004
+    - DB-BDA-TBL-005
+    - DB-BDA-TBL-006
+    - DB-BDA-TBL-007
+    - DB-BDA-TBL-008
+    - DB-BDA-TBL-009
+    - DB-BDA-TBL-010
+    - DB-BDA-TBL-011
+    physical_pk_fk_constraints: not-documented
+    logical_relationships_registry: 02-as-is/normalized/data/logical-foreign-keys.yaml
+  execution_service_mapping:
+    start_rest_operation: startOperationProcess
+    state_table: DB-BDA-TBL-002
+    process_definition_command_column: DB-BDA-TBL-004.PROCESS_RUN_COMMAND
+    command_runner_runtime: unknown
+    notes_ru: Документированы REST-запуск, сохраненное состояние процесса и команда запуска, но источник не 
+      идентифицирует компонент или процесс, который фактически исполняет команду.
+  monitoring_data_providers:
+    api_models:
+    - XohksCalculation
+    - SuccessXohks
+    - StatusAndPrice
+    - FindMonitoringInfos
+    - FailedXohks
+    - MtFileMonitoring
+    physical_bda_mapping: unknown-documentation-gap
+    inference: INF-ARCH-012
+cross_layer_links:
+- id: BDA-XL-001
+  workflow_ru: Создать/изменить/удалить определение процесса
+  capability: CAP-ASIS-014
+  rest_operations:
+  - operation_id: listProcesses
+    method: GET
+    path: /api/v1/periods
+  - operation_id: createProcess
+    method: POST
+    path: /api/v1/periods
+  - operation_id: updateProcess
+    method: PUT
+    path: /api/v1/periods/{id}
+  - operation_id: deleteProcess
+    method: DELETE
+    path: /api/v1/periods/{periodId}
+  - operation_id: getProcessParameters
+    method: GET
+    path: /api/v1/periods/{periodId}/parameters
+  api_models:
+  - Period
+  - ParameterSet
+  physical_db_objects:
+  - DB-BDA-TBL-004
+  - DB-BDA-TBL-003
+  status: traceable
+  notes_ru: Для Parameter.days не документирована колонка БД.
+- id: BDA-XL-002
+  workflow_ru: Создать и настроить шаблон процессов
+  capability: CAP-ASIS-015
+  rest_operations:
+  - operation_id: listTemplates
+    method: GET
+    path: /api/v1/templates
+  - operation_id: getTemplate
+    method: GET
+    path: /api/v1/templates/{templateId}
+  - operation_id: createTemplate
+    method: POST
+    path: /api/v1/templates
+  - operation_id: updateTemplate
+    method: PUT
+    path: /api/v1/templates/{templateId}
+  - operation_id: deleteTemplate
+    method: DELETE
+    path: /api/v1/templates/{templateId}
+  - operation_id: getTemplateParametersByPeriod
+    method: GET
+    path: /api/v1/templates/period/{periodId}/parameters
+  - operation_id: getTemplateParameters
+    method: GET
+    path: /api/v1/templates/{templateId}/parameters
+  api_models:
+  - Template
+  - Period
+  - ParameterSet
+  physical_db_objects:
+  - DB-BDA-TBL-005
+  - DB-BDA-TBL-006
+  - DB-BDA-TBL-004
+  - DB-BDA-TBL-003
+  status: traceable-with-source-conflict
+  contradictions:
+  - CONTR-BDA-001
+  - CONTR-BDA-003
+- id: BDA-XL-003
+  workflow_ru: Создать и управлять операционным днем
+  capability: CAP-ASIS-016
+  rest_operations:
+  - operation_id: listOperationDays
+    method: GET
+    path: /api/v1/operation-days
+  - operation_id: getOperationDay
+    method: GET
+    path: /api/v1/operation-days/{operationDayId}
+  - operation_id: createOperationDayFromTemplate
+    method: POST
+    path: /api/v1/operation-days/templates/{templateId}
+  - operation_id: updateOperationDay
+    method: PUT
+    path: /api/v1/operation-days/{operationDayId}
+  - operation_id: deleteOperationDay
+    method: DELETE
+    path: /api/v1/operation-days/{operationDayId}
+  - operation_id: closeOperationDay
+    method: PUT
+    path: /api/v1/operation-days/{operationDayId}/close
+  api_models:
+  - OperationDay
+  physical_db_objects:
+  - DB-BDA-TBL-001
+  status: traceable
+  notes_ru: Создание из шаблона связывает workflow с шаблоном, но точная транзакционная семантика и правила копирования 
+    не описаны.
+- id: BDA-XL-004
+  workflow_ru: Управлять и запускать процессы конкретного операционного дня
+  capability: CAP-ASIS-017
+  rest_operations:
+  - operation_id: getOperationProcessDetailsByDay
+    method: GET
+    path: /api/v1/period-details/findByOperationId/{operationDayId}
+  - operation_id: startOperationProcess
+    method: POST
+    path: /api/v1/operation-period/start/{operationPeriodId}
+  - operation_id: getOperationProcessParameters
+    method: GET
+    path: /api/v1/operation-period/period/{operationPeriodId}/parameters
+  - operation_id: updateOperationProcessParameters
+    method: PUT
+    path: /api/v1/operation-period/{operationPeriodId}/updateParameters
+  - operation_id: addProcessToOperationDay
+    method: POST
+    path: /api/v1/operation-period/add-process/{operationDayId}/{periodId}
+  api_models:
+  - OperationPeriod
+  - ParameterSet
+  - StartProcessResult
+  physical_db_objects:
+  - DB-BDA-TBL-002
+  - DB-BDA-TBL-003
+  - DB-BDA-TBL-004
+  status: traceable-with-source-conflict
+  contradictions:
+  - CONTR-BDA-002
+  - CONTR-BDA-005
+  unknown: command-runner/механизм исполнения команд
+- id: BDA-XL-005
+  workflow_ru: Архивировать день и просматривать/экспортировать архив
+  capability: CAP-ASIS-018
+  rest_operations:
+  - operation_id: listArchives
+    method: GET
+    path: /api/v1/archives
+  - operation_id: archiveOperationDay
+    method: POST
+    path: /api/v1/archives/operation-day/{operationDayId}
+  - operation_id: exportFromArchive
+    method: GET
+    path: /api/v1/archives/exportFromArchive
+  - operation_id: getArchivedProcessDetails
+    method: GET
+    path: /api/v1/archives/findDetailedInfosForArchiveProcess/{archiveOperationPeriodId}
+  - operation_id: listArchivedOperationProcesses
+    method: GET
+    path: /api/v1/archives/{archiveId}/operation-periods
+  - operation_id: getArchive
+    method: GET
+    path: /api/v1/archives/{archiveId}
+  api_models:
+  - Archive
+  - ArchiveOperationPeriod
+  physical_db_objects:
+  - DB-BDA-TBL-010
+  - DB-BDA-TBL-011
+  status: traceable-partial
+  unknown: Физическое хранение/источник экспортируемого XML или артефакта процесса не документированы.
+- id: BDA-XL-006
+  workflow_ru: Просматривать операционный мониторинг
+  capability: CAP-ASIS-019
+  rest_operations:
+  - operation_id: getXohksCalculation
+    method: GET
+    path: /api/v1/monitoring-menus/xohksCalculation
+  - operation_id: getSuccessfulXohksPayments
+    method: GET
+    path: /api/v1/monitoring-menus/successXOHKS
+  - operation_id: getStatusAndPrice
+    method: GET
+    path: /api/v1/monitoring-menus/statusAndPrice
+  - operation_id: getMonitoringProcessDetails
+    method: GET
+    path: /api/v1/monitoring-menus/findMonitoringInfos/{operationPeriodId}
+  - operation_id: getFailedXohksFiles
+    method: GET
+    path: /api/v1/monitoring-menus/failedXOHKS
+  - operation_id: exportFromOperationDay
+    method: GET
+    path: /api/v1/monitoring-menus/exportFromOperationDay
+  - operation_id: getMtFileMonitoring
+    method: GET
+    path: /api/v1/monitoring-menus/MtFileMonitoring
+  api_models:
+  - XohksCalculation
+  - SuccessXohks
+  - StatusAndPrice
+  - FindMonitoringInfos
+  - FailedXohks
+  - MtFileMonitoring
+  physical_db_objects: []
+  physical_mapping_status: unknown-documentation-gap
+  status: traceable-to-api-only
+  notes_ru: Пробел не трактуется как отсутствие хранения; источник просто не связывает ответы мониторинга с физическими 
+    таблицами BDA.
+- id: BDA-XL-007
+  workflow_ru: Войти в BDA и получить текущего пользователя
+  capability: CAP-ASIS-020
+  rest_operations:
+  - operation_id: login
+    method: POST
+    path: /api/auth/login
+  - operation_id: getCurrentUsername
+    method: GET
+    path: /api/v1/users/username
+  api_models:
+  - LoginRequest
+  - Login
+  - Authority
+  - Username
+  physical_db_objects:
+  - DB-BDA-TBL-007
+  - DB-BDA-TBL-008
+  - DB-BDA-TBL-009
+  status: traceable-with-auth-transport-gap
+  question: Q-BDA-003
+validation_summary:
+  full_chain_reached:
+  - BDA-XL-001
+  - BDA-XL-002
+  - BDA-XL-003
+  - BDA-XL-004
+  - BDA-XL-007
+  partial_chain:
+  - BDA-XL-005
+  api_only_physical_unknown:
+  - BDA-XL-006
+  principle_ru: 'Отсутствие физического шага не считается ошибкой автоматически: оно фиксируется как пробел документации/UNKNOWN.'

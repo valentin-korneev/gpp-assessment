@@ -1,0 +1,319 @@
+database_model:
+  id: DB-BDA-001
+  name: Физическая модель базы данных BDA
+  source: SRC-BDA-002
+  temporal_scope:
+    source_date: '2025-04-02'
+    currentness: current-at-source-date
+  status: documented-physical-structure-with-unverified-constraints
+  schemas:
+  - BDA
+  - BDA_ARCHIVE
+  notes_ru: Сохраняются только определения физических таблиц и колонок, явно приведенные в источнике. Уникальность ID в 
+    описании не повышается автоматически до PK; логические ссылки не считаются ограничениями Oracle FK без DDL или 
+    системного каталога.
+tables:
+- id: DB-BDA-TBL-001
+  schema: BDA
+  name: OPERATION_DAY
+  columns:
+  - name: ID
+    type: NUMBER
+    description_ru: Уникальный идентификатор операционного дня.
+  - name: NAME
+    type: DATE
+    description_ru: Имя/дата операционного дня.
+  - name: STATUS
+    type: VARCHAR2
+    description_ru: Статус операционного дня; источник описывает открытое/закрытое состояние.
+  - name: CREATE_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата создания.
+  - name: LAST_MODIFIED_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата последнего изменения.
+- id: DB-BDA-TBL-002
+  schema: BDA
+  name: OPERATION_PROCESS
+  columns:
+  - name: ID
+    type: NUMBER
+    description_ru: Уникальный идентификатор процесса операционного дня.
+  - name: OPERATION_DAY_ID
+    type: NUMBER
+    description_ru: Идентификатор операционного дня.
+  - name: TEMPLATE_NAME
+    type: VARCHAR2
+    description_ru: Имя шаблона.
+  - name: PROCESS_NAME
+    type: VARCHAR2
+    description_ru: Имя процесса.
+  - name: START_TIME
+    type: TIMESTAMP(6)
+    description_ru: Время начала.
+  - name: END_TIME
+    type: TIMESTAMP(6)
+    description_ru: Время завершения.
+  - name: PERIOD_STATUS
+    type: VARCHAR2
+    enum:
+    - DONE
+    - IN_PROGRESS
+    - HAS_ERROR
+    description_ru: Статус выполнения процесса.
+  - name: EXECUTOR
+    type: VARCHAR2
+    description_ru: Имя исполнителя.
+  - name: CREATE_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата создания экземпляра процесса.
+  - name: LAST_MODIFY_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата последнего изменения.
+  - name: PROCESS_TYPE
+    type: VARCHAR2
+    enum: &id001
+    - DAY_PAYMENTS
+    - DAY_PAYMENTS_FOR_PAC
+    - DAY_PAYMENTS_FROM_BANK
+    - MT150
+    - MT152
+    - SERVICE_FEE
+    - PAYMENT_SUMMARY_FOR_BENEFICIARY
+    - RESEND
+    description_ru: Тип процесса.
+  - name: PROCESS_ORDER
+    type: INTEGER
+    description_ru: Порядок процесса в операционном дне.
+  - name: APPLICATION_TYPE
+    type: VARCHAR2
+    description_ru: Источник указывает REST для процессов типа MX и DESKTOP для остальных; точный перечень MX-процессов 
+      не согласован.
+- id: DB-BDA-TBL-003
+  schema: BDA
+  name: PARAMETERS
+  columns:
+  - name: ID
+    type: NUMBER
+    description_ru: Уникальный идентификатор параметра.
+  - name: REFERENCE_ID
+    type: NUMBER
+    description_ru: Полиморфная логическая ссылка на PROCESS/TEMPLATE/OPERATION_DAY в зависимости от TYPE.
+  - name: PARAMETER_NAME
+    type: VARCHAR2
+    description_ru: Имя параметра.
+  - name: PARAMETER_VALUE
+    type: VARCHAR2
+    description_ru: Значение параметра.
+  - name: PARAMETER_TYPE
+    type: VARCHAR2
+    description_ru: Тип параметра.
+  - name: END_TIME
+    type: TIMESTAMP(6)
+    description_ru: Источник описывает поле как время завершения процесса.
+  - name: TYPE
+    type: VARCHAR2
+    enum:
+    - PERIOD
+    - TEMPLATE
+    - OPERATION_DAY
+    description_ru: Контекст создания/изменения параметра.
+  documented_gap_ru: Модель API содержит поле days, но физическая колонка DAYS в определении таблицы источника 
+    отсутствует.
+- id: DB-BDA-TBL-004
+  schema: BDA
+  name: PROCESS
+  columns:
+  - name: ID
+    type: NUMBER
+    description_ru: Уникальный идентификатор процесса.
+  - name: NAME
+    type: VARCHAR2
+    description_ru: Имя процесса.
+  - name: PROCESS_RUN_COMMAND
+    type: VARCHAR2
+    description_ru: Команда запуска процесса. Значения из источника не копируются из-за наличия учетных данных и 
+      внутренних адресов.
+  - name: TYPE
+    type: VARCHAR2
+    enum: *id001
+    description_ru: Тип процесса.
+  - name: CREATE_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата создания.
+  - name: LAST_MODIFIED_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата изменения.
+  - name: APPLICATION_TYPE
+    type: VARCHAR2
+    description_ru: Источник указывает REST для процессов типа MX и DESKTOP для остальных.
+- id: DB-BDA-TBL-005
+  schema: BDA
+  name: TEMPLATE
+  columns:
+  - name: ID
+    type: NUMBER
+    description_ru: Уникальный идентификатор шаблона.
+  - name: NAME
+    type: VARCHAR2
+    description_ru: Имя шаблона.
+  - name: CREATE_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата создания.
+  - name: LAST_MODIFIED_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата изменения.
+  - name: OPERATION_DAY_ID
+    type: NUMBER
+    description_ru: Источник описывает поле как идентификатор связанного операционного дня.
+- id: DB-BDA-TBL-006
+  schema: BDA
+  name: TEMPLATE_PROCESS
+  columns:
+  - name: ID
+    type: NUMBER
+    description_ru: Уникальный идентификатор записи.
+  - name: TEMPLATE_ID
+    type: NUMBER
+    description_ru: Идентификатор шаблона.
+  - name: PROCESS_ID
+    type: NUMBER
+    description_ru: Идентификатор процесса.
+  - name: PROCESS_ORDER
+    type: INTEGER
+    description_ru: Порядок процесса в шаблоне.
+- id: DB-BDA-TBL-007
+  schema: BDA
+  name: USERS
+  columns:
+  - name: ID
+    type: NUMBER
+    description_ru: Уникальный идентификатор пользователя.
+  - name: FIRST_NAME
+    type: VARCHAR2
+    description_ru: Имя.
+  - name: LAST_NAME
+    type: VARCHAR2
+    description_ru: Фамилия.
+  - name: USERNAME
+    type: VARCHAR2
+    description_ru: Имя пользователя.
+  - name: PASSWORD
+    type: VARCHAR2
+    description_ru: Пароль должен храниться в bcrypt-хэшированном виде.
+  - name: CREATE_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата создания.
+  - name: LAST_MODIFIED_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата изменения.
+- id: DB-BDA-TBL-008
+  schema: BDA
+  name: AUTHORITY
+  columns:
+  - name: ID
+    type: NUMBER
+    description_ru: Уникальный идентификатор полномочия authority.
+  - name: AUTHORITY
+    type: VARCHAR2
+    description_ru: Имя полномочия/роли authority.
+  - name: CREATE_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата создания.
+  - name: LAST_MODIFIED_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата изменения.
+- id: DB-BDA-TBL-009
+  schema: BDA
+  name: USER_AUTHORITIES
+  columns:
+  - name: USER_ID
+    type: NUMBER
+    description_ru: Идентификатор пользователя.
+  - name: AUTHORITY_ID
+    type: NUMBER
+    description_ru: Идентификатор полномочия authority.
+- id: DB-BDA-TBL-010
+  schema: BDA_ARCHIVE
+  name: OPERATION_DAY
+  columns:
+  - name: ID
+    type: NUMBER
+    description_ru: Уникальный идентификатор архивированного операционного дня.
+  - name: OPERATION_DAY_NAME
+    type: DATE
+    description_ru: Имя/дата архивированного операционного дня.
+  - name: ARCHIVED_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата архивирования.
+  - name: LAST_MODIFIED_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата изменения.
+- id: DB-BDA-TBL-011
+  schema: BDA_ARCHIVE
+  name: OPERATION_PROCESS
+  columns:
+  - name: ID
+    type: NUMBER
+    description_ru: Уникальный идентификатор экземпляра архивированного процесса.
+  - name: ARCHIVED_DATE_TIME
+    type: TIMESTAMP(3)
+    description_ru: Дата архивирования.
+  - name: ARCHIVED_BY
+    type: VARCHAR2
+    description_ru: Пользователь, выполнивший архивирование.
+  - name: EXECUTOR
+    type: VARCHAR2
+    description_ru: Исполнитель процесса.
+  - name: CREATE_DATE_TIME
+    type: TIMESTAMP(3)
+    description_ru: Дата создания.
+  - name: START_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата/время начала.
+  - name: END_DATE_TIME
+    type: TIMESTAMP(6)
+    description_ru: Дата/время завершения.
+  - name: PROCESS_TYPE
+    type: VARCHAR2
+    enum: *id001
+    description_ru: Тип процесса.
+  - name: ARCHIVE_DAY_ID
+    type: INTEGER
+    description_ru: Идентификатор архивированного операционного дня.
+  - name: TEMPLATE_NAME
+    type: VARCHAR2
+    description_ru: Имя шаблона.
+  - name: PROCESS_NAME
+    type: VARCHAR2
+    description_ru: Имя процесса.
+constraint_policy:
+  physical_pk_fk_status: not-documented
+  logical_references_registry: logical-foreign-keys.yaml
+  rule_ru: Описание поля как уникального ID или ссылки используется для семантического/логического отображения. 
+    Физическое ограничение PK/FK считается UNKNOWN, пока не подтверждено DDL или системным каталогом.
+sensitive_data_handling:
+  columns_with_sensitive_source_examples:
+  - BDA.PROCESS.PROCESS_RUN_COMMAND
+  rule_ru: Значения команд, учетных данных и внутренних адресов из примеров источника не копируются; модель сохраняет 
+    только имя колонки и функциональную семантику.
+cross_layer_gaps:
+- api_field: Parameter.days
+  physical_mapping: unknown
+  reason: BDA.PARAMETERS не документирует колонку DAYS.
+  evidence:
+  - EV-BDA-025
+- api_models:
+  - XohksCalculation
+  - SuccessXohks
+  - StatusAndPrice
+  - FindMonitoringInfos
+  - FailedXohks
+  - MtFileMonitoring
+  physical_mapping: unknown
+  reason: Источник не связывает ответы мониторинга с таблицами BDA/BDA_ARCHIVE.
+  evidence:
+  - EV-BDA-021
+- functional_object: DATA-GPP-015
+  physical_mapping: unknown
+  reason: Экспорт/загрузка XML-артефакта документированы, но колонка или таблица хранения не указана.

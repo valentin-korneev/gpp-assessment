@@ -1,0 +1,1514 @@
+openapi: 3.1.0
+info:
+  title: BDA REST API - реконструированный контракт
+  version: 0.0.2-reconstructed
+  description: Реконструкция по SRC-BDA-002 (версия 0.0.2 от 02.04.2025). Фиксируются документированные REST-пути, 
+    HTTP-методы, модели ответов и коды ответов. Неописанные тела запросов, тела ошибок, типы содержимого экспорта и 
+    точный способ передачи JWT не выдумываются. Чувствительные примеры заменены безопасными 
+    заполнителями/редактированием.
+  x-source-id: SRC-BDA-002
+  x-source-date: '2025-04-02'
+  x-reconstruction-status: evidence-based-partial
+  x-normalized-contract-id: NORM-REST-001
+servers:
+- url: '{scheme}://{host}'
+  description: Заполнитель вместо {HOST} из источника; реальные внутренние адреса не переносятся.
+  variables:
+    scheme:
+      default: https
+      enum:
+      - https
+      - http
+    host:
+      default: example.invalid
+security:
+- jwtBearer: []
+tags:
+- name: Templates
+  description: Управление шаблонами процессов.
+- name: Processes
+  description: Управление определениями процессов (в source REST resource называется period).
+- name: OperationDays
+  description: Управление операционными днями.
+- name: Archives
+  description: Архив операционных дней.
+- name: Authentication
+  description: Вход и сведения о текущем пользователе.
+- name: OperationProcesses
+  description: Процессы, включенные в конкретный операционный день.
+- name: Monitoring
+  description: Операционный мониторинг XÖHKS, платежей и файлов.
+paths:
+  /api/v1/templates:
+    get:
+      operationId: listTemplates
+      summary: Получить список шаблонов
+      tags:
+      - Templates
+      responses:
+        '200':
+          description: Список шаблонов.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Template'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-source-conflict: Детальный раздел 2.1 ошибочно повторяет путь /api/v1/templates/period/{periodId}/parameters; 
+        обзор и название раздела указывают /api/v1/templates.
+      x-reconstruction-choice: overview-path
+    post:
+      operationId: createTemplate
+      summary: Создать шаблон
+      tags:
+      - Templates
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-documentation-gap: Тело запроса не описано в источнике; полезная нагрузка по модели не добавлена.
+  /api/v1/templates/period/{periodId}/parameters:
+    get:
+      operationId: getTemplateParametersByPeriod
+      summary: Получить параметры процесса для шаблонного контекста
+      tags:
+      - Templates
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ParameterSet'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: periodId
+        in: path
+        required: true
+        description: Идентификатор процесса (period).
+        schema:
+          type: integer
+          format: int64
+  /api/v1/templates/{templateId}/parameters:
+    get:
+      operationId: getTemplateParameters
+      summary: Получить параметры шаблона
+      tags:
+      - Templates
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ParameterSet'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: templateId
+        in: path
+        required: true
+        description: Идентификатор шаблона.
+        schema:
+          type: integer
+          format: int64
+  /api/v1/templates/{templateId}:
+    get:
+      operationId: getTemplate
+      summary: Получить шаблон по идентификатору
+      tags:
+      - Templates
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: templateId
+        in: path
+        required: true
+        description: Идентификатор шаблона.
+        schema:
+          type: integer
+          format: int64
+    put:
+      operationId: updateTemplate
+      summary: Изменить шаблон
+      tags:
+      - Templates
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: templateId
+        in: path
+        required: true
+        description: Идентификатор шаблона.
+        schema:
+          type: integer
+          format: int64
+      x-documentation-gap: Тело запроса не описано в источнике; полезная нагрузка по модели не добавлена.
+    delete:
+      operationId: deleteTemplate
+      summary: Удалить шаблон
+      tags:
+      - Templates
+      responses:
+        '200':
+          description: Шаблон удален; тело ответа не документировано.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: templateId
+        in: path
+        required: true
+        description: Идентификатор шаблона.
+        schema:
+          type: integer
+          format: int64
+  /api/v1/periods:
+    get:
+      operationId: listProcesses
+      summary: Получить список процессов
+      tags:
+      - Processes
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Period'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createProcess
+      summary: Создать процесс
+      tags:
+      - Processes
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Period'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-documentation-gap: Тело запроса не описано в источнике.
+  /api/v1/periods/operation-day/{operationDayId}:
+    get:
+      operationId: listProcessesByOperationDay
+      summary: Получить процессы операционного дня
+      tags:
+      - Processes
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Period'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: operationDayId
+        in: path
+        required: true
+        description: Идентификатор операционного дня.
+        schema:
+          type: integer
+          format: int64
+  /api/v1/periods/{periodId}/parameters:
+    get:
+      operationId: getProcessParameters
+      summary: Получить параметры процесса
+      tags:
+      - Processes
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ParameterSet'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: periodId
+        in: path
+        required: true
+        description: Идентификатор процесса (period).
+        schema:
+          type: integer
+          format: int64
+  /api/v1/periods/{id}:
+    put:
+      operationId: updateProcess
+      summary: Изменить процесс
+      tags:
+      - Processes
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Period'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Идентификатор процесса.
+        schema:
+          type: integer
+          format: int64
+      x-documentation-gap: Тело запроса не описано в источнике.
+  /api/v1/periods/{periodId}:
+    delete:
+      operationId: deleteProcess
+      summary: Удалить процесс
+      tags:
+      - Processes
+      responses:
+        '200':
+          description: Процесс удален; тело ответа не документировано.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: periodId
+        in: path
+        required: true
+        description: Идентификатор процесса.
+        schema:
+          type: integer
+          format: int64
+  /api/v1/operation-days:
+    get:
+      operationId: listOperationDays
+      summary: Получить список операционных дней
+      tags:
+      - OperationDays
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OperationDay'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/operation-days/{operationDayId}/close:
+    put:
+      operationId: closeOperationDay
+      summary: Закрыть операционный день
+      tags:
+      - OperationDays
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationDay'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: operationDayId
+        in: path
+        required: true
+        description: Идентификатор операционного дня.
+        schema:
+          type: integer
+          format: int64
+  /api/v1/operation-days/{operationDayId}:
+    get:
+      operationId: getOperationDay
+      summary: Получить операционный день
+      tags:
+      - OperationDays
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationDay'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: operationDayId
+        in: path
+        required: true
+        description: Идентификатор операционного дня.
+        schema:
+          type: integer
+          format: int64
+    put:
+      operationId: updateOperationDay
+      summary: Изменить операционный день
+      tags:
+      - OperationDays
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationDay'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: operationDayId
+        in: path
+        required: true
+        description: Идентификатор операционного дня.
+        schema:
+          type: integer
+          format: int64
+      x-documentation-gap: Тело запроса не описано в источнике.
+    delete:
+      operationId: deleteOperationDay
+      summary: Удалить операционный день
+      tags:
+      - OperationDays
+      responses:
+        '200':
+          description: Операционный день удален; тело ответа не документировано.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: operationDayId
+        in: path
+        required: true
+        description: Идентификатор операционного дня.
+        schema:
+          type: integer
+          format: int64
+  /api/v1/operation-days/templates/{templateId}:
+    post:
+      operationId: createOperationDayFromTemplate
+      summary: Создать операционный день из шаблона
+      tags:
+      - OperationDays
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationDay'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: templateId
+        in: path
+        required: true
+        description: Идентификатор шаблона.
+        schema:
+          type: integer
+          format: int64
+      x-documentation-gap: Параметры/тело, задающие имя операционного дня, в разделе REST не документированы.
+  /api/v1/archives:
+    get:
+      operationId: listArchives
+      summary: Получить список архивных операционных дней
+      tags:
+      - Archives
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Archive'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/archives/operation-day/{operationDayId}:
+    post:
+      operationId: archiveOperationDay
+      summary: Архивировать операционный день
+      tags:
+      - Archives
+      responses:
+        '200':
+          description: Архивация выполнена; тело ответа не документировано.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: operationDayId
+        in: path
+        required: true
+        description: Идентификатор операционного дня.
+        schema:
+          type: integer
+          format: int64
+  /api/v1/archives/exportFromArchive:
+    get:
+      operationId: exportFromArchive
+      summary: Экспортировать файл из архива
+      tags:
+      - Archives
+      responses:
+        '200':
+          description: Экспорт файла; тип содержимого и структура полезной нагрузки в источнике не документированы.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: id
+        in: query
+        required: true
+        description: Идентификатор экспортируемого файла.
+        schema:
+          type: integer
+          format: int64
+        x-assertion: inference
+        x-basis: Источник перечисляет переменную для GET без заполнителя в пути; размещение в query-параметрах 
+          реконструировано.
+      - name: processType
+        in: query
+        required: true
+        description: Тип процесса.
+        schema:
+          type: string
+        x-assertion: inference
+        x-basis: Источник перечисляет переменную для GET без заполнителя в пути; размещение в query-параметрах 
+          реконструировано.
+      x-documentation-gap: Content-Type/Content-Disposition ответа и бинарная схема отсутствуют.
+  /api/v1/archives/findDetailedInfosForArchiveProcess/{archiveOperationPeriodId}:
+    get:
+      operationId: getArchivedProcessDetails
+      summary: Получить детали архивного процесса
+      tags:
+      - Archives
+      responses:
+        '200':
+          description: Детали архивного процесса; источник не приводит пример ответа или отображение на модель в разделе
+            2.23.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: archiveOperationPeriodId
+        in: path
+        required: true
+        description: Идентификатор архивного процесса.
+        schema:
+          type: integer
+          format: int64
+      x-documentation-gap: Модель успешного ответа для 2.23 явно не документирована.
+  /api/v1/archives/{archiveId}/operation-periods:
+    get:
+      operationId: listArchivedOperationProcesses
+      summary: Получить процессы архивного операционного дня
+      tags:
+      - Archives
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArchiveOperationPeriod'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: archiveId
+        in: path
+        required: true
+        description: Идентификатор архивного операционного дня.
+        schema:
+          type: integer
+          format: int64
+  /api/v1/archives/{archiveId}:
+    get:
+      operationId: getArchive
+      summary: Получить архивный операционный день
+      tags:
+      - Archives
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Archive'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: archiveId
+        in: path
+        required: true
+        description: Идентификатор архивного операционного дня.
+        schema:
+          type: integer
+          format: int64
+  /api/auth/login:
+    post:
+      operationId: login
+      summary: Войти и получить JWT
+      tags:
+      - Authentication
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Login'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        description: INFERENCE из перечисленных username/password и Content-Type application/json; источник не 
+          показывает пример запроса.
+  /api/v1/users/username:
+    get:
+      operationId: getCurrentUsername
+      summary: Получить имя текущего пользователя
+      tags:
+      - Authentication
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Username'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/period-details/findByOperationId/{operationDayId}:
+    get:
+      operationId: getOperationProcessDetailsByDay
+      summary: Получить данные операционного дня, шаблона и процессов
+      tags:
+      - OperationProcesses
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OperationPeriod'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: operationDayId
+        in: path
+        required: true
+        description: Идентификатор операционного дня.
+        schema:
+          type: integer
+          format: int64
+      x-source-conflict: Обзор использует /api/v1/operation-period/findByOperationId/{operationDayId}; детальный раздел 
+        2.28 использует /api/v1/period-details/findByOperationId/{operationDayId}.
+      x-reconstruction-choice: detailed-section-path
+  /api/v1/operation-period/start/{operationPeriodId}:
+    post:
+      operationId: startOperationProcess
+      summary: Запустить процесс операционного дня
+      tags:
+      - OperationProcesses
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartProcessResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: operationPeriodId
+        in: path
+        required: true
+        description: Идентификатор процесса операционного дня.
+        schema:
+          type: integer
+          format: int64
+      x-source-placeholder-variant: Детальный раздел использует имя placeholder {operationPeriod}; overview - 
+        {operationPeriodId}. Нормализовано к operationPeriodId.
+  /api/v1/operation-period/period/{operationPeriodId}/parameters:
+    get:
+      operationId: getOperationProcessParameters
+      summary: Получить параметры процесса операционного дня
+      tags:
+      - OperationProcesses
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ParameterSet'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: operationPeriodId
+        in: path
+        required: true
+        description: Идентификатор процесса операционного дня.
+        schema:
+          type: integer
+          format: int64
+  /api/v1/operation-period/{operationPeriodId}/updateParameters:
+    put:
+      operationId: updateOperationProcessParameters
+      summary: Изменить параметры процесса операционного дня
+      tags:
+      - OperationProcesses
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ParameterSet'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: operationPeriodId
+        in: path
+        required: true
+        description: Идентификатор процесса операционного дня.
+        schema:
+          type: integer
+          format: int64
+      x-documentation-gap: Тело запроса не описано; ответ показывает ParameterSet.
+  /api/v1/operation-period/add-process/{operationDayId}/{periodId}:
+    post:
+      operationId: addProcessToOperationDay
+      summary: Добавить процесс в операционный день
+      tags:
+      - OperationProcesses
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationPeriod'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: operationDayId
+        in: path
+        required: true
+        description: Идентификатор операционного дня.
+        schema:
+          type: integer
+          format: int64
+      - name: periodId
+        in: path
+        required: true
+        description: Идентификатор определения процесса.
+        schema:
+          type: integer
+          format: int64
+      x-source-defect: В таблице параметров раздела 2.32 ошибочно указан operationPeriodId, хотя путь и обзор содержат 
+        operationDayId и periodId.
+  /api/v1/monitoring-menus/xohksCalculation:
+    get:
+      operationId: getXohksCalculation
+      summary: Получить данные мониторинга XÖHKS
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/XohksCalculation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/monitoring-menus/successXOHKS:
+    get:
+      operationId: getSuccessfulXohksPayments
+      summary: Получить успешные платежи XÖHKS
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SuccessXohks'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/monitoring-menus/statusAndPrice:
+    get:
+      operationId: getStatusAndPrice
+      summary: Получить статусы и суммы между операционными днями
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StatusAndPrice'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/monitoring-menus/findMonitoringInfos/{operationPeriodId}:
+    get:
+      operationId: getMonitoringProcessDetails
+      summary: Получить подробные данные мониторинга процесса
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FindMonitoringInfos'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: operationPeriodId
+        in: path
+        required: true
+        description: Идентификатор процесса операционного дня.
+        schema:
+          type: integer
+          format: int64
+  /api/v1/monitoring-menus/failedXOHKS:
+    get:
+      operationId: getFailedXohksFiles
+      summary: Получить неотправленные файлы
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FailedXohks'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/monitoring-menus/exportFromOperationDay:
+    get:
+      operationId: exportFromOperationDay
+      summary: Экспортировать файл процесса операционного дня
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Экспорт файла; тип содержимого и структура полезной нагрузки в источнике не документированы.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      parameters:
+      - name: id
+        in: query
+        required: true
+        description: Идентификатор экспортируемого файла.
+        schema:
+          type: integer
+          format: int64
+        x-assertion: inference
+        x-basis: Источник перечисляет переменную для GET без заполнителя в пути; размещение в query-параметрах 
+          реконструировано.
+      - name: processType
+        in: query
+        required: true
+        description: Тип процесса.
+        schema:
+          type: string
+        x-assertion: inference
+        x-basis: Источник перечисляет переменную для GET без заполнителя в пути; размещение в query-параметрах 
+          реконструировано.
+      x-documentation-gap: Content-Type/Content-Disposition ответа и бинарная схема отсутствуют.
+  /api/v1/monitoring-menus/MtFileMonitoring:
+    get:
+      operationId: getMtFileMonitoring
+      summary: Получить мониторинг MT-файлов
+      tags:
+      - Monitoring
+      responses:
+        '200':
+          description: Успешный ответ.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MtFileMonitoring'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    jwtBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'INFERENCE: источник подтверждает выдачу JWT для использования остальных API, но не документирует имя заголовка
+        или способ передачи Bearer. HTTP Bearer выбран как реконструкция и требует подтверждения.'
+      x-assertion: inference
+      x-source-gap: Семантика заголовка Authorization/Bearer отсутствует в источнике.
+  responses:
+    BadRequest:
+      description: 400 - ошибочный запрос. Формат тела ошибки источник не документирует.
+    Unauthorized:
+      description: 401 - ошибка аутентификации. Формат тела ошибки источник не документирует.
+    NotFound:
+      description: 404 - не найдено. Этот код явно указан только в детальном разделе 2.1.
+  schemas:
+    ProcessType:
+      type: string
+      enum:
+      - DAY_PAYMENTS
+      - DAY_PAYMENTS_FOR_PAC
+      - DAY_PAYMENTS_FROM_BANK
+      - MT150
+      - MT152
+      - SERVICE_FEE
+      - PAYMENT_SUMMARY_FOR_BENEFICIARY
+      - RESEND
+      description: Список типов, явно перечисленный в физических таблицах БД PROCESS/OPERATION_PROCESS. Полный каталог 
+        не доказан.
+      x-source-limitation: История версии 0.0.2 упоминает процессы MX, но физический перечень их явно не перечисляет.
+    OperationDayStatus:
+      type: string
+      enum:
+      - CURRENT
+      - CLOSED
+      description: Значения показаны в примерах API OperationDay; физическая БД описывает открытый/закрытый статус.
+    OperationProcessStatus:
+      type:
+      - string
+      - 'null'
+      enum:
+      - DONE
+      - IN_PROGRESS
+      - HAS_ERROR
+      - 
+      description: Значения документированы для BDA.OPERATION_PROCESS.PERIOD_STATUS; пример API допускает null до 
+        запуска.
+    Period:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+          description: Идентификатор; присутствует в примерах, но не в таблице полей модели.
+        name:
+          type: string
+        processRunCommand:
+          type: string
+          description: Команда запуска процесса. Реальные примеры из источника удалены из реконструкции.
+          example: <REDACTED_COMMAND>
+          x-sensitive-source-example: true
+        processType:
+          oneOf:
+          - $ref: '#/components/schemas/ProcessType'
+          - type: string
+          description: Тип процесса. Исходная модель задает String; физическая БД приводит неполный известный список.
+        processOrder:
+          type: integer
+          description: Порядок процесса; поле отмечено обязательным в модели Period.
+      required:
+      - name
+      - processRunCommand
+      - processType
+      - processOrder
+    Template:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+        periods:
+          type: array
+          items:
+            $ref: '#/components/schemas/Period'
+      required:
+      - name
+      - periods
+    ParameterValue:
+      type: object
+      additionalProperties: true
+      description: Реконструированный дочерний параметр из примеров модели Parameter.
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        parameterName:
+          type: string
+        parameterValue:
+          type: string
+        parameterType:
+          type: string
+        days:
+          type: integer
+          description: Смещение в днях для параметров типа Date; добавлено в версии 0.0.2.
+      required:
+      - parameterName
+      - parameterValue
+      - parameterType
+      x-reconstruction-note: Таблица полей 4.3 объединяет поля дочернего элемента с periodId, тогда как JSON-пример 
+        содержит оболочку parameters[] + periodId.
+    ParameterSet:
+      type: object
+      additionalProperties: true
+      description: Оболочка, показанная в примерах API для операций параметров.
+      properties:
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParameterValue'
+        periodId:
+          type:
+          - integer
+          - 'null'
+          format: int64
+      required:
+      - parameters
+      - periodId
+      x-assertion: reconstruction-from-example
+    OperationDay:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+          format: date
+          description: В примерах это YYYY-MM-DD; физическая колонка NAME имеет Oracle DATE.
+        operationStatus:
+          $ref: '#/components/schemas/OperationDayStatus'
+      required:
+      - name
+      - operationStatus
+    Archive:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        operationDayName:
+          type: string
+          format: date
+        archivedDateTime:
+          type: string
+          format: date-time
+        lastModifiedDateTime:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Присутствует в примерах, но не перечислено в таблице полей 4.5.
+      required:
+      - operationDayName
+      - archivedDateTime
+    ArchiveOperationPeriod:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        archivedBy:
+          type: string
+        templateNames:
+          type: string
+        periodNames:
+          type: string
+        executor:
+          type:
+          - string
+          - 'null'
+        startTime:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        endTime:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        processType:
+          oneOf:
+          - $ref: '#/components/schemas/ProcessType'
+          - type: string
+      required:
+      - archivedBy
+      - templateNames
+      - periodNames
+      - executor
+      - startTime
+      - endTime
+      - processType
+    Authority:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        authority:
+          type: string
+        createDateTime:
+          type: string
+          format: date-time
+          readOnly: true
+        lastModifiedDateTime:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - authority
+    LoginRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        username:
+          type: string
+          example: <USERNAME>
+        password:
+          type: string
+          format: password
+          writeOnly: true
+          example: <REDACTED_PASSWORD>
+      required:
+      - username
+      - password
+      description: 'INFERENCE: таблица login перечисляет username/password и application/json, но явно не называет тело JSON-запроса.'
+    Login:
+      type: object
+      additionalProperties: true
+      properties:
+        jwt:
+          type: string
+          description: JWT. Реальный токен из источника не переносится.
+          example: <REDACTED_JWT>
+          x-sensitive-source-example: true
+        authorities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Authority'
+      required:
+      - jwt
+      - authorities
+    Username:
+      type: object
+      additionalProperties: true
+      properties:
+        username:
+          type: string
+      required:
+      - username
+    OperationPeriod:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        operationDayName:
+          type: string
+          format: date
+          description: JSON-примеры содержат YYYY-MM-DD; таблица полей модели ошибочно указывает LocatDateTime.
+        periodName:
+          type: string
+          description: Имя ключа из JSON-примеров; таблица полей 4.9 использует несовместимое множественное имя 
+            periodNames.
+        templateName:
+          type: string
+          description: Имя ключа из JSON-примеров; таблица полей 4.9 использует несовместимое множественное имя 
+            templateNames.
+        startTime:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        endTime:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        periodStatus:
+          $ref: '#/components/schemas/OperationProcessStatus'
+        executor:
+          type:
+          - string
+          - 'null'
+        processType:
+          oneOf:
+          - $ref: '#/components/schemas/ProcessType'
+          - type: string
+      required:
+      - operationDayName
+      - periodName
+      - templateName
+      - startTime
+      - endTime
+      - periodStatus
+      - executor
+      - processType
+      x-source-conflicts:
+      - Таблица модели использует templateNames/periodNames, а примеры используют templateName/periodName
+      - Таблица модели типизирует operationDayName как LocatDateTime, а примеры/БД указывают дату
+    StartProcessResult:
+      type: object
+      additionalProperties: true
+      properties:
+        message:
+          type: string
+          example: Period started successfully and is running asynchronously.
+      required:
+      - message
+    XohksCalculation:
+      type: object
+      additionalProperties: true
+      properties:
+        bankName:
+          type: string
+        bankBinCode:
+          type: string
+        bankSWIFTBICCode:
+          type:
+          - string
+          - 'null'
+        fileXOHKSReferenceCode:
+          type:
+          - string
+          - 'null'
+        fileGppReferenceCode:
+          type:
+          - string
+          - 'null'
+        calculationStatus:
+          type:
+          - string
+          - 'null'
+        filePaymentCountStatus:
+          type:
+          - string
+          - 'null'
+        filePaymentAmountStatus:
+          type:
+          - string
+          - 'null'
+        fileCancelledPaymentCount:
+          oneOf:
+          - type: integer
+          - type: string
+          description: Таблица полей задает Integer; пример использует строку "0".
+        fileCancelledPaymentAmount:
+          oneOf:
+          - type: integer
+          - type: string
+          description: Таблица полей задает Integer; пример использует строку "0".
+        mtmessageType:
+          type:
+          - string
+          - 'null'
+      required:
+      - bankName
+      - bankBinCode
+      - bankSWIFTBICCode
+      - fileXOHKSReferenceCode
+      - fileGppReferenceCode
+      - calculationStatus
+      - filePaymentCountStatus
+      - filePaymentAmountStatus
+      - fileCancelledPaymentCount
+      - fileCancelledPaymentAmount
+      - mtmessageType
+    SuccessXohks:
+      type: object
+      additionalProperties: true
+      properties:
+        stateCode:
+          type: integer
+        categoryCode:
+          type: integer
+        count:
+          type: integer
+        amount:
+          type: integer
+      required:
+      - stateCode
+      - categoryCode
+      - count
+      - amount
+    StatusAndPrice:
+      type: object
+      additionalProperties: true
+      properties:
+        status:
+          type: string
+        price:
+          type: integer
+      required:
+      - status
+      - price
+    FindMonitoringInfos:
+      type: object
+      additionalProperties: true
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        appCode:
+          type: string
+        type:
+          type: string
+        outbound:
+          oneOf:
+          - type: integer
+          - type: string
+          description: Таблица полей задает Integer; пример использует строку "1".
+        transactionId:
+          type: string
+        senderCode:
+          type: string
+        receiverCode:
+          type: string
+        url:
+          type: string
+          example: <REDACTED_URL>
+          description: Присутствует в примерах, но отсутствует в таблице полей; URL из источника отредактирован.
+        status:
+          type: string
+        messageDate:
+          type: string
+          format: date-time
+        createDate:
+          type: string
+          format: date-time
+        lastModifyDateTime:
+          type: string
+          format: date-time
+        contentType:
+          type: string
+        message:
+          type: string
+          contentEncoding: base64
+          description: Источник описывает полезную нагрузку Blob/XML и показывает JSON-строку; пример полезной нагрузки 
+            не переносится.
+      required:
+      - appCode
+      - type
+      - outbound
+      - transactionId
+      - senderCode
+      - receiverCode
+      - status
+      - messageDate
+      - createDate
+      - lastModifyDateTime
+      - contentType
+      - message
+    FailedXohks:
+      type: object
+      additionalProperties: true
+      properties:
+        type:
+          type: string
+        receiverCode:
+          oneOf:
+          - type: string
+          - type: integer
+          description: Таблица полей задает String; примеры используют integer.
+        description:
+          type: string
+        url:
+          type: string
+          example: <REDACTED_INTERNAL_URL>
+          description: Присутствует в примерах, отсутствует в таблице полей; внутренний адрес отредактирован.
+        say:
+          type: integer
+        minCreateDate:
+          type: string
+          format: date-time
+        maxCreateDate:
+          type: string
+          format: date-time
+      required:
+      - type
+      - receiverCode
+      - description
+      - say
+      - minCreateDate
+      - maxCreateDate
+    MtFileMonitoring:
+      type: object
+      additionalProperties: true
+      properties:
+        bank:
+          type: string
+        count:
+          oneOf:
+          - type: string
+          - type: integer
+          description: Таблица полей задает String; пример использует число.
+        amount:
+          oneOf:
+          - type: string
+          - type: number
+          description: Таблица полей задает String; пример использует число.
+      required:
+      - bank
+      - count
+      - amount

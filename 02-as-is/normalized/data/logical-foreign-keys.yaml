@@ -1,10 +1,4 @@
 logical_foreign_keys:
-  database_model: DB-CF-001
-  source: SRC-DB-001
-  temporal_scope:
-    source_date: '2015-06-09'
-    currentness: current-at-source-date
-  current_applicability: unverified
   modeling_rule_ru: Логический FK описывает предполагаемую или прямо описанную смысловую ссылку между полями. Он не 
     означает наличие Oracle FOREIGN KEY constraint. FACT-связи опираются на прямое текстовое описание, INFERENCE-связи 
     выводятся из имен, типов, назначения полей и соседней структуры модели; confidence отражает силу вывода.
@@ -412,3 +406,203 @@ logical_foreign_keys:
     physical_constraint_status: unverified
     basis_ru: UC_HEAD описан как код головного офиса SC. Тип NVARCHAR2(32) не совпадает с INTEGER-ссылками на 
       ORGANIZATION.EXTERNALKEY в других таблицах, поэтому exact physical-key mapping остается tentative.
+  - id: LFK-BDA-001
+    database_model: DB-BDA-001
+    relationship_type: documented_logical_reference
+    from:
+      table_id: DB-BDA-TBL-002
+      table: OPERATION_PROCESS
+      column: OPERATION_DAY_ID
+    to:
+      table_id: DB-BDA-TBL-001
+      table: OPERATION_DAY
+      column: ID
+    evidence:
+    - EV-BDA-016
+    assertion: fact
+    confidence: confirmed
+    basis: documented-column-semantics
+    physical_constraint_status: unverified
+    basis_ru: Поле прямо описано как идентификатор операционного дня.
+  - id: LFK-BDA-002
+    database_model: DB-BDA-001
+    relationship_type: documented_logical_reference
+    from:
+      table_id: DB-BDA-TBL-005
+      table: TEMPLATE
+      column: OPERATION_DAY_ID
+    to:
+      table_id: DB-BDA-TBL-001
+      table: OPERATION_DAY
+      column: ID
+    evidence:
+    - EV-BDA-018
+    assertion: fact
+    confidence: confirmed
+    basis: documented-column-semantics
+    physical_constraint_status: unverified
+    basis_ru: Поле прямо описано как уникальный идентификатор связанного операционного дня.
+  - id: LFK-BDA-003
+    database_model: DB-BDA-001
+    relationship_type: documented_logical_reference
+    from:
+      table_id: DB-BDA-TBL-006
+      table: TEMPLATE_PROCESS
+      column: TEMPLATE_ID
+    to:
+      table_id: DB-BDA-TBL-005
+      table: TEMPLATE
+      column: ID
+    evidence:
+    - EV-BDA-018
+    assertion: fact
+    confidence: confirmed
+    basis: documented-column-semantics
+    physical_constraint_status: unverified
+    basis_ru: TEMPLATE_ID описан как идентификатор шаблона.
+  - id: LFK-BDA-004
+    database_model: DB-BDA-001
+    relationship_type: documented_logical_reference
+    from:
+      table_id: DB-BDA-TBL-006
+      table: TEMPLATE_PROCESS
+      column: PROCESS_ID
+    to:
+      table_id: DB-BDA-TBL-004
+      table: PROCESS
+      column: ID
+    evidence:
+    - EV-BDA-018
+    assertion: fact
+    confidence: confirmed
+    basis: documented-column-semantics
+    physical_constraint_status: unverified
+    basis_ru: PROCESS_ID описан как идентификатор процесса.
+  - id: LFK-BDA-005
+    database_model: DB-BDA-001
+    relationship_type: documented_logical_reference
+    from:
+      table_id: DB-BDA-TBL-009
+      table: USER_AUTHORITIES
+      column: USER_ID
+    to:
+      table_id: DB-BDA-TBL-007
+      table: USERS
+      column: ID
+    evidence:
+    - EV-BDA-018
+    assertion: fact
+    confidence: confirmed
+    basis: documented-column-semantics
+    physical_constraint_status: unverified
+    basis_ru: USER_ID описан как идентификатор пользователя.
+  - id: LFK-BDA-006
+    database_model: DB-BDA-001
+    relationship_type: documented_logical_reference
+    from:
+      table_id: DB-BDA-TBL-009
+      table: USER_AUTHORITIES
+      column: AUTHORITY_ID
+    to:
+      table_id: DB-BDA-TBL-008
+      table: AUTHORITY
+      column: ID
+    evidence:
+    - EV-BDA-018
+    assertion: fact
+    confidence: confirmed
+    basis: documented-column-semantics
+    physical_constraint_status: unverified
+    basis_ru: AUTHORITY_ID описан как идентификатор authority.
+  - id: LFK-BDA-007
+    database_model: DB-BDA-001
+    relationship_type: documented_logical_reference
+    from:
+      table_id: DB-BDA-TBL-011
+      table: OPERATION_PROCESS
+      column: ARCHIVE_DAY_ID
+    to:
+      table_id: DB-BDA-TBL-010
+      table: OPERATION_DAY
+      column: ID
+    evidence:
+    - EV-BDA-019
+    assertion: fact
+    confidence: confirmed
+    basis: documented-column-semantics
+    physical_constraint_status: unverified
+    basis_ru: ARCHIVE_DAY_ID описан как идентификатор архивированного операционного дня.
+  - id: LFK-BDA-008
+    database_model: DB-BDA-001
+    relationship_type: documented_conditional_logical_reference
+    from:
+      table_id: DB-BDA-TBL-003
+      table: PARAMETERS
+      column: REFERENCE_ID
+      condition: TYPE=PERIOD
+    to:
+      table_id: DB-BDA-TBL-004
+      table: PROCESS
+      column: ID
+    evidence:
+    - EV-BDA-017
+    assertion: fact
+    confidence: confirmed
+    basis: documented-polymorphic-reference-semantics
+    physical_constraint_status: not-representable-as-single-fk-and-unverified
+    basis_ru: Источник прямо объясняет, что при TYPE=PERIOD REFERENCE_ID содержит идентификатор соответствующего объекта
+      PROCESS.
+  - id: LFK-BDA-009
+    database_model: DB-BDA-001
+    relationship_type: documented_conditional_logical_reference
+    from:
+      table_id: DB-BDA-TBL-003
+      table: PARAMETERS
+      column: REFERENCE_ID
+      condition: TYPE=TEMPLATE
+    to:
+      table_id: DB-BDA-TBL-005
+      table: TEMPLATE
+      column: ID
+    evidence:
+    - EV-BDA-017
+    assertion: fact
+    confidence: confirmed
+    basis: documented-polymorphic-reference-semantics
+    physical_constraint_status: not-representable-as-single-fk-and-unverified
+    basis_ru: Источник прямо объясняет, что при TYPE=TEMPLATE REFERENCE_ID содержит идентификатор соответствующего 
+      объекта TEMPLATE.
+  - id: LFK-BDA-010
+    database_model: DB-BDA-001
+    relationship_type: documented_conditional_logical_reference
+    from:
+      table_id: DB-BDA-TBL-003
+      table: PARAMETERS
+      column: REFERENCE_ID
+      condition: TYPE=OPERATION_DAY
+    to:
+      table_id: DB-BDA-TBL-001
+      table: OPERATION_DAY
+      column: ID
+    evidence:
+    - EV-BDA-017
+    assertion: fact
+    confidence: confirmed
+    basis: documented-polymorphic-reference-semantics
+    physical_constraint_status: not-representable-as-single-fk-and-unverified
+    basis_ru: Источник прямо объясняет, что при TYPE=OPERATION_DAY REFERENCE_ID содержит идентификатор соответствующего 
+      объекта OPERATION_DAY.
+  models:
+  - database_model: DB-CF-001
+    source: SRC-DB-001
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: current-at-source-date
+    current_applicability: unverified
+  - database_model: DB-BDA-001
+    source: SRC-BDA-002
+    temporal_scope:
+      source_date: '2025-04-02'
+      currentness: current-at-source-date
+    current_applicability: current-at-source-date
+  scope: multiple-database-models

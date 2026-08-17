@@ -1,50 +1,50 @@
 questions:
 - id: Q-SCOPE-001
   area: scope
-  question_ru: Где проходит подтвержденная системная граница GPP относительно банков, PSP, государственных органов, поставщиков
-    массовых услуг и иных подключенных систем?
+  question_ru: Где проходит подтвержденная системная граница GPP относительно банков, PSP, государственных органов, 
+    поставщиков массовых услуг и иных подключенных систем?
   reason_ru: Boundary влияет на component/context model, ownership и классификацию interfaces.
   priority: important
   status: resolved
   related_assumptions:
   - ASM-SCOPE-001
-  resolution_ru: Для рабочей AS-IS boundary именованные infrastructure modules из функциональной спецификации считаются внутренними
-    элементами GPP, а participant organizations и внешние payment/settlement systems - внешними сторонами. Неназванные внутренние
-    core components остаются отдельной неизвестностью Q-ARCH-001.
+  resolution_ru: Для рабочей AS-IS boundary именованные infrastructure modules из функциональной спецификации считаются 
+    внутренними элементами GPP, а participant organizations и внешние payment/settlement systems - внешними сторонами. 
+    Неназванные внутренние core components остаются отдельной неизвестностью Q-ARCH-001.
   related_sources:
   - SRC-FS-001
   - SRC-FS-002
 - id: Q-VND-001
   area: vendor-ownership
   question_ru: Какова текущая роль SINAM в сопровождении, развитии или эксплуатации GPP?
-  reason_ru: Публичный сайт SINAM подтверждает историческое участие в разработке, но не подтверждает текущую роль. Ожидается
-    отдельный документ по сопровождению, который должен иметь более высокий приоритет для ответа.
+  reason_ru: Публичный сайт SINAM подтверждает историческое участие в разработке, но не подтверждает текущую роль. 
+    Ожидается отдельный документ по сопровождению, который должен иметь более высокий приоритет для ответа.
   priority: important
   status: open
   related_sources:
   - SRC-PUB-004
 - id: Q-SRC-001
   area: source-versioning
-  question_ru: Являются ли SRC-FS-001 и SRC-FS-002 независимыми рабочими документами или редакциями одной версии, и какая
-    редакция authoritative/current?
-  reason_ru: Внутренняя metadata совпадает. Stakeholder сообщает, что DOCX v005 был передан позже и является более полным,
-    но это не доказывает version authority и допускает независимое происхождение документов.
+  question_ru: Являются ли SRC-FS-001 и SRC-FS-002 независимыми рабочими документами или редакциями одной версии, и 
+    какая редакция authoritative/current?
+  reason_ru: Внутренняя metadata совпадает. Stakeholder сообщает, что DOCX v005 был передан позже и является более 
+    полным, но это не доказывает version authority и допускает независимое происхождение документов.
   priority: important
   status: open
   related_sources:
   - SRC-FS-001
   - SRC-FS-002
   - SRC-STK-001
-  stakeholder_context_ru: DOCX filename v005 был передан позже PDF и воспринимается как более полный; возможная независимость
-    документов остается рабочей гипотезой.
+  stakeholder_context_ru: DOCX filename v005 был передан позже PDF и воспринимается как более полный; возможная 
+    независимость документов остается рабочей гипотезой.
 - id: Q-ARCH-001
   area: architecture
-  question_ru: Какие компоненты реализуют центральную обработку платежей, состояние счетов/инвойсов и persistence, если они
-    не названы в перечне infrastructure modules?
-  reason_ru: Система как целое принимает и обрабатывает платежи. Публичное описание дополнительно подтверждает централизованное
-    хранение reference/master data в базе данных портала. Исторический нормативно-operational source 2015 года подтверждает
-    Oracle-based persistence/replication topology на ту дату, но не идентифицирует current core processing component и не
-    доказывает текущую physical persistence topology.
+  question_ru: Какие компоненты реализуют центральную обработку платежей, состояние счетов/инвойсов и persistence, если 
+    они не названы в перечне infrastructure modules?
+  reason_ru: Система как целое принимает и обрабатывает платежи. Публичное описание дополнительно подтверждает 
+    централизованное хранение reference/master data в базе данных портала. Исторический нормативно-operational source 
+    2015 года подтверждает Oracle-based persistence/replication topology на ту дату, но не идентифицирует current core 
+    processing component и не доказывает текущую physical persistence topology.
   priority: important
   status: open
   related_facts:
@@ -54,12 +54,12 @@ questions:
   - FACT-GPP-027
 - id: Q-CUR-001
   area: currentness
-  question_ru: Какие из модулей, описанных функциональной спецификацией 05.05.2023, остаются в текущем production state и
-    в каком виде?
-  reason_ru: WebPortal и mobile app подтвержденно прекращены в 2024 году, а system-level обработка платежей через GPP подтверждена
-    за 2025 год. Исторический source 2015 года добавляет deployment, security и technology context, но не повышает currentness
-    этих деталей. Для остальных named modules и operational mechanisms актуальность после дат их источников по-прежнему не
-    подтверждена.
+  question_ru: Какие из модулей, описанных функциональной спецификацией 05.05.2023, остаются в текущем production state 
+    и в каком виде?
+  reason_ru: WebPortal и mobile app подтвержденно прекращены в 2024 году, а system-level обработка платежей через GPP 
+    подтверждена за 2025 год. Исторический source 2015 года добавляет deployment, security и technology context, но не 
+    повышает currentness этих деталей. Для остальных named modules и operational mechanisms актуальность после дат их 
+    источников по-прежнему не подтверждена.
   priority: important
   status: open
   related_sources:
@@ -74,8 +74,8 @@ questions:
 - id: Q-EXT-001
   area: external-systems
   question_ru: Обозначают ли XÖHK и XÖHKS одну внешнюю систему?
-  reason_ru: Разные написания встречаются в описании Loader Generators и LVPCSS и влияют на нормализацию context/interface
-    model.
+  reason_ru: Разные написания встречаются в описании Loader Generators и LVPCSS и влияют на нормализацию 
+    context/interface model.
   priority: important
   status: resolved
   resolution_ru: Да. По stakeholder confirmation XÖHK является опечаткой и должен нормализоваться как XÖHKS.
@@ -89,9 +89,9 @@ questions:
   reason_ru: Спецификация использует их как identification Source, но формальная system boundary не описана.
   priority: important
   status: resolved
-  resolution_ru: Да. Публичная страница CBA прямо идентифицирует IAMAS и AVIS как внешние государственные информационные системы,
-    а integration contract 2025 подтверждает real-time web-service calls HÖP -> IAMAS/AVIS. Созданы IF-GPP-013 и IF-GPP-014
-    с interface_type unknown; точный GPP component, protocol, payload и contract остаются неизвестными.
+  resolution_ru: Да. Публичная страница CBA прямо идентифицирует IAMAS и AVIS как внешние государственные информационные
+    системы, а integration contract 2025 подтверждает real-time web-service calls HÖP -> IAMAS/AVIS. Созданы IF-GPP-013 
+    и IF-GPP-014 с interface_type unknown; точный GPP component, protocol, payload и contract остаются неизвестными.
   related_assumptions:
   - ASM-EXT-001
   related_sources:
@@ -108,56 +108,58 @@ questions:
   question_ru: 'Как в текущей реализации организовано управление identification types: централизованно или через повторяющиеся
     organization properties, и должны ли GetOnlineStatementsAfterIAMAS/AVIS-подобные настройки быть связаны с конкретным identification
     type?'
-  reason_ru: Reviewer comments указывают на дублирование configuration и риск ошибок при раздельных properties. Более актуального
-    подтверждения пока нет.
+  reason_ru: Reviewer comments указывают на дублирование configuration и риск ошибок при раздельных properties. Более 
+    актуального подтверждения пока нет.
   priority: important
   status: open
   related_evidence:
   - EV-FS-020
 - id: Q-CFG-001
   area: organization-configuration
-  question_ru: Используется ли VirtualBranchID в текущей реализации и для каких organization types он действительно необходим?
-  reason_ru: Reviewer comment предлагает отказаться от property, но source одновременно описывает его назначение для организаций
-    без real branch.
+  question_ru: Используется ли VirtualBranchID в текущей реализации и для каких organization types он действительно 
+    необходим?
+  reason_ru: Reviewer comment предлагает отказаться от property, но source одновременно описывает его назначение для 
+    организаций без real branch.
   priority: important
   status: open
   related_evidence:
   - EV-FS-021
 - id: Q-PAY-001
   area: payment-rules
-  question_ru: Каков точный precedence MaxPaymentAmount между лимитом организации и максимальной суммой, возвращенной в invoice/debt
-    response?
-  reason_ru: Источник описывает сравнение лимитов, но reviewer comment требует более точного объяснения взаимодействия с похожими
-    properties.
+  question_ru: Каков точный precedence MaxPaymentAmount между лимитом организации и максимальной суммой, возвращенной в 
+    invoice/debt response?
+  reason_ru: Источник описывает сравнение лимитов, но reviewer comment требует более точного объяснения взаимодействия с
+    похожими properties.
   priority: important
   status: open
   related_evidence:
   - EV-FS-021
 - id: Q-SETTLE-001
   area: settlement-reporting
-  question_ru: Как IncludeServiceCode влияет на MT/file outputs и какой default value является фактическим для текущей реализации?
-  reason_ru: Reviewer comment требует уточнить связь property с MT и утверждает необходимость default=true; authoritative
-    semantics пока не подтверждены.
+  question_ru: Как IncludeServiceCode влияет на MT/file outputs и какой default value является фактическим для текущей 
+    реализации?
+  reason_ru: Reviewer comment требует уточнить связь property с MT и утверждает необходимость default=true; 
+    authoritative semantics пока не подтверждены.
   priority: important
   status: open
   related_evidence:
   - EV-FS-021
 - id: Q-IPS-001
   area: ips-integration
-  question_ru: Каково точное назначение IpsTransitAccountConsent, для каких организаций property применяется и какие модули/flows
-    оно изменяет?
-  reason_ru: Reviewer comment прямо отмечает недостаточность описания scope и impact; source приводит только частичное объяснение
-    TopUp authentication/consent. Cross-source reconciliation показывает, что operational settlement model 2015 года явно
-    опиралась на XÖHKS, тогда как IPS появляется отдельным integration concern только в specification 2023; relationship IPS
-    к XÖHKS и payment lifecycle не установлен.
+  question_ru: Каково точное назначение IpsTransitAccountConsent, для каких организаций property применяется и какие 
+    модули/flows оно изменяет?
+  reason_ru: Reviewer comment прямо отмечает недостаточность описания scope и impact; source приводит только частичное 
+    объяснение TopUp authentication/consent. Cross-source reconciliation показывает, что operational settlement model 
+    2015 года явно опиралась на XÖHKS, тогда как IPS появляется отдельным integration concern только в specification 
+    2023; relationship IPS к XÖHKS и payment lifecycle не установлен.
   priority: important
   status: open
   related_evidence:
   - EV-FS-022
 - id: Q-FEE-001
   area: fees-tax
-  question_ru: Каковы фактические текущие semantics IgnoreServiceFee и IgnoreVatCalculationOnReport, включая влияние на generators,
-    reports и invoice generation?
+  question_ru: Каковы фактические текущие semantics IgnoreServiceFee и IgnoreVatCalculationOnReport, включая влияние на 
+    generators, reports и invoice generation?
   reason_ru: Reviewer comments уточняют/оспаривают текст спецификации, а одна из формулировок отмечена как непонятная.
   priority: important
   status: open
@@ -165,9 +167,10 @@ questions:
   - EV-FS-022
 - id: Q-PAY-002
   area: invoice-state
-  question_ru: Используется ли еще настройка архивирования invoice, или она действительно заменена концепцией Whole_payment?
-  reason_ru: PDF содержит явную редакционную пометку о необходимости отменить прежний concept и заменить его full payment,
-    но не подтверждает факт внедрения.
+  question_ru: Используется ли еще настройка архивирования invoice, или она действительно заменена концепцией 
+    Whole_payment?
+  reason_ru: PDF содержит явную редакционную пометку о необходимости отменить прежний concept и заменить его full 
+    payment, но не подтверждает факт внедрения.
   priority: important
   status: open
   related_evidence:
@@ -182,9 +185,10 @@ questions:
   - EV-FS-017
 - id: Q-PSP-001
   area: psp-integration
-  question_ru: Какова точная semantics supported_psp_code_list и означает ли она разрешение PSP отправлять payment request
-    от имени банка, а не acquiring relationship?
-  reason_ru: Reviewer comment явно исправляет потенциальную интерпретацию property; contract-level подтверждения пока нет.
+  question_ru: Какова точная semantics supported_psp_code_list и означает ли она разрешение PSP отправлять payment 
+    request от имени банка, а не acquiring relationship?
+  reason_ru: Reviewer comment явно исправляет потенциальную интерпретацию property; contract-level подтверждения пока 
+    нет.
   priority: important
   status: open
   related_evidence:
@@ -192,20 +196,20 @@ questions:
 - id: Q-BIN-001
   area: card-configuration
   question_ru: Где в текущей реализации управляются BIN codes и какая роль имеет право их редактировать?
-  reason_ru: Reviewer comment утверждает, что отдельный functional уже существует, но Central Bank users требуется edit capability;
-    текущая implementation/permission model не подтверждена.
+  reason_ru: Reviewer comment утверждает, что отдельный functional уже существует, но Central Bank users требуется edit 
+    capability; текущая implementation/permission model не подтверждена.
   priority: important
   status: open
   related_evidence:
   - EV-FS-023
 - id: Q-OPS-001
   area: operations
-  question_ru: Каковы текущие clock/time boundaries operational/business day GPP, next-business-day reporting/settlement windows
-    и точная orchestration role XÖHKS относительно BDA?
-  reason_ru: Historical rules 2015 задают 00:00-24:00 и фиксированные next-business-day windows. BDA user guide 2025 существенно
-    уточняет current-at-source-date functional lifecycle operational day - create from template, manage/close/archive and
-    run processes - и показывает XÖHKS monitoring, но не определяет clock boundary, settlement schedule или ownership downstream
-    settlement execution.
+  question_ru: Каковы текущие временные границы операционного/бизнес-дня GPP, окна отчетности и расчетов следующего 
+    рабочего дня и точная роль XÖHKS в оркестрации относительно BDA?
+  reason_ru: Исторические правила 2015 года задают 00:00-24:00 и фиксированные окна следующего рабочего дня. Источники 
+    BDA 2025 года подтверждают жизненный цикл операционного дня, REST-управление выполнением и хранение 
+    состояния/параметров процессов, но не определяют текущую временную границу, расписание расчетов или точное владение 
+    последующим расчетом XÖHKS.
   priority: important
   status: open
   related_sources:
@@ -214,19 +218,26 @@ questions:
   - SRC-FS-002
   - SRC-STK-002
   - SRC-BDA-001
+  - SRC-BDA-002
   related_facts:
   - FACT-GPP-015
   - FACT-GPP-024
   - FACT-GPP-044
   - FACT-GPP-045
   - FACT-GPP-048
+  - FACT-GPP-053
+  - FACT-GPP-054
 - id: Q-SEC-001
   area: security-access
-  question_ru: Как устроены текущие authentication/authorization и segregation-of-duties для system/security/certificate,
-    participant administrators и operators, включая использование электронных сертификатов, MFA и emergency credential handling?
-  reason_ru: Правила 2015 года задают certificate + username/password access и раздельные operational roles, а specification
-    2023 года подтверждает permissions/dual authorization и измененный набор administrative roles. Current security control
-    model и сохранение исторических mechanisms не подтверждены.
+  question_ru: Как устроены текущие authentication/authorization и segregation-of-duties для 
+    system/security/certificate, participant administrators и operators, включая использование электронных сертификатов,
+    MFA и emergency credential handling?
+  reason_ru: Правила 2015 года задают доступ по сертификату и имени пользователя/паролю и раздельные операционные роли, 
+    а спецификация 2023 года подтверждает разрешения, двойную авторизацию и измененный набор административных ролей. 
+    Текущая модель контроля безопасности и сохранение исторических механизмов не подтверждены. Технический источник BDA 
+    2025 дополнительно подтверждает локальный вход по имени пользователя/паролю, JWT authorities и хранение паролей в 
+    виде bcrypt-хэшей, но не описывает полный механизм передачи и жизненный цикл токена, MFA или корпоративное 
+    разделение обязанностей.
   priority: important
   status: open
   related_sources:
@@ -234,16 +245,19 @@ questions:
   - SRC-FS-001
   - SRC-FS-002
   - SRC-STK-002
+  - SRC-BDA-002
   related_facts:
   - FACT-GPP-009
   - FACT-GPP-011
   - FACT-GPP-022
   - FACT-GPP-023
+  - FACT-GPP-051
+  - FACT-GPP-055
 - id: Q-BCK-001
   area: backup-recovery
   question_ru: Каковы текущие backup frequency, retention, offsite/offline copy strategy, restore testing и RPO для GPP?
-  reason_ru: Правила 2015 года подробно описывают TSM/Oracle backup и archive media process, но эти технологии и retention
-    mechanics являются историческими и требуют current подтверждения.
+  reason_ru: Правила 2015 года подробно описывают TSM/Oracle backup и archive media process, но эти технологии и 
+    retention mechanics являются историческими и требуют current подтверждения.
   priority: important
   status: open
   related_sources:
@@ -254,10 +268,11 @@ questions:
   - FACT-GPP-027
 - id: Q-DR-001
   area: disaster-recovery
-  question_ru: Какова текущая production/DR topology GPP, replication model, RTO/RPO, failover trigger и failback procedure?
-  reason_ru: Диаграмма и план 2015 года подтверждают three-site topology с Main/Alternative shared-storage cluster и отдельным
-    Backup site, а также часовой threshold перехода в DR. Это сильный historical evidence, но не доказательство current topology
-    или действующих recovery objectives.
+  question_ru: Какова текущая production/DR topology GPP, replication model, RTO/RPO, failover trigger и failback 
+    procedure?
+  reason_ru: Диаграмма и план 2015 года подтверждают three-site topology с Main/Alternative shared-storage cluster и 
+    отдельным Backup site, а также часовой threshold перехода в DR. Это сильный historical evidence, но не 
+    доказательство current topology или действующих recovery objectives.
   priority: important
   status: open
   related_sources:
@@ -268,10 +283,11 @@ questions:
   - FACT-GPP-027
 - id: Q-INT-001
   area: integration-contract
-  question_ru: К каким SOAP operations/services относятся regUnRegDebtNotificationRequest и debtNotificationRequest и каковы
-    направление, callback semantics и endpoint этих debt-notification exchanges?
-  reason_ru: SRC-INT-001 содержит фрагменты XSD соответствующих SOAP types и сообщает о функциональности debt notifications,
-    но не предоставляет разделы operations или привязку к service. Выдумывать имена operations или WSDL portType нельзя.
+  question_ru: К каким SOAP operations/services относятся regUnRegDebtNotificationRequest и debtNotificationRequest и 
+    каковы направление, callback semantics и endpoint этих debt-notification exchanges?
+  reason_ru: SRC-INT-001 содержит фрагменты XSD соответствующих SOAP types и сообщает о функциональности debt 
+    notifications, но не предоставляет разделы operations или привязку к service. Выдумывать имена operations или WSDL 
+    portType нельзя.
   priority: important
   status: open
   related_sources:
@@ -279,15 +295,16 @@ questions:
   related_evidence:
   - EV-INT-001
   - EV-INT-012
-  stakeholder_context_ru: На 17.08.2026 stakeholder не располагает дополнительными ответами; вопрос сохраняется открытым и
-    не блокирует продолжение AS-IS.
+  stakeholder_context_ru: На 17.08.2026 stakeholder не располагает дополнительными ответами; вопрос сохраняется открытым
+    и не блокирует продолжение AS-IS.
 - id: Q-INT-002
   area: integration-contract
-  question_ru: Доступны ли authoritative WSDL artifacts ServiceCompanyWS, GPPPaymentWS и SCVirtualCabinetWS, актуальные endpoint/binding/security
-    details и уточненная редакция контракта сверки, разрешающая выявленные message/schema inconsistencies?
-  reason_ru: Человекочитаемый источник позволяет восстановить operations/messages/types и часть metadata endpoint, но URL
-    WSDL не предоставлены как artifacts. В источнике также есть расхождения Content-Type и Msg/Type, wrapper ответа CompletePaymentWithError,
-    описание ответа InitiatePayment и XSD сверки относительно examples.
+  question_ru: Доступны ли authoritative WSDL artifacts ServiceCompanyWS, GPPPaymentWS и SCVirtualCabinetWS, актуальные 
+    endpoint/binding/security details и уточненная редакция контракта сверки, разрешающая выявленные message/schema 
+    inconsistencies?
+  reason_ru: Человекочитаемый источник позволяет восстановить operations/messages/types и часть metadata endpoint, но 
+    URL WSDL не предоставлены как artifacts. В источнике также есть расхождения Content-Type и Msg/Type, wrapper ответа 
+    CompletePaymentWithError, описание ответа InitiatePayment и XSD сверки относительно examples.
   priority: important
   status: open
   related_sources:
@@ -298,15 +315,16 @@ questions:
   - EV-INT-016
   - EV-INT-017
   - EV-INT-018
-  stakeholder_context_ru: На 17.08.2026 stakeholder не располагает authoritative WSDL/endpoint/schema clarification; все связанные
-    неопределенности контракта сохраняются как явные UNKNOWN/unverified/contradiction и не блокируют snapshot.
+  stakeholder_context_ru: На 17.08.2026 stakeholder не располагает authoritative WSDL/endpoint/schema clarification; все
+    связанные неопределенности контракта сохраняются как явные UNKNOWN/unverified/contradiction и не блокируют snapshot.
 - id: Q-DB-001
   area: physical-database-currentness
-  question_ru: Какова текущая production physical database model GPP - сохраняются ли CF Transaction DB и APUS Reporting DB,
-    какие Oracle schemas/instances используются и насколько physical objects 2015 года соответствуют фактической production
-    schema?
-  reason_ru: SRC-DB-001 является наиболее актуальной доступной документацией в переданном source set, но документирует physical
-    model 2015 года. Отсутствие более нового материала не подтверждает current production topology, tables или constraints.
+  question_ru: Какова текущая production physical database model GPP - сохраняются ли CF Transaction DB и APUS Reporting
+    DB, какие Oracle schemas/instances используются и насколько physical objects 2015 года соответствуют фактической 
+    production schema?
+  reason_ru: SRC-DB-001 является наиболее актуальной доступной документацией в переданном source set, но документирует 
+    physical model 2015 года. Отсутствие более нового материала не подтверждает current production topology, tables или 
+    constraints.
   priority: important
   status: open
   related_sources:
@@ -319,15 +337,15 @@ questions:
   - FACT-GPP-036
   - FACT-GPP-037
   - FACT-GPP-040
-  stakeholder_context_ru: На 17.08.2026 stakeholder сообщил, что SRC-DB-001 является переданной документацией и, вероятно,
-    наиболее актуальной доступной редакцией. Вопрос о наличии более новой переданной документации считается снятым; открытым
-    остается только соответствие historical physical model фактическому current production состоянию.
+  stakeholder_context_ru: На 17.08.2026 stakeholder сообщил, что SRC-DB-001 является переданной документацией и, 
+    вероятно, наиболее актуальной доступной редакцией. Вопрос о наличии более новой переданной документации считается 
+    снятым; открытым остается только соответствие historical physical model фактическому current production состоянию.
 - id: Q-DB-002
   area: physical-schema
-  question_ru: Каково корректное имя и назначение второй структуры, опубликованной как SC_IDEN_MTD_PREFIX_MAP с полями CODE/DESCRIPTION/ORGANIZATION_EXT_KEY,
-    и какая из двух definitions соответствует реальной таблице?
-  reason_ru: Один источник использует одно имя таблицы для двух несовместимых наборов колонок; молчаливое переименование в
-    service-group table было бы недоказанной коррекцией.
+  question_ru: Каково корректное имя и назначение второй структуры, опубликованной как SC_IDEN_MTD_PREFIX_MAP с полями 
+    CODE/DESCRIPTION/ORGANIZATION_EXT_KEY, и какая из двух definitions соответствует реальной таблице?
+  reason_ru: Один источник использует одно имя таблицы для двух несовместимых наборов колонок; молчаливое переименование
+    в service-group table было бы недоказанной коррекцией.
   priority: important
   status: open
   related_sources:
@@ -336,8 +354,8 @@ questions:
   - EV-DB-007
 - id: Q-DB-003
   area: reporting-schema
-  question_ru: Существовала или существует ли в APUS Reporting DB отдельная PAYMENT_DATA, какова ее schema и по какому механизму/ключам
-    она синхронизируется с CF.PAYMENT_DATA?
+  question_ru: Существовала или существует ли в APUS Reporting DB отдельная PAYMENT_DATA, какова ее schema и по какому 
+    механизму/ключам она синхронизируется с CF.PAYMENT_DATA?
   reason_ru: Раздел 3.4 прямо ссылается на одноименную таблицу отчетной области, но раздел 4 ее не определяет.
   priority: important
   status: open
@@ -347,10 +365,10 @@ questions:
   - EV-DB-008
 - id: Q-DB-004
   area: database-constraints-and-enums
-  question_ru: Какие ограничения PK/UK/FK, индексы и enum mappings реально применялись или применяются для документированных
-    таблиц, в частности MESSAGE.OUTBOUND и PAYMENT_DATA.EPMT_STATE_CODE?
-  reason_ru: Источник явно показывает лишь часть foreign keys, часто описывает ID как unique/key без типа ограничения, а два
-    описания enum содержат внутренние коллизии. Для точной физической модели нужен DDL или системный каталог.
+  question_ru: Какие ограничения PK/UK/FK, индексы и enum mappings реально применялись или применяются для 
+    документированных таблиц, в частности MESSAGE.OUTBOUND и PAYMENT_DATA.EPMT_STATE_CODE?
+  reason_ru: Источник явно показывает лишь часть foreign keys, часто описывает ID как unique/key без типа ограничения, а
+    два описания enum содержат внутренние коллизии. Для точной физической модели нужен DDL или системный каталог.
   priority: important
   status: resolved
   related_sources:
@@ -359,40 +377,90 @@ questions:
   - EV-DB-003
   - EV-DB-009
   - EV-DB-010
-  resolution_ru: Ожидать отдельного подтверждения полного DDL/constraints нецелесообразно. В physical model сохраняются только
-    явно документированные PK/FK; для остальных связей введен отдельный registry logical-foreign-keys.yaml с FACT и INFERENCE
-    связями и confidence. Эти связи не повышаются до Oracle constraints. Неоднозначные enum mappings остаются contradictions,
-    а не вопросами.
-  stakeholder_context_ru: На 17.08.2026 stakeholder указал, что существенно более полной документации по БД не ожидается и
-    логические FK следует восстанавливать аналитически и явно фиксировать в модели.
+  resolution_ru: Ожидать отдельного подтверждения полного DDL/constraints нецелесообразно. В physical model сохраняются 
+    только явно документированные PK/FK; для остальных связей введен отдельный registry logical-foreign-keys.yaml с FACT
+    и INFERENCE связями и confidence. Эти связи не повышаются до Oracle constraints. Неоднозначные enum mappings 
+    остаются contradictions, а не вопросами.
+  stakeholder_context_ru: На 17.08.2026 stakeholder указал, что существенно более полной документации по БД не ожидается
+    и логические FK следует восстанавливать аналитически и явно фиксировать в модели.
   related_model_artifacts:
   - 02-as-is/normalized/data/logical-foreign-keys.yaml
   - 02-as-is/normalized/data/cf-transaction-db.mmd
 - id: Q-BDA-001
   area: bda-architecture
-  question_ru: Как BDA соотносится с `AdminConsole` 2023 года и каковы его фактические frontend/backend/deployment boundaries?
-  reason_ru: User guide 2025 подтверждает отдельный functional module/UI управления операционным днем, но не описывает component
-    deployment и не говорит, является ли BDA частью AdminConsole, его successor/surface или отдельным приложением/service.
+  question_ru: Как BDA соотносится с AdminConsole 2023 года и каковы фактические границы его клиентской, серверной 
+    частей и развертывания?
+  reason_ru: Руководство пользователя подтверждает функциональный модуль и интерфейс, а технический источник - REST API 
+    и хранение в BDA/BDA_ARCHIVE. Однако ни один источник не определяет, является ли BDA частью AdminConsole, отдельным 
+    развертываемым клиентским/серверным компонентом или новым представлением, и где находится механизм запуска и 
+    исполнения команд.
   priority: important
   status: open
   related_sources:
   - SRC-BDA-001
+  - SRC-BDA-002
   related_facts:
   - FACT-GPP-041
   - FACT-GPP-044
+  - FACT-GPP-050
+  - FACT-GPP-052
   related_model_artifacts:
   - 02-as-is/bda-cross-layer-model.yaml
+  related_evidence:
+  - EV-BDA-013
+  - EV-BDA-016
 - id: Q-BDA-002
   area: bda-process-catalog
-  question_ru: Каков authoritative полный каталог BDA processes/commands, их types/parameters и execution semantics?
-  reason_ru: User guide ссылается на Process-Commands.txt, но этот resource не предоставлен; screenshots дают только примеры
-    и не позволяют считать process inventory полным.
+  question_ru: Каков авторитетный полный каталог процессов/команд BDA, их типов, параметров и семантики исполнения?
+  reason_ru: Руководство пользователя ссылается на недоступный Process-Commands.txt. Технический источник показывает 
+    типы процессов и несколько чувствительных примеров команд, но не подтверждает полноту и авторитетность каталога; 
+    точные команды сознательно не переносятся в репозиторий.
   priority: important
   status: open
   related_sources:
   - SRC-BDA-001
+  - SRC-BDA-002
   related_evidence:
   - EV-BDA-003
   - EV-BDA-011
+  - EV-BDA-016
+  - EV-BDA-026
   related_facts:
   - FACT-GPP-049
+  - FACT-GPP-053
+- id: Q-BDA-003
+  area: bda-authentication
+  question_ru: 'Как именно JWT BDA передается и валидируется в защищенных REST-вызовах и каков его жизненный цикл: заголовок/схема,
+    управление ключами подписи, срок действия, обновление, отзыв и выход?'
+  reason_ru: Источник подтверждает выдачу JWT после входа и код 401 для API, но не содержит заголовок 
+    Authorization/Bearer, схему безопасности, контракт обновления/отзыва/выхода или детали управления ключами.
+  priority: important
+  status: open
+  related_sources:
+  - SRC-BDA-002
+  related_evidence:
+  - EV-BDA-015
+  related_facts:
+  - FACT-GPP-051
+  - FACT-GPP-055
+  related_model_artifacts:
+  - 02-as-is/normalized/rest/bda-api/openapi.yaml
+- id: Q-BDA-004
+  area: bda-rest-contract
+  question_ru: Каков авторитетный фактический REST-контракт BDA для конфликтующих путей, тел изменяющих запросов, 
+    полезной нагрузки ошибок, типов/параметров экспорта и расхождений полей/типов моделей?
+  reason_ru: Технический источник документирует операции, но содержит конфликты путей, неполные тела изменяющих 
+    запросов, схемы ошибок и семантику экспорта, а также несколько несогласованностей моделей. Реконструированный 
+    OpenAPI сохраняет их как пробелы и выбор реконструкции, а не делает неподтвержденную коррекцию.
+  priority: important
+  status: open
+  related_sources:
+  - SRC-BDA-002
+  related_evidence:
+  - EV-BDA-022
+  - EV-BDA-023
+  - EV-BDA-024
+  - EV-BDA-025
+  related_model_artifacts:
+  - 02-as-is/normalized/rest/bda-api/openapi.yaml
+  - 02-as-is/normalized/rest/bda-api/manifest.yaml

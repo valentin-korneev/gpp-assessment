@@ -2,8 +2,8 @@ domain_entities:
 - id: DATA-GPP-001
   name: ParticipantOrganization
   name_ru: Организация-участник
-  description_ru: Организация, зарегистрированная в GPP как KXM, бюджетная организация, банк, карточный процессинговый центр
-    или сервисный центр.
+  description_ru: Организация, зарегистрированная в GPP как KXM, бюджетная организация, банк, карточный процессинговый 
+    центр или сервисный центр.
   evidence:
   - EV-FS-004
   - EV-FS-007
@@ -21,8 +21,8 @@ domain_entities:
 - id: DATA-GPP-002
   name: OrganizationUnit
   name_ru: Организационная единица / филиал
-  description_ru: Филиал организации-участника или подразделение сервисного центра, управляемое в административной иерархии
-    GPP.
+  description_ru: Филиал организации-участника или подразделение сервисного центра, управляемое в административной 
+    иерархии GPP.
   evidence:
   - EV-FS-011
   status: active
@@ -85,8 +85,8 @@ domain_entities:
 - id: DATA-GPP-006
   name: ServiceFeeTariff
   name_ru: Тариф сервисного сбора
-  description_ru: Тариф service fee для организации/филиала с процентной ставкой и необязательными минимальной/максимальной
-    суммами.
+  description_ru: Тариф service fee для организации/филиала с процентной ставкой и необязательными 
+    минимальной/максимальной суммами.
   evidence:
   - EV-FS-010
   - EV-FS-014
@@ -102,7 +102,8 @@ domain_entities:
 - id: DATA-GPP-007
   name: SettlementAccount
   name_ru: Расчетный банковский счет
-  description_ru: Банковский счет организации-участника, выбираемый через BankAccount{index} для settlement по payment receiver.
+  description_ru: Банковский счет организации-участника, выбираемый через BankAccount{index} для settlement по payment 
+    receiver.
   evidence:
   - EV-FS-025
   status: active
@@ -115,25 +116,25 @@ domain_entities:
 - id: DATA-GPP-008
   name: InvoiceStatement
   name_ru: Инвойс / запись задолженности
-  description_ru: Объект задолженности/инвойса, для которого источник описывает частичную/полную оплату и переходы statement
-    status Filed/UnFiled.
+  description_ru: Объект задолженности/инвойса, для которого источник описывает частичную/полную оплату и переходы 
+    statement status Filed/UnFiled.
   evidence:
   - EV-FS-024
   status: active
   temporal_scope:
     source_date: '2023-05-05'
     currentness: current-at-source-date
-  limitations_ru: Текущая физическая модель хранения не подтверждена. SRC-DB-001 документирует historical 2015 STATEMENT_EXT
-    и invoice/statement fields внутри PAYMENT_DATA; это не подтверждает current schema и не означает тождество domain entity
-    одной таблице.
+  limitations_ru: Текущая физическая модель хранения не подтверждена. SRC-DB-001 документирует historical 2015 
+    STATEMENT_EXT и invoice/statement fields внутри PAYMENT_DATA; это не подтверждает current schema и не означает 
+    тождество domain entity одной таблице.
   relationships:
   - type: settled-by
     target: DATA-GPP-009
 - id: DATA-GPP-009
   name: Payment
   name_ru: Платеж
-  description_ru: Платежная операция, для которой конфигурация service type определяет возможность advance/partial/full payment
-    и cancellation.
+  description_ru: Платежная операция, для которой конфигурация service type определяет возможность advance/partial/full 
+    payment и cancellation.
   evidence:
   - EV-FS-024
   status: active
@@ -145,78 +146,105 @@ domain_entities:
     target: DATA-GPP-004
   - type: may-settle
     target: DATA-GPP-008
-  limitations_ru: SRC-DB-001 дает historical physical mappings PAYMENT_DATA/PAYMENT_EXT/PAYMENT_NOTIFICATION и APUS aggregate,
-    но current 2026 tables/constraints не подтверждены; domain entity не отождествляется с одной physical table.
+  limitations_ru: SRC-DB-001 дает historical physical mappings PAYMENT_DATA/PAYMENT_EXT/PAYMENT_NOTIFICATION и APUS 
+    aggregate, но current 2026 tables/constraints не подтверждены; domain entity не отождествляется с одной physical 
+    table.
 - id: DATA-GPP-010
   name: BDAProcessDefinition
   name_ru: Определение процесса BDA
-  description_ru: Конфигурационный объект BDA с именем, типом, command и набором параметров; может изменяться и удаляться
-    администратором.
+  description_ru: Конфигурационный объект BDA с именем, типом, командой и набором параметров; администратор может его 
+    изменять и удалять.
   evidence:
   - EV-BDA-002
   - EV-BDA-003
+  - EV-BDA-018
+  - EV-BDA-020
   status: active
   temporal_scope:
-    source_date: '2025-03-10'
+    source_date: '2025-04-02'
     currentness: current-at-source-date
   relationships:
   - type: has
     target: DATA-GPP-011
+  physical_objects:
+  - DB-BDA-TBL-004
 - id: DATA-GPP-011
   name: BDAProcessParameter
   name_ru: Параметр процесса BDA
-  description_ru: Typed process parameter с именем и значением; значение может переопределяться в template и для process внутри
-    operational day.
+  description_ru: Типизированный параметр процесса с именем, значением и типом. Технический источник документирует 
+    контексты хранения PERIOD/TEMPLATE/OPERATION_DAY через BDA.PARAMETERS.TYPE + REFERENCE_ID; для поля API days не 
+    документирована физическая колонка.
   evidence:
   - EV-BDA-002
   - EV-BDA-004
   - EV-BDA-006
+  - EV-BDA-017
+  - EV-BDA-020
+  - EV-BDA-025
   status: active
   temporal_scope:
-    source_date: '2025-03-10'
+    source_date: '2025-04-02'
     currentness: current-at-source-date
+  physical_objects:
+  - DB-BDA-TBL-003
 - id: DATA-GPP-012
   name: BDAProcessTemplate
   name_ru: Шаблон процессов BDA
-  description_ru: Именованный template, включающий выбранные process definitions и template-specific parameter values.
+  description_ru: Именованный шаблон, включающий выбранные определения процессов и значения параметров процессов на 
+    уровне шаблона.
   evidence:
   - EV-BDA-004
+  - EV-BDA-017
+  - EV-BDA-018
+  - EV-BDA-020
   status: active
   temporal_scope:
-    source_date: '2025-03-10'
+    source_date: '2025-04-02'
     currentness: current-at-source-date
   relationships:
   - type: includes
     target: DATA-GPP-010
   - type: overrides-values-of
     target: DATA-GPP-011
+  physical_objects:
+  - DB-BDA-TBL-005
+  - DB-BDA-TBL-006
 - id: DATA-GPP-013
   name: OperationalDay
   name_ru: Операционный день BDA
-  description_ru: Управляемый объект операционного дня с именем и выбранным template; UI поддерживает current/closed lifecycle
-    actions и перенос в archive после завершения всех processes.
+  description_ru: Управляемый объект операционного дня с именем и выбранным шаблоном; интерфейс поддерживает 
+    текущий/закрытый жизненный цикл и перенос в архив после завершения всех процессов.
   evidence:
   - EV-BDA-005
   - EV-BDA-007
+  - EV-BDA-016
+  - EV-BDA-019
+  - EV-BDA-020
   status: active
   temporal_scope:
-    source_date: '2025-03-10'
+    source_date: '2025-04-02'
     currentness: current-at-source-date
   relationships:
   - type: created-from
     target: DATA-GPP-012
   - type: contains
     target: DATA-GPP-014
+  physical_objects:
+  - DB-BDA-TBL-001
+  - DB-BDA-TBL-010
 - id: DATA-GPP-014
   name: OperationalDayProcessRun
   name_ru: Выполнение процесса операционного дня
-  description_ru: Day-specific process instance/execution с parameter values, executor, start/end time и execution status;
-    допускает запуск и просмотр details.
+  description_ru: Экземпляр выполнения процесса конкретного операционного дня со значениями параметров, исполнителем, 
+    временем начала/окончания и статусом выполнения; допускает запуск и просмотр деталей.
   evidence:
   - EV-BDA-006
+  - EV-BDA-016
+  - EV-BDA-019
+  - EV-BDA-020
   status: active
   temporal_scope:
-    source_date: '2025-03-10'
+    source_date: '2025-04-02'
     currentness: current-at-source-date
   relationships:
   - type: instance-of
@@ -225,17 +253,23 @@ domain_entities:
     target: DATA-GPP-011
   - type: may-have
     target: DATA-GPP-015
+  physical_objects:
+  - DB-BDA-TBL-002
+  - DB-BDA-TBL-011
 - id: DATA-GPP-015
   name: BDAProcessXmlArtifact
   name_ru: XML-артефакт процесса BDA
-  description_ru: XML artifact, доступный для загрузки из details process как для текущего, так и для archived operational
-    day.
+  description_ru: XML-артефакт, доступный для загрузки из деталей процесса как для текущего, так и для архивированного 
+    операционного дня.
   evidence:
   - EV-BDA-006
   - EV-BDA-008
+  - EV-BDA-021
   status: active
   temporal_scope:
-    source_date: '2025-03-10'
+    source_date: '2025-04-02'
     currentness: current-at-source-date
-  limitations_ru: Источник не определяет формат XML, момент его генерации, storage ownership или является ли artifact input/output
-    конкретного process.
+  limitations_ru: Артефакт процесса доступен через операции экспорта/детализации текущего дня и архива, но источник не 
+    определяет отдельную физическую таблицу/колонку BDA для XML-содержимого и не устанавливает владельца хранения.
+  physical_objects: []
+  physical_mapping_status: unknown-documentation-gap

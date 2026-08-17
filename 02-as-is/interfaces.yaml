@@ -11,7 +11,6 @@ interfaces:
     currentness: historical
   contract_source:
     status: not-referenced
-
 - id: IF-GPP-002
   name: Электронные каналы PSP - PaymentService
   interface_type: unknown
@@ -24,7 +23,6 @@ interfaces:
     currentness: current-at-source-date
   contract_source:
     status: not-referenced
-
 - id: IF-GPP-003
   name: Центры авторизации - PacPmtProc
   interface_type: unknown
@@ -37,7 +35,6 @@ interfaces:
     currentness: current-at-source-date
   contract_source:
     status: not-referenced
-
 - id: IF-GPP-004
   name: Loader Generators - организации-участники
   interface_type: file
@@ -50,7 +47,6 @@ interfaces:
     currentness: current-at-source-date
   contract_source:
     status: not-referenced
-
 - id: IF-GPP-005
   name: Loader Generators - XÖHKS MT150/152
   interface_type: file
@@ -64,7 +60,6 @@ interfaces:
   contract_source:
     status: referenced-unavailable
   notes_ru: Упомянуты файлы MT150/152, но сами artifacts спецификации формата файлов не предоставлены.
-
 - id: IF-GPP-006
   name: LVPCSS - XÖHKS
   interface_type: unknown
@@ -77,7 +72,6 @@ interfaces:
     currentness: current-at-source-date
   contract_source:
     status: not-referenced
-
 - id: IF-GPP-007
   name: IPSClient - система мгновенных платежей
   interface_type: unknown
@@ -90,7 +84,6 @@ interfaces:
     currentness: current-at-source-date
   contract_source:
     status: not-referenced
-
 - id: IF-GPP-008
   name: Интернет-/мобильные ресурсы сервисной организации - GPPPaymentWS
   interface_type: soap
@@ -122,7 +115,6 @@ interfaces:
   notes_ru: Классификация SOAP подтверждена envelopes и описаниями operations в SRC-INT-001. InitiatePayment имеет 
     синхронный request/response, но завершение платежного процесса приходит отдельным асинхронным callback через 
     IF-GPP-010. URL WSDL не является предоставленным WSDL artifact; production endpoint отсутствует.
-
 - id: IF-GPP-009
   name: HÖP - операционная интеграция сервисной организации - ServiceCompanyWS
   interface_type: soap
@@ -161,7 +153,6 @@ interfaces:
   normalized_contract: NORM-SOAP-001
   notes_ru: Источник документирует ссылку на WSDL, но не подтверждает отдельный service endpoint для реализации на 
     стороне XT. Binding/service/endpoint не реконструируются как факт.
-
 - id: IF-GPP-010
   name: HÖP - callback завершения платежа сервисной организации - SCVirtualCabinetWS
   interface_type: soap
@@ -193,7 +184,6 @@ interfaces:
   notes_ru: XT должен реализовать server side этого SOAP interface. SOAP callback имеет request/ack semantics; retry 
     policy не документирована. Wrapper response CompletePaymentWithError в источнике неоднозначен и отражен в 
     CONTR-INT-002.
-
 - id: IF-GPP-011
   name: HÖP - сверка с сервисной организацией - платежная информация XML
   interface_type: http-xml
@@ -234,7 +224,6 @@ interfaces:
   notes_ru: Этот механизм не является SOAP и не классифицируется как file transport, поскольку источник явно задает HTTP
     POST. Inline XSD предоставлен в документе; несогласованности content-type и schema/examples сохранены как 
     contradictions, а не исправлены молча.
-
 - id: IF-GPP-012
   name: Банк - уведомление сервисной организации о зачислении средств
   interface_type: unknown
@@ -253,7 +242,6 @@ interfaces:
   notes_ru: Источник рекомендует банкам использовать описанный формат информации для уведомления XT о зачислении 
     средств, но не задает transport/method/endpoint и не подтверждает реализацию. Не нормализуется как file/XML или 
     HTTP/XML без дополнительного evidence.
-
 - id: IF-GPP-013
   name: HÖP - идентификация плательщика через IAMAS
   interface_type: unknown
@@ -271,7 +259,6 @@ interfaces:
     status: not-referenced
   notes_ru: Источник называет внешний вызов web-service IAMAS, но не определяет SOAP/REST/HTTP/XML protocol, имя 
     operation, payload, endpoint или внутренний GPP component.
-
 - id: IF-GPP-014
   name: HÖP - идентификация плательщика через AVIS
   interface_type: unknown
@@ -289,3 +276,43 @@ interfaces:
     status: not-referenced
   notes_ru: Источник называет внешний вызов web-service AVIS, но не определяет SOAP/REST/HTTP/XML protocol, имя 
     operation, payload, endpoint или внутренний GPP component.
+- id: IF-GPP-015
+  name: BDA - административный REST API
+  interface_type: rest-json
+  from_actor: Администратор Центрального банка через пользовательский интерфейс/клиент BDA
+  to_system: CMP-GPP-012
+  direction: administrative-client -> BDA
+  interaction_mode: request-response; process start asynchronous
+  operation_count: 39
+  operation_groups:
+  - templates
+  - processes/periods
+  - operation-days
+  - archives
+  - authentication/users
+  - operation-period
+  - monitoring
+  authentication:
+    documented: Вход по username/password возвращает JWT и authorities
+    token_transport: inferred-http-bearer
+    exact_authorization_header: unknown
+    question: Q-BDA-003
+  error_semantics:
+    documented_codes:
+    - '400'
+    - '401'
+    additional_documented_code: 404 документирован только в детальном разделе 2.1
+    error_body: unknown
+  normalized_contract: NORM-REST-001
+  evidence:
+  - EV-BDA-014
+  - EV-BDA-015
+  - EV-BDA-020
+  - EV-BDA-021
+  status: active
+  temporal_scope:
+    source_date: '2025-04-02'
+    currentness: current-at-source-date
+  notes_ru: Источник документирует REST-интерфейс, но не доказывает наличие отдельного развертываемого 
+    backend-компонента. Реконструированный OpenAPI сохраняет конфликты и пробелы источника. Реальные JWT, учетные 
+    данные, внутренние адреса и примеры команд не перенесены.

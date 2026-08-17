@@ -1,0 +1,227 @@
+api_model_registry:
+  source: SRC-BDA-002
+  source_date: '2025-04-02'
+  normalized_contract: NORM-REST-001
+  models:
+  - source_model: Template
+    openapi_schema: Template
+    fields:
+    - id
+    - name
+    - periods
+    physical_db_objects:
+    - DB-BDA-TBL-005
+    - DB-BDA-TBL-006
+    - DB-BDA-TBL-004
+    mapping_status: partial-or-confirmed
+    notes_ru: Объект шаблона и список выбранных процессов. Параметры уровня шаблона хранятся в DB-BDA-TBL-003 с 
+      TYPE=TEMPLATE.
+  - source_model: Period
+    openapi_schema: Period
+    fields:
+    - id
+    - name
+    - processRunCommand
+    - processType
+    - processOrder
+    physical_db_objects:
+    - DB-BDA-TBL-004
+    mapping_status: partial-or-confirmed
+    notes_ru: REST-ресурс `period` представляет определение процесса; параметры процесса отдельно отображаются в 
+      DB-BDA-TBL-003 с TYPE=PERIOD.
+  - source_model: Parameter
+    openapi_schema: ParameterSet
+    fields:
+    - parameters
+    - periodId
+    physical_db_objects:
+    - DB-BDA-TBL-003
+    mapping_status: partial-or-confirmed
+    notes_ru: Исходная модель структурно несогласована; реконструкция использует дочерний объект ParameterValue и 
+      оболочку ParameterSet. Для поля days не документирована физическая колонка.
+  - source_model: OperationDay
+    openapi_schema: OperationDay
+    fields:
+    - id
+    - name
+    - operationStatus
+    physical_db_objects:
+    - DB-BDA-TBL-001
+    mapping_status: partial-or-confirmed
+    notes_ru: Идентификатор и статус операционного дня.
+  - source_model: Archive
+    openapi_schema: Archive
+    fields:
+    - id
+    - operationDayName
+    - archivedDateTime
+    - lastModifiedDateTime
+    physical_db_objects:
+    - DB-BDA-TBL-010
+    mapping_status: partial-or-confirmed
+    notes_ru: Сводные сведения об архивированном операционном дне.
+  - source_model: ArchiveOperationPeriod
+    openapi_schema: ArchiveOperationPeriod
+    fields:
+    - id
+    - archivedBy
+    - templateNames
+    - periodNames
+    - executor
+    - startTime
+    - endTime
+    - processType
+    physical_db_objects:
+    - DB-BDA-TBL-011
+    mapping_status: partial-or-confirmed
+    notes_ru: История выполнения архивированного процесса.
+  - source_model: Login
+    openapi_schema: Login
+    fields:
+    - jwt
+    - authorities
+    physical_db_objects:
+    - DB-BDA-TBL-007
+    - DB-BDA-TBL-008
+    - DB-BDA-TBL-009
+    mapping_status: partial-or-confirmed
+    notes_ru: Ответ с JWT и authorities; точный способ передачи токена неизвестен.
+  - source_model: Authority
+    openapi_schema: Authority
+    fields:
+    - id
+    - authority
+    - createDateTime
+    - lastModifiedDateTime
+    physical_db_objects:
+    - DB-BDA-TBL-008
+    - DB-BDA-TBL-009
+    mapping_status: partial-or-confirmed
+    notes_ru: Представление полномочия/роли authority.
+  - source_model: OperationPeriod
+    openapi_schema: OperationPeriod
+    fields:
+    - id
+    - operationDayName
+    - periodName
+    - templateName
+    - startTime
+    - endTime
+    - periodStatus
+    - executor
+    - processType
+    physical_db_objects:
+    - DB-BDA-TBL-002
+    - DB-BDA-TBL-003
+    mapping_status: partial-or-confirmed
+    notes_ru: Выполнение процесса конкретного операционного дня и параметры уровня операционного дня.
+  - source_model: XohksCalculation
+    openapi_schema: XohksCalculation
+    fields:
+    - bankName
+    - bankBinCode
+    - bankSWIFTBICCode
+    - fileXOHKSReferenceCode
+    - fileGppReferenceCode
+    - calculationStatus
+    - filePaymentCountStatus
+    - filePaymentAmountStatus
+    - fileCancelledPaymentCount
+    - fileCancelledPaymentAmount
+    - mtmessageType
+    physical_db_objects: []
+    mapping_status: unknown-documentation-gap
+    notes_ru: Источник не документирует физический источник данных или таблицу.
+  - source_model: SuccessXohks
+    openapi_schema: SuccessXohks
+    fields:
+    - stateCode
+    - categoryCode
+    - count
+    - amount
+    physical_db_objects: []
+    mapping_status: unknown-documentation-gap
+    notes_ru: Источник не документирует физический источник данных или таблицу.
+  - source_model: StatusAndPrice
+    openapi_schema: StatusAndPrice
+    fields:
+    - status
+    - price
+    physical_db_objects: []
+    mapping_status: unknown-documentation-gap
+    notes_ru: Источник не документирует физический источник данных или таблицу.
+  - source_model: FindMonitoringInfos
+    openapi_schema: FindMonitoringInfos
+    fields:
+    - id
+    - appCode
+    - type
+    - outbound
+    - transactionId
+    - senderCode
+    - receiverCode
+    - url
+    - status
+    - messageDate
+    - createDate
+    - lastModifyDateTime
+    - contentType
+    - message
+    physical_db_objects: []
+    mapping_status: unknown-documentation-gap
+    notes_ru: Источник не документирует физический источник данных или таблицу; хранение XML/message в схеме BDA не 
+      показано.
+  - source_model: FailedXohks
+    openapi_schema: FailedXohks
+    fields:
+    - type
+    - receiverCode
+    - description
+    - url
+    - say
+    - minCreateDate
+    - maxCreateDate
+    physical_db_objects: []
+    mapping_status: unknown-documentation-gap
+    notes_ru: Источник не документирует физический источник данных или таблицу.
+  - source_model: MtFileMonitoring
+    openapi_schema: MtFileMonitoring
+    fields:
+    - bank
+    - count
+    - amount
+    physical_db_objects: []
+    mapping_status: unknown-documentation-gap
+    notes_ru: Источник не документирует физический источник данных или таблицу.
+  reconstructed_helper_schemas:
+  - schema: ParameterValue
+    reason_ru: Дочерний объект выделен из элементов массива `parameters` в примерах исходной модели.
+  - schema: ParameterSet
+    reason_ru: Оболочка `{parameters, periodId}` сохранена по примерам исходной модели.
+  - schema: LoginRequest
+    assertion: inference
+    reason_ru: Источник перечисляет username/password и application/json, но не публикует формальную схему запроса.
+  - schema: Username
+    reason_ru: Нормализация документированного ответа с текущим username.
+  - schema: StartProcessResult
+    reason_ru: Нормализация документированного JSON-сообщения об успешном запуске процесса.
+  known_model_anomalies:
+  - model: Parameter
+    issue: Таблица полей смешивает оболочку и дочерний элемент; для days нет колонки БД.
+    contradictions:
+    - CONTR-BDA-003
+    - CONTR-BDA-005
+  - model: OperationPeriod
+    issue: Расхождение periodName/templateName и periodNames/templateNames; несовпадение типа operationDayName.
+    contradictions:
+    - CONTR-BDA-004
+  - model: XohksCalculation
+    issue: В примерах fileCancelledPaymentCount/Amount представлены строками, а таблица полей задает Integer.
+  - model: FindMonitoringInfos
+    issue: В примере outbound является строкой, а таблица задает Integer; url есть в примере, но отсутствует в таблице 
+      полей.
+  - model: FailedXohks
+    issue: В примерах receiverCode является числом, а таблица задает String; url есть в примере, но отсутствует в 
+      таблице полей.
+  - model: MtFileMonitoring
+    issue: В примерах count/amount являются числами, а таблица полей задает String.

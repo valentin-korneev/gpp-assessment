@@ -1,25 +1,26 @@
 flowchart TB
-    A["Администратор CBA"] --> PDEF["Process definition\nname / type / command / parameters"]
-    PDEF --> TPL["Template\nselected processes + parameter overrides"]
-    TPL --> DAY["Operational day\nname + selected template"]
-    DAY --> RUNS["Day process runs"]
-    RUNS --> RUNNING["İcradadır\nstart time + executor"]
-    RUNNING --> DONE["Tamamlanıb\nend time"]
-    DONE --> ALL{"Все processes завершены?"}
+    A["Администратор Центрального банка"] --> PDEF["Определение процесса\nимя / тип / команда / параметры"]
+    PDEF --> TPL["Шаблон\nвыбранные процессы + переопределение параметров"]
+    TPL --> DAY["Операционный день\nимя + выбранный шаблон"]
+    DAY --> RUNS["Процессы операционного дня"]
+    RUNS --> RUNNING["İcradadır\nвремя начала + исполнитель"]
+    RUNNING --> DONE["Tamamlanıb\nвремя окончания"]
+    DONE --> ALL{"Все процессы завершены?"}
     ALL -->|"нет"| RUNS
-    ALL -->|"да"| ARCH["Archive"]
-    DAY --> CLOSE["Close / Bağlanmış"]
-    ARCH --> HIST["Archived day/process details\nXML artifact download"]
+    ALL -->|"да"| ARCH["Архивировать"]
+    ARCH --> HIST["Архивный день и подробности процессов\nXML-артефакт"]
 
-    A --> MON["Monitoring"]
-    MON --> X1["XÖHKS files"]
-    MON --> X2["Successful XÖHKS payments"]
-    MON --> X3["Previous vs current day payments"]
-    MON --> X4["Unsent files"]
-    MON --> X5["MT files"]
+    DAY --> CLOSE["Закрыть / Bağlanmış"]
 
-    NOTE["Технические REST/service links не добавлены до обработки technical specification"]:::unknown
-    DAY -.-> NOTE
-    MON -.-> NOTE
+    A --> MON["Мониторинг"]
+    MON --> X1["Файлы XÖHKS"]
+    MON --> X2["Успешные платежи XÖHKS"]
+    MON --> X3["Платежи между предыдущим и текущим днями"]
+    MON --> X4["Неотправленные файлы"]
+    MON --> X5["MT-файлы"]
 
-    classDef unknown stroke-dasharray:3 3;
+    TECH["Технический слой: REST API + BDA/BDA_ARCHIVE\nсм. bda-cross-layer-trace.mmd"]:::note
+    DAY -.-> TECH
+    MON -.-> TECH
+
+    classDef note stroke-dasharray:3 3;

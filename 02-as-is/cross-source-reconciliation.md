@@ -216,3 +216,23 @@ Scope:
 
 Отдельный mapping сохранен в `normalized/data/physical-domain-mapping.yaml`. Logical relationships сохранены в `normalized/data/logical-foreign-keys.yaml` и отделены от physical constraints. Current database status остается `Q-DB-001`; inconsistent table/enum definitions остаются `CONTR-DB-001..004`.
 
+
+
+## 10. BDA: руководство пользователя 2025 -> техническая REST/API/DB-спецификация 2025
+
+`SRC-BDA-002` обработан после `SRC-BDA-001`, поэтому технические сведения не использовались для ретроспективного расширения фактов руководства пользователя. Они наложены отдельным слоем на уже установленную функциональную модель.
+
+| Пользовательский процесс | Возможность | REST/API | Физическая привязка | Результат |
+|---|---|---|---|---|
+| Определения процессов | `CAP-ASIS-014` | `periods`, `Period`, `ParameterSet` | `BDA.PROCESS`, `BDA.PARAMETERS` | Трассируется; `days` не имеет документированной колонки БД |
+| Шаблоны | `CAP-ASIS-015` | `templates`, `Template`, `ParameterSet` | `BDA.TEMPLATE`, `TEMPLATE_PROCESS`, `PROCESS`, `PARAMETERS` | Трассируется; путь из раздела 2.1 конфликтует с обзором |
+| Операционный день | `CAP-ASIS-016` | `operation-days`, `OperationDay` | `BDA.OPERATION_DAY` | Трассируется |
+| Процесс дня | `CAP-ASIS-017` | `operation-period`, `OperationPeriod`, `ParameterSet` | `BDA.OPERATION_PROCESS`, `PARAMETERS` | Трассируется; механизм запуска команд остается `UNKNOWN` |
+| Архив | `CAP-ASIS-018` | `archives`, `Archive`, `ArchiveOperationPeriod` | `BDA_ARCHIVE.OPERATION_DAY`, `OPERATION_PROCESS` | Трассируется частично; хранение XML остается `UNKNOWN` |
+| Мониторинг | `CAP-ASIS-019` | `monitoring-menus` + 6 моделей | Не документирован | Пробел документации без искусственной привязки к таблице |
+
+Сквозная сверка также поддерживает семантические соответствия состояний `Cari -> CURRENT`, `Bağlanmış -> CLOSED`, `İcradadır -> IN_PROGRESS`, `Tamamlanıb -> DONE` как `INFERENCE`, а не как буквальную таблицу соответствий из источника.
+
+Физическая модель BDA 2025 является отдельным более поздним техническим подтверждением и **не** заменяет автоматически историческую модель `CF/APUS` 2015 года: это разные области. Нельзя делать вывод, что таблицы BDA представляют всю текущую модель данных GPP.
+
+Аутентификация BDA подтверждает локальный контур JWT/authority и хранение паролей в виде bcrypt-хэшей, но не закрывает общий `Q-SEC-001` и не доказывает общесистемную модель идентификации.

@@ -1,0 +1,17 @@
+flowchart LR
+    A[Администратор ЦБ] --> W1[Определения процессов]
+    A --> W2[Шаблоны]
+    A --> W3[Операционный день]
+    A --> W4[Процессы дня]
+    A --> W5[Архив]
+    A --> W6[Мониторинг]
+
+    W1 --> C1[CAP-ASIS-014] --> R1[REST: periods] --> M1[Period / ParameterSet] --> D1[BDA.PROCESS / PARAMETERS]
+    W2 --> C2[CAP-ASIS-015] --> R2[REST: templates] --> M2[Template / ParameterSet] --> D2[BDA.TEMPLATE / TEMPLATE_PROCESS / PROCESS / PARAMETERS]
+    W3 --> C3[CAP-ASIS-016] --> R3[REST: operation-days] --> M3[OperationDay] --> D3[BDA.OPERATION_DAY]
+    W4 --> C4[CAP-ASIS-017] --> R4[REST: operation-period] --> M4[OperationPeriod / ParameterSet] --> D4[BDA.OPERATION_PROCESS / PARAMETERS]
+    W5 --> C5[CAP-ASIS-018] --> R5[REST: archives] --> M5[Archive / ArchiveOperationPeriod] --> D5[BDA_ARCHIVE.OPERATION_DAY / OPERATION_PROCESS]
+    W6 --> C6[CAP-ASIS-019] --> R6[REST: monitoring-menus] --> M6[Monitoring API models] --> G1[UNKNOWN: physical provider]
+
+    D4 -.-> G2[UNKNOWN: command-runner]
+    D5 -.-> G3[UNKNOWN: XML artifact storage]
