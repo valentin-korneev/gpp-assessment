@@ -2,7 +2,9 @@
 
 ## Evidence basis
 
-Контекст построен по published public baseline, повторно проверенному public-source family `gpp-public-bootstrap` и source family `gpp-functional-specification-2023`.
+Контекст построен по published public baseline, повторно проверенному public-source family `gpp-public-bootstrap`, source family `gpp-functional-specification-2023` и историческому нормативно-operational source `SRC-OPS-001` от 13.08.2015.
+
+`SRC-OPS-001` используется для ролей, access/administration rules, operational day semantics, backup/DR expectations и historical deployment/technology context. Он не считается доказательством current infrastructure или current technology stack.
 
 Функциональная спецификация описывает состояние на 05.05.2023. Поэтому component-level technical elements, кроме отдельно подтвержденных более поздними sources, имеют currentness `current-at-source-date` или `unverified`. Официальный обзор цифровых платежей CBA за 2025 год подтверждает, что GPP как system-level payment-processing platform продолжал фактически обрабатывать платежи в 2025 году, но не подтверждает currentness конкретных modules из спецификации 2023 года.
 
@@ -101,6 +103,24 @@ Management tools дополнительно показывают participant org
 
 Эти функции рассматриваются как current-at-source-date 05.05.2023, пока последующие sources не подтвердят current production state.
 
+
+## Исторический нормативно-operational context 2015
+
+Правила, утвержденные Правлением CBA 13.08.2015, добавляют более ранний operational baseline, который не следует смешивать с current AS-IS:
+
+- роли включали system administrator, security administrator, certificate services administrator, participant administrator и operator;
+- доступ к индивидуально ограниченному набору функций строился на электронном сертификате с последующим username/password;
+- system administrator отвечал в том числе за software/platform service, Oracle backup/replication, system component management, operational day и participant activity;
+- operational day был определен как 00:00-24:00, а reporting/settlement действия продолжались на следующий рабочий день по фиксированным временным окнам;
+- backup/archive и disaster recovery были формализованы отдельными приложениями к Правилам.
+
+Эти сведения имеют `currentness: historical`. В частности, certificate/password mechanism, конкретные роли, расписание, backup technology и deployment topology 2015 года не переносятся в current state без нового evidence. Current gaps вынесены в `Q-OPS-001`, `Q-SEC-001`, `Q-BCK-001` и `Q-DR-001`.
+
+## Historical DR topology 2015
+
+Targeted visual review диаграммы на странице 13 `SRC-OPS-001` подтверждает three-site model: Main и Alternative sites находятся в основном центре и используют общий disk array; Backup site находится в отдельном резервном центре и имеет собственный disk array; на diagram показана Oracle replication между основным и резервным контурами. Текст recovery plan дополняет diagram cluster failover Main -> Alternative и переходом на Backup в one-site mode, если отказ Main+Alternative не устраняется в течение одного часа.
+
+Canonical reconstruction сохранена в `diagrams/historical-dr-topology-2015.mmd`. Она представляет только historical 2015 deployment evidence и не расширяет current system-context diagram новыми current components.
 
 ## Temporal notation диаграммы
 

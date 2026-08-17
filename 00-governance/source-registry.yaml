@@ -27,6 +27,17 @@ source_families:
   relationship_classification: ambiguous-overlap
   stakeholder_context_source: SRC-STK-001
 
+- id: gpp-normative-operational-2015
+  title_ru: Правила проведения операций через GPP - нормативно-операционный baseline 2015
+  relationship_ru: Утвержденные Правлением Центрального банка правила с приложениями по ежедневным операциям,
+    резервному копированию и аварийному восстановлению. Используются как нормативный, организационный и исторический
+    operational source. Технологии, инфраструктура и процедуры 2015 года не считаются current AS-IS без более нового подтверждения.
+  sources:
+  - SRC-OPS-001
+  - SRC-STK-002
+  stakeholder_context_source: SRC-STK-002
+
+
 sources:
 - id: SRC-PUB-001
   title: The Government Payment Portal (GPP)
@@ -186,3 +197,46 @@ sources:
   normalization_requirements: none
   notes_ru: Уточняет порядок передачи артефактов, нормализацию XÖHK/XÖHKS и рабочую boundary-классификацию IAMAS/AVIS.
     Не устанавливает version authority функциональной спецификации.
+
+- id: SRC-OPS-001
+  title: Hökumət Ödəniş Portalı vasitəsilə əməliyyatların aparılması Qaydaları
+  file_name: GPP_Qaydalar_2015_V14 2(GPP qaydalar).docx
+  source_family: gpp-normative-operational-2015
+  relationship: approved-normative-operational-rules-with-annexes
+  filename_version_hint: V14
+  version: null
+  date: '2015-08-13'
+  version_confidence: low
+  ingest_profile: normative-operational
+  authority: central-bank-board-approved
+  currentness: historical
+  sensitivity: internal
+  visual_review_mode: targeted
+  normalization_requirements: none
+  notes_ru: Документ утвержден решением Правления Центрального банка от 13.08.2015 и содержит приложения с регламентом
+    операционного дня, backup/archive procedures и disaster recovery plan. Filename hint V14 не подтвержден внутренней
+    version metadata и не используется как authority. По stakeholder clarification редакция была передана assessment как
+    последняя доступная; это повышает provenance по полноте переданного набора документов, но не доказывает currentness
+    технологий, инфраструктуры или operational procedures 2015 года. Targeted visual review архитектурно значимой
+    DR/topology diagram на странице 13 выполнен. Точные internal hostnames, filesystem paths и operational commands из
+    DR/restore procedures в canonical model не копируются, поскольку для архитектурного evidence достаточно их
+    абстрактной семантики.
+  delivery_context:
+    reported_as_latest_available_edition: true
+    evidence: EV-STK-003
+
+- id: SRC-STK-002
+  title: Ответ архитектора по актуальности переданной редакции operational rules 2015
+  source_family: gpp-normative-operational-2015
+  relationship: stakeholder-clarification
+  date: '2026-08-17'
+  version_confidence: not-applicable
+  ingest_profile: stakeholder-response
+  authority: project-architect-response
+  currentness: current
+  sensitivity: internal
+  visual_review_mode: not-required
+  normalization_requirements: none
+  notes_ru: Архитектор assessment сообщил, что SRC-OPS-001 был передан как последняя доступная редакция правил. Это
+    относится к provenance переданного source set и не подтверждает, что описанные в документе 2015 года технологии,
+    инфраструктура, security controls, operational schedule или DR procedures остаются текущими.

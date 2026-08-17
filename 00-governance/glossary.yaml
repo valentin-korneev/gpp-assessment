@@ -53,10 +53,12 @@ terms:
 
 - id: TERM-GPP-007
   term: XÖHKS
-  name_ru: XÖHKS
-  definition_ru: Внешняя расчетная/платежная система, с которой спецификация связывает LVPCSS и передачу MT150/152
-    files. Расшифровка аббревиатуры в текущем source family не фиксируется.
+  name_ru: Xırda Ödənişlər üzrə Hesablaşma Klirinq Sistemi (XÖHKS)
+  definition_ru: Внешняя расчетная/клиринговая система. Нормативный source 2015 года раскрывает аббревиатуру как
+    Xırda Ödənişlər üzrə Hesablaşma Klirinq Sistemi и связывает ее с next-business-day settlement; functional specification
+    2023 года связывает XÖHKS с LVPCSS и передачей MT150/152 files.
   sources:
+  - SRC-OPS-001
   - SRC-FS-001
   - SRC-FS-002
 
@@ -91,3 +93,34 @@ terms:
   - SRC-PUB-001
   - SRC-FS-001
   - SRC-FS-002
+
+- id: TERM-GPP-011
+  term: Əməliyyat günü
+  name_ru: Операционный день GPP
+  definition_ru: В правилах 2015 года - период 00:00-24:00, в течение которого платежи регистрируются в GPP и выполняется
+    operational data exchange; последующие reporting/settlement activities привязаны к следующему рабочему дню. Текущая
+    семантика операционного дня не подтверждена.
+  sources:
+  - SRC-OPS-001
+
+- id: TERM-GPP-012
+  term: Əsas mərkəz
+  name_ru: Основной центр
+  definition_ru: Исторический термин правил 2015 года для здания, где размещались основные servers и другое оборудование GPP.
+  sources:
+  - SRC-OPS-001
+
+- id: TERM-GPP-013
+  term: Ehtiyat mərkəz
+  name_ru: Резервный центр
+  definition_ru: Исторический термин правил 2015 года для здания, где размещались резервные servers и другое оборудование GPP.
+  sources:
+  - SRC-OPS-001
+
+- id: TERM-GPP-014
+  term: İştirakçı
+  name_ru: Участник GPP
+  definition_ru: В нормативной модели 2015 года - организация, являющаяся стороной коллективного соглашения о проведении
+    операций через GPP. Текущая юридическая конструкция участия отдельно не подтверждена.
+  sources:
+  - SRC-OPS-001

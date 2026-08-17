@@ -144,3 +144,54 @@ System-level sources подтверждают прием и обработку p
 ### INF-ARCH-002 - configuration-driven behavior
 
 Organization properties и service-type parameters управляют значимой частью integration, routing, limits, payment state и fee/settlement behavior. Поэтому текущая модель поддерживает inference о configuration-driven характере существенной части поведения GPP. Это не finding и не утверждение, что вся business logic реализована конфигурацией.
+
+## 12. Нормативно-operational и deployment baseline 2015
+
+`SRC-OPS-001` существенно расширяет понимание исторического operating model GPP, но все technical/deployment assertions из него маркируются `historical`.
+
+### 12.1. Роли и access model
+
+В 2015 году документированы отдельные роли system administrator, security administrator, certificate services administrator, participant administrator и operator. Доступ предоставлялся в пределах индивидуального набора функций по статусу; authentication сочетала электронный сертификат и последующий username/password.
+
+Это согласуется с тем, что более поздняя specification 2023 года все еще показывает развитый administrative/security perimeter, но не доказывает сохранение конкретной authentication scheme или неизменность role model. Current confirmation требуется через `Q-SEC-001`.
+
+### 12.2. Operational day и settlement cadence
+
+Исторический регламент фиксирует operational day 00:00-24:00. На следующий рабочий день выполнялись сводное информирование, settlement через XÖHKS и последующее информирование participant organizations о зачислении средств в последовательно заданных временных окнах. Внутри operational day участники также обменивались payer obligation/payment data.
+
+Это является важным evidence о day-boundary semantics и batch/settlement cadence 2015 года, но current schedule не подтвержден (`Q-OPS-001`).
+
+### 12.3. Backup/archive expectations
+
+Историческая policy описывает регулярный Oracle backup через TSM, weekly full + промежуточные copies, перенос данных старше 30 дней в archive layer/external storage и периодическое двухкопийное offline хранение. Это подтверждает formal backup/retention process в 2015 году, но не current media/technology/retention strategy (`Q-BCK-001`).
+
+### 12.4. Targeted visual review DR/topology diagram
+
+На странице 13 Appendix 3 визуально показаны:
+
+- Main site и Alternative site внутри одного Main Center;
+- общий disk array для Main/Alternative;
+- отдельный Backup site в Backup Center;
+- отдельный disk array в backup contour;
+- Oracle replication между main и backup contours.
+
+Сопровождающий recovery plan добавляет operational semantics: локальный отказ Main site приводит к автоматическому cluster failover на Alternative site; если Main+Alternative не восстанавливаются в течение одного часа, GPP переводится на Backup site в one-site mode с rerouting participant traffic. Failback выполняется после database synchronization с возвратом applications/traffic и восстановлением replication.
+
+Для canonical model создана реконструкция `diagrams/historical-dr-topology-2015.mmd`. Exact hostnames, paths и operational commands из source намеренно не перенесены: они не нужны для доказательства topology/procedure semantics и могут быть чувствительными. Current DR topology/RTO/RPO остается открытым через `Q-DR-001`.
+
+### 12.5. Historical technology stack - currentness boundary
+
+Source упоминает UNIX/Windows servers, Oracle/Oracle ExaData, WebLogic, Tomcat, Active MQ, Apache и TSM. Эти technologies считаются подтвержденными только как historical 2015 operational context (`FACT-GPP-027`). Ни одна из них не добавляется как current component/runtime dependency без более нового evidence.
+
+## 13. Cross-source temporal reconciliation
+
+После обработки `SRC-OPS-001` выполнена отдельная reconciliation исторического operational baseline 2015 года с functional model 2023 года и более поздними public signals 2024-2025. Подробная derived view сохранена в `cross-source-reconciliation.md`.
+
+Reconciliation не создает искусственную "current architecture" путем объединения разных дат. Основные выводы:
+
+- administrative/security perimeter как function domain виден и в 2015, и в 2023 (`INF-ARCH-003`), но current role mapping, authentication и segregation of duties не подтверждены;
+- payment lifecycle на логическом уровне разделяет payment acceptance/processing и downstream reporting/settlement concerns (`INF-ARCH-004`), но exact current orchestration и core processing component неизвестны;
+- XÖHKS повторяется как settlement integration concern в 2015 и 2023 (`INF-ARCH-005`), тогда как IPS появляется отдельным integration concern только в 2023 evidence и не трактуется как replacement XÖHKS;
+- technology/deployment mechanics 2015 года остаются historical и не повышаются по currentness из-за функциональной преемственности отдельных domains.
+
+Дополнительно сформированы temporal matrix, role/capability reconciliation, currentness/confidence view и historical leakage check. На текущем WIP leakage исторических technologies, DR topology, access mechanics или operational schedule в current AS-IS не обнаружен.

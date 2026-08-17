@@ -368,6 +368,18 @@ evidence:
   statement_ru: Архитектор assessment подтвердил, что упоминание XÖHK в описании Loader Generators является опечаткой и обозначает
     XÖHKS.
 
+- id: EV-STK-003
+  source: SRC-STK-002
+  section: Ответ по актуальности редакции operational rules
+  locator:
+    type: section
+    value: latest-provided-operational-rules-edition
+  evidence_type: stakeholder-response
+  provenance: stakeholder-confirmed
+  statement_ru: Архитектор assessment подтвердил, что редакция правил SRC-OPS-001 от 13.08.2015 была передана как последняя
+    доступная редакция. Подтверждение относится к комплекту переданных источников и само по себе не устанавливает currentness
+    описанных в документе технологий, инфраструктуры и operational procedures.
+
 - id: EV-FS-020
   source: SRC-FS-001
   section: 3.1.2 - organization properties / identification
@@ -434,3 +446,113 @@ evidence:
   provenance: documented
   statement_ru: Для participant organization документируется расчетный банковский счет BankAccount{index}; индекс payment
     receiver используется для выбора счета, по которому выполняется settlement.
+
+- id: EV-OPS-001
+  source: SRC-OPS-001
+  page: 2-7
+  section: 2. Anlayışlar; 5. Sistemin təhlükəsizliyinin təmin olunması
+  locator:
+    type: role
+    value: historical-user-and-administrator-roles
+  evidence_type: text
+  provenance: documented
+  statement_ru: Правила 2015 года определяют роли системного администратора, администратора безопасности, оператора и
+    администратора участника; раздел распределения функций отдельно выделяет администратора сертификатных сервисов.
+    Системный администратор отвечает за широкий operational perimeter, администратор безопасности - за информационную
+    безопасность, а администратор сертификатных сервисов - за PKI/сертификаты.
+
+- id: EV-OPS-002
+  source: SRC-OPS-001
+  page: 3-7
+  section: 3. Ümumi tələblər; 5. Sistemin təhlükəsizliyinin təmin olunması
+  locator:
+    type: process
+    value: historical-user-access-control
+  evidence_type: text
+  provenance: documented
+  statement_ru: Для каждого пользователя правила требуют ограниченный индивидуальный набор функций по статусу; вход в этот
+    набор функций выполняется с использованием электронного сертификата, затем имени пользователя и пароля. Политика
+    сложности/смены паролей задается внутренними актами Центрального банка, а парольные карточки предусматривают отдельное
+    хранение в запечатанном виде.
+
+- id: EV-OPS-003
+  source: SRC-OPS-001
+  page: 4-7
+  section: 4. Sistem istifadəçilərinin funksiyaları
+  locator:
+    type: process
+    value: historical-operational-administration
+  evidence_type: text
+  provenance: documented
+  statement_ru: В 2015 году operational administration охватывала обслуживание UNIX/Windows server software, прикладного
+    и сервисного ПО, управление правами участников и пользователей, backup/restore Oracle, контроль репликации с резервным
+    центром, управление системными компонентами и операционным днем, а также статусы и деятельность участников.
+
+- id: EV-OPS-004
+  source: SRC-OPS-001
+  page: 8-9
+  section: Əlavə № 1 - Hökumət Ödəniş Portalı vasitəsilə gündəlik əməliyyatların aparılması Reqlamenti
+  locator:
+    type: process
+    value: historical-operational-day-and-next-business-day-settlement
+  evidence_type: table
+  provenance: documented
+  statement_ru: Регламент 2015 года задает операционный день 00:00-24:00 с регистрацией платежей и передачей информации
+    участникам; на следующий рабочий день предусматривает отправку сводной информации 09:00-10:00, перевод принятых
+    платежей через XÖHKS 10:00-13:00 и передачу участникам информации о зачислении на банковские счета 13:00-18:00.
+    В течение операционного дня участники также передают изменения payer base/obligations и получают информацию о платежах.
+
+- id: EV-OPS-005
+  source: SRC-OPS-001
+  page: 10-12
+  section: Əlavə № 2 - elektron sənədlərin ehtiyat surətlərinin hazırlanması və saxlanması
+  locator:
+    type: process
+    value: historical-backup-and-archive-policy
+  evidence_type: text
+  provenance: documented
+  statement_ru: Backup/archive policy 2015 года предусматривает автоматические Oracle backups через TSM с еженедельной
+    полной копией и промежуточными копиями в остальные дни; operational-day data старше 30 дней переносится из основной
+    схемы в архивную и далее во внешнее хранилище. В конце месяца архивные данные записываются в двух экземплярах на DVD или магнитные ленты, а накопленные
+    за год носители передаются архивной службе Центрального банка.
+
+- id: EV-OPS-006
+  source: SRC-OPS-001
+  page: 13
+  section: Əlavə № 3 - qeyri-adi, fövqəladə vəziyyətlərdən çıxış yollarını əhatə edən Tədbirlər planı
+  locator:
+    type: diagram
+    value: historical-three-site-dr-topology
+  evidence_type: diagram
+  provenance: documented
+  statement_ru: Targeted visual review диаграммы на странице 13 подтверждает историческую трехсайтовую topology - Основной
+    и Альтернативный сайты расположены в основном центре и используют общий disk array; Резервный сайт находится в
+    отдельном резервном центре и использует собственный disk array; между основным и резервным контуром показана Oracle replication.
+
+- id: EV-OPS-007
+  source: SRC-OPS-001
+  page: 14-15
+  section: Əlavə № 3 - disaster recovery procedures
+  locator:
+    type: process
+    value: historical-failover-failback-procedure
+  evidence_type: text
+  provenance: documented
+  statement_ru: Для локального отказа Основного сайта правила описывают автоматическое восстановление работы на
+    Альтернативном сайте в cluster mode. Если отказ Основного и Альтернативного сайтов не устраняется в течение одного
+    часа, GPP переводится на Резервный сайт в one-site mode с перенаправлением participant traffic; возврат включает
+    синхронизацию базы, остановку DR applications, запуск приложений на основном/альтернативном контуре, возврат traffic
+    и восстановление Oracle replication. Для потери резервной Oracle database описано восстановление полной копии с
+    Основного сайта, синхронизация и перевод в standby.
+
+- id: EV-OPS-008
+  source: SRC-OPS-001
+  page: 5
+  section: 4.2 Servis funksiyaları; Əlavə № 2
+  locator:
+    type: section
+    value: historical-technology-stack
+  evidence_type: text
+  provenance: documented
+  statement_ru: Нормативно-operational документ 2015 года прямо упоминает UNIX и Windows servers, Oracle DBMS/Oracle
+    ExaData, WebLogic, Tomcat, Active MQ, Apache и TSM как элементы тогдашнего operational technology stack.

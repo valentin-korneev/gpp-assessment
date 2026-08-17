@@ -45,26 +45,32 @@ questions:
   question_ru: Какие компоненты реализуют центральную обработку платежей, состояние счетов/инвойсов и persistence,
     если они не названы в перечне infrastructure modules?
   reason_ru: Система как целое принимает и обрабатывает платежи. Публичное описание дополнительно подтверждает централизованное
-    хранение reference/master data в базе данных портала, но функциональная спецификация не называет core processing/storage
-    components и не связывает physical persistence с конкретным module.
+    хранение reference/master data в базе данных портала. Исторический нормативно-operational source 2015 года подтверждает
+    Oracle-based persistence/replication topology на ту дату, но не идентифицирует current core processing component и не
+    доказывает текущую physical persistence topology.
   priority: important
   status: open
   related_facts:
   - FACT-GPP-008
   - FACT-GPP-021
+  - FACT-GPP-026
+  - FACT-GPP-027
 
 - id: Q-CUR-001
   area: currentness
   question_ru: Какие из модулей, описанных функциональной спецификацией 05.05.2023, остаются в текущем production
     state и в каком виде?
   reason_ru: WebPortal и mobile app подтвержденно прекращены в 2024 году, а system-level обработка платежей через GPP
-    подтверждена за 2025 год. Для остальных named modules актуальность после даты спецификации по-прежнему не подтверждена.
+    подтверждена за 2025 год. Исторический source 2015 года добавляет deployment, security и technology context, но не
+    повышает currentness этих деталей. Для остальных named modules и operational mechanisms актуальность после дат их
+    источников по-прежнему не подтверждена.
   priority: important
   status: open
   related_sources:
   - SRC-FS-001
   - SRC-FS-002
   - SRC-PUB-005
+  - SRC-OPS-001
   related_facts:
   - FACT-GPP-003
   - FACT-GPP-008
@@ -153,7 +159,9 @@ questions:
   question_ru: Каково точное назначение IpsTransitAccountConsent, для каких организаций property применяется и какие
     модули/flows оно изменяет?
   reason_ru: Reviewer comment прямо отмечает недостаточность описания scope и impact; source приводит только частичное
-    объяснение TopUp authentication/consent.
+    объяснение TopUp authentication/consent. Cross-source reconciliation показывает, что operational settlement model 2015 года
+    явно опиралась на XÖHKS, тогда как IPS появляется отдельным integration concern только в specification 2023; relationship
+    IPS к XÖHKS и payment lifecycle не установлен.
   priority: important
   status: open
   related_evidence:
@@ -208,3 +216,70 @@ questions:
   status: open
   related_evidence:
   - EV-FS-023
+
+- id: Q-OPS-001
+  area: operations
+  question_ru: Каковы текущие границы operational/business day GPP, next-business-day reporting/settlement windows и
+    сохраняется ли описанная в 2015 году роль XÖHKS в этих расчетах?
+  reason_ru: Исторический нормативный регламент задает точные временные окна и последовательность. Stakeholder сообщил,
+    что это последняя переданная редакция правил, но переносить schedule 2015 года в current operations без подтверждения
+    фактического состояния нельзя; спецификация 2023 года подтверждает XÖHKS integration, но не актуальный day schedule.
+  priority: important
+  status: open
+  related_sources:
+  - SRC-OPS-001
+  - SRC-FS-001
+  - SRC-FS-002
+  - SRC-STK-002
+  related_facts:
+  - FACT-GPP-024
+  - FACT-GPP-015
+
+- id: Q-SEC-001
+  area: security-access
+  question_ru: Как устроены текущие authentication/authorization и segregation-of-duties для system/security/certificate,
+    participant administrators и operators, включая использование электронных сертификатов, MFA и emergency credential handling?
+  reason_ru: Правила 2015 года задают certificate + username/password access и раздельные operational roles, а specification
+    2023 года подтверждает permissions/dual authorization и измененный набор administrative roles. Current security control model
+    и сохранение исторических mechanisms не подтверждены.
+  priority: important
+  status: open
+  related_sources:
+  - SRC-OPS-001
+  - SRC-FS-001
+  - SRC-FS-002
+  - SRC-STK-002
+  related_facts:
+  - FACT-GPP-009
+  - FACT-GPP-011
+  - FACT-GPP-022
+  - FACT-GPP-023
+
+- id: Q-BCK-001
+  area: backup-recovery
+  question_ru: Каковы текущие backup frequency, retention, offsite/offline copy strategy, restore testing и RPO для GPP?
+  reason_ru: Правила 2015 года подробно описывают TSM/Oracle backup и archive media process, но эти технологии и retention
+    mechanics являются историческими и требуют current подтверждения.
+  priority: important
+  status: open
+  related_sources:
+  - SRC-OPS-001
+  - SRC-STK-002
+  related_facts:
+  - FACT-GPP-025
+  - FACT-GPP-027
+
+- id: Q-DR-001
+  area: disaster-recovery
+  question_ru: Какова текущая production/DR topology GPP, replication model, RTO/RPO, failover trigger и failback procedure?
+  reason_ru: Диаграмма и план 2015 года подтверждают three-site topology с Main/Alternative shared-storage cluster и отдельным
+    Backup site, а также часовой threshold перехода в DR. Это сильный historical evidence, но не доказательство current topology
+    или действующих recovery objectives.
+  priority: important
+  status: open
+  related_sources:
+  - SRC-OPS-001
+  - SRC-STK-002
+  related_facts:
+  - FACT-GPP-026
+  - FACT-GPP-027

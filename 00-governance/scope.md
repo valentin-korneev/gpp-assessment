@@ -2,7 +2,7 @@
 
 ## Текущая фаза
 
-AS-IS evidence collection. Published baseline `SNAPSHOT-003` дополнен текущим WIP по ограниченному повторному public-source pass: уточнены external identification sources, system-level эксплуатация GPP в 2025 году и логическое централизованное хранение reference/master data.
+AS-IS evidence collection. Published baseline `SNAPSHOT-004` дополнен текущим WIP по `SRC-OPS-001` - нормативно-operational правилам 2015 года - и cross-source reconciliation с functional model 2023 и public signals 2024-2025. WIP добавляет historical roles/access model, operational day semantics, backup/archive expectations и DR/deployment topology, а также temporal/currentness, role/capability и payment-lifecycle derived views, не перенося технологии и инфраструктуру 2015 года в current AS-IS.
 
 ## Объект assessment
 
@@ -21,6 +21,7 @@ Government Payment Portal (GPP / HÖP) Азербайджана рассматр
 
 - CISMS зафиксирован публичным источником CBA как предшествующая инфраструктура, запущенная 11.07.2008.
 - GPP зафиксирован CBA как портал, запущенный в 2012 году с использованием инфраструктурных возможностей CISMS.
+- Правила проведения операций через GPP утверждены Правлением CBA 13.08.2015. Их roles, access/security, operational-day, backup/DR и technology/deployment сведения используются как `historical`, а не как current production state.
 - Внутренняя functional specification имеет внутреннюю дату 05.05.2023; технические утверждения из нее считаются `current-at-source-date`, а не автоматически current.
 - Собственные пользовательские каналы `gpp.az` и mobile app прекращены с 10.01.2024 и не входят в текущий AS-IS как действующие каналы.
 - Для `MobilApi` и остальных modules из specification 2023 года текущий production status требует подтверждения (`Q-CUR-001`).
@@ -38,5 +39,5 @@ Shared content консолидируется без дублирующих fact
 - Authoritative/current редакция functional specification не определена.
 - Внутренние sources 2023 года содержат operational values и screenshots; sensitive values не переносятся в canonical model без необходимости.
 - Machine-readable contracts не предоставлены. Из specification извлекается только interface classification и confirmed relationship; REST/SOAP/file details не придумываются.
-- Core payment processing, persistence, runtime/deployment topology и database architecture в текущем source family не описаны достаточно для подтвержденной модели.
+- Historical source 2015 года подтверждает тогдашние Oracle persistence/replication и three-site DR topology, но current core payment processing, persistence, runtime/deployment topology и database architecture по-прежнему не подтверждены.
 - Findings по source quality не создаются как findings системы.

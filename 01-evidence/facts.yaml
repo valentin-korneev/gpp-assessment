@@ -265,6 +265,96 @@ facts:
   notes_ru: Факт подтверждает наличие логического централизованного хранилища reference/master data в публично описанной
     архитектуре, но не идентифицирует physical database component и не доказывает текущую реализацию.
 
+- id: FACT-GPP-022
+  area: operational-roles-history
+  statement_ru: В нормативной модели 2015 года GPP имел раздельные operational roles системного администратора,
+    администратора безопасности, администратора сертификатных сервисов, администратора участника и оператора с различными
+    обязанностями по эксплуатации, security/PKI, контролю пользователей и проведению платежных операций.
+  evidence:
+  - EV-OPS-001
+  - EV-OPS-003
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2015-08-13'
+    currentness: historical
+  status: active
+  notes_ru: Ролевой состав и распределение обязанностей не переносятся в current AS-IS без последующего подтверждения.
+
+- id: FACT-GPP-023
+  area: access-security-history
+  statement_ru: В 2015 году доступ пользователя к ограниченному набору функций GPP предусматривал электронный сертификат,
+    после чего имя пользователя и пароль; password policy определялась внутренними актами Центрального банка и
+    предусматривалось отдельное запечатанное хранение парольных карточек.
+  evidence:
+  - EV-OPS-002
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2015-08-13'
+    currentness: historical
+  status: active
+  notes_ru: Это историческая security expectation, а не подтверждение current authentication/control implementation.
+
+- id: FACT-GPP-024
+  area: operational-day-history
+  statement_ru: Регламент 2015 года определял операционный день GPP как 00:00-24:00; следующий рабочий день включал
+    временные окна сводного информирования 09:00-10:00, settlement через XÖHKS 10:00-13:00 и последующее информирование
+    о зачислении средств 13:00-18:00, при этом participant data exchange продолжался в течение операционного дня.
+  evidence:
+  - EV-OPS-004
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2015-08-13'
+    currentness: historical
+  status: active
+  notes_ru: Текущие границы business/operational day и settlement windows требуют нового подтверждения.
+
+- id: FACT-GPP-025
+  area: backup-archive-history
+  statement_ru: В 2015 году backup/archive design GPP использовал автоматические Oracle backups через TSM, weekly full
+    плюс промежуточные copies, 30-дневный порог переноса operational-day data в archive schema/external storage и
+    периодическую запись архива в двух экземплярах на DVD или магнитные ленты с последующей передачей в архив Центрального банка.
+  evidence:
+  - EV-OPS-005
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2015-08-13'
+    currentness: historical
+  status: active
+  notes_ru: Конкретная backup technology, retention и media strategy 2015 года не считаются current.
+
+- id: FACT-GPP-026
+  area: dr-topology-history
+  statement_ru: В 2015 году GPP документировался как трехсайтовая deployment/DR topology - Основной и Альтернативный
+    сайты в основном центре использовали общий disk array, отдельный Резервный сайт имел собственный disk array, а между
+    основным и резервным контуром использовалась Oracle replication. Локальный отказ Основного сайта обслуживался cluster
+    failover на Альтернативный; при неустраненном в течение часа отказе Основного и Альтернативного сайтов предусматривался
+    переход на Резервный сайт в one-site mode с последующим failback после синхронизации.
+  evidence:
+  - EV-OPS-006
+  - EV-OPS-007
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2015-08-13'
+    currentness: historical
+  status: active
+  notes_ru: Диаграмма и процедуры являются историческим deployment evidence; current topology, RTO/RPO и replication mode
+    не подтверждены.
+
+- id: FACT-GPP-027
+  area: technology-history
+  statement_ru: Operational rules 2015 года упоминают UNIX/Windows servers, Oracle DBMS/Oracle ExaData, WebLogic, Tomcat,
+    Active MQ, Apache и TSM как элементы тогдашнего технологического и эксплуатационного окружения GPP.
+  evidence:
+  - EV-OPS-003
+  - EV-OPS-005
+  - EV-OPS-008
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2015-08-13'
+    currentness: historical
+  status: active
+  notes_ru: Ни одна из перечисленных технологий не считается подтвержденной для current production AS-IS только на основании этого source.
+
 inferences:
 - id: INF-ARCH-001
   area: architecture
@@ -306,3 +396,63 @@ inferences:
   status: active
   limitations_ru: Inference не означает, что вся business logic хранится в configuration и не является finding о качестве
     такой модели.
+
+- id: INF-ARCH-003
+  area: administration
+  statement_ru: Cross-source evidence 2015 и 2023 годов поддерживает устойчивость administrative/security perimeter GPP -
+    system administration, participant administration, security control и operator-facing functions присутствуют в обеих
+    моделях, хотя exact role names, responsibility boundaries и authentication mechanisms не подтверждены как неизменные.
+  based_on_facts:
+  - FACT-GPP-009
+  - FACT-GPP-011
+  - FACT-GPP-012
+  - FACT-GPP-022
+  - FACT-GPP-023
+  evidence:
+  - EV-OPS-001
+  - EV-OPS-002
+  - EV-OPS-003
+  - EV-FS-003
+  - EV-FS-005
+  - EV-FS-006
+  confidence: supported
+  status: active
+  limitations_ru: Inference относится к устойчивости function domains между source dates 2015 и 2023, а не к current 2026
+    role model. Отдельная PKI/certificate-services role 2015 года и точное назначение permissions/dual authorization 2023 года
+    не позволяют построить current RBAC/SoD matrix без дополнительного evidence.
+
+- id: INF-ARCH-004
+  area: payment-lifecycle
+  statement_ru: >-
+    Cross-source evidence поддерживает логическое разделение payment lifecycle GPP на прием/обработку платежа и downstream
+    participant reporting/settlement concerns: operational rules 2015 описывают регистрацию, информирование и next-business-day
+    settlement, а specification 2023 выделяет authorization, participant reporting и XÖHKS/IPS integration modules.
+  based_on_facts:
+  - FACT-GPP-006
+  - FACT-GPP-015
+  - FACT-GPP-018
+  - FACT-GPP-024
+  evidence:
+  - EV-OPS-004
+  - EV-FS-001
+  - EV-FS-015
+  - EV-PUB-006
+  confidence: supported
+  status: active
+  limitations_ru: Inference не утверждает неизменность sequence, component orchestration или settlement timing после 2015/2023
+    и не идентифицирует неизвестный current core processing component.
+
+- id: INF-ARCH-005
+  area: settlement-integration
+  statement_ru: XÖHKS является устойчивым integration concern GPP как минимум между source dates 2015 и 2023 - в 2015 он
+    используется в next-business-day settlement procedure, а в 2023 присутствует в responsibilities Loader Generators и LVPCSS.
+  based_on_facts:
+  - FACT-GPP-015
+  - FACT-GPP-024
+  evidence:
+  - EV-OPS-004
+  - EV-FS-015
+  confidence: supported
+  status: active
+  limitations_ru: Inference не подтверждает current 2026 XÖHKS integration, неизменность MT/file contracts или relationship
+    между XÖHKS и IPS. IPSClient моделируется отдельно и остается предметом Q-IPS-001.
