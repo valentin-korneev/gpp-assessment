@@ -167,13 +167,14 @@ Markdown не должен создавать структурированный
 
 `.mmd` является engineering source конкретной version-controlled технической диаграммы.
 
-Диаграмма не должна противоречить canonical model. Предположительные элементы должны быть связаны с существующим `ASM-*` или `INF-*` и визуально отличаться от подтвержденных.
+Диаграмма не должна противоречить canonical model. Предположительные элементы должны иметь явное основание в canonical model и визуально отличаться от подтвержденных.
 
 Для связей в Mermaid используется следующая базовая семантика:
 
 - подтвержденная связь отображается сплошной линией или стрелкой;
-- предполагаемая связь, основанная на существующем `ASM-*` или `INF-*`, отображается пунктирной линией или стрелкой и при необходимости подписывается соответствующим ID;
-- `UNKNOWN` сам по себе не является основанием для предполагаемой стрелки: если нет `ASM-*` или `INF-*`, связь не дорисовывается как гипотеза.
+- предполагаемая связь отображается пунктирной линией или стрелкой, если она основана на существующем `ASM-*`, `INF-*` или canonical structured relationship с `assertion: inference` и указанным confidence;
+- при необходимости предполагаемая связь подписывается соответствующим ID inference/assumption/structured relationship;
+- `UNKNOWN` сам по себе не является основанием для предполагаемой стрелки: если нет явного assertion-level основания, связь не дорисовывается как гипотеза.
 
 ### 5.4. Governance
 
@@ -204,6 +205,7 @@ FLOW-     flow
 ADR-      architecture decision
 NORM-     normalized contract/model
 DB-       physical database object/model
+LFK-      logical foreign-key relationship
 TERM-     glossary term
 ```
 
@@ -276,6 +278,15 @@ unverified
 - `unverified` означает, что применимость к текущему состоянию не подтверждена;
 - старый документ не подтверждает текущий technology/runtime/operations state сам по себе;
 - новая информация не должна молча переписывать историю анализа.
+
+Наличие наиболее новой доступной документации и temporal currentness являются независимыми характеристиками. Для source set при необходимости используется отдельный признак:
+
+```yaml
+source_set_status:
+  latest_available: true
+```
+
+`latest_available: true` означает только, что в доступном assessment source set нет более нового материала или stakeholder считает этот материал наиболее актуальным из переданных. Этот признак никогда автоматически не повышает `currentness` и не подтверждает соответствие текущему production-состоянию.
 
 Для эволюционирующих объектов используются статусы:
 
@@ -374,6 +385,7 @@ currentness
 sensitivity
 visual review mode
 normalization requirements
+source-set status / latest available, если применимо
 ```
 
 Примеры `ingest_profile`:
@@ -590,6 +602,36 @@ Validation не делает reconstructed contract подтвержденным
 
 Физическая модель может хранить документированные tables, columns, data types, keys, constraints, indexes и ownership.
 
+Для отношений physical data model различаются три класса:
+
+```text
+physical_fk
+documented_logical_reference
+inferred_logical_reference
+```
+
+- `physical_fk` используется, когда наличие FK constraint прямо подтверждено источником или DDL/catalog evidence;
+- `documented_logical_reference` используется, когда источник прямо говорит, что поле или набор полей ссылается на другой physical object/key, но наличие DB constraint не подтверждено;
+- `inferred_logical_reference` используется, когда связь восстановлена архитектурным анализом по именам, типам, назначению полей, business semantics и соседней структуре модели.
+
+Логические связи рекомендуется хранить отдельно от физически подтвержденных constraints, например:
+
+```text
+02-as-is/normalized/data/logical-foreign-keys.yaml
+```
+
+Для `inferred_logical_reference` обязательны `assertion: inference`, `confidence`, человекочитаемое основание (`basis_ru` или эквивалент), evidence/traceability и `physical_constraint_status: unverified`, если constraint отдельно не подтвержден. Для `documented_logical_reference` допустим `assertion: fact`, если сама смысловая ссылка прямо следует из evidence; это все равно не доказывает наличие Oracle/DB FK constraint.
+
+Если один source публикует одно physical имя с несовместимыми definitions:
+
+1. исходное имя сохраняется без молчаливого исправления;
+2. definitions получают отдельные occurrence/variant IDs;
+3. они не сливаются в один physical object без evidence;
+4. конфликт регистрируется как contradiction;
+5. предполагаемое intended name допускается только как inference и не заменяет canonical physical name.
+
+Идентичные повторные definitions могут дедуплицироваться при сохранении нескольких source locators.
+
 Physical table и domain entity не считаются одним объектом автоматически. Mapping фиксируется отдельно.
 
 ## 16. Findings, risks, recommendations и V2
@@ -706,6 +748,14 @@ superseded
 
 `questions.yaml` хранит значимые вопросы о системе, assessment или архитектурном решении, которые должны сохраняться между итерациями. Кратковременный рабочий вопрос AI к архитектору о порядке действий, способе анализа или организации процесса не обязан регистрироваться как Q-*.
 
+Если stakeholder отвечает только на часть составного вопроса, подтвержденная часть не должна оставаться искусственно открытой. Нужно:
+
+1. зафиксировать stakeholder response как evidence или stakeholder context;
+2. закрыть подтвержденную часть исходного вопроса либо уточнить его scope без потери смысла;
+3. оставшуюся устойчивую неопределенность вынести в новый или более узкий `Q-*`, если она по-прежнему значима;
+4. сохранить traceability между исходным ответом и оставшимся unknown;
+5. не считать частичный ответ подтверждением неотвеченной части.
+
 ## 18. Диаграммы
 
 Version-controlled engineering diagrams хранятся только в Mermaid `.mmd`.
@@ -760,8 +810,8 @@ Deliverable visualization может перестраивать композиц
 5. technical normalization, если применимо;
 6. AS-IS model update;
 7. cross-check с предыдущей моделью;
-8. findings/risks/recommendations update;
-9. V2 backlog update;
+8. findings/risks/recommendations update, если текущая стадия assessment и evidence дают достаточное основание;
+9. V2 backlog update, если текущая стадия и evidence дают достаточное основание;
 10. diagrams update только при изменении модели;
 11. iteration quality gate;
 12. единый отчет о семантическом изменении.
@@ -1172,10 +1222,11 @@ fix:
 - applicable normalized contracts обновлены и проверены;
 - contract provenance/evidence map согласован;
 - contradictions рассмотрены;
-- findings связаны с evidence и impact;
-- recommendations связаны с findings/risks;
+- findings, если они создавались или менялись, связаны с evidence и impact;
+- recommendations, если они создавались или менялись, связаны с findings/risks;
 - questions обновлены;
 - Mermaid не противоречит model;
+- human-readable тексты соответствуют рабочему языку и style rules, а технические identifiers/source literals не переводятся;
 - определено coherent semantic change.
 
 ### 23.2. Snapshot gate
@@ -1189,6 +1240,8 @@ fix:
 - OpenAPI/WSDL/XSD validation;
 - secret/sensitive-value scan;
 - temporal consistency check;
+- language/style consistency check для human-readable полей, Markdown и Mermaid labels с исключением технических identifiers/source literals;
+- проверка отсутствия случайной формы буквы с двумя точками и типографских длинных тире вне точных source literals/code;
 - README/protocol consistency check, если governance менялся.
 
 Примеры blocking conditions:

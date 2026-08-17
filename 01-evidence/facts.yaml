@@ -1,577 +1,680 @@
 facts:
-- id: FACT-GPP-001
-  area: purpose
-  statement_ru: GPP создан для централизованного электронного сбора бюджетных и массовых платежей через единую 
-    платформу.
-  evidence:
-  - EV-PUB-001
-  - EV-FS-001
-  confidence: confirmed
-  temporal_scope:
-    source_date:
-    currentness: unverified
-  status: active
+  - id: FACT-GPP-001
+    area: purpose
+    statement_ru: GPP создан для централизованного электронного сбора бюджетных и массовых платежей через 
+      единую платформу.
+    evidence:
+      - EV-PUB-001
+      - EV-FS-001
+    confidence: confirmed
+    temporal_scope:
+      source_date:
+      currentness: unverified
+    status: active
 
-- id: FACT-GPP-002
-  area: history
-  statement_ru: CBA запустил CISMS 11.07.2008; GPP был запущен в 2012 году с использованием инфраструктурных 
-    возможностей CISMS.
-  evidence:
-  - EV-PUB-002
-  confidence: confirmed
-  temporal_scope:
-    source_date:
-    currentness: historical
-  status: active
+  - id: FACT-GPP-002
+    area: history
+    statement_ru: CBA запустил CISMS 11.07.2008; GPP был запущен в 2012 году с использованием инфраструктурных
+      возможностей CISMS.
+    evidence:
+      - EV-PUB-002
+    confidence: confirmed
+    temporal_scope:
+      source_date:
+      currentness: historical
+    status: active
 
-- id: FACT-GPP-003
-  area: channels
-  statement_ru: Интернет-страница gpp.az и мобильное приложение GPP прекратили работу с 10.01.2024.
-  evidence:
-  - EV-PUB-003
-  confidence: confirmed
-  temporal_scope:
-    source_date: 2024-01-10
-    currentness: current
-  status: active
+  - id: FACT-GPP-003
+    area: channels
+    statement_ru: Интернет-страница gpp.az и мобильное приложение GPP прекратили работу с 10.01.2024.
+    evidence:
+      - EV-PUB-003
+    confidence: confirmed
+    temporal_scope:
+      source_date: 2024-01-10
+      currentness: current
+    status: active
 
-- id: FACT-GPP-004
-  area: channels
-  statement_ru: После прекращения собственных web/mobile каналов платежи через GPP доступны через интегрированные 
-    интернет- и мобильные сервисы банков и небанковских поставщиков платежных услуг.
-  evidence:
-  - EV-PUB-004
-  confidence: confirmed
-  temporal_scope:
-    source_date: 2024-01-10
-    currentness: current
-  status: active
+  - id: FACT-GPP-004
+    area: channels
+    statement_ru: После прекращения собственных web/mobile каналов платежи через GPP доступны через 
+      интегрированные интернет- и мобильные сервисы банков и небанковских поставщиков платежных услуг.
+    evidence:
+      - EV-PUB-004
+    confidence: confirmed
+    temporal_scope:
+      source_date: 2024-01-10
+      currentness: current
+    status: active
 
-- id: FACT-GPP-005
-  area: vendor-history
-  statement_ru: SINAM на собственном сайте публикует case study Development of the Government Payment Portal (GPP) для 
-    Central Bank, Republic of Azerbaijan с указанным project period 2008.
-  evidence:
-  - EV-PUB-005
-  confidence: confirmed
-  temporal_scope:
-    source_date:
-    currentness: historical
-  status: active
-  notes_ru: Факт подтверждает содержание vendor self-report, но не текущую роль SINAM и не используется как 
-    доказательство того, что GPP как портал был запущен в 2008 году.
+  - id: FACT-GPP-005
+    area: vendor-history
+    statement_ru: SINAM на собственном сайте публикует case study Development of the Government Payment Portal
+      (GPP) для Central Bank, Republic of Azerbaijan с указанным project period 2008.
+    evidence:
+      - EV-PUB-005
+    confidence: confirmed
+    temporal_scope:
+      source_date:
+      currentness: historical
+    status: active
+    notes_ru: Факт подтверждает содержание vendor self-report, но не текущую роль SINAM и не используется как 
+      доказательство того, что GPP как портал был запущен в 2008 году.
 
-- id: FACT-GPP-006
-  area: integration
-  statement_ru: Публичная страница CBA описывает передачу информации о платежах во внутренние системы участников в real 
-    time и электронную reconciliation по итогам операционного дня.
-  evidence:
-  - EV-PUB-006
-  confidence: confirmed
-  temporal_scope:
-    source_date:
-    currentness: unverified
-  status: active
+  - id: FACT-GPP-006
+    area: integration
+    statement_ru: Публичная страница CBA описывает передачу информации о платежах во внутренние системы 
+      участников в real time и электронную reconciliation по итогам операционного дня.
+    evidence:
+      - EV-PUB-006
+    confidence: confirmed
+    temporal_scope:
+      source_date:
+      currentness: unverified
+    status: active
 
-- id: FACT-GPP-007
-  area: integration-security
-  statement_ru: Публичная страница CBA описывает обмен информацией GPP через Closed Telecommunication Network с 
-    использованием электронных сертификатов Bank Certificate Center CBA.
-  evidence:
-  - EV-PUB-007
-  confidence: confirmed
-  temporal_scope:
-    source_date:
-    currentness: unverified
-  status: active
+  - id: FACT-GPP-007
+    area: integration-security
+    statement_ru: Публичная страница CBA описывает обмен информацией GPP через Closed Telecommunication 
+      Network с использованием электронных сертификатов Bank Certificate Center CBA.
+    evidence:
+      - EV-PUB-007
+    confidence: confirmed
+    temporal_scope:
+      source_date:
+      currentness: unverified
+    status: active
 
-- id: FACT-GPP-008
-  area: architecture
-  statement_ru: 'Функциональная спецификация 2023 года перечисляет 11 именованных элементов инфраструктуры GPP: WebPortal,
-    WebPortalVC, PacPmtProc, mobile applications, MobilApi, PaymentService, TellerWP, AdminConsole, Loader Generators, LVPCSS
-    и IPSClient.'
-  evidence:
-  - EV-FS-002
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  status: active
+  - id: FACT-GPP-008
+    area: architecture
+    statement_ru: 'Функциональная спецификация 2023 года перечисляет 11 именованных элементов инфраструктуры GPP:
+      WebPortal, WebPortalVC, PacPmtProc, mobile applications, MobilApi, PaymentService, TellerWP, AdminConsole,
+      Loader Generators, LVPCSS и IPSClient.'
+    evidence:
+      - EV-FS-002
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    status: active
 
-- id: FACT-GPP-009
-  area: administration
-  statement_ru: 'AdminConsole предназначен для нескольких административных ролей: системного администратора Центрального банка,
-    администратора participant organization, bank security administrator, bank controller и KXM administrator.'
-  evidence:
-  - EV-FS-003
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  status: active
+  - id: FACT-GPP-009
+    area: administration
+    statement_ru: 'AdminConsole предназначен для нескольких административных ролей: системного администратора Центрального
+      банка, администратора participant organization, bank security administrator, bank controller и KXM administrator.'
+    evidence:
+      - EV-FS-003
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    status: active
 
-- id: FACT-GPP-010
-  area: participants
-  statement_ru: Функциональная спецификация выделяет KXM, бюджетные организации, банки, card processing centers и 
-    service centers как типы participant organizations GPP.
-  evidence:
-  - EV-FS-004
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  status: active
+  - id: FACT-GPP-010
+    area: participants
+    statement_ru: Функциональная спецификация выделяет KXM, бюджетные организации, банки, card processing 
+      centers и service centers как типы participant organizations GPP.
+    evidence:
+      - EV-FS-004
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    status: active
 
-- id: FACT-GPP-011
-  area: administration
-  statement_ru: UI AdminConsole 2023 года показывает функциональные области reports, payment audit, management tools, 
-    security, queries и monitoring.
-  evidence:
-  - EV-FS-005
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  status: active
+  - id: FACT-GPP-011
+    area: administration
+    statement_ru: UI AdminConsole 2023 года показывает функциональные области reports, payment audit, 
+      management tools, security, queries и monitoring.
+    evidence:
+      - EV-FS-005
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    status: active
 
-- id: FACT-GPP-012
-  area: configuration
-  statement_ru: AdminConsole предусматривает управление participant organizations и их configuration fields, включая 
-    organization-specific applicability.
-  evidence:
-  - EV-FS-006
-  - EV-FS-007
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  status: active
+  - id: FACT-GPP-012
+    area: configuration
+    statement_ru: AdminConsole предусматривает управление participant organizations и их configuration fields,
+      включая organization-specific applicability.
+    evidence:
+      - EV-FS-006
+      - EV-FS-007
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    status: active
 
-- id: FACT-GPP-013
-  area: configuration
-  statement_ru: GPP предусматривает управление payment/service types and groups, identification types и service fee 
-    tariff rates.
-  evidence:
-  - EV-FS-008
-  - EV-FS-009
-  - EV-FS-010
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  status: active
+  - id: FACT-GPP-013
+    area: configuration
+    statement_ru: GPP предусматривает управление payment/service types and groups, identification types и 
+      service fee tariff rates.
+    evidence:
+      - EV-FS-008
+      - EV-FS-009
+      - EV-FS-010
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    status: active
 
-- id: FACT-GPP-014
-  area: organization-hierarchy
-  statement_ru: DOCX variant описывает административное управление филиалами participant organizations и подразделениями
-    service centers.
-  evidence:
-  - EV-FS-011
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  status: active
-  notes_ru: PDF variant не содержит соответствующих процедурных разделов; отсутствие раздела не трактуется как 
-    доказательство отсутствия функциональности.
+  - id: FACT-GPP-014
+    area: organization-hierarchy
+    statement_ru: DOCX variant описывает административное управление филиалами participant organizations и 
+      подразделениями service centers.
+    evidence:
+      - EV-FS-011
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    status: active
+    notes_ru: PDF variant не содержит соответствующих процедурных разделов; отсутствие раздела не трактуется 
+      как доказательство отсутствия функциональности.
 
-- id: FACT-GPP-015
-  area: integration
-  statement_ru: Спецификация назначает отдельным модулям роли интеграции с PSP channels, authorization centers, 
-    participant reporting/settlement files, XÖHKS и Instant Payment System.
-  evidence:
-  - EV-FS-015
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  status: active
+  - id: FACT-GPP-015
+    area: integration
+    statement_ru: Спецификация назначает отдельным модулям роли интеграции с PSP channels, authorization 
+      centers, participant reporting/settlement files, XÖHKS и Instant Payment System.
+    evidence:
+      - EV-FS-015
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    status: active
 
-- id: FACT-GPP-016
-  area: terminology
-  statement_ru: Упоминание XÖHK в описании Loader Generators относится к XÖHKS и является опечаткой в исходном 
-    документе.
-  evidence:
-  - EV-STK-002
-  confidence: confirmed
-  status: active
+  - id: FACT-GPP-016
+    area: terminology
+    statement_ru: Упоминание XÖHK в описании Loader Generators относится к XÖHKS и является опечаткой в 
+      исходном документе.
+    evidence:
+      - EV-STK-002
+    confidence: confirmed
+    status: active
 
-- id: FACT-GPP-017
-  area: domain-configuration
-  statement_ru: Функциональная модель GPP содержит устойчивые конфигурационные объекты participant organization и его 
-    hierarchy, service types/groups, identification types, service fee tariffs и расчетные банковские счета.
-  evidence:
-  - EV-FS-004
-  - EV-FS-007
-  - EV-FS-008
-  - EV-FS-009
-  - EV-FS-010
-  - EV-FS-011
-  - EV-FS-025
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  status: active
+  - id: FACT-GPP-017
+    area: domain-configuration
+    statement_ru: Функциональная модель GPP содержит устойчивые конфигурационные объекты participant 
+      organization и его hierarchy, service types/groups, identification types, service fee tariffs и 
+      расчетные банковские счета.
+    evidence:
+      - EV-FS-004
+      - EV-FS-007
+      - EV-FS-008
+      - EV-FS-009
+      - EV-FS-010
+      - EV-FS-011
+      - EV-FS-025
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    status: active
 
-- id: FACT-GPP-018
-  area: payment-state
-  statement_ru: Service type configuration задает правила advance/partial/full payment, возможность отмены платежа и 
-    поведение invoice/statement state после оплаты.
-  evidence:
-  - EV-FS-024
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  status: active
+  - id: FACT-GPP-018
+    area: payment-state
+    statement_ru: Service type configuration задает правила advance/partial/full payment, возможность отмены 
+      платежа и поведение invoice/statement state после оплаты.
+    evidence:
+      - EV-FS-024
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    status: active
 
-- id: FACT-GPP-019
-  area: external-identification
-  statement_ru: Публичная страница CBA идентифицирует IAMAS и AVIS как внешние государственные информационные системы, 
-    используемые GPP как источники данных для идентификации плательщиков.
-  evidence:
-  - EV-PUB-009
-  confidence: confirmed
-  temporal_scope:
-    source_date:
-    currentness: unverified
-  status: active
-  notes_ru: Источник подтверждает внешнюю природу систем относительно GPP, но не используется как доказательство 
-    актуальной организационной принадлежности или interface contract в 2026 году.
+  - id: FACT-GPP-019
+    area: external-identification
+    statement_ru: Публичная страница CBA идентифицирует IAMAS и AVIS как внешние государственные 
+      информационные системы, используемые GPP как источники данных для идентификации плательщиков.
+    evidence:
+      - EV-PUB-009
+    confidence: confirmed
+    temporal_scope:
+      source_date:
+      currentness: unverified
+    status: active
+    notes_ru: Источник подтверждает внешнюю природу систем относительно GPP, но не используется как 
+      доказательство актуальной организационной принадлежности или interface contract в 2026 году.
 
-- id: FACT-GPP-020
-  area: operations-currentness
-  statement_ru: В течение 2025 года через GPP было выполнено 114,4 млн платежей на сумму 8,6 млрд манатов.
-  evidence:
-  - EV-PUB-010
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2025'
-    currentness: current-at-source-date
-  status: active
-  notes_ru: Факт подтверждает system-level эксплуатацию GPP в 2025 году после прекращения gpp.az и mobile app, но не 
-    подтверждает currentness конкретных модулей из спецификации 2023 года.
+  - id: FACT-GPP-020
+    area: operations-currentness
+    statement_ru: В течение 2025 года через GPP было выполнено 114,4 млн платежей на сумму 8,6 млрд манатов.
+    evidence:
+      - EV-PUB-010
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2025'
+      currentness: current-at-source-date
+    status: active
+    notes_ru: Факт подтверждает system-level эксплуатацию GPP в 2025 году после прекращения gpp.az и mobile 
+      app, но не подтверждает currentness конкретных модулей из спецификации 2023 года.
 
-- id: FACT-GPP-021
-  area: data-persistence
-  statement_ru: Публичное описание CBA фиксирует централизованное хранение в базе данных GPP банковских реквизитов 
-    интегрированных организаций и централизованного бюджетного классификатора, используемого при формировании платежных 
-    транзакций.
-  evidence:
-  - EV-PUB-011
-  confidence: confirmed
-  temporal_scope:
-    source_date:
-    currentness: unverified
-  status: active
-  notes_ru: Факт подтверждает наличие логического централизованного хранилища reference/master data в публично описанной
-    архитектуре, но не идентифицирует physical database component и не доказывает текущую реализацию.
+  - id: FACT-GPP-021
+    area: data-persistence
+    statement_ru: Публичное описание CBA фиксирует централизованное хранение в базе данных GPP банковских 
+      реквизитов интегрированных организаций и централизованного бюджетного классификатора, используемого при 
+      формировании платежных транзакций.
+    evidence:
+      - EV-PUB-011
+    confidence: confirmed
+    temporal_scope:
+      source_date:
+      currentness: unverified
+    status: active
+    notes_ru: Факт подтверждает наличие логического централизованного хранилища reference/master data в 
+      публично описанной архитектуре, но не идентифицирует physical database component и не доказывает текущую
+      реализацию.
 
-- id: FACT-GPP-022
-  area: operational-roles-history
-  statement_ru: В нормативной модели 2015 года GPP имел раздельные operational roles системного администратора, 
-    администратора безопасности, администратора сертификатных сервисов, администратора участника и оператора с 
-    различными обязанностями по эксплуатации, security/PKI, контролю пользователей и проведению платежных операций.
-  evidence:
-  - EV-OPS-001
-  - EV-OPS-003
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2015-08-13'
-    currentness: historical
-  status: active
-  notes_ru: Ролевой состав и распределение обязанностей не переносятся в current AS-IS без последующего подтверждения.
+  - id: FACT-GPP-022
+    area: operational-roles-history
+    statement_ru: В нормативной модели 2015 года GPP имел раздельные operational roles системного 
+      администратора, администратора безопасности, администратора сертификатных сервисов, администратора 
+      участника и оператора с различными обязанностями по эксплуатации, security/PKI, контролю пользователей и
+      проведению платежных операций.
+    evidence:
+      - EV-OPS-001
+      - EV-OPS-003
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2015-08-13'
+      currentness: historical
+    status: active
+    notes_ru: Ролевой состав и распределение обязанностей не переносятся в current AS-IS без последующего 
+      подтверждения.
 
-- id: FACT-GPP-023
-  area: access-security-history
-  statement_ru: В 2015 году доступ пользователя к ограниченному набору функций GPP предусматривал электронный 
-    сертификат, после чего имя пользователя и пароль; password policy определялась внутренними актами Центрального банка
-    и предусматривалось отдельное запечатанное хранение парольных карточек.
-  evidence:
-  - EV-OPS-002
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2015-08-13'
-    currentness: historical
-  status: active
-  notes_ru: Это историческая security expectation, а не подтверждение current authentication/control implementation.
+  - id: FACT-GPP-023
+    area: access-security-history
+    statement_ru: В 2015 году доступ пользователя к ограниченному набору функций GPP предусматривал 
+      электронный сертификат, после чего имя пользователя и пароль; password policy определялась внутренними 
+      актами Центрального банка и предусматривалось отдельное запечатанное хранение парольных карточек.
+    evidence:
+      - EV-OPS-002
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2015-08-13'
+      currentness: historical
+    status: active
+    notes_ru: Это историческая security expectation, а не подтверждение current authentication/control 
+      implementation.
 
-- id: FACT-GPP-024
-  area: operational-day-history
-  statement_ru: Регламент 2015 года определял операционный день GPP как 00:00-24:00; следующий рабочий день включал 
-    временные окна сводного информирования 09:00-10:00, settlement через XÖHKS 10:00-13:00 и последующее информирование 
-    о зачислении средств 13:00-18:00, при этом participant data exchange продолжался в течение операционного дня.
-  evidence:
-  - EV-OPS-004
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2015-08-13'
-    currentness: historical
-  status: active
-  notes_ru: Текущие границы business/operational day и settlement windows требуют нового подтверждения.
+  - id: FACT-GPP-024
+    area: operational-day-history
+    statement_ru: Регламент 2015 года определял операционный день GPP как 00:00-24:00; следующий рабочий день 
+      включал временные окна сводного информирования 09:00-10:00, settlement через XÖHKS 10:00-13:00 и 
+      последующее информирование о зачислении средств 13:00-18:00, при этом participant data exchange 
+      продолжался в течение операционного дня.
+    evidence:
+      - EV-OPS-004
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2015-08-13'
+      currentness: historical
+    status: active
+    notes_ru: Текущие границы business/operational day и settlement windows требуют нового подтверждения.
 
-- id: FACT-GPP-025
-  area: backup-archive-history
-  statement_ru: В 2015 году backup/archive design GPP использовал автоматические Oracle backups через TSM, weekly full 
-    плюс промежуточные copies, 30-дневный порог переноса operational-day data в archive schema/external storage и 
-    периодическую запись архива в двух экземплярах на DVD или магнитные ленты с последующей передачей в архив 
-    Центрального банка.
-  evidence:
-  - EV-OPS-005
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2015-08-13'
-    currentness: historical
-  status: active
-  notes_ru: Конкретная backup technology, retention и media strategy 2015 года не считаются current.
+  - id: FACT-GPP-025
+    area: backup-archive-history
+    statement_ru: В 2015 году backup/archive design GPP использовал автоматические Oracle backups через TSM, 
+      weekly full плюс промежуточные copies, 30-дневный порог переноса operational-day data в archive 
+      schema/external storage и периодическую запись архива в двух экземплярах на DVD или магнитные ленты с 
+      последующей передачей в архив Центрального банка.
+    evidence:
+      - EV-OPS-005
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2015-08-13'
+      currentness: historical
+    status: active
+    notes_ru: Конкретная backup technology, retention и media strategy 2015 года не считаются current.
 
-- id: FACT-GPP-026
-  area: dr-topology-history
-  statement_ru: В 2015 году GPP документировался как трехсайтовая deployment/DR topology - Основной и Альтернативный 
-    сайты в основном центре использовали общий disk array, отдельный Резервный сайт имел собственный disk array, а между
-    основным и резервным контуром использовалась Oracle replication. Локальный отказ Основного сайта обслуживался 
-    cluster failover на Альтернативный; при неустраненном в течение часа отказе Основного и Альтернативного сайтов 
-    предусматривался переход на Резервный сайт в one-site mode с последующим failback после синхронизации.
-  evidence:
-  - EV-OPS-006
-  - EV-OPS-007
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2015-08-13'
-    currentness: historical
-  status: active
-  notes_ru: Диаграмма и процедуры являются историческим deployment evidence; current topology, RTO/RPO и replication 
-    mode не подтверждены.
+  - id: FACT-GPP-026
+    area: dr-topology-history
+    statement_ru: В 2015 году GPP документировался как трехсайтовая deployment/DR topology - Основной и 
+      Альтернативный сайты в основном центре использовали общий disk array, отдельный Резервный сайт имел 
+      собственный disk array, а между основным и резервным контуром использовалась Oracle replication. 
+      Локальный отказ Основного сайта обслуживался cluster failover на Альтернативный; при неустраненном в 
+      течение часа отказе Основного и Альтернативного сайтов предусматривался переход на Резервный сайт в 
+      one-site mode с последующим failback после синхронизации.
+    evidence:
+      - EV-OPS-006
+      - EV-OPS-007
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2015-08-13'
+      currentness: historical
+    status: active
+    notes_ru: Диаграмма и процедуры являются историческим deployment evidence; current topology, RTO/RPO и 
+      replication mode не подтверждены.
 
-- id: FACT-GPP-027
-  area: technology-history
-  statement_ru: Operational rules 2015 года упоминают UNIX/Windows servers, Oracle DBMS/Oracle ExaData, WebLogic, 
-    Tomcat, Active MQ, Apache и TSM как элементы тогдашнего технологического и эксплуатационного окружения GPP.
-  evidence:
-  - EV-OPS-003
-  - EV-OPS-005
-  - EV-OPS-008
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2015-08-13'
-    currentness: historical
-  status: active
-  notes_ru: Ни одна из перечисленных технологий не считается подтвержденной для current production AS-IS только на 
-    основании этого source.
+  - id: FACT-GPP-027
+    area: technology-history
+    statement_ru: Operational rules 2015 года упоминают UNIX/Windows servers, Oracle DBMS/Oracle ExaData, 
+      WebLogic, Tomcat, Active MQ, Apache и TSM как элементы тогдашнего технологического и эксплуатационного 
+      окружения GPP.
+    evidence:
+      - EV-OPS-003
+      - EV-OPS-005
+      - EV-OPS-008
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2015-08-13'
+      currentness: historical
+    status: active
+    notes_ru: Ни одна из перечисленных технологий не считается подтвержденной для current production AS-IS 
+      только на основании этого source.
 
-- id: FACT-GPP-028
-  area: integration-landscape
-  statement_ru: На дату интеграционного контракта 18.08.2025 документированный ландшафт интеграции XT включает три 
-    логически раздельных SOAP service surfaces - ServiceCompanyWS, GPPPaymentWS и SCVirtualCabinetWS - и отдельный 
-    non-SOAP обмен HTTP/XML для сверки.
-  evidence:
-  - EV-INT-002
-  - EV-INT-003
-  - EV-INT-006
-  - EV-INT-007
-  - EV-INT-009
-  - EV-INT-010
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2025-08-18'
-    currentness: current-at-source-date
-  status: active
-  notes_ru: Ссылки на WSDL не являются предоставленными WSDL artifacts. Классификация интерфейсов основана на 
-    фактических SOAP envelopes, таблицах operations и отдельно документированном контракте HTTP POST/XML.
+  - id: FACT-GPP-028
+    area: integration-landscape
+    statement_ru: На дату интеграционного контракта 18.08.2025 документированный ландшафт интеграции XT 
+      включает три логически раздельных SOAP service surfaces - ServiceCompanyWS, GPPPaymentWS и 
+      SCVirtualCabinetWS - и отдельный non-SOAP обмен HTTP/XML для сверки.
+    evidence:
+      - EV-INT-002
+      - EV-INT-003
+      - EV-INT-006
+      - EV-INT-007
+      - EV-INT-009
+      - EV-INT-010
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2025-08-18'
+      currentness: current-at-source-date
+    status: active
+    notes_ru: Ссылки на WSDL не являются предоставленными WSDL artifacts. Классификация интерфейсов основана 
+      на фактических SOAP envelopes, таблицах operations и отдельно документированном контракте HTTP POST/XML.
 
-- id: FACT-GPP-029
-  area: service-organization-integration
-  statement_ru: ServiceCompanyWS описывает real-time взаимодействие HÖP -> XT по SOAP для идентификации плательщика, 
-    поиска invoice/debt, определения суммы частичного платежа, уведомления о платеже, проверки/уведомления об отмене и 
-    уведомления об ошибках валидации; requests используют SOAP messageHeader, а семантика успеха/ошибки включает HTTP 
-    200/500 и SOAP Fault/WSException.
-  evidence:
-  - EV-INT-003
-  - EV-INT-004
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2025-08-18'
-    currentness: current-at-source-date
-  status: active
+  - id: FACT-GPP-029
+    area: service-organization-integration
+    statement_ru: ServiceCompanyWS описывает real-time взаимодействие HÖP -> XT по SOAP для идентификации 
+      плательщика, поиска invoice/debt, определения суммы частичного платежа, уведомления о платеже, 
+      проверки/уведомления об отмене и уведомления об ошибках валидации; requests используют SOAP 
+      messageHeader, а семантика успеха/ошибки включает HTTP 200/500 и SOAP Fault/WSException.
+    evidence:
+      - EV-INT-003
+      - EV-INT-004
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2025-08-18'
+      currentness: current-at-source-date
+    status: active
 
-- id: FACT-GPP-030
-  area: asynchronous-payment-integration
-  statement_ru: >-
-    Для платежей, инициированных из интернет-/мобильных ресурсов XT, XT синхронно вызывает GPPPaymentWS, включая InitiatePayment,
-    а завершение платежного процесса является асинхронным на уровне business flow: HÖP позднее вызывает размещенный на стороне
-    XT SCVirtualCabinetWS через CompletePayment либо CompletePaymentWithError.
-  evidence:
-  - EV-INT-006
-  - EV-INT-007
-  - EV-INT-008
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2025-08-18'
-    currentness: current-at-source-date
-  status: active
-  notes_ru: Сам SOAP callback является request/ack exchange; асинхронность относится к разрыву между InitiatePayment и 
-    последующим callback завершения. Retry policy SOAP callbacks в источнике не определена.
+  - id: FACT-GPP-030
+    area: asynchronous-payment-integration
+    statement_ru: >-
+      Для платежей, инициированных из интернет-/мобильных ресурсов XT, XT синхронно вызывает GPPPaymentWS, включая
+      InitiatePayment,
+      а завершение платежного процесса является асинхронным на уровне business flow: HÖP позднее вызывает размещенный
+      на стороне
+      XT SCVirtualCabinetWS через CompletePayment либо CompletePaymentWithError.
+    evidence:
+      - EV-INT-006
+      - EV-INT-007
+      - EV-INT-008
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2025-08-18'
+      currentness: current-at-source-date
+    status: active
+    notes_ru: Сам SOAP callback является request/ack exchange; асинхронность относится к разрыву между 
+      InitiatePayment и последующим callback завершения. Retry policy SOAP callbacks в источнике не 
+      определена.
 
-- id: FACT-GPP-031
-  area: integration-correlation
-  statement_ru: transactionID в SOAP messageHeader является идентификатором корреляции на уровне процесса для связанных 
-    сообщений одного платежного процесса и генерируется стороной, инициировавшей процесс - HÖP или XT.
-  evidence:
-  - EV-INT-005
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2025-08-18'
-    currentness: current-at-source-date
-  status: active
+  - id: FACT-GPP-031
+    area: integration-correlation
+    statement_ru: transactionID в SOAP messageHeader является идентификатором корреляции на уровне процесса 
+      для связанных сообщений одного платежного процесса и генерируется стороной, инициировавшей процесс - HÖP
+      или XT.
+    evidence:
+      - EV-INT-005
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2025-08-18'
+      currentness: current-at-source-date
+    status: active
 
-- id: FACT-GPP-032
-  area: reconciliation-integration
-  statement_ru: >-
-    Сверка с XT документирована как HTTP POST/XML, а не SOAP/file transport: INVOICE_PAY_APUS формируется по настраиваемому
-    интервалу, указанному как 30 секунд, DAY_PAYMENTS и DAY_PAYMENTS_FROM_BANK - в конце операционного дня. Response body
-    не нужен; non-200 вызывает повторную отправку при следующей генерации, дубли платежей коррелируются по receiptNumber,
-    а reference сообщения формируется сочетанием UserID и SerialNumber.
-  evidence:
-  - EV-INT-009
-  - EV-INT-010
-  - EV-INT-011
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2025-08-18'
-    currentness: current-at-source-date
-  status: active
-  notes_ru: Точный endpoint, transport security и timeout/backoff policy для HTTP/XML-обмена в источнике не указаны.
+  - id: FACT-GPP-032
+    area: reconciliation-integration
+    statement_ru: >-
+      Сверка с XT документирована как HTTP POST/XML, а не SOAP/file transport: INVOICE_PAY_APUS формируется по настраиваемому
+      интервалу, указанному как 30 секунд, DAY_PAYMENTS и DAY_PAYMENTS_FROM_BANK - в конце операционного дня. Response
+      body
+      не нужен; non-200 вызывает повторную отправку при следующей генерации, дубли платежей коррелируются по receiptNumber,
+      а reference сообщения формируется сочетанием UserID и SerialNumber.
+    evidence:
+      - EV-INT-009
+      - EV-INT-010
+      - EV-INT-011
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2025-08-18'
+      currentness: current-at-source-date
+    status: active
+    notes_ru: Точный endpoint, transport security и timeout/backoff policy для HTTP/XML-обмена в источнике не 
+      указаны.
 
-- id: FACT-GPP-033
-  area: external-identification-integration
-  statement_ru: На дату источника HÖP документирован как выполняющий real-time вызовы web-services внешних IAMAS и AVIS 
-    для идентификации плательщика; конкретный protocol, operation contract, endpoint и ответственный внутренний GPP 
-    component в источнике не установлены.
-  evidence:
-  - EV-INT-013
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2025-08-18'
-    currentness: current-at-source-date
-  status: active
+  - id: FACT-GPP-033
+    area: external-identification-integration
+    statement_ru: На дату источника HÖP документирован как выполняющий real-time вызовы web-services внешних 
+      IAMAS и AVIS для идентификации плательщика; конкретный protocol, operation contract, endpoint и 
+      ответственный внутренний GPP component в источнике не установлены.
+    evidence:
+      - EV-INT-013
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2025-08-18'
+      currentness: current-at-source-date
+    status: active
 
-- id: FACT-GPP-034
-  area: bank-credit-notification
-  statement_ru: Интеграционный контракт рекомендует отдельный информационный обмен Bank -> XT о зачислении собранных 
-    средств на счет XT и последующую сверку этой информации с данными HÖP, но transport/protocol и статус реализации 
-    банковской передачи не определяет.
-  evidence:
-  - EV-INT-014
-  confidence: confirmed
-  temporal_scope:
-    source_date: '2025-08-18'
-    currentness: current-at-source-date
-  status: active
-  notes_ru: Это документированная рекомендация/ожидание по интерфейсу, а не подтверждение конкретного реализованного 
-    endpoint Bank -> XT.
+  - id: FACT-GPP-034
+    area: bank-credit-notification
+    statement_ru: Интеграционный контракт рекомендует отдельный информационный обмен Bank -> XT о зачислении 
+      собранных средств на счет XT и последующую сверку этой информации с данными HÖP, но transport/protocol и
+      статус реализации банковской передачи не определяет.
+    evidence:
+      - EV-INT-014
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2025-08-18'
+      currentness: current-at-source-date
+    status: active
+    notes_ru: Это документированная рекомендация/ожидание по интерфейсу, а не подтверждение конкретного 
+      реализованного endpoint Bank -> XT.
 
+  - id: FACT-GPP-035
+    area: physical-data-model
+    statement_ru: В документированной физической модели данных 2015 года база GPP разделена на CF Transaction 
+      DB для платежных операций и APUS Reporting DB как отдельную область/instance отчетности.
+    evidence:
+      - EV-DB-002
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: current-at-source-date
+    status: active
+    notes_ru: Это состояние на дату источника. Текущая production topology базы данных и сохранение разделения
+      CF/APUS не подтверждены.
+
+  - id: FACT-GPP-036
+    area: physical-data-model
+    statement_ru: 'CF Transaction DB в источнике 2015 года имеет подробно документированный набор физических таблиц:
+      configuration, payment/statement, session, message/operation и notification history с Oracle-типами колонок;
+      явные foreign keys приведены только для части связей.'
+    evidence:
+      - EV-DB-003
+      - EV-DB-004
+      - EV-DB-005
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: current-at-source-date
+    status: active
+    notes_ru: Отсутствие PK/FK в источнике не трактуется как отсутствие ограничения в реальной БД; ограничения
+      не достраиваются предположениями.
+
+  - id: FACT-GPP-037
+    area: reporting-data-model
+    statement_ru: APUS Reporting DB в разделе 4 документирует PAYMENT_DATA_AGGR_DAY для дневной агрегации 
+      платежей и PAYMENT_DATA_AGGR_LAST_DATE для metadata последнего агрегирования.
+    evidence:
+      - EV-DB-006
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: current-at-source-date
+    status: active
+
+  - id: FACT-GPP-038
+    area: payment-persistence
+    statement_ru: Историческая физическая модель CF показывает, что PAYMENT_DATA хранит одновременно данные 
+      платежа и денормализованный контекст invoice/statement, тогда как PAYMENT_EXT и STATEMENT_EXT выделяют 
+      дополнительные атрибуты платежа и statement.
+    evidence:
+      - EV-DB-004
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: current-at-source-date
+    status: active
+    notes_ru: Физические таблицы не отождествляются автоматически с domain entities. Сопоставление 
+      зафиксировано отдельно в physical-domain-mapping.yaml.
+
+  - id: FACT-GPP-039
+    area: message-operation-persistence
+    statement_ru: Историческая модель CF включает отдельное хранение metadata/content сообщений, 
+      payload/search attributes операций и уведомлений обработки платежей через MESSAGE, MESSAGE_STORAGE, 
+      OPERATION, OPERATION_SEARCH, AMG_MSG, PAYMENT_NOTIFICATION и PAYMENT_NOTIFICATION_TYPES.
+    evidence:
+      - EV-DB-005
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: current-at-source-date
+    status: active
+
+  - id: FACT-GPP-040
+    area: data-model-currentness
+    statement_ru: Предоставленный источник физической модели БД подтверждает только состояние на дату 2015 
+      года и не подтверждает текущую схему 2026 года, фактические Oracle constraints/indexes, текущую topology
+      базы данных или сохранение всех таблиц.
+    evidence:
+      - EV-DB-001
+      - EV-DB-002
+      - EV-DB-003
+      - EV-DB-006
+    confidence: confirmed
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: historical
+    status: active
 inferences:
-- id: INF-ARCH-001
-  area: architecture
-  statement_ru: AdminConsole выполняет роль централизованного control/configuration plane GPP для административного 
-    управления системой.
-  based_on_facts:
-  - FACT-GPP-009
-  - FACT-GPP-011
-  - FACT-GPP-012
-  - FACT-GPP-013
-  evidence:
-  - EV-FS-003
-  - EV-FS-005
-  - EV-FS-006
-  - EV-FS-007
-  - EV-FS-008
-  - EV-FS-009
-  - EV-FS-010
-  confidence: supported
-  status: active
-  limitations_ru: Это логическая архитектурная роль, а не утверждение о выделенном physical control-plane deployment или
-    отдельном runtime layer.
+  - id: INF-ARCH-001
+    area: architecture
+    statement_ru: AdminConsole выполняет роль централизованного control/configuration plane GPP для 
+      административного управления системой.
+    based_on_facts:
+      - FACT-GPP-009
+      - FACT-GPP-011
+      - FACT-GPP-012
+      - FACT-GPP-013
+    evidence:
+      - EV-FS-003
+      - EV-FS-005
+      - EV-FS-006
+      - EV-FS-007
+      - EV-FS-008
+      - EV-FS-009
+      - EV-FS-010
+    confidence: supported
+    status: active
+    limitations_ru: Это логическая архитектурная роль, а не утверждение о выделенном physical control-plane 
+      deployment или отдельном runtime layer.
 
-- id: INF-ARCH-002
-  area: architecture
-  statement_ru: 'Существенная часть поведения GPP является configuration-driven: organization properties и service-type parameters
-    управляют integration, routing, limits, payment state и fee/settlement behavior.'
-  based_on_facts:
-  - FACT-GPP-012
-  - FACT-GPP-013
-  - FACT-GPP-017
-  - FACT-GPP-018
-  evidence:
-  - EV-FS-007
-  - EV-FS-008
-  - EV-FS-024
-  - EV-FS-025
-  confidence: supported
-  status: active
-  limitations_ru: Inference не означает, что вся business logic хранится в configuration и не является finding о 
-    качестве такой модели.
+  - id: INF-ARCH-002
+    area: architecture
+    statement_ru: 'Существенная часть поведения GPP является configuration-driven: organization properties и service-type
+      parameters управляют integration, routing, limits, payment state и fee/settlement behavior.'
+    based_on_facts:
+      - FACT-GPP-012
+      - FACT-GPP-013
+      - FACT-GPP-017
+      - FACT-GPP-018
+    evidence:
+      - EV-FS-007
+      - EV-FS-008
+      - EV-FS-024
+      - EV-FS-025
+    confidence: supported
+    status: active
+    limitations_ru: Inference не означает, что вся business logic хранится в configuration и не является 
+      finding о качестве такой модели.
 
-- id: INF-ARCH-003
-  area: administration
-  statement_ru: Cross-source evidence 2015 и 2023 годов поддерживает устойчивость administrative/security perimeter GPP 
-    - system administration, participant administration, security control и operator-facing functions присутствуют в 
-    обеих моделях, хотя exact role names, responsibility boundaries и authentication mechanisms не подтверждены как 
-    неизменные.
-  based_on_facts:
-  - FACT-GPP-009
-  - FACT-GPP-011
-  - FACT-GPP-012
-  - FACT-GPP-022
-  - FACT-GPP-023
-  evidence:
-  - EV-OPS-001
-  - EV-OPS-002
-  - EV-OPS-003
-  - EV-FS-003
-  - EV-FS-005
-  - EV-FS-006
-  confidence: supported
-  status: active
-  limitations_ru: Inference относится к устойчивости function domains между source dates 2015 и 2023, а не к current 
-    2026 role model. Отдельная PKI/certificate-services role 2015 года и точное назначение permissions/dual 
-    authorization 2023 года не позволяют построить current RBAC/SoD matrix без дополнительного evidence.
+  - id: INF-ARCH-003
+    area: administration
+    statement_ru: Cross-source evidence 2015 и 2023 годов поддерживает устойчивость administrative/security 
+      perimeter GPP - system administration, participant administration, security control и operator-facing 
+      functions присутствуют в обеих моделях, хотя exact role names, responsibility boundaries и 
+      authentication mechanisms не подтверждены как неизменные.
+    based_on_facts:
+      - FACT-GPP-009
+      - FACT-GPP-011
+      - FACT-GPP-012
+      - FACT-GPP-022
+      - FACT-GPP-023
+    evidence:
+      - EV-OPS-001
+      - EV-OPS-002
+      - EV-OPS-003
+      - EV-FS-003
+      - EV-FS-005
+      - EV-FS-006
+    confidence: supported
+    status: active
+    limitations_ru: Inference относится к устойчивости function domains между source dates 2015 и 2023, а не к
+      current 2026 role model. Отдельная PKI/certificate-services role 2015 года и точное назначение 
+      permissions/dual authorization 2023 года не позволяют построить current RBAC/SoD matrix без 
+      дополнительного evidence.
 
-- id: INF-ARCH-004
-  area: payment-lifecycle
-  statement_ru: >-
-    Cross-source evidence поддерживает логическое разделение payment lifecycle GPP на прием/обработку платежа и downstream
-    participant reporting/settlement concerns: operational rules 2015 описывают регистрацию, информирование и next-business-day
-    settlement, а specification 2023 выделяет authorization, participant reporting и XÖHKS/IPS integration modules.
-  based_on_facts:
-  - FACT-GPP-006
-  - FACT-GPP-015
-  - FACT-GPP-018
-  - FACT-GPP-024
-  evidence:
-  - EV-OPS-004
-  - EV-FS-001
-  - EV-FS-015
-  - EV-PUB-006
-  confidence: supported
-  status: active
-  limitations_ru: Inference не утверждает неизменность sequence, component orchestration или settlement timing после 
-    2015/2023 и не идентифицирует неизвестный current core processing component.
+  - id: INF-ARCH-004
+    area: payment-lifecycle
+    statement_ru: >-
+      Cross-source evidence поддерживает логическое разделение payment lifecycle GPP на прием/обработку платежа
+      и downstream
+      participant reporting/settlement concerns: operational rules 2015 описывают регистрацию, информирование и
+      next-business-day
+      settlement, а specification 2023 выделяет authorization, participant reporting и XÖHKS/IPS integration modules.
+    based_on_facts:
+      - FACT-GPP-006
+      - FACT-GPP-015
+      - FACT-GPP-018
+      - FACT-GPP-024
+    evidence:
+      - EV-OPS-004
+      - EV-FS-001
+      - EV-FS-015
+      - EV-PUB-006
+    confidence: supported
+    status: active
+    limitations_ru: Inference не утверждает неизменность sequence, component orchestration или settlement 
+      timing после 2015/2023 и не идентифицирует неизвестный current core processing component.
 
-- id: INF-ARCH-005
-  area: settlement-integration
-  statement_ru: XÖHKS является устойчивым integration concern GPP как минимум между source dates 2015 и 2023 - в 2015 он
-    используется в next-business-day settlement procedure, а в 2023 присутствует в responsibilities Loader Generators и 
-    LVPCSS.
-  based_on_facts:
-  - FACT-GPP-015
-  - FACT-GPP-024
-  evidence:
-  - EV-OPS-004
-  - EV-FS-015
-  confidence: supported
-  status: active
-  limitations_ru: Inference не подтверждает current 2026 XÖHKS integration, неизменность MT/file contracts или 
-    relationship между XÖHKS и IPS. IPSClient моделируется отдельно и остается предметом Q-IPS-001.
+  - id: INF-ARCH-005
+    area: settlement-integration
+    statement_ru: XÖHKS является устойчивым integration concern GPP как минимум между source dates 2015 и 2023
+      - в 2015 он используется в next-business-day settlement procedure, а в 2023 присутствует в 
+      responsibilities Loader Generators и LVPCSS.
+    based_on_facts:
+      - FACT-GPP-015
+      - FACT-GPP-024
+    evidence:
+      - EV-OPS-004
+      - EV-FS-015
+    confidence: supported
+    status: active
+    limitations_ru: Inference не подтверждает current 2026 XÖHKS integration, неизменность MT/file contracts 
+      или relationship между XÖHKS и IPS. IPSClient моделируется отдельно и остается предметом Q-IPS-001.
 

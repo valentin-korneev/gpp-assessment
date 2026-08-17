@@ -2,7 +2,7 @@
 
 ## Текущая фаза
 
-AS-IS evidence collection. Текущая canonical state включает `SRC-INT-001` - integration contract версии 1.16 от 18.08.2025. Интерфейсы классифицированы до normalization; восстановлены SOAP/HTTP-XML integration flows, request/response/callback и retry/asynchronous semantics, добавлены evidence-bounded normalized WSDL/XSD artifacts и integration view. Не предоставленные WSDL, binding/service/production endpoints и противоречивые contract details не достраиваются предположениями.
+AS-IS evidence collection. Текущая canonical state включает `SRC-DB-001` - historical physical database model version 003 от 09.06.2015. CF Transaction DB и APUS Reporting DB моделируются раздельно; документированные tables/columns/Oracle types/keys/references вынесены в normalized physical model и Mermaid ERD. Physical tables не отождествляются с domain entities, mapping хранится отдельно, а logical FK явно отделены от подтвержденных physical constraints. По сообщению stakeholder это, вероятно, наиболее актуальная доступная DB-документация в переданном source set, но current production applicability схемы 2015 года не подтверждена.
 
 ## Объект assessment
 
@@ -28,6 +28,7 @@ Government Payment Portal (GPP / HÖP) Азербайджана рассматр
 - После прекращения собственных web/mobile channels платежи через GPP продолжают быть доступны через интегрированные internet/mobile services банков и небанковских PSP.
 - System-level эксплуатация GPP подтверждена официальным обзором CBA за 2025 год: через GPP выполнено 114,4 млн платежей на сумму 8,6 млрд манатов. Это не подтверждает component-level currentness модулей из specification 2023 года.
 - Integration contract `SRC-INT-001` имеет внутреннюю дату 18.08.2025 и используется как `current-at-source-date` для documented interface semantics; он не доказывает runtime availability referenced URLs или production endpoints.
+- Physical database source `SRC-DB-001` имеет internal history version `003` от 09.06.2015. Он используется как historical physical model: schema details подтверждены только на дату источника, а текущая CF/APUS topology, tables и constraints остаются unverified (`Q-DB-001`).
 
 ## Source-family constraint
 
@@ -40,5 +41,5 @@ Shared content консолидируется без дублирующих fact
 - Authoritative/current редакция functional specification не определена.
 - Внутренние sources 2023 года содержат operational values и screenshots; sensitive values не переносятся в canonical model без необходимости.
 - Authoritative WSDL artifacts для `ServiceCompanyWS`, `GPPPaymentWS` и `SCVirtualCabinetWS` не предоставлены. SOAP normalization ограничена abstract WSDL/XSD reconstruction из documented envelopes, operation tables и type fragments; binding/service/SOAPAction/production endpoints не придумываются. Для reconciliation HTTP/XML inline XSD восстанавливается отдельно и сохраняет source contradictions без молчаливого исправления.
-- Historical source 2015 года подтверждает тогдашние Oracle persistence/replication и three-site DR topology, но current core payment processing, persistence, runtime/deployment topology и database architecture по-прежнему не подтверждены.
+- Historical sources 2015 года теперь подтверждают не только Oracle persistence/replication и three-site DR topology, но и детальную тогдашнюю physical schema CF/APUS. Это не подтверждает current core payment processing, current physical tables/constraints, runtime/deployment topology или database architecture; для physical model открыт `Q-DB-001`.
 - Findings по source quality не создаются как findings системы.

@@ -119,7 +119,7 @@ System-level sources подтверждают прием и обработку p
 
 ## 10. Первичная доменная модель конфигурации
 
-`02-as-is/domain-entities.yaml` фиксирует conceptual/domain layer отдельно от будущей physical database model.
+`02-as-is/domain-entities.yaml` фиксирует conceptual/domain layer отдельно от physical database model. Historical physical model из `SRC-DB-001` хранится в `02-as-is/normalized/data/` и не используется для автоматического создания domain entities.
 
 Подтвержденный каркас включает:
 
@@ -133,7 +133,7 @@ System-level sources подтверждают прием и обработку p
 - `DATA-GPP-008` InvoiceStatement;
 - `DATA-GPP-009` Payment.
 
-Эта модель не утверждает физическую структуру БД и не отождествляет domain entities с tables. Для `InvoiceStatement` дополнительно сохранено ограничение: точное соотношение terminology `qaimə`/invoice и `statement` требует последующих sources.
+Эта модель не отождествляет domain entities с tables. `SRC-DB-001` теперь дает historical physical mappings для части concepts, но current physical structure не подтверждена. Для `InvoiceStatement` отдельно сохранено, что 2015 `STATEMENT_EXT` и invoice/statement fields в `PAYMENT_DATA` являются лишь historical physical projections, а не определением domain entity.
 
 ## 11. Поддержанные архитектурные inference
 
@@ -194,7 +194,7 @@ Reconciliation не создает искусственную "current architect
 - XÖHKS повторяется как settlement integration concern в 2015 и 2023 (`INF-ARCH-005`), тогда как IPS появляется отдельным integration concern только в 2023 evidence и не трактуется как replacement XÖHKS;
 - technology/deployment mechanics 2015 года остаются historical и не повышаются по currentness из-за функциональной преемственности отдельных domains.
 
-Дополнительно сформированы temporal matrix, role/capability reconciliation, currentness/confidence view и historical leakage check. На текущем WIP leakage исторических technologies, DR topology, access mechanics или operational schedule в current AS-IS не обнаружен.
+Дополнительно сформированы temporal matrix, role/capability reconciliation, currentness/confidence view и historical leakage check. В текущей canonical state leakage исторических technologies, DR topology, access mechanics или operational schedule в current AS-IS не обнаружен.
 
 ## 14. Integration contract baseline 18.08.2025
 
@@ -245,3 +245,29 @@ WSDL links в source сохраняются как `referenced-unavailable`. Д�
 В source сохранены четыре contract inconsistencies (`CONTR-INT-001` - `CONTR-INT-004`), поэтому normalization не исправляет их молча.
 
 Canonical integration view сохранен в `diagrams/integration-view.mmd`.
+
+## 15. Historical physical database model - source 2015
+
+`SRC-DB-001` добавляет отдельный physical-data layer и не меняет current component boundary автоматически. Source на дату version 003 описывает две database areas: `CF Transaction DB` и `APUS Reporting DB` (`FACT-GPP-035`).
+
+### 15.1. CF Transaction DB
+
+Нормализованный inventory содержит 27 различимых table definitions и 203 columns после сведения точных source duplicates `MESSAGE`/`AMG_MSG`. Типы сохраняются в source form (`INTEGER`, `NUMBER`, `VARCHAR2`, `NVARCHAR2`, `RAW`, `DATE`, `TIMESTAMP`, `BLOB`, `CHAR`). Ссылки из колонки `Xarici açar` классифицируются как документированные `physical_fk` на дату источника. Narrative references и аналитически восстановленные связи хранятся отдельно в `logical-foreign-keys.yaml` как `documented_logical_reference` или `inferred_logical_reference` и не объявляются Oracle constraints (`FACT-GPP-036`).
+
+Payment persistence в 2015 модели денормализована: `PAYMENT_DATA` содержит payment state/amount/date/method и одновременно statement/invoice identifiers/debt/current-debt context; `PAYMENT_EXT` и `STATEMENT_EXT` хранят дополнительные payment/statement attributes (`FACT-GPP-038`). Это поддерживает mapping к `DATA-GPP-009`/`DATA-GPP-008`, но не означает, что соответствующая domain entity равна одной таблице.
+
+Также виден отдельный technical persistence contour для `MESSAGE`, `MESSAGE_STORAGE`, `OPERATION`, `OPERATION_SEARCH`, `AMG_MSG`, `PAYMENT_NOTIFICATION` и `PAYMENT_NOTIFICATION_TYPES` (`FACT-GPP-039`). Он моделируется как infrastructure concern, а не новый business domain entity.
+
+### 15.2. APUS Reporting DB
+
+Section 4 определяет `PAYMENT_DATA_AGGR_DAY` и `PAYMENT_DATA_AGGR_LAST_DATE` (`FACT-GPP-037`). Одновременно section 3.4 говорит о синхронизации `CF.PAYMENT_DATA` с одноименной table reporting area, но APUS section ее definition не содержит (`CONTR-DB-002`). Поэтому `APUS.PAYMENT_DATA` остается referenced-but-undefined до `Q-DB-003`.
+
+### 15.3. Source anomalies и currentness boundary
+
+- два несовместимых column sets опубликованы как `SC_IDEN_MTD_PREFIX_MAP` (`CONTR-DB-001`);
+- `MESSAGE.OUTBOUND` имеет внутренне противоречивое описание enum (`CONTR-DB-003`);
+- `PAYMENT_DATA.EPMT_STATE_CODE` использует value `2` для двух status meanings (`CONTR-DB-004`);
+- документированные key/foreign-key data неполны, поэтому отсутствие constraint в source не трактуется как отсутствие constraint в реальной DB.
+
+Совпадение части concepts с specification 2023 и message names с contract 2025 может говорить о semantic continuity, но не подтверждает continuity physical schema. Реальные Oracle constraints сверх явно документированных остаются `unverified`; логические связи восстанавливаются отдельным inference-слоем. Current CF/APUS topology и соответствие physical objects 2015 года production-состоянию остаются `Q-DB-001`.
+

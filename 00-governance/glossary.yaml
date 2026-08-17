@@ -138,3 +138,17 @@ terms:
   definition_ru: Поставщик платежных услуг, чьи payment channels могут использовать инфраструктуру HÖP для приема платежей; в assessment сопоставляется с более ранним термином PSP без утверждения полной юридической эквивалентности терминов вне контекста source.
   sources:
   - SRC-INT-001
+
+- id: TERM-GPP-017
+  term: CF Transaction DB
+  name_ru: Транзакционная база данных CF
+  definition_ru: В physical database source 2015 года - основная часть базы GPP для проведения платежных операций и синхронизации данных в отчетный контур. Текущая production applicability не подтверждена.
+  sources:
+  - SRC-DB-001
+
+- id: TERM-GPP-018
+  term: APUS Reporting DB
+  name_ru: Отчетная база данных APUS
+  definition_ru: В physical database source 2015 года - отдельная область/instance базы GPP для отчетности, документированная отдельно от CF Transaction DB. Текущая production applicability не подтверждена.
+  sources:
+  - SRC-DB-001

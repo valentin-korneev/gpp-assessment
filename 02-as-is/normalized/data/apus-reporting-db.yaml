@@ -1,0 +1,61 @@
+physical_database_model:
+  id: DB-APUS-001
+  name: APUS Reporting DB
+  name_ru: Отчетная база данных APUS
+  source: SRC-DB-001
+  purpose_ru: Отдельная физическая область/instance для устойчивой отчетности по операциям портала.
+  type_system: Oracle SQL (типы из документа)
+  temporal_scope:
+    source_date: '2015-06-09'
+    currentness: current-at-source-date
+  current_applicability: unverified
+  notes_ru: Раздел 4 документирует только две агрегатные таблицы. В разделе 3.4 отдельно утверждается наличие 
+    одноименной PAYMENT_DATA в отчетной области, но ее схема в разделе 4 не приведена.
+  tables:
+    - id: DB-APUS-TBL-001
+      name: PAYMENT_DATA_AGGR_DAY
+      source_section: '4'
+      source_page: 34-35
+      columns:
+        - name: EPMT_PAYABLE_AMOUNT
+          oracle_type: NUMBER
+        - name: PMT_COUNT
+          oracle_type: NUMBER
+        - name: EPMT_STATE_CODE
+          oracle_type: INTEGER
+        - name: EPMT_TYPE
+          oracle_type: INTEGER
+        - name: HPMT_TELLER_KEY
+          oracle_type: INTEGER
+        - name: CSP_HEAD_BRANCH
+          oracle_type: INTEGER
+        - name: CSP_TELLER_REALM
+          oracle_type: INTEGER
+        - name: UC_HEAD
+          oracle_type: INTEGER
+        - name: UC_BRANCH
+          oracle_type: INTEGER
+        - name: EPMT_DATE
+          oracle_type: DATE
+        - name: ABON_TYPE
+          oracle_type: CHAR(1BYTE)
+    - id: DB-APUS-TBL-002
+      name: PAYMENT_DATA_AGGR_LAST_DATE
+      source_section: '4'
+      source_page: 35-36
+      columns:
+        - name: LAST_DAY_AGGR
+          oracle_type: DATE
+        - name: COUNT_ROWS_AGGR
+          oracle_type: NUMBER
+        - name: INSERT_TIME
+          oracle_type: TIMESTAMP(6)
+        - name: MODIFY_TIME
+          oracle_type: TIMESTAMP(6)
+  referenced_but_undefined_tables:
+    - name: PAYMENT_DATA
+      role_ru: Целевая таблица синхронизации для CF.PAYMENT_DATA согласно разделу 3.4.
+      definition_status: referenced-not-defined
+      related_contradiction: CONTR-DB-002
+  known_source_anomalies:
+    - CONTR-DB-002

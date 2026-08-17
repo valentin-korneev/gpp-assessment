@@ -1,0 +1,785 @@
+physical_database_model:
+  id: DB-CF-001
+  name: CF Transaction DB
+  name_ru: Транзакционная база данных CF
+  source: SRC-DB-001
+  purpose_ru: Основная физическая область хранения, описанная для выполнения платежных операций и синхронизации данных 
+    для отчетности.
+  type_system: Oracle SQL (типы из документа)
+  temporal_scope:
+    source_date: '2015-06-09'
+    currentness: current-at-source-date
+  current_applicability: unverified
+  notes_ru: Модель отражает документированную структуру на дату version 003. Она не считается текущей производственной 
+    схемой без подтверждения фактического состояния БД. Явные значения колонки Xarici açar классифицируются как 
+    physical_fk на дату источника; отдельно восстановленные documented/inferred logical references хранятся в 
+    logical-foreign-keys.yaml и не считаются Oracle constraints.
+  tables:
+  - id: DB-CF-TBL-001
+    name: ORGANIZATION_TYPE
+    source_section: '3.1'
+    source_page: '4'
+    columns:
+    - name: ID
+      oracle_type: INTEGER
+    - name: NAME
+      oracle_type: VARCHAR2(32)
+    keys:
+    - type: primary
+      columns:
+      - ID
+      provenance: documented-description
+  - id: DB-CF-TBL-002
+    name: SC_CATEGORY
+    source_section: '3.1'
+    source_page: '5'
+    columns:
+    - name: ID
+      oracle_type: INTEGER
+    - name: LABEL
+      oracle_type: VARCHAR2(32)
+    - name: VALUE
+      oracle_type: VARCHAR2(32)
+    keys:
+    - type: primary
+      columns:
+      - ID
+      provenance: documented-description
+  - id: DB-CF-TBL-003
+    name: SC_CATEGORY_MAP
+    source_section: '3.1'
+    source_page: '5'
+    columns:
+    - name: SC_CODE
+      oracle_type: INTEGER
+      foreign_key_source: ORGANIZATION.EXTERNALKEY
+    - name: SC_CATEGORY_ID
+      oracle_type: INTEGER
+      foreign_key_source: SC_CATEGORY.ID
+    foreign_keys:
+    - column: SC_CODE
+      target_source_reference: ORGANIZATION.EXTERNALKEY
+      provenance: explicit-xarici-acar
+      relationship_type: physical_fk
+      constraint_status: documented-at-source-date
+      target_resolution: referenced-table-not-defined-in-source
+    - column: SC_CATEGORY_ID
+      target_source_reference: SC_CATEGORY.ID
+      provenance: explicit-xarici-acar
+      relationship_type: physical_fk
+      constraint_status: documented-at-source-date
+      resolved_target:
+        table: SC_CATEGORY
+        column: ID
+      target_resolution: documented-table
+  - id: DB-CF-TBL-004
+    name: PRE_SESSION_STATE
+    source_section: '3.2'
+    source_page: '7'
+    columns:
+    - name: ID
+      oracle_type: INTEGER
+    - name: HASH_KEY
+      oracle_type: VARCHAR2(64)
+    - name: APP_TYPE
+      oracle_type: VARCHAR2(8)
+    - name: USER_ID
+      oracle_type: RAW(8)
+      foreign_key_source: BGUSER.ID
+    - name: LOCALE_ID
+      oracle_type: INTEGER
+      foreign_key_source: LOCALE.ID
+    - name: INITIATOR_TYPE
+      oracle_type: VARCHAR2(4)
+    - name: INITIATOR_CODE
+      oracle_type: INTEGER
+    - name: INITIATOR_TRANSACTION_ID
+      oracle_type: VARCHAR2(32)
+    - name: INITIATOR_REDIRECT_URL
+      oracle_type: VARCHAR2(255)
+    - name: INITIAL_VIEW_STATE
+      oracle_type: BLOB
+    - name: CREATE_DATE_TIME
+      oracle_type: TIMESTAMP(3)
+    - name: STATUS
+      oracle_type: NUMBER(1)
+    - name: STATUS_CHANGE_DATE_TIME
+      oracle_type: TIMESTAMP(3)
+    keys:
+    - type: primary
+      columns:
+      - ID
+      provenance: documented-description
+    foreign_keys:
+    - column: USER_ID
+      target_source_reference: BGUSER.ID
+      provenance: explicit-xarici-acar
+      relationship_type: physical_fk
+      constraint_status: documented-at-source-date
+      target_resolution: referenced-table-not-defined-in-source
+    - column: LOCALE_ID
+      target_source_reference: LOCALE.ID
+      provenance: explicit-xarici-acar
+      relationship_type: physical_fk
+      constraint_status: documented-at-source-date
+      resolved_target:
+        table: LOCALE
+        column: ID
+      target_resolution: documented-table
+  - id: DB-CF-TBL-005
+    name: LOCALE
+    source_section: '3.3'
+    source_page: '8'
+    columns:
+    - name: ID
+      oracle_type: INTEGER
+    - name: LANG
+      oracle_type: VARCHAR2(5)
+    keys:
+    - type: primary
+      columns:
+      - ID
+      provenance: documented-description
+  - id: DB-CF-TBL-006
+    name: PAYMENT_EXT
+    source_section: '3.4'
+    source_page: '9'
+    columns:
+    - name: ID
+      oracle_type: RAW(8)
+    - name: PAYMENT_RECEIVER
+      oracle_type: INTEGER
+    - name: INTERNALREFNUMBER
+      oracle_type: NVARCHAR2(32)
+    - name: SERVICE_TERMINAL
+      oracle_type: NUMBER(1)
+    - name: REQUEST_TRANSACTION_ID
+      oracle_type: NVARCHAR2(32 Byte)
+    - name: PAYMENT_METHOD_ID
+      oracle_type: INTEGER
+      foreign_key_source: PAYMENT_METHOD.ID
+    - name: SMART_METERED
+      oracle_type: NUMBER(1)
+    - name: SMART_AMOUNT_LOADED
+      oracle_type: NUMBER(10,2)
+    - name: OPERATION_TRANSACTION_ID
+      oracle_type: VARCHAR2(32 Byte)
+    - name: PROCESS_TRANSACTION_ID
+      oracle_type: VARCHAR2(32 Byte)
+    - name: PROCESS_OWNER_CODE
+      oracle_type: INTEGER
+    - name: SP_BRANCH_CODE
+      oracle_type: INTEGER
+    - name: INITIATOR_CODE
+      oracle_type: INTEGER
+    - name: INITIATOR_TYPE
+      oracle_type: VARCHAR2(4 Byte)
+    foreign_keys:
+    - column: PAYMENT_METHOD_ID
+      target_source_reference: PAYMENT_METHOD.ID
+      provenance: explicit-xarici-acar
+      relationship_type: physical_fk
+      constraint_status: documented-at-source-date
+      target_resolution: referenced-table-not-defined-in-source
+  - id: DB-CF-TBL-007
+    name: PAYMENT_DATA
+    source_section: '3.4'
+    source_page: 11-15
+    columns:
+    - name: RECEIPT_NUMBER
+      oracle_type: INTEGER
+    - name: EPMT_ID
+      oracle_type: RAW(8)
+    - name: HPMT_ID
+      oracle_type: RAW(8)
+    - name: EPMT_REQUEST_DATE
+      oracle_type: INTEGER
+    - name: EPMT_REQUEST_TIME
+      oracle_type: INTEGER
+    - name: EPMT_PAYABLE_AMOUNT
+      oracle_type: NUMBER(28,5)
+    - name: EPMT_STATE_CODE
+      oracle_type: INTEGER
+    - name: EPMT_TYPE
+      oracle_type: INTEGER
+    - name: HPMT_TELLER_KEY
+      oracle_type: INTEGER
+    - name: CSP_HEAD_BRANCH
+      oracle_type: INTEGER
+    - name: CSP_TELLER_REALM
+      oracle_type: INTEGER
+    - name: UC_HEAD
+      oracle_type: INTEGER
+    - name: UC_BRANCH
+      oracle_type: INTEGER
+    - name: APUSID
+      oracle_type: NVARCHAR2(32)
+    - name: ACCOUNT_EXTKEY
+      oracle_type: NVARCHAR2(32)
+    - name: STATEMENT_EXT_KEY
+      oracle_type: NVARCHAR2(32)
+    - name: STATEMENT_ID
+      oracle_type: RAW(8)
+    - name: INTERNAL_REF_NUMBER
+      oracle_type: NVARCHAR2(32)
+    - name: ABONTYPE
+      oracle_type: CHAR(1 BYTE)
+    - name: STATEMENT_DATE
+      oracle_type: INTEGER
+    - name: STATEMENT_DEBT
+      oracle_type: NUMBER(28,5)
+    - name: AUTHORIZATIONID
+      oracle_type: RAW(8)
+    - name: EPMT_DATE_TIME
+      oracle_type: DATE
+    - name: EPMT_DATE
+      oracle_type: DATE
+    - name: TERMINALID
+      oracle_type: VARCHAR2(24 BYTE)
+    - name: CANCEL_DATE
+      oracle_type: DATE
+    - name: DETAILS
+      oracle_type: NVARCHAR2(2000)
+    - name: SERVICE_CODE
+      oracle_type: INTEGER
+    - name: SERVICE_FEE
+      oracle_type: NUMBER(5,2)
+    - name: PMT_RECEIVER
+      oracle_type: INTEGER
+    - name: DOC_NUMBER
+      oracle_type: NVARCHAR2(32)
+    - name: CURRENT_DEBT
+      oracle_type: NUMBER(10,2)
+    - name: SERVICE_TERMINAL
+      oracle_type: NUMBER(1)
+    - name: SMART_METERED
+      oracle_type: NUMBER(1)
+    - name: SMART_AMOUNT_LOADED
+      oracle_type: NUMBER(10,2)
+    - name: ACCOUNT_ID
+      oracle_type: RAW(8)
+    - name: PAYMENT_METHOD_ID
+      oracle_type: INTEGER
+      foreign_key_source: PAYMENT_METHOD.ID
+    - name: PROCESS_OWNER_CODE
+      oracle_type: INTEGER
+    - name: PROCESS_TRANSACTION_ID
+      oracle_type: VARCHAR2(32 BYTE)
+    - name: SP_CODE
+      oracle_type: INTEGER
+    - name: SP_BRANCH_CODE
+      oracle_type: INTEGER
+    - name: PAYMENT_INSTRUMENT_CATEGORY
+      oracle_type: NUMBER(2)
+    foreign_keys:
+    - column: PAYMENT_METHOD_ID
+      target_source_reference: PAYMENT_METHOD.ID
+      provenance: explicit-xarici-acar
+      relationship_type: physical_fk
+      constraint_status: documented-at-source-date
+      target_resolution: referenced-table-not-defined-in-source
+  - id: DB-CF-TBL-008
+    name: IDENTIFICATION_METHOD
+    source_section: '3.5'
+    source_page: '15'
+    columns:
+    - name: ID
+      oracle_type: INTEGER
+    - name: SOURCE
+      oracle_type: VARCHAR2(8)
+    - name: TYPE
+      oracle_type: VARCHAR2(4)
+    - name: SUBTYPE
+      oracle_type: VARCHAR2(8)
+    documented_identifiers:
+    - columns:
+      - ID
+      semantics: key
+      constraint_status: unverified
+      notes_ru: ID описан как ключевое поле, но тип ограничения не указан.
+  - id: DB-CF-TBL-009
+    name: IDEN_MTD_PREFIX
+    source_section: '3.5'
+    source_page: '16'
+    columns:
+    - name: ID
+      oracle_type: INTEGER
+    - name: LABEL
+      oracle_type: VARCHAR2(64Char)
+    - name: VALUE
+      oracle_type: NVARCHAR2(32)
+  - id: DB-CF-TBL-010
+    name: SC_SUPPORTED_IDEN_MTD
+    source_section: '3.5'
+    source_page: '16'
+    columns:
+    - name: ID
+      oracle_type: INTEGER
+    - name: SC_CODE
+      oracle_type: INTEGER
+      foreign_key_source: ORGANIZATION.EXTERNALKEY
+    - name: IDENTIFICATION_METHOD_ID
+      oracle_type: INTEGER
+      foreign_key_source: IDENTIFICATION_METHOD.ID
+    - name: VIEWABLE
+      oracle_type: NUMBER(1)
+    - name: VIEW_PRIORITY
+      oracle_type: NUMBER(1)
+    - name: PREFIXED
+      oracle_type: NUMBER(1)
+    - name: STATUS
+      oracle_type: NUMBER(1)
+    documented_identifiers:
+    - columns:
+      - ID
+      semantics: unique-row-identifier
+      constraint_status: unverified
+      notes_ru: ID описан как уникальный номер строки; ограничение PK/UNIQUE не указан.
+    foreign_keys:
+    - column: SC_CODE
+      target_source_reference: ORGANIZATION.EXTERNALKEY
+      provenance: explicit-xarici-acar
+      relationship_type: physical_fk
+      constraint_status: documented-at-source-date
+      target_resolution: referenced-table-not-defined-in-source
+    - column: IDENTIFICATION_METHOD_ID
+      target_source_reference: IDENTIFICATION_METHOD.ID
+      provenance: explicit-xarici-acar
+      relationship_type: physical_fk
+      constraint_status: documented-at-source-date
+      resolved_target:
+        table: IDENTIFICATION_METHOD
+        column: ID
+      target_resolution: documented-table
+  - id: DB-CF-TBL-011
+    name: SC_IDEN_MTD_PREFIX_MAP
+    source_section: '3.5'
+    source_page: '17'
+    source_definition_variant: 1
+    columns:
+    - name: SC_IDEN_MTD_ID
+      oracle_type: INTEGER
+    - name: SERVICE_TYPE_ID
+      oracle_type: INTEGER
+    semantic_references:
+    - column: SERVICE_TYPE_ID
+      target:
+        table: SERVICE_TYPES
+        column: ID
+      constraint_status: unverified
+      provenance: column-description
+      notes_ru: Описание указывает на ID таблицы Service_type; в имя таблицы в источнике дан в единственном числе, а 
+        документированная таблица называется SERVICE_TYPES. Это семантическое сопоставление, не подтвержденный FK 
+        constraint.
+  - id: DB-CF-TBL-012
+    name: SC_IDEN_MTD_PREFIX_MAP
+    source_section: '3.6'
+    source_page: '17'
+    source_definition_variant: 2
+    definition_status: conflicting-source-name
+    notes_ru: Вторая несовместимая структура опубликована под тем же именем SC_IDEN_MTD_PREFIX_MAP; корректное 
+      физическое имя неизвестно (CONTR-DB-001).
+    columns:
+    - name: CODE
+      oracle_type: INTEGER
+    - name: DESCRIPTION
+      oracle_type: NVARCHAR2(100)
+    - name: ORGANIZATION_EXT_KEY
+      oracle_type: INTEGER
+  - id: DB-CF-TBL-013
+    name: SERVICE_TYPES
+    source_section: '3.6'
+    source_page: 18-20
+    columns:
+    - name: ORGANIZATION_EXT_KEY
+      oracle_type: INTEGER
+    - name: SERVICE_CODE
+      oracle_type: INTEGER
+    - name: SERVICE_NAME
+      oracle_type: NVARCHAR2(300)
+    - name: PRE_PAYMENT
+      oracle_type: CHAR(1 Byte)
+    - name: PARTIAL_PAYMENT
+      oracle_type: CHAR(1 Byte)
+    - name: INVOICE_EXPIRE_METHOD
+      oracle_type: INTEGER
+    - name: BUDGET_LEVEL_CODE
+      oracle_type: NVARCHAR2(2)
+    - name: STATUS
+      oracle_type: INTEGER
+    - name: SERVICE_GROUP_CODE
+      oracle_type: INTEGER
+    - name: PAYMENT_RECEIVER
+      oracle_type: INTEGER
+    - name: SERVICE_FEE
+      oracle_type: INTEGER
+    - name: SHOW_INVOICE_INFO
+      oracle_type: CHAR(1 Byte)
+    - name: DISCOUNT_PENALTY
+      oracle_type: INTEGER
+    - name: DISCOUNT_DAYS
+      oracle_type: INTEGER
+    - name: DISCOUNT_FORMULA
+      oracle_type: INTEGER
+    - name: PENALTY_START_DAYS
+      oracle_type: INTEGER
+    - name: PENALTY_FORMULA
+      oracle_type: INTEGER
+    - name: PENALTY_MAX_DAYS
+      oracle_type: INTEGER
+    - name: CODE_26T
+      oracle_type: INTEGER
+    - name: SERVICE_FEE_PERCENT
+      oracle_type: NUMBER(5,2)
+    - name: SERVICE_FEE_MIN_AMOUNT
+      oracle_type: NUMBER(5,2)
+    - name: SERVICE_FEE_MAX_AMOUNT
+      oracle_type: NUMBER(5,2)
+    - name: BUDGET_CODE
+      oracle_type: INTEGER
+    - name: PAYMENT_CANCEL_ALLOWED
+      oracle_type: CHAR(1 Byte)
+    - name: ASAN
+      oracle_type: NUMBER(1)
+    - name: ID
+      oracle_type: INTEGER
+    - name: SP_ BUDGET_LEVEL_CODE
+      oracle_type: NVARCHAR2(2)
+  - id: DB-CF-TBL-014
+    name: OPERATION
+    source_section: '3.6'
+    source_page: 20-22
+    columns:
+    - name: ID
+      oracle_type: NUMBER(20)
+    - name: MESSAGE_ID
+      oracle_type: NUMBER(20)
+    - name: REQUIRED_OPERATION_ID
+      oracle_type: NUMBER(20)
+    - name: METHOD_NAME
+      oracle_type: VARCHAR2(50 Byte)
+    - name: OPERATION_DATA
+      oracle_type: BLOB
+    - name: STATUS
+      oracle_type: CHAR(1 Byte)
+    - name: STATUS_CHANGE_DATE
+      oracle_type: TIMESTAMP(6)
+    - name: REQUEST_DATE
+      oracle_type: DATE
+    - name: CREATE_DATE
+      oracle_type: TIMESTAMP(6)
+    - name: TYPE
+      oracle_type: VARCHAR2(32 Byte)
+    documented_identifiers:
+    - columns:
+      - ID
+      semantics: unique-row-identifier
+      constraint_status: unverified
+      notes_ru: ID описан как уникальный идентификатор, формируемый OPERATION_SEQ; ограничение PK не указан.
+    semantic_references:
+    - column: MESSAGE_ID
+      target:
+        table: MESSAGE
+        column: ID
+      constraint_status: unverified
+      provenance: column-description
+      notes_ru: Описание поля прямо указывает на MESSAGE.ID; физическое ограничение FK в колонке Xarici açar не указан.
+    - column: REQUIRED_OPERATION_ID
+      target:
+        table: OPERATION
+        column: ID
+      constraint_status: unverified
+      provenance: column-description
+      notes_ru: Поле указывает на операцию, которая должна предшествовать текущей; физический self-FK constraint не 
+        указан.
+  - id: DB-CF-TBL-015
+    name: OPERATION_SEARCH
+    source_section: '3.6'
+    source_page: '22'
+    columns:
+    - name: FIELD_NAME
+      oracle_type: VARCHAR2(50 Byte)
+    - name: FIELD_VALUE
+      oracle_type: VARCHAR2(255 Byte)
+    - name: OPERATION_ID
+      oracle_type: NUMBER(20)
+      foreign_key_source: OPERATION.ID
+    foreign_keys:
+    - column: OPERATION_ID
+      target_source_reference: OPERATION.ID
+      provenance: explicit-xarici-acar
+      relationship_type: physical_fk
+      constraint_status: documented-at-source-date
+      resolved_target:
+        table: OPERATION
+        column: ID
+      target_resolution: documented-table
+  - id: DB-CF-TBL-016
+    name: MESSAGE
+    source_section: '3.6'
+    source_page: 23-24
+    columns:
+    - name: ID
+      oracle_type: NUMBER(20)
+    - name: APP_CODE
+      oracle_type: VARCHAR2(32 Byte)
+    - name: TYPE
+      oracle_type: VARCHAR2(128 Byte)
+    - name: OUTBOUND
+      oracle_type: NUMBER(1)
+    - name: TRANSACTION_ID
+      oracle_type: VARCHAR2(32 Byte)
+    - name: SENDER_CODE
+      oracle_type: NUMBER(6)
+    - name: RECEIVER_CODE
+      oracle_type: NUMBER(6)
+    - name: URL
+      oracle_type: VARCHAR2(2048 Byte)
+    - name: STATUS
+      oracle_type: CHAR(1 Byte)
+    - name: MESSAGE_DATE
+      oracle_type: DATE
+    - name: CREATE_DATE
+      oracle_type: TIMESTAMP(6)
+    documented_identifiers:
+    - columns:
+      - ID
+      semantics: unique-row-identifier
+      constraint_status: unverified
+      notes_ru: ID описан как уникальный идентификатор таблицы; ограничение PK не указан.
+  - id: DB-CF-TBL-017
+    name: MESSAGE_STORAGE
+    source_section: '3.6'
+    source_page: '25'
+    columns:
+    - name: ID
+      oracle_type: NUMBER(20)
+    - name: MESSAGE
+      oracle_type: BLOB
+    - name: CREATE_DATE
+      oracle_type: TIMESTAMP(6)
+    documented_identifiers:
+    - columns:
+      - ID
+      semantics: message-identifier
+      constraint_status: unverified
+      notes_ru: ID описан как уникальный идентификатор связанного сообщения; собственное ограничение PK/FK не указан.
+    semantic_references:
+    - column: ID
+      target:
+        table: MESSAGE
+        column: ID
+      constraint_status: unverified
+      provenance: column-description
+      notes_ru: Описание ID связывает запись с уникальным идентификатором сообщения; физическое ограничение FK не 
+        указан.
+  - id: DB-CF-TBL-018
+    name: EXTERNAL_HOST_MAP
+    source_section: '3.6'
+    source_page: '26'
+    columns:
+    - name: EXTERNAL_HOST
+      oracle_type: VARCHAR2(255 Byte)
+    - name: PROXY_URL
+      oracle_type: VARCHAR2(255 Byte)
+  - id: DB-CF-TBL-019
+    name: STATEMENT_EXT
+    source_section: '3.6'
+    source_page: 26-27
+    columns:
+    - name: ID
+      oracle_type: RAW(8)
+    - name: CURRENT_DEBT
+      oracle_type: NUMBER(10,2)
+    - name: DOC_NUMBER
+      oracle_type: NVARCHAR2(32)
+    - name: PAYMENT_RECEIVER_CODE
+      oracle_type: INTEGER
+    - name: SC_CODE
+      oracle_type: INTEGER
+    - name: SC_IDEN_MTD_ID
+      oracle_type: INTEGER
+      foreign_key_source: SC_SUPPORTED_ IDEN_MTD.ID
+    - name: INVOICE_CODE
+      oracle_type: NVARCHAR2(32)
+    foreign_keys:
+    - column: SC_IDEN_MTD_ID
+      target_source_reference: SC_SUPPORTED_ IDEN_MTD.ID
+      provenance: explicit-xarici-acar
+      relationship_type: physical_fk
+      constraint_status: documented-at-source-date
+      resolved_target:
+        table: SC_SUPPORTED_IDEN_MTD
+        column: ID
+      target_resolution: normalized-source-spacing
+  - id: DB-CF-TBL-020
+    name: PMT_BUFFER_CPC
+    source_section: '3.6'
+    source_page: '27'
+    columns:
+    - name: WEB_SID
+      oracle_type: UNKNOWN
+    - name: REQUEST_TIME
+      oracle_type: UNKNOWN
+    - name: AMOUNT
+      oracle_type: UNKNOWN
+    - name: STATUS
+      oracle_type: UNKNOWN
+    - name: STATUS_DATE_TIME
+      oracle_type: UNKNOWN
+    - name: STATUS_CHANGE_NUMBER
+      oracle_type: UNKNOWN
+    - name: DETAILS
+      oracle_type: UNKNOWN
+    - name: CPC_TRANSACTION_NUMBER
+      oracle_type: UNKNOWN
+    - name: CPC_CODE
+      oracle_type: UNKNOWN
+  - id: DB-CF-TBL-021
+    name: PMTSIGNATURES
+    source_section: '3.6'
+    source_page: '28'
+    columns:
+    - name: ID
+      oracle_type: RAW(8)
+    - name: CREATE_DATE
+      oracle_type: DATE
+    - name: MESSAGETEXT
+      oracle_type: BLOB
+    - name: ID_FROM_PMTAUTORIZATION
+      oracle_type: RAW(8)
+  - id: DB-CF-TBL-022
+    name: REGIONS
+    source_section: '3.6'
+    source_page: '29'
+    columns:
+    - name: REGION_NAME
+      oracle_type: NVARCHAR2(32)
+    - name: IAMAS_CITY
+      oracle_type: NUMBER(3)
+    - name: IAMAS_DISTRICT
+      oracle_type: NUMBER(3)
+    - name: IAMAS_LOCATION
+      oracle_type: NUMBER(3)
+    - name: DSK_CODE
+      oracle_type: NVARCHAR2(3)
+  - id: DB-CF-TBL-023
+    name: PHONE_AREA
+    source_section: '3.6'
+    source_page: '29'
+    columns:
+    - name: ID
+      oracle_type: INTEGER
+    - name: AREA_CODE
+      oracle_type: NUMBER(5)
+    - name: AREA_NAME
+      oracle_type: VARCHAR2(30 Byte)
+  - id: DB-CF-TBL-024
+    name: SC_SERVICE_FEE
+    source_section: '3.6'
+    source_page: '30'
+    columns:
+    - name: UC_HEAD
+      oracle_type: NVARCHAR2(32)
+    - name: BANK_HEAD
+      oracle_type: NVARCHAR2(32)
+    - name: JURIDICAL_FEE_PERCENT
+      oracle_type: NUMBER(5,2)
+    - name: PHYSICAL_FEE_PERCENT
+      oracle_type: NUMBER(5,2)
+  - id: DB-CF-TBL-025
+    name: AMG_MSG
+    source_section: '3.6'
+    source_page: 30-31
+    columns:
+    - name: SERIAL_NUMBER
+      oracle_type: VARCHAR2(70 BYTE)
+    - name: MSG_DATE
+      oracle_type: DATE
+    - name: MSG_TYPE
+      oracle_type: VARCHAR2(30 BYTE)
+    - name: MSG_TEXT
+      oracle_type: BLOB
+    - name: MSG_RESULT
+      oracle_type: VARCHAR2(100 BYTE)
+    - name: STATE
+      oracle_type: INTEGER
+    - name: STATE_CHANGE_DATE
+      oracle_type: DATE
+    - name: MSG_DATE_TIME
+      oracle_type: DATE
+    documented_identifiers:
+    - columns:
+      - SERIAL_NUMBER
+      semantics: unique-message-serial
+      constraint_status: unverified
+      notes_ru: SERIAL_NUMBER описан как уникальный серийный номер файла; UNIQUE/ограничение PK не указан.
+  - id: DB-CF-TBL-026
+    name: PAYMENT_NOTIFICATION
+    source_section: '3.7'
+    source_page: 32-33
+    columns:
+    - name: PAYMENT_ID
+      oracle_type: RAW(8)
+    - name: PMT_NTFY_TYPE_ID
+      oracle_type: INTEGER
+    - name: BATCH_SERIAL
+      oracle_type: VARCHAR2(70 Byte)
+    - name: DESCRIPTION
+      oracle_type: VARCHAR2(128 Byte)
+    - name: EVENT_DATE_TIME
+      oracle_type: TIMESTAMP(3)
+    - name: CREATE_DATE_TIME
+      oracle_type: TIMESTAMP(3)
+    semantic_references:
+    - column: PMT_NTFY_TYPE_ID
+      target:
+        table: PAYMENT_NOTIFICATION_TYPES
+        column: ID
+      constraint_status: unverified
+      provenance: column-description
+      notes_ru: Описание поля прямо говорит, что значения берутся из PAYMENT_NOTIFICATION_TYPES.ID; физическое 
+        ограничение FK в таблице не указан.
+  - id: DB-CF-TBL-027
+    name: PAYMENT_NOTIFICATION_TYPES
+    source_section: '3.7'
+    source_page: '33'
+    columns:
+    - name: ID
+      oracle_type: INTEGER
+    - name: NOTIFICATION_METHOD
+      oracle_type: VARCHAR2(8 Byte)
+    - name: SHORT_NAME
+      oracle_type: VARCHAR2(32 Byte)
+    - name: DESCRIPTION
+      oracle_type: VARCHAR2(128 Byte)
+    keys:
+    - type: primary
+      columns:
+      - ID
+      provenance: documented-description
+  referenced_tables_not_defined_in_source:
+  - name: ORGANIZATION
+    referenced_columns:
+    - EXTERNALKEY
+  - name: BGUSER
+    referenced_columns:
+    - ID
+  - name: PAYMENT_METHOD
+    referenced_columns:
+    - ID
+  source_duplicates:
+  - name: MESSAGE
+    occurrences: 2
+    handling_ru: Два последовательных определения имеют одинаковый набор колонок и типов; в canonical физической модели 
+      сведены в одну таблицу.
+  - name: AMG_MSG
+    occurrences: 2
+    handling_ru: Два последовательных определения имеют одинаковый набор колонок и типов; в canonical физической модели 
+      сведены в одну таблицу.
+  known_source_anomalies:
+  - CONTR-DB-001
+  - CONTR-DB-002
+  - CONTR-DB-003
+  - CONTR-DB-004
+  logical_foreign_keys_registry: logical-foreign-keys.yaml

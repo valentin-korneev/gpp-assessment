@@ -1,9 +1,9 @@
 source_families:
 - id: gpp-public-bootstrap
   title_ru: Базовый публичный контекст GPP
-  relationship_ru: 'Связанное семейство открытых источников: официальные страницы Центрального банка используются
-    для статуса, назначения и эволюции GPP; страница SINAM используется только как self-report поставщика о своем
-    историческом участии в разработке.'
+  relationship_ru: 'Связанное семейство открытых источников: официальные страницы Центрального банка используются для статуса,
+    назначения и эволюции GPP; страница SINAM используется только как self-report поставщика о своем историческом участии
+    в разработке.'
   sources:
   - SRC-PUB-001
   - SRC-PUB-002
@@ -13,11 +13,11 @@ source_families:
 
 - id: gpp-functional-specification-2023
   title_ru: Функциональное описание GPP - семейство рабочих редакций
-  relationship_ru: Два сильно перекрывающихся внутренних артефакта с неоднозначным relationship. Имена файлов содержат
-    hints v005 и v006, но оба файла внутри идентифицируют документ как GPP_System Functional Specification_v001,
-    историю версии 0.01 и дату 05.05.2023. По сообщению архитектора assessment, DOCX с filename hint v005 был передан
-    позже и является более полным по содержанию; одновременно сохраняется рабочая гипотеза, что артефакты могут
-    быть независимыми рабочими документами, а не последовательными версиями. Эти сведения не доказывают authoritative/current
+  relationship_ru: Два сильно перекрывающихся внутренних артефакта с неоднозначным relationship. Имена файлов содержат 
+    hints v005 и v006, но оба файла внутри идентифицируют документ как GPP_System Functional Specification_v001, историю
+    версии 0.01 и дату 05.05.2023. По сообщению архитектора assessment, DOCX с filename hint v005 был передан позже и 
+    является более полным по содержанию; одновременно сохраняется рабочая гипотеза, что артефакты могут быть 
+    независимыми рабочими документами, а не последовательными версиями. Эти сведения не доказывают authoritative/current
     precedence. Shared content используется без дублирования facts, delta сохраняется source-specific.
   sources:
   - SRC-FS-001
@@ -29,9 +29,9 @@ source_families:
 
 - id: gpp-normative-operational-2015
   title_ru: Правила проведения операций через GPP - нормативно-операционный baseline 2015
-  relationship_ru: Утвержденные Правлением Центрального банка правила с приложениями по ежедневным операциям,
-    резервному копированию и аварийному восстановлению. Используются как нормативный, организационный и исторический
-    operational source. Технологии, инфраструктура и процедуры 2015 года не считаются current AS-IS без более нового подтверждения.
+  relationship_ru: Утвержденные Правлением Центрального банка правила с приложениями по ежедневным операциям, резервному
+    копированию и аварийному восстановлению. Используются как нормативный, организационный и исторический operational 
+    source. Технологии, инфраструктура и процедуры 2015 года не считаются current AS-IS без более нового подтверждения.
   sources:
   - SRC-OPS-001
   - SRC-STK-002
@@ -40,13 +40,22 @@ source_families:
 
 - id: gpp-integration-contract-2025
   title_ru: Техническая спецификация интеграции сервисных организаций с HÖP - семейство контрактов 2025
-  relationship_ru: Версия 1.16 от 18.08.2025 является предоставленным человекочитаемым интеграционным контрактом. Документ
-    содержит примеры SOAP-сообщений и фрагменты XSD, а также отдельный HTTP/XML-контракт сверки. Указанные
-    в тексте URL WSDL не являются предоставленными WSDL artifacts и учитываются только как ссылки на ресурсы
-    со статусом referenced-unavailable или referenced-unverified.
+  relationship_ru: Версия 1.16 от 18.08.2025 является предоставленным человекочитаемым интеграционным контрактом. 
+    Документ содержит примеры SOAP-сообщений и фрагменты XSD, а также отдельный HTTP/XML-контракт сверки. Указанные в 
+    тексте URL WSDL не являются предоставленными WSDL artifacts и учитываются только как ссылки на ресурсы со статусом 
+    referenced-unavailable или referenced-unverified.
   sources:
   - SRC-INT-001
 
+- id: gpp-physical-data-model-2015
+  title_ru: Физическая модель данных GPP - baseline 2015
+  relationship_ru: Отдельное техническое приложение к концепции развития GPP. Документирует физические структуры CF 
+    Transaction DB и APUS Reporting DB. По времени пересекается с operational rules 2015, но не относится к той же 
+    source family. Более поздние функциональные и интеграционные источники используются только для концептуальной сверки
+    и не подтверждают сохранение этой физической схемы.
+  sources:
+  - SRC-DB-001
+  - SRC-STK-003
 sources:
 - id: SRC-PUB-001
   title: The Government Payment Portal (GPP)
@@ -54,8 +63,8 @@ sources:
   url: https://www.cbar.az/page-481/the-government-payment-portal-gpp?language=en
   source_family: gpp-public-bootstrap
   relationship: official-product-description
-  version: null
-  date: null
+  version:
+  date:
   version_confidence: low
   ingest_profile: public-source
   authority: primary-official
@@ -64,9 +73,9 @@ sources:
   visual_review_mode: targeted-if-needed
   normalization_requirements: none
   retrieved_at: 2026-08-17
-  notes_ru: Страница доступна на текущем сайте CBA, но содержит упоминание официального Internet resource GPP, которое
-    конфликтует по времени с отдельным уведомлением о прекращении gpp.az с 10.01.2024. Поэтому технические утверждения
-    страницы не считаются автоматически current production state. Source registration охватывает локализованные AZ/EN
+  notes_ru: Страница доступна на текущем сайте CBA, но содержит упоминание официального Internet resource GPP, которое 
+    конфликтует по времени с отдельным уведомлением о прекращении gpp.az с 10.01.2024. Поэтому технические утверждения 
+    страницы не считаются автоматически current production state. Source registration охватывает локализованные AZ/EN 
     варианты той же страницы; AZ variant повторно просмотрен для исходных сокращений и расшифровки IAMAS/AVIS.
 
 - id: SRC-PUB-002
@@ -75,8 +84,8 @@ sources:
   url: https://www.cbar.az/page-474/payment-systems?language=en
   source_family: gpp-public-bootstrap
   relationship: official-historical-overview
-  version: null
-  date: null
+  version:
+  date:
   version_confidence: low
   ingest_profile: public-source
   authority: primary-official
@@ -92,8 +101,8 @@ sources:
   url: https://www.cbar.az/gpp/index.html
   source_family: gpp-public-bootstrap
   relationship: official-channel-status-notice
-  version: null
-  date: null
+  version:
+  date:
   version_confidence: medium
   ingest_profile: public-source
   authority: primary-official
@@ -110,8 +119,8 @@ sources:
   url: https://www.sinam.net/en/solutions/asmp
   source_family: gpp-public-bootstrap
   relationship: vendor-case-study
-  version: null
-  date: null
+  version:
+  date:
   version_confidence: low
   ingest_profile: public-source
   authority: vendor-self-report
@@ -120,7 +129,7 @@ sources:
   visual_review_mode: not-required
   normalization_requirements: none
   retrieved_at: 2026-08-17
-  notes_ru: Источник подтверждает только заявленное SINAM историческое участие в проекте. Он не используется как
+  notes_ru: Источник подтверждает только заявленное SINAM историческое участие в проекте. Он не используется как 
     подтверждение текущей роли SINAM в сопровождении, развитии или эксплуатации GPP.
 
 - id: SRC-PUB-005
@@ -139,8 +148,9 @@ sources:
   visual_review_mode: targeted
   normalization_requirements: none
   retrieved_at: 2026-08-17
-  notes_ru: Отчет подтверждает фактическую обработку платежей через GPP в течение 2025 года. Он не подтверждает
-    component-level currentness модулей из functional specification 2023 года и не доказывает состояние после отчетного периода.
+  notes_ru: Отчет подтверждает фактическую обработку платежей через GPP в течение 2025 года. Он не подтверждает 
+    component-level currentness модулей из functional specification 2023 года и не доказывает состояние после отчетного 
+    периода.
 
 - id: SRC-FS-001
   title: HÖKUMƏT ÖDƏNİŞ PORTALI - sistemin funksional təsviri
@@ -158,11 +168,11 @@ sources:
   sensitivity: internal
   visual_review_mode: text-first-targeted
   normalization_requirements: interface-classification-only; contract-normalization-deferred
-  notes_ru: Внутренние version/date metadata не подтверждают filename hint v005. Артефакт содержит reviewer comments
-    и подробные screenshot-based UI procedures. В canonical files не переносятся внутренние IP/operational URLs,
-    примеры реквизитов и персональные данные из UI, если конкретное значение не требуется как evidence. По stakeholder
-    response этот DOCX был передан позже PDF и воспринимается как более полный; это не считается доказательством
-    version authority.
+  notes_ru: Внутренние version/date metadata не подтверждают filename hint v005. Артефакт содержит reviewer comments и 
+    подробные screenshot-based UI procedures. В canonical files не переносятся внутренние IP/operational URLs, примеры 
+    реквизитов и персональные данные из UI, если конкретное значение не требуется как evidence. По stakeholder response 
+    этот DOCX был передан позже PDF и воспринимается как более полный; это не считается доказательством version 
+    authority.
   delivery_context:
     reported_sequence: later-than-SRC-FS-002
     reported_relative_completeness: more-complete
@@ -184,9 +194,9 @@ sources:
   sensitivity: internal
   visual_review_mode: targeted
   normalization_requirements: interface-classification-only; contract-normalization-deferred
-  notes_ru: Внутренние version/date metadata совпадают с SRC-FS-001 и не подтверждают filename hint v006. PDF metadata
-    показывает генерацию артефакта в 2026 году, но это не принимается как business/version precedence. Документ
-    консолидирует organization fields и разделы 3.2-3.4, при этом содержит незакрытые редакционные пометки. В canonical
+  notes_ru: Внутренние version/date metadata совпадают с SRC-FS-001 и не подтверждают filename hint v006. PDF metadata 
+    показывает генерацию артефакта в 2026 году, но это не принимается как business/version precedence. Документ 
+    консолидирует organization fields и разделы 3.2-3.4, при этом содержит незакрытые редакционные пометки. В canonical 
     files не копируются внутренние operational values из screenshots/tables без необходимости.
   delivery_context:
     reported_sequence: earlier-than-SRC-FS-001
@@ -204,7 +214,7 @@ sources:
   sensitivity: internal
   visual_review_mode: not-required
   normalization_requirements: none
-  notes_ru: Уточняет порядок передачи артефактов, нормализацию XÖHK/XÖHKS и рабочую boundary-классификацию IAMAS/AVIS.
+  notes_ru: Уточняет порядок передачи артефактов, нормализацию XÖHK/XÖHKS и рабочую boundary-классификацию IAMAS/AVIS. 
     Не устанавливает version authority функциональной спецификации.
 
 - id: SRC-OPS-001
@@ -213,7 +223,7 @@ sources:
   source_family: gpp-normative-operational-2015
   relationship: approved-normative-operational-rules-with-annexes
   filename_version_hint: V14
-  version: null
+  version:
   date: '2015-08-13'
   version_confidence: low
   ingest_profile: normative-operational
@@ -222,13 +232,13 @@ sources:
   sensitivity: internal
   visual_review_mode: targeted
   normalization_requirements: none
-  notes_ru: Документ утвержден решением Правления Центрального банка от 13.08.2015 и содержит приложения с регламентом
-    операционного дня, backup/archive procedures и disaster recovery plan. Filename hint V14 не подтвержден внутренней
+  notes_ru: Документ утвержден решением Правления Центрального банка от 13.08.2015 и содержит приложения с регламентом 
+    операционного дня, backup/archive procedures и disaster recovery plan. Filename hint V14 не подтвержден внутренней 
     version metadata и не используется как authority. По stakeholder clarification редакция была передана assessment как
-    последняя доступная; это повышает provenance по полноте переданного набора документов, но не доказывает currentness
-    технологий, инфраструктуры или operational procedures 2015 года. Targeted visual review архитектурно значимой
-    DR/topology diagram на странице 13 выполнен. Точные internal hostnames, filesystem paths и operational commands из
-    DR/restore procedures в canonical model не копируются, поскольку для архитектурного evidence достаточно их
+    последняя доступная; это повышает provenance по полноте переданного набора документов, но не доказывает currentness 
+    технологий, инфраструктуры или operational procedures 2015 года. Targeted visual review архитектурно значимой 
+    DR/topology diagram на странице 13 выполнен. Точные internal hostnames, filesystem paths и operational commands из 
+    DR/restore procedures в canonical model не копируются, поскольку для архитектурного evidence достаточно их 
     абстрактной семантики.
   delivery_context:
     reported_as_latest_available_edition: true
@@ -246,13 +256,14 @@ sources:
   sensitivity: internal
   visual_review_mode: not-required
   normalization_requirements: none
-  notes_ru: Архитектор assessment сообщил, что SRC-OPS-001 был передан как последняя доступная редакция правил. Это
-    относится к provenance переданного source set и не подтверждает, что описанные в документе 2015 года технологии,
+  notes_ru: Архитектор assessment сообщил, что SRC-OPS-001 был передан как последняя доступная редакция правил. Это 
+    относится к provenance переданного source set и не подтверждает, что описанные в документе 2015 года технологии, 
     инфраструктура, security controls, operational schedule или DR procedures остаются текущими.
 
 - id: SRC-INT-001
   title: HÖKUMƏT ÖDƏNİŞ PORTALI - TƏŞKİLATLARIN HÖP İNFRASTRUKTURUNA İNTEQRASİYASI
-  file_name: CMA-SS 550-19 TN 070 1.16 Message Detailed Specifications SC 1(Xidmət təşkilatlarının HÖP infrastrukturuna inteərasiyasının texniki spesifikasiyası).pdf
+  file_name: CMA-SS 550-19 TN 070 1.16 Message Detailed Specifications SC 1(Xidmət təşkilatlarının HÖP 
+    infrastrukturuna inteərasiyasının texniki spesifikasiyası).pdf
   source_family: gpp-integration-contract-2025
   relationship: primary-human-readable-integration-contract
   internal_document_id: CMA-SS 550-19 TN 070 1.16
@@ -265,10 +276,58 @@ sources:
   sensitivity: internal
   visual_review_mode: targeted
   normalization_requirements: interface-classification; soap-wsdl-xsd-reconstruction; http-xml-xsd-reconstruction
-  notes_ru: Внутренние титульные данные и история версий подтверждают версию 1.16 и дату 18.08.2025. Документ отдельно описывает
-    SOAP services и HTTP/XML-сверку; весь источник не классифицируется как SOAP. URL WSDL в тексте не считаются
-    предоставленными контрактами. Для GPPPaymentWS указана ссылка на test endpoint, но его текущая доступность
-    не проверялась и он не используется как доказательство production endpoint. Production links должны были
-    передаваться отдельно после приемки тестирования и в источнике отсутствуют. Внутренние IP-адреса в canonical model не
-    переносятся, поскольку они не требуются для архитектурного evidence. Выполнен целевой визуальный просмотр схемы бизнес-процесса
-    на странице 7 и таблиц/XSD сверки на страницах 78-83.
+  notes_ru: Внутренние титульные данные и история версий подтверждают версию 1.16 и дату 18.08.2025. Документ отдельно 
+    описывает SOAP services и HTTP/XML-сверку; весь источник не классифицируется как SOAP. URL WSDL в тексте не 
+    считаются предоставленными контрактами. Для GPPPaymentWS указана ссылка на test endpoint, но его текущая доступность
+    не проверялась и он не используется как доказательство production endpoint. Production links должны были 
+    передаваться отдельно после приемки тестирования и в источнике отсутствуют. Внутренние IP-адреса в canonical model 
+    не переносятся, поскольку они не требуются для архитектурного evidence. Выполнен целевой визуальный просмотр схемы 
+    бизнес-процесса на странице 7 и таблиц/XSD сверки на страницах 78-83.
+
+- id: SRC-DB-001
+  title: Verilənlər Bazasının təsviri
+  file_name: GPP_DC_Data_Model_V2-1(Əməliyyat gününün idarə edilməsi modulu üzrə istifadəçi təlimatı).docx
+  source_family: gpp-physical-data-model-2015
+  relationship: historical-physical-database-model
+  filename_version_hint: V2-1
+  internal_history_version: '003'
+  date: '2015-06-09'
+  version_confidence: medium
+  ingest_profile: database-model
+  authority: internal-technical-data-model
+  currentness: historical
+  source_set_status:
+    latest_available: true
+    basis_source: SRC-STK-003
+    as_of: '2026-08-17'
+    confidence: medium
+  sensitivity: internal
+  visual_review_mode: targeted
+  normalization_requirements: separate-cf-and-apus-physical-models; oracle-types; keys-and-foreign-keys; mermaid-erd; 
+    physical-domain-mapping; logical-fk-registry
+  notes_ru: 'Внутреннее название - Verilənlər Bazasının təsviri; имя файла описывает другой тип документа и не используется
+    как источник названия. История версий заканчивается version 003 от 09.06.2015 с добавлением схемы APUS. В DOCX есть один
+    незакрытый reviewer comment от 04.11.2015 по полю PREFIXED, поэтому уверенность в версии снижена до medium: комментарий
+    является более поздней аннотацией, но не новой подтвержденной версией. Физические таблицы и Oracle-специфичные типы извлечены
+    отдельно для CF и APUS. Ни одна структура 2015 года не считается автоматически текущей производственной схемой. Из-за
+    ожидаемой ограниченности дальнейшей документации введен отдельный слой logical FK: documented semantic references и архитектурно
+    обоснованные INFERENCE-связи хранятся отдельно от подтвержденных физических FK и не считаются Oracle constraints. По сообщению
+    stakeholder на 17.08.2026 это, вероятно, наиболее актуальная документация по physical DB model в переданном source set; этот
+    source-set status не повышает temporal currentness и не подтверждает production schema 2026 года.'
+  artifact_annotations:
+    unresolved_comments: 1
+    latest_comment_date: '2015-11-04'
+
+- id: SRC-STK-003
+  title: Ответ архитектора по актуальности переданной physical DB documentation
+  source_family: gpp-physical-data-model-2015
+  relationship: stakeholder-clarification
+  date: '2026-08-17'
+  version_confidence: not-applicable
+  ingest_profile: stakeholder-response
+  authority: project-architect-response
+  currentness: current
+  sensitivity: internal
+  visual_review_mode: not-required
+  normalization_requirements: none
+  notes_ru: Архитектор assessment сообщил, что SRC-DB-001 является переданной документацией по physical DB model и, вероятно, наиболее актуальной доступной редакцией в имеющемся source set. Это относится только к provenance и полноте переданного набора источников и не подтверждает current production physical schema.

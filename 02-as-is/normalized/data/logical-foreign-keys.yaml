@@ -1,0 +1,414 @@
+logical_foreign_keys:
+  database_model: DB-CF-001
+  source: SRC-DB-001
+  temporal_scope:
+    source_date: '2015-06-09'
+    currentness: current-at-source-date
+  current_applicability: unverified
+  modeling_rule_ru: Логический FK описывает предполагаемую или прямо описанную смысловую ссылку между полями. Он не 
+    означает наличие Oracle FOREIGN KEY constraint. FACT-связи опираются на прямое текстовое описание, INFERENCE-связи 
+    выводятся из имен, типов, назначения полей и соседней структуры модели; confidence отражает силу вывода.
+  relationships:
+  - id: LFK-DB-001
+    database_model: DB-CF-001
+    relationship_type: documented_logical_reference
+    from:
+      table_id: DB-CF-TBL-011
+      table: SC_IDEN_MTD_PREFIX_MAP
+      column: SERVICE_TYPE_ID
+    to:
+      table_id: DB-CF-TBL-013
+      table: SERVICE_TYPES
+      column: ID
+    evidence:
+    - EV-DB-003
+    assertion: fact
+    confidence: confirmed
+    basis: documented-column-description
+    physical_constraint_status: unverified
+    basis_ru: Описание поля прямо указывает на ID таблицы Service_type; нормализованное имя документированной таблицы - 
+      SERVICE_TYPES. Наличие Oracle FK constraint не подтверждено.
+  - id: LFK-DB-002
+    database_model: DB-CF-001
+    relationship_type: documented_logical_reference
+    from:
+      table_id: DB-CF-TBL-014
+      table: OPERATION
+      column: MESSAGE_ID
+    to:
+      table_id: DB-CF-TBL-016
+      table: MESSAGE
+      column: ID
+    evidence:
+    - EV-DB-005
+    assertion: fact
+    confidence: confirmed
+    basis: documented-column-description
+    physical_constraint_status: unverified
+    basis_ru: Описание MESSAGE_ID прямо говорит, что поле хранит ID записи MESSAGE. Физический FK в колонке Xarici açar 
+      не указан.
+  - id: LFK-DB-003
+    database_model: DB-CF-001
+    relationship_type: documented_logical_reference
+    from:
+      table_id: DB-CF-TBL-014
+      table: OPERATION
+      column: REQUIRED_OPERATION_ID
+    to:
+      table_id: DB-CF-TBL-014
+      table: OPERATION
+      column: ID
+    evidence:
+    - EV-DB-005
+    assertion: fact
+    confidence: confirmed
+    basis: documented-column-description
+    physical_constraint_status: unverified
+    basis_ru: Поле задает предшествующую операцию, обязательную перед текущей; это документированная self-reference, но 
+      не подтвержденный Oracle FK.
+  - id: LFK-DB-004
+    database_model: DB-CF-001
+    relationship_type: documented_logical_reference
+    from:
+      table_id: DB-CF-TBL-017
+      table: MESSAGE_STORAGE
+      column: ID
+    to:
+      table_id: DB-CF-TBL-016
+      table: MESSAGE
+      column: ID
+    evidence:
+    - EV-DB-005
+    assertion: fact
+    confidence: confirmed
+    basis: documented-column-description
+    physical_constraint_status: unverified
+    basis_ru: Описание MESSAGE_STORAGE.ID связывает запись с уникальным идентификатором соответствующего сообщения.
+  - id: LFK-DB-005
+    database_model: DB-CF-001
+    relationship_type: documented_logical_reference
+    from:
+      table_id: DB-CF-TBL-026
+      table: PAYMENT_NOTIFICATION
+      column: PMT_NTFY_TYPE_ID
+    to:
+      table_id: DB-CF-TBL-027
+      table: PAYMENT_NOTIFICATION_TYPES
+      column: ID
+    evidence:
+    - EV-DB-005
+    assertion: fact
+    confidence: confirmed
+    basis: documented-column-description
+    physical_constraint_status: unverified
+    basis_ru: Источник прямо говорит, что значения PMT_NTFY_TYPE_ID берутся из PAYMENT_NOTIFICATION_TYPES.ID.
+  - id: LFK-DB-006
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-011
+      table: SC_IDEN_MTD_PREFIX_MAP
+      column: SC_IDEN_MTD_ID
+    to:
+      table_id: DB-CF-TBL-010
+      table: SC_SUPPORTED_IDEN_MTD
+      column: ID
+    evidence:
+    - EV-DB-003
+    assertion: inference
+    confidence: supported
+    basis: column-name-and-neighbor-model-semantics
+    physical_constraint_status: unverified
+    basis_ru: Имя SC_IDEN_MTD_ID и назначение таблицы-мэппинга указывают на строку SC_SUPPORTED_IDEN_MTD. Источник не 
+      называет target явно.
+  - id: LFK-DB-007
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-012
+      table: SC_IDEN_MTD_PREFIX_MAP
+      table_variant: 2
+      column: ORGANIZATION_EXT_KEY
+    to:
+      target_source_reference: ORGANIZATION.EXTERNALKEY
+      target_definition_status: referenced-table-not-defined-in-source
+    evidence:
+    - EV-DB-003
+    - EV-DB-007
+    assertion: inference
+    confidence: supported
+    basis: column-name-and-description
+    physical_constraint_status: unverified
+    basis_ru: Поле описано как код SC, а ORGANIZATION.EXTERNALKEY в том же source используется как business key 
+      организации. Имя самой таблицы variant 2 остается конфликтным по CONTR-DB-001.
+  - id: LFK-DB-008
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-013
+      table: SERVICE_TYPES
+      column: ORGANIZATION_EXT_KEY
+    to:
+      target_source_reference: ORGANIZATION.EXTERNALKEY
+      target_definition_status: referenced-table-not-defined-in-source
+    evidence:
+    - EV-DB-003
+    assertion: inference
+    confidence: supported
+    basis: column-name-and-description
+    physical_constraint_status: unverified
+    basis_ru: Поле хранит шестизначный код головного офиса организации, предлагающей услугу; это согласуется с 
+      ORGANIZATION.EXTERNALKEY в других таблицах source.
+  - id: LFK-DB-009
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-013
+      table: SERVICE_TYPES
+      column: SERVICE_GROUP_CODE
+    to:
+      table_id: DB-CF-TBL-012
+      table: SC_IDEN_MTD_PREFIX_MAP
+      table_variant: 2
+      column: CODE
+    evidence:
+    - EV-DB-003
+    - EV-DB-007
+    assertion: inference
+    confidence: supported
+    basis: matching-group-code-semantics
+    physical_constraint_status: unverified
+    basis_ru: SERVICE_GROUP_CODE описан как код группы, а CODE во второй конфликтующей definition описан как код группы.
+      Логическая связь вероятна, но физическое имя target-table неизвестно из-за CONTR-DB-001.
+  - id: LFK-DB-010
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-004
+      table: PRE_SESSION_STATE
+      column: INITIATOR_CODE
+    to:
+      target_source_reference: ORGANIZATION.EXTERNALKEY
+      target_definition_status: referenced-table-not-defined-in-source
+    evidence:
+    - EV-DB-003
+    assertion: inference
+    confidence: supported
+    basis: participant-code-semantics
+    physical_constraint_status: unverified
+    basis_ru: INITIATOR_CODE хранит шестизначный код внешней организации-инициатора (SC/BANK/PSP); 
+      ORGANIZATION.EXTERNALKEY используется в source как ключ участника.
+  - id: LFK-DB-011
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-006
+      table: PAYMENT_EXT
+      column: INITIATOR_CODE
+    to:
+      target_source_reference: ORGANIZATION.EXTERNALKEY
+      target_definition_status: referenced-table-not-defined-in-source
+    evidence:
+    - EV-DB-003
+    assertion: inference
+    confidence: supported
+    basis: participant-code-semantics
+    physical_constraint_status: unverified
+    basis_ru: Поле описано как шестизначный код организации, начавшей платеж; логически соответствует business key 
+      организации.
+  - id: LFK-DB-012
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-019
+      table: STATEMENT_EXT
+      column: SC_CODE
+    to:
+      target_source_reference: ORGANIZATION.EXTERNALKEY
+      target_definition_status: referenced-table-not-defined-in-source
+    evidence:
+    - EV-DB-003
+    assertion: inference
+    confidence: supported
+    basis: participant-code-semantics
+    physical_constraint_status: unverified
+    basis_ru: SC_CODE описан как шестизначный код головного офиса организации, к которой относится счет.
+  - id: LFK-DB-013
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-007
+      table: PAYMENT_DATA
+      columns:
+      - UC_HEAD
+      - SERVICE_CODE
+    to:
+      table_id: DB-CF-TBL-013
+      table: SERVICE_TYPES
+      columns:
+      - ORGANIZATION_EXT_KEY
+      - SERVICE_CODE
+    evidence:
+    - EV-DB-003
+    - EV-DB-004
+    assertion: inference
+    confidence: supported
+    basis: composite-business-key-semantics
+    physical_constraint_status: unverified
+    basis_ru: UC_HEAD хранит код service company, SERVICE_CODE - код услуги; в SERVICE_TYPES те же два бизнес-измерения 
+      задаются ORGANIZATION_EXT_KEY и SERVICE_CODE. Это логический составной reference, не утверждение о composite FK/UK
+      в Oracle.
+  - id: LFK-DB-014
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-007
+      table: PAYMENT_DATA
+      column: AUTHORIZATIONID
+    to:
+      table_id: DB-CF-TBL-021
+      table: PMTSIGNATURES
+      column: ID
+    evidence:
+    - EV-DB-003
+    - EV-DB-004
+    assertion: inference
+    confidence: supported
+    basis: matching-electronic-signature-semantics-and-type
+    physical_constraint_status: unverified
+    basis_ru: AUTHORIZATIONID описан как ID электронной подписи в БД, а PMTSIGNATURES хранит электронную подпись под ID 
+      того же типа RAW(8).
+  - id: LFK-DB-015
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-026
+      table: PAYMENT_NOTIFICATION
+      column: PAYMENT_ID
+    to:
+      table_id: DB-CF-TBL-007
+      table: PAYMENT_DATA
+      column: EPMT_ID
+    evidence:
+    - EV-DB-004
+    - EV-DB-005
+    assertion: inference
+    confidence: supported
+    basis: section-context-payment-id-semantics-and-type
+    physical_constraint_status: unverified
+    basis_ru: PAYMENT_NOTIFICATION следует непосредственно после ссылки на PAYMENT_DATA и описывает PAYMENT_ID как ID 
+      обрабатываемого платежа; EPMT_ID в PAYMENT_DATA является ID электронного платежа и имеет тот же RAW(8) тип.
+  - id: LFK-DB-016
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-026
+      table: PAYMENT_NOTIFICATION
+      column: BATCH_SERIAL
+    to:
+      table_id: DB-CF-TBL-025
+      table: AMG_MSG
+      column: SERIAL_NUMBER
+    evidence:
+    - EV-DB-005
+    assertion: inference
+    confidence: supported
+    basis: batch-file-serial-semantics
+    physical_constraint_status: unverified
+    condition_ru: Применимо для batch-notification; для online PAYMENT_NOTIFICATION.BATCH_SERIAL содержит transaction 
+      number и не обязан ссылаться на AMG_MSG.
+    basis_ru: AMG_MSG.SERIAL_NUMBER описан как уникальный серийный номер файла; BATCH_SERIAL - серийный номер файла для 
+      batch-обработки.
+  - id: LFK-DB-017
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-006
+      table: PAYMENT_EXT
+      column: ID
+    to:
+      table_id: DB-CF-TBL-007
+      table: PAYMENT_DATA
+      column: EPMT_ID
+    evidence:
+    - EV-DB-003
+    - EV-DB-004
+    assertion: inference
+    confidence: tentative
+    basis: extension-table-pattern-and-compatible-type
+    physical_constraint_status: unverified
+    basis_ru: PAYMENT_EXT описана как вспомогательная структура дополнительных атрибутов платежа, а ID и 
+      PAYMENT_DATA.EPMT_ID имеют RAW(8). Прямого указания, что это shared key, в source нет.
+  - id: LFK-DB-018
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-007
+      table: PAYMENT_DATA
+      column: STATEMENT_ID
+    to:
+      target_source_reference: STATEMENT.ID
+      target_definition_status: inferred-table-not-defined-in-source
+    evidence:
+    - EV-DB-004
+    assertion: inference
+    confidence: supported
+    basis: column-name-and-description
+    physical_constraint_status: unverified
+    basis_ru: STATEMENT_ID описан как ID счета/statement в БД; отдельная таблица STATEMENT не определена в этом source, 
+      но STATEMENT.EXTERNALKEY прямо упоминается в описании STATEMENT_EXT.DOC_NUMBER.
+  - id: LFK-DB-019
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-019
+      table: STATEMENT_EXT
+      column: ID
+    to:
+      target_source_reference: STATEMENT.ID
+      target_definition_status: inferred-table-not-defined-in-source
+    evidence:
+    - EV-DB-003
+    - EV-DB-004
+    assertion: inference
+    confidence: tentative
+    basis: extension-table-pattern-and-statement-semantics
+    physical_constraint_status: unverified
+    basis_ru: STATEMENT_EXT является extension-структурой счета; shared-key связь ID -> STATEMENT.ID логична, но прямого
+      указания source не содержит.
+  - id: LFK-DB-020
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-007
+      table: PAYMENT_DATA
+      column: ACCOUNT_ID
+    to:
+      target_source_reference: ACCOUNT.ID
+      target_definition_status: inferred-table-not-defined-in-source
+    evidence:
+    - EV-DB-004
+    assertion: inference
+    confidence: tentative
+    basis: column-name-and-description
+    physical_constraint_status: unverified
+    basis_ru: ACCOUNT_ID описан как ID счета абонента в БД. Имя физической target-table в source не приведено; 
+      ACCOUNT.ID используется только как нормализованное логическое обозначение предполагаемого target.
+  - id: LFK-DB-021
+    database_model: DB-CF-001
+    relationship_type: inferred_logical_reference
+    from:
+      table_id: DB-CF-TBL-024
+      table: SC_SERVICE_FEE
+      column: UC_HEAD
+    to:
+      target_source_reference: ORGANIZATION.EXTERNALKEY
+      target_definition_status: referenced-table-not-defined-in-source
+    evidence:
+    - EV-DB-003
+    assertion: inference
+    confidence: tentative
+    basis: service-company-code-semantics
+    physical_constraint_status: unverified
+    basis_ru: UC_HEAD описан как код головного офиса SC. Тип NVARCHAR2(32) не совпадает с INTEGER-ссылками на 
+      ORGANIZATION.EXTERNALKEY в других таблицах, поэтому exact physical-key mapping остается tentative.

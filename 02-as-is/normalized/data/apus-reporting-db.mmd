@@ -1,0 +1,25 @@
+erDiagram
+    %% Историческая физическая модель APUS из SRC-DB-001, версия 003 (09.06.2015).
+    %% Раздел 4 не документирует relationships/keys для агрегатных таблиц.
+    %% PAYMENT_DATA упомянута как target синхронизации, но ее APUS schema в разделе 4 отсутствует (CONTR-DB-002).
+
+    PAYMENT_DATA_AGGR_DAY {
+        NUMBER EPMT_PAYABLE_AMOUNT
+        NUMBER PMT_COUNT
+        INTEGER EPMT_STATE_CODE
+        INTEGER EPMT_TYPE
+        INTEGER HPMT_TELLER_KEY
+        INTEGER CSP_HEAD_BRANCH
+        INTEGER CSP_TELLER_REALM
+        INTEGER UC_HEAD
+        INTEGER UC_BRANCH
+        DATE EPMT_DATE
+        CHAR_1BYTE ABON_TYPE "тип: CHAR(1BYTE)"
+    }
+
+    PAYMENT_DATA_AGGR_LAST_DATE {
+        DATE LAST_DAY_AGGR
+        NUMBER COUNT_ROWS_AGGR
+        TIMESTAMP_6 INSERT_TIME "тип: TIMESTAMP(6)"
+        TIMESTAMP_6 MODIFY_TIME "тип: TIMESTAMP(6)"
+    }

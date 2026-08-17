@@ -22,7 +22,7 @@ Temporal labels используются в смысле `ASSESSMENT_PROTOCOL.md
 | Administrative roles и control plane | Раздельные system/security/certificate/participant administrator и operator roles; certificate + username/password access (`FACT-GPP-022/023`) | AdminConsole roles: CBA system administrator, participant administrator, bank security administrator, bank controller, KXM administrator; UI содержит permissions и dual authorization (`FACT-GPP-009/011`) | Нет релевантного evidence | Нет релевантного evidence | Administrative/security domain сохраняется как архитектурно значимый, но current role mapping и authentication scheme - `Q-SEC-001` |
 | Operational day и settlement cadence | `00:00-24:00`; next-business-day reporting и settlement через XÖHKS по фиксированным окнам (`FACT-GPP-024`) | XÖHKS представлен через Loader Generators/LVPCSS, отдельно появился IPSClient (`FACT-GPP-015`) | Нет schedule evidence | Нет schedule evidence | Exact current day boundary, windows и orchestration - `Q-OPS-001`; наличие XÖHKS integration подтверждено только `current-at-source-date` 2023 |
 | Payment processing lifecycle | Регистрация платежа, participant information exchange, next-day settlement/reporting (`FACT-GPP-024`) | Единая платформа приема/обработки/расчетов; PacPmtProc authorization; Loader/LVPCSS/IPSClient downstream integration (`FACT-GPP-008/015/018`) | Own web/mobile channels прекращены, а платежи направлены в integrated PSP services (`FACT-GPP-003/004`) | System-level volume подтверждает продолжающуюся обработку | Логические стадии payment acceptance/processing и downstream reporting/settlement подтверждены cross-source, но current component orchestration и timing неизвестны (`Q-ARCH-001`, `Q-OPS-001`) |
-| Persistence/data state | Oracle persistence/replication и archive mechanics подтверждены как historical (`FACT-GPP-025..027`) | Есть configuration/payment-state semantics, но physical DB/core processing component не назван (`FACT-GPP-017/018`) | Нет physical persistence evidence | Нет physical persistence evidence | Недатированная public page подтверждает logical centralized reference/master data (`FACT-GPP-021`, currentness `unverified`), но current physical persistence/core processing topology остается `Q-ARCH-001` |
+| Persistence/data state | Operational source подтверждает Oracle persistence/replication, а `SRC-DB-001` отдельно документирует historical CF/APUS physical schema (`FACT-GPP-025..027`, `FACT-GPP-035..040`) | Есть configuration/payment-state semantics, но current physical DB/core processing component не назван (`FACT-GPP-017/018`) | Нет physical persistence evidence | Integration contract повторяет часть message/domain vocabulary, но не physical schema | Historical CF/APUS model хранится отдельно; current physical persistence/core processing topology остается `Q-ARCH-001`/`Q-DB-001` |
 | Backup/archive | Формализованы Oracle/TSM backup, archive и offline media procedures (`FACT-GPP-025`) | В текущем canonical evidence 2023 отдельная backup model не описана | Нет evidence | Нет evidence | Только historical semantics; current backup/retention/restore - `Q-BCK-001` |
 | DR/deployment | Three-site Main/Alternative/Backup topology, cluster failover и remote DR/failback (`FACT-GPP-026`) | Functional module list не дает physical deployment topology (`FACT-GPP-008`) | Нет evidence | Нет evidence | Current DR/deployment topology и RTO/RPO - `Q-DR-001`; 2015 topology остается отдельной historical reconstruction |
 | Technology stack | UNIX/Windows, Oracle/ExaData, WebLogic, Tomcat, Active MQ, Apache, TSM (`FACT-GPP-027`) | Specification перечисляет functional/infrastructure modules, но не подтверждает continuity platform technologies 2015 | Нет evidence | Нет evidence | Ни одна technology 2015 не считается current без дополнительного evidence |
@@ -143,7 +143,8 @@ Cross-source evidence поддерживает логическое раздел
 - точные временные окна операционного дня (`FACT-GPP-024`);
 - реализация backup/archive (`FACT-GPP-025`);
 - трехсайтовая DR/deployment topology (`FACT-GPP-026`);
-- технологический стек (`FACT-GPP-027`).
+- технологический стек (`FACT-GPP-027`);
+- physical database model CF/APUS, tables/columns и документированные связи на дату source (`FACT-GPP-035..040`).
 
 ### 7.5. Ключевые current UNKNOWN
 
@@ -152,7 +153,8 @@ Cross-source evidence поддерживает логическое раздел
 - расписание операционного дня/settlement - `Q-OPS-001`;
 - аутентификация/авторизация/SoD - `Q-SEC-001`;
 - резервное копирование/retention/RPO - `Q-BCK-001`;
-- топология DR, RTO/RPO и failover - `Q-DR-001`.
+- топология DR, RTO/RPO и failover - `Q-DR-001`;
+- соответствие historical CF/APUS physical model фактической production database state - `Q-DB-001`.
 
 ## 8. Historical leakage check
 
@@ -175,7 +177,7 @@ Scope:
 - exact `00:00-24:00` и next-day windows не представлены как current operational schedule;
 - current system-context diagram не содержит 2015 physical deployment nodes или technologies.
 
-На текущем WIP historical leakage не обнаружен.
+В текущей canonical state historical leakage не обнаружен.
 
 ## Интеграционный контракт 2025 и функциональная спецификация 2023
 
@@ -187,3 +189,19 @@ Scope:
 - IAMAS/AVIS boundary теперь имеет достаточное evidence для system-level interface objects `IF-GPP-013`/`IF-GPP-014`, но protocol и responsible internal component остаются unknown.
 
 Документ 2025 имеет более высокую temporal relevance именно для integration contract semantics, но не используется для автоматического объявления всех named modules 2023 текущими production components. WSDL/endpoint references также не считаются доказательством runtime availability.
+
+## 9. Physical data model 2015 -> functional/integration semantics 2023/2025
+
+`SRC-DB-001` добавляет detailed physical model, но cross-source reconciliation выполняется только на conceptual level. Ни одно совпадение имен или fields не повышает physical table currentness.
+
+| Historical physical object | Более поздний concept/evidence | Reconciliation |
+|---|---|---|
+| `SERVICE_TYPES` | `DATA-GPP-004` / service-type configuration 2023 | Сильное conceptual соответствие service code/name, partial/pre-payment, fee/cancellation configuration; current table name/schema не подтверждены |
+| `IDENTIFICATION_METHOD`, `SC_SUPPORTED_IDEN_MTD`, `IDEN_MTD_PREFIX` | `DATA-GPP-005` и IAMAS/AVIS/SC identification configuration 2023/2025 | Поддерживается continuity identification concept; physical tables 2015 не считаются current |
+| `PAYMENT_DATA`, `PAYMENT_EXT` | `DATA-GPP-009` Payment и payment contract semantics 2023/2025 | Historical physical storage хорошо согласуется с domain fields, но current persistence layout неизвестен |
+| `STATEMENT_EXT` + statement fields в `PAYMENT_DATA` | `DATA-GPP-008` InvoiceStatement и invoice/debt SOAP types 2023/2025 | Поддерживается mapping physical projection -> domain concept без отождествления entity/table |
+| `AMG_MSG.MSG_TYPE` examples `INVOICE_PAY_APUS`, `DAY_PAYMENTS` | HTTP/XML reconciliation contract 2025 (`IF-GPP-011`) | Имена сообщений показывают semantic continuity между 2015 и 2025, но не доказывают, что `AMG_MSG` или его schema продолжают использоваться |
+| `PAYMENT_DATA_AGGR_DAY` | reporting/payment aggregation concern | Historical reporting projection подтверждена; current reporting storage/ETL не описаны более поздними sources |
+
+Отдельный mapping сохранен в `normalized/data/physical-domain-mapping.yaml`. Logical relationships сохранены в `normalized/data/logical-foreign-keys.yaml` и отделены от physical constraints. Current database status остается `Q-DB-001`; inconsistent table/enum definitions остаются `CONTR-DB-001..004`.
+

@@ -326,3 +326,70 @@ questions:
   - EV-INT-018
   stakeholder_context_ru: На 17.08.2026 stakeholder не располагает authoritative WSDL/endpoint/schema clarification; все
     связанные неопределенности контракта сохраняются как явные UNKNOWN/unverified/contradiction и не блокируют snapshot.
+
+- id: Q-DB-001
+  area: physical-database-currentness
+  question_ru: Какова текущая production physical database model GPP - сохраняются ли CF Transaction DB и APUS Reporting DB, какие Oracle schemas/instances используются и насколько physical objects 2015 года соответствуют фактической production schema?
+  reason_ru: SRC-DB-001 является наиболее актуальной доступной документацией в переданном source set, но документирует physical model 2015 года. Отсутствие более нового материала не подтверждает current production topology, tables или constraints.
+  priority: important
+  status: open
+  related_sources:
+  - SRC-DB-001
+  - SRC-STK-003
+  related_evidence:
+  - EV-DB-011
+  related_facts:
+  - FACT-GPP-035
+  - FACT-GPP-036
+  - FACT-GPP-037
+  - FACT-GPP-040
+  stakeholder_context_ru: На 17.08.2026 stakeholder сообщил, что SRC-DB-001 является переданной документацией и, вероятно, наиболее актуальной доступной редакцией. Вопрос о наличии более новой переданной документации считается снятым; открытым остается только соответствие historical physical model фактическому current production состоянию.
+
+- id: Q-DB-002
+  area: physical-schema
+  question_ru: Каково корректное имя и назначение второй структуры, опубликованной как SC_IDEN_MTD_PREFIX_MAP с полями 
+    CODE/DESCRIPTION/ORGANIZATION_EXT_KEY, и какая из двух definitions соответствует реальной таблице?
+  reason_ru: Один источник использует одно имя таблицы для двух несовместимых наборов колонок; молчаливое переименование
+    в service-group table было бы недоказанной коррекцией.
+  priority: important
+  status: open
+  related_sources:
+  - SRC-DB-001
+  related_evidence:
+  - EV-DB-007
+
+- id: Q-DB-003
+  area: reporting-schema
+  question_ru: Существовала или существует ли в APUS Reporting DB отдельная PAYMENT_DATA, какова ее schema и по какому 
+    механизму/ключам она синхронизируется с CF.PAYMENT_DATA?
+  reason_ru: Раздел 3.4 прямо ссылается на одноименную таблицу отчетной области, но раздел 4 ее не определяет.
+  priority: important
+  status: open
+  related_sources:
+  - SRC-DB-001
+  related_evidence:
+  - EV-DB-008
+
+- id: Q-DB-004
+  area: database-constraints-and-enums
+  question_ru: Какие ограничения PK/UK/FK, индексы и enum mappings реально применялись или применяются для 
+    документированных таблиц, в частности MESSAGE.OUTBOUND и PAYMENT_DATA.EPMT_STATE_CODE?
+  reason_ru: Источник явно показывает лишь часть foreign keys, часто описывает ID как unique/key без типа ограничения, а
+    два описания enum содержат внутренние коллизии. Для точной физической модели нужен DDL или системный каталог.
+  priority: important
+  status: resolved
+  related_sources:
+  - SRC-DB-001
+  related_evidence:
+  - EV-DB-003
+  - EV-DB-009
+  - EV-DB-010
+  resolution_ru: Ожидать отдельного подтверждения полного DDL/constraints нецелесообразно. В physical model сохраняются 
+    только явно документированные PK/FK; для остальных связей введен отдельный registry logical-foreign-keys.yaml с FACT
+    и INFERENCE связями и confidence. Эти связи не повышаются до Oracle constraints. Неоднозначные enum mappings 
+    остаются contradictions, а не вопросами.
+  stakeholder_context_ru: На 17.08.2026 stakeholder указал, что существенно более полной документации по БД не ожидается
+    и логические FK следует восстанавливать аналитически и явно фиксировать в модели.
+  related_model_artifacts:
+  - 02-as-is/normalized/data/logical-foreign-keys.yaml
+  - 02-as-is/normalized/data/cf-transaction-db.mmd

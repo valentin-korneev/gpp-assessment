@@ -1,0 +1,138 @@
+physical_domain_mappings:
+  - physical_object: DB-CF-TBL-001
+    domain_concept: DATA-GPP-001
+    mapping_type: classification-support
+    confidence: medium
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: historical
+    basis_ru: Таблица хранит тип организации (CPC, SC, PSP, PSO, ROOT), то есть физически поддерживает 
+      классификацию ParticipantOrganization, но не является самой доменной сущностью организации.
+  - physical_object: DB-CF-TBL-006
+    domain_concept: DATA-GPP-009
+    mapping_type: extension-table
+    confidence: high
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: historical
+    basis_ru: Поля описывают дополнительные атрибуты платежа, способ оплаты, идентификаторы транзакций, smart 
+      payment и контекст инициатора.
+  - physical_object: DB-CF-TBL-007
+    domain_concept: DATA-GPP-009
+    mapping_type: payment-fact-table
+    confidence: high
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: historical
+    basis_ru: Таблица содержит receipt, amount, payment state/type/date, service fee, cancellation и payment 
+      method fields.
+  - physical_object: DB-CF-TBL-007
+    domain_concept: DATA-GPP-008
+    mapping_type: denormalized-invoice-context
+    confidence: high
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: historical
+    basis_ru: В той же физической таблице присутствуют идентификаторы statement/invoice, задолженность, номер 
+      документа и current debt; это показывает денормализацию контекста invoice внутри записи платежа, а не 
+      тождество Payment и InvoiceStatement.
+  - physical_object: DB-CF-TBL-019
+    domain_concept: DATA-GPP-008
+    mapping_type: extension-table
+    confidence: high
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: historical
+    basis_ru: STATEMENT_EXT содержит current debt, document/invoice code, получателя платежа и ссылку на 
+      identification method для контекста qaimə/statement.
+  - physical_object: DB-CF-TBL-008
+    domain_concept: DATA-GPP-005
+    mapping_type: configuration-table
+    confidence: high
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: historical
+    basis_ru: SOURCE/TYPE/SUBTYPE напрямую представляют способ идентификации и значения IAMAS/AVIS/SC, 
+      ACC/DOC, ACC1/DOC1 и т.п.
+  - physical_object: DB-CF-TBL-010
+    domain_concept: DATA-GPP-005
+    mapping_type: organization-identification-configuration
+    confidence: high
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: historical
+    basis_ru: Таблица связывает организацию с IDENTIFICATION_METHOD и хранит настройки видимости, приоритета, 
+      prefix и status.
+  - physical_object: DB-CF-TBL-009
+    domain_concept: DATA-GPP-005
+    mapping_type: identification-prefix-reference
+    confidence: medium
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: historical
+    basis_ru: Таблица хранит label/value prefix, используемый в конфигурации методов идентификации.
+  - physical_object: DB-CF-TBL-013
+    domain_concept: DATA-GPP-004
+    mapping_type: configuration-table
+    confidence: high
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: historical
+    basis_ru: 'SERVICE_TYPES содержит service code/name и правила платежа: pre/partial payment, срок действия invoice,
+      fee, discount/penalty и cancellation.'
+  - physical_object: DB-CF-TBL-012
+    domain_concept: DATA-GPP-003
+    mapping_type: possible-service-group-table
+    confidence: low
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: historical
+    basis_ru: Вторая структура под конфликтующим именем имеет CODE/DESCRIPTION/ORGANIZATION_EXT_KEY и 
+      описывает code/name группы. Из-за CONTR-DB-001 корректное имя таблицы не подтверждено.
+  - physical_object: DB-CF-TBL-024
+    domain_concept: DATA-GPP-006
+    mapping_type: fee-configuration-table
+    confidence: high
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: historical
+    basis_ru: Таблица хранит отдельные проценты service fee для юридических и физических плательщиков по кодам
+      SC и банка.
+  - physical_object: DB-CF-TBL-026
+    domain_concept: DATA-GPP-009
+    mapping_type: payment-processing-history
+    confidence: high
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: historical
+    basis_ru: PAYMENT_NOTIFICATION хранит событие обработки конкретного платежа, batch/transaction reference и
+      временные метки события/записи.
+  - physical_object: DB-APUS-TBL-001
+    domain_concept: DATA-GPP-009
+    mapping_type: reporting-projection
+    confidence: high
+    temporal_scope:
+      source_date: '2015-06-09'
+      currentness: historical
+    basis_ru: Таблица APUS агрегирует сумму и количество платежей по status/type, измерениям 
+      организации/оператора, дате и типу плательщика.
+unmapped_physical_concepts:
+  - physical_objects:
+      - DB-CF-TBL-004
+    candidate_concept_ru: Сессия платежного процесса
+    handling_ru: Не создается как domain entity автоматически; требуется подтверждение роли в более поздней 
+      доменной модели.
+  - physical_objects:
+      - DB-CF-TBL-002
+      - DB-CF-TBL-003
+    candidate_concept_ru: Категория организации
+    handling_ru: Отдельной canonical domain entity пока нет; физические таблицы не повышаются до доменной 
+      модели без дополнительной сверки.
+  - physical_objects:
+      - DB-CF-TBL-016
+      - DB-CF-TBL-017
+      - DB-CF-TBL-014
+      - DB-CF-TBL-015
+      - DB-CF-TBL-025
+    candidate_concept_ru: Технический журнал обработки messages/operations
+    handling_ru: Это инфраструктурный контур хранения, а не автоматически business domain entity.

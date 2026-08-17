@@ -1,82 +1,134 @@
 contradictions:
-- id: CONTR-GPP-001
-  area: channels
-  statement_ru: Общая страница GPP на сайте CBA продолжает упоминать официальный Internet resource GPP как канал 
-    платежей, тогда как отдельное уведомление CBA сообщает о прекращении gpp.az и mobile app с 10.01.2024.
-  evidence:
-  - EV-PUB-003
-  - EV-PUB-008
-  status: active
-  handling_ru: Для текущего AS-IS состояния каналов приоритет отдается специализированному уведомлению о прекращении. 
-    Утверждение общей страницы сохраняется как temporal/currentness inconsistency и не используется как подтверждение 
-    текущей доступности собственного web-канала.
+  - id: CONTR-GPP-001
+    area: channels
+    statement_ru: Общая страница GPP на сайте CBA продолжает упоминать официальный Internet resource GPP как 
+      канал платежей, тогда как отдельное уведомление CBA сообщает о прекращении gpp.az и mobile app с 
+      10.01.2024.
+    evidence:
+      - EV-PUB-003
+      - EV-PUB-008
+    status: active
+    handling_ru: Для текущего AS-IS состояния каналов приоритет отдается специализированному уведомлению о 
+      прекращении. Утверждение общей страницы сохраняется как temporal/currentness inconsistency и не 
+      используется как подтверждение текущей доступности собственного web-канала.
 
-- id: CONTR-SRC-001
-  area: source-versioning
-  statement_ru: Имена файлов функциональной спецификации содержат hints v005 и v006, но оба артефакта внутри 
-    идентифицируют документ как GPP_System Functional Specification_v001, version history 0.01, date 05.05.2023.
-  evidence:
-  - EV-FS-018
-  - EV-FS-019
-  status: active
-  handling_ru: Filename order не используется как доказательство precedence. Stakeholder сообщает, что DOCX v005 был 
-    передан позже и является более полным, но это не устраняет противоречие внутренней metadata и не доказывает 
-    authority. Shared content консолидируется; source-specific delta сохраняется до разрешения Q-SRC-001.
-  related_questions:
-  - Q-SRC-001
-  related_sources:
-  - SRC-FS-001
-  - SRC-FS-002
-  related_evidence:
-  - EV-STK-001
+  - id: CONTR-SRC-001
+    area: source-versioning
+    statement_ru: Имена файлов функциональной спецификации содержат hints v005 и v006, но оба артефакта внутри
+      идентифицируют документ как GPP_System Functional Specification_v001, version history 0.01, date 
+      05.05.2023.
+    evidence:
+      - EV-FS-018
+      - EV-FS-019
+    status: active
+    handling_ru: Filename order не используется как доказательство precedence. Stakeholder сообщает, что DOCX 
+      v005 был передан позже и является более полным, но это не устраняет противоречие внутренней metadata и 
+      не доказывает authority. Shared content консолидируется; source-specific delta сохраняется до разрешения
+      Q-SRC-001.
+    related_questions:
+      - Q-SRC-001
+    related_sources:
+      - SRC-FS-001
+      - SRC-FS-002
+    related_evidence:
+      - EV-STK-001
 
-- id: CONTR-INT-001
-  area: reconciliation-http-contract
-  statement_ru: DAY_PAYMENTS и DAY_PAYMENTS_FROM_BANK имеют XML Msg/Type с собственными именами, но их документированный
-    пример Content-Type использует параметр type=INVOICE_PAY_APUS.
-  evidence:
-  - EV-INT-015
-  status: active
-  handling_ru: При нормализации media type сохраняется как application/gpp.message+xml, а per-message параметр type не 
-    нормализуется как authoritative discriminator до уточнения. Body Msg/Type и несогласованность источника отражены в 
-    limitations manifest.
-  related_questions:
-  - Q-INT-002
+  - id: CONTR-INT-001
+    area: reconciliation-http-contract
+    statement_ru: DAY_PAYMENTS и DAY_PAYMENTS_FROM_BANK имеют XML Msg/Type с собственными именами, но их 
+      документированный пример Content-Type использует параметр type=INVOICE_PAY_APUS.
+    evidence:
+      - EV-INT-015
+    status: active
+    handling_ru: При нормализации media type сохраняется как application/gpp.message+xml, а per-message 
+      параметр type не нормализуется как authoritative discriminator до уточнения. Body Msg/Type и 
+      несогласованность источника отражены в limitations manifest.
+    related_questions:
+      - Q-INT-002
 
-- id: CONTR-INT-002
-  area: soap-callback-contract
-  statement_ru: Для CompletePaymentWithError пример успешного response содержит CompletePaymentResponse вместо 
-    operation-specific response wrapper.
-  evidence:
-  - EV-INT-016
-  status: active
-  handling_ru: Abstract WSDL не выдумывает CompletePaymentWithErrorResponse. Response message для reconstructed portType
-    помечается unresolved и использует документированный element CompletePaymentResponse только как наблюдаемый в 
-    источнике wrapper с явным limitation.
-  related_questions:
-  - Q-INT-002
+  - id: CONTR-INT-002
+    area: soap-callback-contract
+    statement_ru: Для CompletePaymentWithError пример успешного response содержит CompletePaymentResponse 
+      вместо operation-specific response wrapper.
+    evidence:
+      - EV-INT-016
+    status: active
+    handling_ru: Abstract WSDL не выдумывает CompletePaymentWithErrorResponse. Response message для 
+      reconstructed portType помечается unresolved и использует документированный element 
+      CompletePaymentResponse только как наблюдаемый в источнике wrapper с явным limitation.
+    related_questions:
+      - Q-INT-002
 
-- id: CONTR-INT-003
-  area: soap-payment-initiation-contract
-  statement_ru: Успешный XML response InitiatePayment возвращает return/redirectURL, тогда как соседняя таблица описания
-    ответа называет return типом ServiceAccount и информацией о плательщике.
-  evidence:
-  - EV-INT-017
-  status: active
-  handling_ru: Реконструкция приоритетно сохраняет фактически показанный XML wrapper/redirectURL, а несоответствие 
-    таблице фиксируется как limitation; semantic return type не расширяется до ServiceAccount без уточнения.
-  related_questions:
-  - Q-INT-002
+  - id: CONTR-INT-003
+    area: soap-payment-initiation-contract
+    statement_ru: Успешный XML response InitiatePayment возвращает return/redirectURL, тогда как соседняя 
+      таблица описания ответа называет return типом ServiceAccount и информацией о плательщике.
+    evidence:
+      - EV-INT-017
+    status: active
+    handling_ru: Реконструкция приоритетно сохраняет фактически показанный XML wrapper/redirectURL, а 
+      несоответствие таблице фиксируется как limitation; semantic return type не расширяется до ServiceAccount
+      без уточнения.
+    related_questions:
+      - Q-INT-002
 
-- id: CONTR-INT-004
-  area: reconciliation-xsd-contract
-  statement_ru: Inline XSD сверки делает BranchID обязательным и ограничивает amount двумя знаками после запятой/10 
-    цифрами всего, но таблица полей помечает BranchID как optional, пример DAY_PAYMENTS_FROM_BANK не содержит BranchID, 
-    а пример TrnSum имеет больше двух дробных знаков.
-  evidence:
-  - EV-INT-018
-  status: active
-  handling_ru: Нормализованный XSD сохраняет inline schema буквально в существенных constraints; examples не 
-    используются для молчаливого ослабления schema. Несоответствие отражено в manifest и требует уточнения.
-  related_questions:
-  - Q-INT-002
+  - id: CONTR-INT-004
+    area: reconciliation-xsd-contract
+    statement_ru: Inline XSD сверки делает BranchID обязательным и ограничивает amount двумя знаками после 
+      запятой/10 цифрами всего, но таблица полей помечает BranchID как optional, пример DAY_PAYMENTS_FROM_BANK
+      не содержит BranchID, а пример TrnSum имеет больше двух дробных знаков.
+    evidence:
+      - EV-INT-018
+    status: active
+    handling_ru: Нормализованный XSD сохраняет inline schema буквально в существенных constraints; examples не
+      используются для молчаливого ослабления schema. Несоответствие отражено в manifest и требует уточнения.
+    related_questions:
+      - Q-INT-002
+
+  - id: CONTR-DB-001
+    area: physical-schema
+    statement_ru: 'SRC-DB-001 публикует две несовместимые структуры под одним именем SC_IDEN_MTD_PREFIX_MAP: SC_IDEN_MTD_ID/SERVICE_TYPE_ID
+      и CODE/DESCRIPTION/ORGANIZATION_EXT_KEY.'
+    evidence:
+      - EV-DB-007
+    status: active
+    handling_ru: Обе структуры источника сохранены как отдельные variants в физической модели CF. Вторая не 
+      переименовывается в предполагаемую таблицу ServiceGroup без подтверждения.
+    related_questions:
+      - Q-DB-002
+
+  - id: CONTR-DB-002
+    area: reporting-schema
+    statement_ru: SRC-DB-001 утверждает, что CF.PAYMENT_DATA предназначена для синхронизации с одноименной 
+      таблицей в reporting database, но раздел APUS Reporting DB не содержит определения PAYMENT_DATA.
+    evidence:
+      - EV-DB-008
+    status: active
+    handling_ru: В модели APUS PAYMENT_DATA сохраняется только как упомянутая, но не определенная таблица; ее 
+      columns/keys и механизм синхронизации не выдумываются.
+    related_questions:
+      - Q-DB-003
+
+  - id: CONTR-DB-003
+    area: message-schema
+    statement_ru: Описание MESSAGE.OUTBOUND приписывает значению 0 одновременно входящее и исходящее 
+      направление сообщения, поэтому семантика enum в источнике внутренне противоречива.
+    evidence:
+      - EV-DB-009
+    status: active
+    handling_ru: NUMBER(1) сохраняется как документированный физический тип; интерпретация enum не 
+      нормализуется до уточнения.
+    related_questions:
+      - Q-DB-004
+
+  - id: CONTR-DB-004
+    area: payment-state-schema
+    statement_ru: 'Описание PAYMENT_DATA.EPMT_STATE_CODE использует значение 2 для двух разных состояний: bank processing
+      и ожидание отмены.'
+    evidence:
+      - EV-DB-010
+    status: active
+    handling_ru: Физический тип INTEGER сохраняется, но mapping кодов состояния не считается надежным enum до 
+      дополнительного source/DDL/application evidence.
+    related_questions:
+      - Q-DB-004

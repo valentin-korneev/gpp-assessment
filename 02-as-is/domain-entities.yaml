@@ -1,155 +1,161 @@
 domain_entities:
-- id: DATA-GPP-001
-  name: ParticipantOrganization
-  name_ru: Организация-участник
-  description_ru: Организация, зарегистрированная в GPP как KXM, бюджетная организация, банк, карточный процессинговый 
-    центр или сервисный центр.
-  evidence:
-  - EV-FS-004
-  - EV-FS-007
-  status: active
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  relationships:
-  - type: has
-    target: DATA-GPP-002
-  - type: offers-or-receives
-    target: DATA-GPP-004
-  - type: uses
-    target: DATA-GPP-007
+  - id: DATA-GPP-001
+    name: ParticipantOrganization
+    name_ru: Организация-участник
+    description_ru: Организация, зарегистрированная в GPP как KXM, бюджетная организация, банк, карточный 
+      процессинговый центр или сервисный центр.
+    evidence:
+      - EV-FS-004
+      - EV-FS-007
+    status: active
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    relationships:
+      - type: has
+        target: DATA-GPP-002
+      - type: offers-or-receives
+        target: DATA-GPP-004
+      - type: uses
+        target: DATA-GPP-007
 
-- id: DATA-GPP-002
-  name: OrganizationUnit
-  name_ru: Организационная единица / филиал
-  description_ru: Филиал организации-участника или подразделение сервисного центра, управляемое в административной 
-    иерархии GPP.
-  evidence:
-  - EV-FS-011
-  status: active
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  relationships:
-  - type: belongs-to
-    target: DATA-GPP-001
+  - id: DATA-GPP-002
+    name: OrganizationUnit
+    name_ru: Организационная единица / филиал
+    description_ru: Филиал организации-участника или подразделение сервисного центра, управляемое в 
+      административной иерархии GPP.
+    evidence:
+      - EV-FS-011
+    status: active
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    relationships:
+      - type: belongs-to
+        target: DATA-GPP-001
 
-- id: DATA-GPP-003
-  name: ServiceGroup
-  name_ru: Группа услуг / платежей
-  description_ru: Группа, к которой может быть отнесен тип услуги для организации.
-  evidence:
-  - EV-FS-008
-  - EV-FS-012
-  status: active
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  relationships:
-  - type: groups
-    target: DATA-GPP-004
+  - id: DATA-GPP-003
+    name: ServiceGroup
+    name_ru: Группа услуг / платежей
+    description_ru: Группа, к которой может быть отнесен тип услуги для организации.
+    evidence:
+      - EV-FS-008
+      - EV-FS-012
+    status: active
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    relationships:
+      - type: groups
+        target: DATA-GPP-004
 
-- id: DATA-GPP-004
-  name: ServiceType
-  name_ru: Тип услуги / платежа
-  description_ru: Конфигурационный объект услуги/платежа с service code, классификацией и правилами приема платежа.
-  evidence:
-  - EV-FS-008
-  - EV-FS-012
-  - EV-FS-024
-  status: active
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  relationships:
-  - type: belongs-to
-    target: DATA-GPP-001
-  - type: may-belong-to
-    target: DATA-GPP-003
-  - type: allows
-    target: DATA-GPP-005
-  - type: configures-fee-via
-    target: DATA-GPP-006
-  - type: governs
-    target: DATA-GPP-008
-  - type: governs
-    target: DATA-GPP-009
+  - id: DATA-GPP-004
+    name: ServiceType
+    name_ru: Тип услуги / платежа
+    description_ru: Конфигурационный объект услуги/платежа с service code, классификацией и правилами приема 
+      платежа.
+    evidence:
+      - EV-FS-008
+      - EV-FS-012
+      - EV-FS-024
+    status: active
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    relationships:
+      - type: belongs-to
+        target: DATA-GPP-001
+      - type: may-belong-to
+        target: DATA-GPP-003
+      - type: allows
+        target: DATA-GPP-005
+      - type: configures-fee-via
+        target: DATA-GPP-006
+      - type: governs
+        target: DATA-GPP-008
+      - type: governs
+        target: DATA-GPP-009
 
-- id: DATA-GPP-005
-  name: IdentificationType
-  name_ru: Тип идентификации плательщика
-  description_ru: Конфигурация идентификации с Source SC/IAMAS/AVIS, типами ACC/DOC/MIX и правилами subtype/composition.
-  evidence:
-  - EV-FS-009
-  - EV-FS-013
-  status: active
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
+  - id: DATA-GPP-005
+    name: IdentificationType
+    name_ru: Тип идентификации плательщика
+    description_ru: Конфигурация идентификации с Source SC/IAMAS/AVIS, типами ACC/DOC/MIX и правилами 
+      subtype/composition.
+    evidence:
+      - EV-FS-009
+      - EV-FS-013
+    status: active
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
 
-- id: DATA-GPP-006
-  name: ServiceFeeTariff
-  name_ru: Тариф сервисного сбора
-  description_ru: Тариф service fee для организации/филиала с процентной ставкой и необязательными 
-    минимальной/максимальной суммами.
-  evidence:
-  - EV-FS-010
-  - EV-FS-014
-  status: active
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  relationships:
-  - type: applies-to
-    target: DATA-GPP-001
-  - type: may-apply-to
-    target: DATA-GPP-002
+  - id: DATA-GPP-006
+    name: ServiceFeeTariff
+    name_ru: Тариф сервисного сбора
+    description_ru: Тариф service fee для организации/филиала с процентной ставкой и необязательными 
+      минимальной/максимальной суммами.
+    evidence:
+      - EV-FS-010
+      - EV-FS-014
+    status: active
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    relationships:
+      - type: applies-to
+        target: DATA-GPP-001
+      - type: may-apply-to
+        target: DATA-GPP-002
 
-- id: DATA-GPP-007
-  name: SettlementAccount
-  name_ru: Расчетный банковский счет
-  description_ru: Банковский счет организации-участника, выбираемый через BankAccount{index} для settlement по payment 
-    receiver.
-  evidence:
-  - EV-FS-025
-  status: active
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  relationships:
-  - type: belongs-to
-    target: DATA-GPP-001
+  - id: DATA-GPP-007
+    name: SettlementAccount
+    name_ru: Расчетный банковский счет
+    description_ru: Банковский счет организации-участника, выбираемый через BankAccount{index} для settlement 
+      по payment receiver.
+    evidence:
+      - EV-FS-025
+    status: active
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    relationships:
+      - type: belongs-to
+        target: DATA-GPP-001
 
-- id: DATA-GPP-008
-  name: InvoiceStatement
-  name_ru: Инвойс / запись задолженности
-  description_ru: Объект задолженности/инвойса, для которого источник описывает частичную/полную оплату и переходы 
-    statement status Filed/UnFiled.
-  evidence:
-  - EV-FS-024
-  status: active
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  limitations_ru: Точное соотношение терминов qaimə/invoice и statement и физическая модель хранения пока не 
-    подтверждены.
-  relationships:
-  - type: settled-by
-    target: DATA-GPP-009
+  - id: DATA-GPP-008
+    name: InvoiceStatement
+    name_ru: Инвойс / запись задолженности
+    description_ru: Объект задолженности/инвойса, для которого источник описывает частичную/полную оплату и 
+      переходы statement status Filed/UnFiled.
+    evidence:
+      - EV-FS-024
+    status: active
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    limitations_ru: Текущая физическая модель хранения не подтверждена. SRC-DB-001 документирует historical 
+      2015 STATEMENT_EXT и invoice/statement fields внутри PAYMENT_DATA; это не подтверждает current schema и 
+      не означает тождество domain entity одной таблице.
+    relationships:
+      - type: settled-by
+        target: DATA-GPP-009
 
-- id: DATA-GPP-009
-  name: Payment
-  name_ru: Платеж
-  description_ru: Платежная операция, для которой конфигурация service type определяет возможность advance/partial/full 
-    payment и cancellation.
-  evidence:
-  - EV-FS-024
-  status: active
-  temporal_scope:
-    source_date: '2023-05-05'
-    currentness: current-at-source-date
-  relationships:
-  - type: for-service
-    target: DATA-GPP-004
-  - type: may-settle
-    target: DATA-GPP-008
+  - id: DATA-GPP-009
+    name: Payment
+    name_ru: Платеж
+    description_ru: Платежная операция, для которой конфигурация service type определяет возможность 
+      advance/partial/full payment и cancellation.
+    evidence:
+      - EV-FS-024
+    status: active
+    temporal_scope:
+      source_date: '2023-05-05'
+      currentness: current-at-source-date
+    relationships:
+      - type: for-service
+        target: DATA-GPP-004
+      - type: may-settle
+        target: DATA-GPP-008
+    limitations_ru: SRC-DB-001 дает historical physical mappings PAYMENT_DATA/PAYMENT_EXT/PAYMENT_NOTIFICATION
+      и APUS aggregate, но current 2026 tables/constraints не подтверждены; domain entity не отождествляется с
+      одной physical table.
