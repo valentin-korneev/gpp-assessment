@@ -1,0 +1,25 @@
+flowchart TB
+    A["Администратор CBA"] --> PDEF["Process definition\nname / type / command / parameters"]
+    PDEF --> TPL["Template\nselected processes + parameter overrides"]
+    TPL --> DAY["Operational day\nname + selected template"]
+    DAY --> RUNS["Day process runs"]
+    RUNS --> RUNNING["İcradadır\nstart time + executor"]
+    RUNNING --> DONE["Tamamlanıb\nend time"]
+    DONE --> ALL{"Все processes завершены?"}
+    ALL -->|"нет"| RUNS
+    ALL -->|"да"| ARCH["Archive"]
+    DAY --> CLOSE["Close / Bağlanmış"]
+    ARCH --> HIST["Archived day/process details\nXML artifact download"]
+
+    A --> MON["Monitoring"]
+    MON --> X1["XÖHKS files"]
+    MON --> X2["Successful XÖHKS payments"]
+    MON --> X3["Previous vs current day payments"]
+    MON --> X4["Unsent files"]
+    MON --> X5["MT files"]
+
+    NOTE["Технические REST/service links не добавлены до обработки technical specification"]:::unknown
+    DAY -.-> NOTE
+    MON -.-> NOTE
+
+    classDef unknown stroke-dasharray:3 3;

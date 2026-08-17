@@ -4,6 +4,8 @@
 
 Контекст построен по published public baseline, повторно проверенному public-source family `gpp-public-bootstrap`, source family `gpp-functional-specification-2023` и историческому нормативно-operational source `SRC-OPS-001` от 13.08.2015.
 
+Дополнительно учтено руководство пользователя BDA `SRC-BDA-001` от 10.03.2025.
+
 `SRC-OPS-001` используется для ролей, access/administration rules, operational day semantics, backup/DR expectations и historical deployment/technology context. Он не считается доказательством current infrastructure или current technology stack.
 
 Функциональная спецификация описывает состояние на 05.05.2023. Поэтому component-level technical elements, кроме отдельно подтвержденных более поздними sources, имеют currentness `current-at-source-date` или `unverified`. Официальный обзор цифровых платежей CBA за 2025 год подтверждает, что GPP как system-level payment-processing platform продолжал фактически обрабатывать платежи в 2025 году, но не подтверждает currentness конкретных modules из спецификации 2023 года.
@@ -26,7 +28,8 @@ GPP является единой платежной платформой для
 - `AdminConsole`;
 - `Loader Generators`;
 - `LVPCSS`;
-- `IPSClient`.
+- `IPSClient`;
+- `BDA / Əməliyyat gününün idarə olunması modulu` - функциональный модуль подтвержден руководством пользователя от 10.03.2025; связь с `AdminConsole` и техническая граница развертывания остаются в `Q-BDA-001`.
 
 Спецификация не называет отдельный central payment processing/persistence component, хотя system-level responsibility приема и обработки платежей подтверждена. Это сохраняется как `Q-ARCH-001`, а не заполняется предположительным component name.
 
@@ -102,6 +105,12 @@ Targeted visual review AdminConsole показывает не только organ
 Management tools дополнительно показывают participant organization management, BIN data, service fee tariff management, payment/service types and groups, registered payers, permissions, dual authorization и identification type management.
 
 Эти функции рассматриваются как current-at-source-date 05.05.2023, пока последующие sources не подтвердят current production state.
+
+### BDA - администрирование операционного дня, 2025
+
+`SRC-BDA-001` подтверждает отдельную административную функциональную область управления операционным днем на 10.03.2025. Она охватывает определения процессов, шаблоны, создание, закрытие и архивирование операционного дня, запуск процессов дня с отображением исполнителя, времени начала и окончания и статуса, архив, а также сценарии мониторинга XÖHKS, платежей и файлов MT/неотправленных файлов.
+
+Это более позднее подтверждение области управления операционным днем, но не доказательство того, что BDA является отдельным компонентом развертывания или частью `AdminConsole`. Техническая граница, серверные сервисы и REST-контракт пока не моделируются (`Q-BDA-001`). Точная граница суток и расчетные окна остаются в `Q-OPS-001`.
 
 
 ## Исторический нормативно-операционный контекст 2015

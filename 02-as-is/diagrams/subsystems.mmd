@@ -21,6 +21,7 @@ flowchart TB
 
     subgraph Admin["Администрирование и конфигурация"]
         AC["AdminConsole"]
+        BDA["BDA / управление операционным днем\nfunctional source 10.03.2025"]
     end
 
     subgraph Reporting["Отчетность и экспорт расчетов"]
@@ -39,6 +40,7 @@ flowchart TB
 
     AC -. "архитектурный вывод" .-> INF1
     AC -. "архитектурный вывод" .-> INF2
+    BDA -. "INF-ARCH-006/007" .-> INF2
 
     Channels ~~~ Participant
     Participant ~~~ Authorization

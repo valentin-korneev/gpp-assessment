@@ -19,6 +19,7 @@ flowchart LR
         PAC["PacPmtProc<br/>документирован в 2023"]:::source2023
         TELL["TellerWP<br/>документирован в 2023"]:::source2023
         ADMIN["AdminConsole<br/>документирован в 2023"]:::source2023
+        BDA["BDA operational-day module<br/>functional UI документирован 10.03.2025<br/>technical boundary Q-BDA-001"]:::current
         LG["Loader Generators<br/>документирован в 2023"]:::source2023
         LV["LVPCSS<br/>документирован в 2023"]:::source2023
         IP["IPSClient<br/>документирован в 2023"]:::source2023
@@ -35,6 +36,7 @@ flowchart LR
     AUTH <--> PAC
     OPS --> TELL
     ADM --> ADMIN
+    ADM --> BDA
     LG --> SVC
     LG -->|"MT150/152, IF-GPP-005"| XOHKS
     LV <--> XOHKS

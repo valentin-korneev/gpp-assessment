@@ -11,13 +11,12 @@ components:
     source_date: '2023-05-05'
     currentness: historical
   notes_ru: Собственный web-канал прекращен с 10.01.2024.
-
 - id: CMP-GPP-002
   name: WebPortalVC
   subsystem_ru: Каналы организаций-участников
-  responsibility_ru: Virtual Cabinet - механизм, позволяющий интегрированным сервисным организациям использовать 
-    собственные интернет-/мобильные ресурсы для сбора платежей в инфраструктуре GPP; интеграционный контракт 2025 
-    связывает эту границу с SOAP GPPPaymentWS и асинхронным callback завершения.
+  responsibility_ru: Virtual Cabinet - механизм, позволяющий интегрированным сервисным организациям использовать собственные
+    интернет-/мобильные ресурсы для сбора платежей в инфраструктуре GPP; интеграционный контракт 2025 связывает эту границу
+    с SOAP GPPPaymentWS и асинхронным callback завершения.
   evidence:
   - EV-FS-002
   - EV-INT-006
@@ -26,14 +25,12 @@ components:
   temporal_scope:
     source_date: '2025-08-18'
     currentness: current-at-source-date
-  notes_ru: Более новый источник подтверждает contract-level роль WebPortalVC/GPPPaymentWS на дату документа, но ссылка 
-    на test endpoint не является доказательством доступности production runtime.
-
+  notes_ru: Более новый источник подтверждает contract-level роль WebPortalVC/GPPPaymentWS на дату документа, но ссылка на
+    test endpoint не является доказательством доступности production runtime.
 - id: CMP-GPP-003
   name: PacPmtProc
   subsystem_ru: Авторизация платежей
-  responsibility_ru: Информационный обмен с центрами авторизации платежей и обработка запросов авторизации для платежных
-    инструментов.
+  responsibility_ru: Информационный обмен с центрами авторизации платежей и обработка запросов авторизации для платежных инструментов.
   evidence:
   - EV-FS-002
   - EV-FS-015
@@ -41,7 +38,6 @@ components:
   temporal_scope:
     source_date: '2023-05-05'
     currentness: current-at-source-date
-
 - id: CMP-GPP-004
   name: Mobile applications (Android/iOS)
   subsystem_ru: Пользовательские каналы
@@ -54,7 +50,6 @@ components:
     source_date: '2023-05-05'
     currentness: historical
   notes_ru: Собственное мобильное приложение прекращено с 10.01.2024.
-
 - id: CMP-GPP-005
   name: MobilApi
   subsystem_ru: Пользовательские каналы
@@ -66,12 +61,11 @@ components:
     source_date: '2023-05-05'
     currentness: current-at-source-date
   notes_ru: Текущий runtime status после закрытия мобильного приложения не подтвержден.
-
 - id: CMP-GPP-006
   name: PaymentService
   subsystem_ru: Интеграция с PSP
-  responsibility_ru: Информационный обмен при интеграции электронных банковских и платежных каналов PSP с 
-    инфраструктурой GPP.
+  responsibility_ru: Информационный обмен при интеграции электронных банковских и платежных каналов PSP с инфраструктурой
+    GPP.
   evidence:
   - EV-FS-002
   - EV-FS-015
@@ -79,25 +73,22 @@ components:
   temporal_scope:
     source_date: '2023-05-05'
     currentness: current-at-source-date
-
 - id: CMP-GPP-007
   name: TellerWP (BankPayment)
   subsystem_ru: Операторский прием платежей
-  responsibility_ru: Автоматизированное рабочее место для операторов банков, почты и других финансовых организаций, 
-    принимающих платежи GPP в филиалах.
+  responsibility_ru: Автоматизированное рабочее место для операторов банков, почты и других финансовых организаций, принимающих
+    платежи GPP в филиалах.
   evidence:
   - EV-FS-002
   status: active
   temporal_scope:
     source_date: '2023-05-05'
     currentness: current-at-source-date
-
 - id: CMP-GPP-008
   name: AdminConsole
   subsystem_ru: Администрирование и конфигурация
-  responsibility_ru: Административное рабочее место для системных администраторов, администраторов участников, 
-    администраторов безопасности и контролеров; управление конфигурацией, безопасностью, аудитом, отчетами и 
-    мониторингом.
+  responsibility_ru: Административное рабочее место для системных администраторов, администраторов участников, администраторов
+    безопасности и контролеров; управление конфигурацией, безопасностью, аудитом, отчетами и мониторингом.
   evidence:
   - EV-FS-003
   - EV-FS-005
@@ -107,19 +98,17 @@ components:
   temporal_scope:
     source_date: '2023-05-05'
     currentness: current-at-source-date
-
 - id: CMP-GPP-009
   name: Loader Generators
   subsystem_ru: Отчетность и экспорт расчетов
-  responsibility_ru: Формирование отчетов по платежам GPP для участников и файлов MT150/152 для межорганизационных 
-    расчетов через XÖHKS.
+  responsibility_ru: Формирование отчетов по платежам GPP для участников и файлов MT150/152 для межорганизационных расчетов
+    через XÖHKS.
   evidence:
   - EV-FS-015
   status: active
   temporal_scope:
     source_date: '2023-05-05'
     currentness: current-at-source-date
-
 - id: CMP-GPP-010
   name: LVPCSS
   subsystem_ru: Интеграция с расчетными системами
@@ -130,7 +119,6 @@ components:
   temporal_scope:
     source_date: '2023-05-05'
     currentness: current-at-source-date
-
 - id: CMP-GPP-011
   name: IPSClient
   subsystem_ru: Интеграция с расчетными системами
@@ -141,3 +129,23 @@ components:
   temporal_scope:
     source_date: '2023-05-05'
     currentness: current-at-source-date
+- id: CMP-GPP-012
+  name: BDA / Əməliyyat gününün idarə olunması modulu
+  subsystem_ru: Администрирование операционного дня
+  responsibility_ru: Административный модуль для process definition/template configuration, создания и управления operational
+    day, запуска и отслеживания day processes, archive review и operational monitoring XÖHKS/payment/file/MT scenarios.
+  evidence:
+  - EV-BDA-001
+  - EV-BDA-002
+  - EV-BDA-004
+  - EV-BDA-005
+  - EV-BDA-006
+  - EV-BDA-008
+  - EV-BDA-009
+  status: active
+  temporal_scope:
+    source_date: '2025-03-10'
+    currentness: current-at-source-date
+  notes_ru: User guide подтверждает functional module/UI, но не устанавливает relationship BDA к AdminConsole, deployment
+    unit, backend service boundary или REST contract. Эти technical links должны быть добавлены только после отдельной REST
+    source iteration.

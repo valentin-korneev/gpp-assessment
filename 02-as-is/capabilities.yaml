@@ -1,63 +1,57 @@
 capabilities:
 - id: CAP-ASIS-001
   name_ru: Централизованный сбор бюджетных и массовых платежей
-  statement_ru: GPP предоставляет единую инфраструктуру для электронного сбора бюджетных платежей и платежей за массовые
-    услуги; обработка платежей через GPP на уровне системы подтверждена за 2025 год.
+  statement_ru: GPP предоставляет единую инфраструктуру для электронного сбора бюджетных платежей и платежей за массовые услуги;
+    обработка платежей через GPP на уровне системы подтверждена за 2025 год.
   evidence:
   - EV-PUB-001
   - EV-PUB-010
   temporal_scope:
     source_date: '2025'
     currentness: current-at-source-date
-
 - id: CAP-ASIS-002
   name_ru: Доступ к платежам через интегрированные внешние цифровые каналы
-  statement_ru: После прекращения gpp.az и мобильного приложения платежи GPP выполняются через интегрированные интернет-
-    и мобильные сервисы банков и небанковских поставщиков платежных услуг.
+  statement_ru: После прекращения gpp.az и мобильного приложения платежи GPP выполняются через интегрированные интернет- и
+    мобильные сервисы банков и небанковских поставщиков платежных услуг.
   evidence:
   - EV-PUB-004
   temporal_scope:
     currentness: current
-
 - id: CAP-ASIS-003
   name_ru: Передача платежной информации и сверка с участниками
-  statement_ru: Публичное описание CBA предусматривает передачу платежной информации в реальном времени во внутренние 
-    системы участников и электронную сверку по итогам операционного дня.
+  statement_ru: Публичное описание CBA предусматривает передачу платежной информации в реальном времени во внутренние системы
+    участников и электронную сверку по итогам операционного дня.
   evidence:
   - EV-PUB-006
   temporal_scope:
     currentness: unverified
-
 - id: CAP-ASIS-004
   name_ru: Прием, обработка и расчеты по платежам
-  statement_ru: GPP как единая платформа принимает и обрабатывает платежи за услуги бюджетных и небюджетных организаций 
-    и обеспечивает расчеты по выполненным платежам.
+  statement_ru: GPP как единая платформа принимает и обрабатывает платежи за услуги бюджетных и небюджетных организаций и
+    обеспечивает расчеты по выполненным платежам.
   evidence:
   - EV-FS-001
   temporal_scope:
     currentness: current-at-source-date
-
 - id: CAP-ASIS-005
   name_ru: Управление организациями-участниками
-  statement_ru: Администраторы создают и конфигурируют KXM, бюджетные организации, банки, карточные процессинговые 
-    центры, сервисные центры и, по варианту DOCX, их филиалы/подразделения.
+  statement_ru: Администраторы создают и конфигурируют KXM, бюджетные организации, банки, карточные процессинговые центры,
+    сервисные центры и, по варианту DOCX, их филиалы/подразделения.
   evidence:
   - EV-FS-004
   - EV-FS-007
   - EV-FS-011
   temporal_scope:
     currentness: current-at-source-date
-
 - id: CAP-ASIS-006
   name_ru: Управление видами услуг и платежными параметрами
-  statement_ru: GPP позволяет управлять типами и группами услуг/платежей, service codes и параметрами предоплаты, 
-    частичной/полной оплаты, settlement и service fee.
+  statement_ru: GPP позволяет управлять типами и группами услуг/платежей, service codes и параметрами предоплаты, частичной/полной
+    оплаты, settlement и service fee.
   evidence:
   - EV-FS-008
   - EV-FS-012
   temporal_scope:
     currentness: current-at-source-date
-
 - id: CAP-ASIS-007
   name_ru: Управление типами идентификации плательщика
   statement_ru: GPP поддерживает конфигурацию типов идентификации ACC/DOC/MIX и источников SC/IAMAS/AVIS.
@@ -66,59 +60,106 @@ capabilities:
   - EV-FS-013
   temporal_scope:
     currentness: current-at-source-date
-
 - id: CAP-ASIS-008
   name_ru: Управление тарифами сервисного сбора
-  statement_ru: AdminConsole позволяет задавать тарифы service fee по организации/филиалу с процентной ставкой и 
-    минимальным/максимальным значением.
+  statement_ru: AdminConsole позволяет задавать тарифы service fee по организации/филиалу с процентной ставкой и минимальным/максимальным
+    значением.
   evidence:
   - EV-FS-010
   - EV-FS-014
   temporal_scope:
     currentness: current-at-source-date
-
 - id: CAP-ASIS-009
   name_ru: Интеграция электронных каналов PSP
-  statement_ru: PaymentService обеспечивает информационный обмен между GPP и электронными каналами банков, почты, 
-    карточных процессинговых центров и других платежных организаций.
+  statement_ru: PaymentService обеспечивает информационный обмен между GPP и электронными каналами банков, почты, карточных
+    процессинговых центров и других платежных организаций.
   evidence:
   - EV-FS-015
   temporal_scope:
     currentness: current-at-source-date
-
 - id: CAP-ASIS-010
   name_ru: Авторизация платежных инструментов
-  statement_ru: PacPmtProc обрабатывает запросы авторизации для платежных карт, банковских счетов и электронных денег 
-    через соответствующие центры авторизации.
+  statement_ru: PacPmtProc обрабатывает запросы авторизации для платежных карт, банковских счетов и электронных денег через
+    соответствующие центры авторизации.
   evidence:
   - EV-FS-015
   temporal_scope:
     currentness: current-at-source-date
-
 - id: CAP-ASIS-011
   name_ru: Операторский прием платежей
-  statement_ru: TellerWP предоставляет автоматизированное рабочее место для операторов банков, почты и других финансовых
-    организаций, принимающих платежи GPP.
+  statement_ru: TellerWP предоставляет автоматизированное рабочее место для операторов банков, почты и других финансовых организаций,
+    принимающих платежи GPP.
   evidence:
   - EV-FS-002
   temporal_scope:
     currentness: current-at-source-date
-
 - id: CAP-ASIS-012
   name_ru: Отчетность и выгрузка данных для расчетов
-  statement_ru: Loader Generators формирует отчеты для участников и связанные с расчетами файлы MT150/152; LVPCSS и 
-    IPSClient обеспечивают обмен с внешними платежными системами.
+  statement_ru: Loader Generators формирует отчеты для участников и связанные с расчетами файлы MT150/152; LVPCSS и IPSClient
+    обеспечивают обмен с внешними платежными системами.
   evidence:
   - EV-FS-015
   temporal_scope:
     currentness: current-at-source-date
-
 - id: CAP-ASIS-013
   name_ru: Административный контроль, аудит и мониторинг
-  statement_ru: Интерфейс AdminConsole включает отчеты, аудит платежей, инструменты управления, безопасность, запросы и 
-    мониторинг, а также permissions и dual authorization.
+  statement_ru: Интерфейс AdminConsole включает отчеты, аудит платежей, инструменты управления, безопасность, запросы и мониторинг,
+    а также permissions и dual authorization.
   evidence:
   - EV-FS-005
   - EV-FS-006
   temporal_scope:
+    currentness: current-at-source-date
+- id: CAP-ASIS-014
+  name_ru: Управление каталогом процессов BDA
+  statement_ru: Администратор может создавать, изменять и удалять process definitions с type, command и typed parameters.
+  evidence:
+  - EV-BDA-002
+  temporal_scope:
+    source_date: '2025-03-10'
+    currentness: current-at-source-date
+- id: CAP-ASIS-015
+  name_ru: Управление шаблонами и параметризацией процессов
+  statement_ru: BDA позволяет собирать templates из выбранных processes и задавать template-specific значения process parameters.
+  evidence:
+  - EV-BDA-004
+  temporal_scope:
+    source_date: '2025-03-10'
+    currentness: current-at-source-date
+- id: CAP-ASIS-016
+  name_ru: Управление жизненным циклом операционного дня
+  statement_ru: BDA создает operational day из выбранного template и поддерживает просмотр, переименование, удаление, закрытие
+    и архивирование с precondition завершения всех процессов перед архивом.
+  evidence:
+  - EV-BDA-005
+  - EV-BDA-007
+  temporal_scope:
+    source_date: '2025-03-10'
+    currentness: current-at-source-date
+- id: CAP-ASIS-017
+  name_ru: Управление выполнением процессов операционного дня
+  statement_ru: BDA позволяет менять day-specific process parameter values, запускать process, видеть executor/start/end/status
+    и загружать связанный XML artifact.
+  evidence:
+  - EV-BDA-006
+  temporal_scope:
+    source_date: '2025-03-10'
+    currentness: current-at-source-date
+- id: CAP-ASIS-018
+  name_ru: Архив операционных дней и результатов процессов
+  statement_ru: BDA предоставляет просмотр archived operational days, их process history/details и связанных XML artifacts.
+  evidence:
+  - EV-BDA-008
+  temporal_scope:
+    source_date: '2025-03-10'
+    currentness: current-at-source-date
+- id: CAP-ASIS-019
+  name_ru: Операционный мониторинг расчетов и файлов
+  statement_ru: BDA предоставляет monitoring views по XÖHKS files и successful payments, состоянию платежей между предыдущим
+    и текущим operational day, unsent files и MT files.
+  evidence:
+  - EV-BDA-009
+  - EV-BDA-010
+  temporal_scope:
+    source_date: '2025-03-10'
     currentness: current-at-source-date

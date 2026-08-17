@@ -1,0 +1,154 @@
+model:
+  name: BDA cross-layer AS-IS model
+  component: CMP-GPP-012
+  status: functional-layer-established
+  sources:
+    - SRC-BDA-001
+  temporal_scope:
+    source_date: '2025-03-10'
+    currentness: current-at-source-date
+
+functional_layer:
+  actors:
+    - key: central-bank-administrator
+      name_ru: Администратор Центрального банка
+      type: human
+      evidence:
+        - EV-BDA-001
+      responsibilities_ru:
+        - Вход в BDA administrative UI.
+        - Управление process definitions и templates.
+        - Создание и lifecycle management operational day.
+        - Запуск и контроль day processes.
+        - Просмотр archive и monitoring views.
+  functional_surfaces:
+    - Processes
+    - Templates
+    - Operational days
+    - Archive
+    - Monitoring
+  capabilities:
+    - CAP-ASIS-014
+    - CAP-ASIS-015
+    - CAP-ASIS-016
+    - CAP-ASIS-017
+    - CAP-ASIS-018
+    - CAP-ASIS-019
+  entities:
+    - DATA-GPP-010
+    - DATA-GPP-011
+    - DATA-GPP-012
+    - DATA-GPP-013
+    - DATA-GPP-014
+    - DATA-GPP-015
+
+  configuration_chain:
+    - step: 1
+      object: DATA-GPP-010
+      action_ru: Создать/изменить process definition с type, command и parameters.
+      evidence: [EV-BDA-002]
+    - step: 2
+      object: DATA-GPP-012
+      action_ru: Собрать template из выбранных processes и при необходимости переопределить parameter values.
+      evidence: [EV-BDA-004]
+    - step: 3
+      object: DATA-GPP-013
+      action_ru: Создать operational day по имени и выбранному template.
+      evidence: [EV-BDA-005]
+    - step: 4
+      object: DATA-GPP-014
+      action_ru: Настроить day-specific parameter values и запускать processes с execution trace.
+      evidence: [EV-BDA-006]
+
+  operational_day_workflow:
+    states:
+      - id: current
+        source_literal: Cari
+        evidence: [EV-BDA-007]
+      - id: closed
+        source_literal: Bağlanmış
+        evidence: [EV-BDA-007]
+      - id: archived
+        source_literal: Arxiv
+        evidence: [EV-BDA-005, EV-BDA-008]
+    actions:
+      - create-from-template
+      - open-process-list
+      - rename
+      - delete
+      - close
+      - archive
+    archive_precondition_ru: Все processes operational day должны быть завершены.
+    archive_precondition_evidence: [EV-BDA-005]
+    process_execution:
+      editable_parameter_values: true
+      start_action: true
+      trace_fields:
+        - start_time
+        - executor
+        - status
+        - end_time
+      statuses:
+        - id: running
+          source_literal: İcradadır
+        - id: completed
+          source_literal: Tamamlanıb
+      xml_artifact_download: true
+      evidence: [EV-BDA-006]
+
+  archive_scenarios:
+    scenarios:
+      - Open archived operational day and review contained processes.
+      - Open process details in archive.
+      - Download process XML artifact from archive details.
+    evidence: [EV-BDA-008]
+
+  monitoring_scenarios:
+    - id: xohks-files
+      name_ru: Мониторинг файлов XÖHKS
+      evidence: [EV-BDA-009, EV-BDA-010]
+    - id: xohks-successful-payments
+      name_ru: Мониторинг успешных платежей XÖHKS
+      evidence: [EV-BDA-009, EV-BDA-010]
+    - id: previous-current-day-payments
+      name_ru: Мониторинг платежей между предыдущим и текущим операционными днями
+      evidence: [EV-BDA-009, EV-BDA-010]
+    - id: unsent-files
+      name_ru: Мониторинг файлов, которые не удалось отправить
+      evidence: [EV-BDA-009, EV-BDA-010]
+    - id: mt-files
+      name_ru: Мониторинг MT-файлов
+      evidence: [EV-BDA-009, EV-BDA-010]
+
+  functional_boundaries:
+    inside_confirmed:
+      - Administrative process-definition and parameter management.
+      - Template composition and parameter overrides.
+      - Operational-day lifecycle control.
+      - Day-process launch and execution-state visibility.
+      - Archive browsing and XML artifact retrieval.
+      - Operational monitoring views for XÖHKS/payment/file/MT concerns.
+    outside_or_not_proven:
+      - item_ru: Ownership of payment processing and settlement execution.
+        basis: INF-ARCH-008
+      - item_ru: Ownership of XÖHKS integration/file transport runtime.
+        basis: INF-ARCH-008
+      - item_ru: Exact process execution engine and command runner.
+        basis: Q-BDA-001
+      - item_ru: Persistence/storage ownership for BDA objects and XML artifacts.
+        basis: Q-BDA-001
+      - item_ru: Exact relationship to AdminConsole.
+        basis: Q-BDA-001
+      - item_ru: Complete authoritative process/command catalog.
+        basis: Q-BDA-002
+
+technical_layer:
+  status: deferred-until-rest-specification
+  source_ids: []
+  interfaces: []
+  api_operations: []
+  persistence_mappings: []
+  execution_service_mappings: []
+  note_ru: Техническая сторона намеренно не реконструируется из UI. Следующая REST specification должна добавить endpoints/operations/schemas и explicit links к functional actors/actions/entities.
+
+cross_layer_links: []
