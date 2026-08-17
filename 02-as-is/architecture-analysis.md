@@ -254,6 +254,14 @@ WSDL links в source сохраняются как `referenced-unavailable`. Д�
 
 Canonical integration view сохранен в `diagrams/integration-view.mmd`.
 
+### 14.6. Business-process sequence страницы 7
+
+Отдельная схема `SRC-INT-001` на странице 7 соединяет ранее рассматривавшиеся раздельно integration surfaces в один payer journey (`FACT-GPP-074`). Payment channel сначала передает identification request в HÖP; HÖP выбирает внешний identification path через XT или IAMAS/AVIS, затем получает у XT debt information, при необходимости выполняет advance-service query и после завершения платежа передает payment information обратно XT.
+
+Это важно для AS-IS architecture narrative: `IF-GPP-009`, `IF-GPP-013` и `IF-GPP-014` являются не просто независимыми interfaces, а участвуют в общей последовательности обслуживания плательщика. При этом source не идентифицирует внутренний HÖP orchestration component и не связывает каждый process box с конкретной SOAP operation, поэтому diagram-level sequence не используется для выдумывания component ownership или operation mapping.
+
+Engineering representation: `diagrams/payer-service-payment-flow.mmd`.
+
 ## 15. Historical physical database model - source 2015
 
 `SRC-DB-001` добавляет отдельный physical-data layer и не меняет current component boundary автоматически. Source на дату version 003 описывает две database areas: `CF Transaction DB` и `APUS Reporting DB` (`FACT-GPP-035`).

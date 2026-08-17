@@ -910,6 +910,25 @@ facts:
   status: active
   notes_ru: Факт подтверждает участие SINAM в соседнем IPS/AniPay контуре с GPP integration, но не текущую роль в сопровождении
     или эксплуатации GPP.
+- id: FACT-GPP-074
+  area: payer-service-payment-flow
+  statement_ru: >-
+    Интеграционный контракт 2025 документирует сквозной HÖP-mediated процесс обслуживания плательщика: запрос
+    из платежного интерфейса проходит через HÖP, идентификация выполняется альтернативно через XT либо IAMAS/AVIS, после чего
+    HÖP получает у XT задолженность и при необходимости сведения по advance services, возвращает данные плательщику, а после
+    завершения платежа сохраняет его и передает payment information XT для регистрации во внутренних системах сервисной
+    организации.
+  evidence:
+  - EV-INT-021
+  - EV-INT-013
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2025-08-18'
+    currentness: current-at-source-date
+  status: active
+  notes_ru: Схема задает business-level sequence и границы участников, но не сопоставляет каждый блок с конкретной SOAP
+    operation и не идентифицирует внутренние HÖP components, выполняющие orchestration/persistence.
+
 inferences:
 - id: INF-ARCH-001
   area: architecture

@@ -91,7 +91,9 @@ AI должен:
 
 Человекочитаемые подписи canonical Mermaid-диаграмм и временных `/diagram` по умолчанию выполняются на русском языке. Системные имена, ID, API operations, поля, таблицы, технологии, протоколы и другие технические идентификаторы сохраняются без перевода, если перевод снижает точность или меняет исходное имя.
 
-Язык формального deliverable выбирается отдельно для каждого материала.
+Язык формального deliverable выбирается отдельно для каждого материала. Выбранный `language` действует как жесткий language lock на весь материал: narrative text, headings, table headings, captions, diagram labels, callouts, notes, legends, cover text, TOC, headers и footers должны быть на выбранном языке. Исключения допускаются только для неизменяемых system names, identifiers, source titles/proper names, literal values и других технических строк, перевод которых меняет смысл или снижает точность.
+
+Для `language=en` необъясненный русский текст или случайная кириллица в любом пользовательском элементе deliverable считается дефектом. Перед выдачей English deliverable выполняется отдельная language QA всего документа, включая текст внутри схем и подписей. Аналогичная проверка применяется к другим выбранным языкам с учетом допустимых неизменяемых технических имен.
 
 ## 4. Канонические форматы
 
@@ -795,7 +797,19 @@ Mermaid является инженерным исходником структ�
 
 `sketch-style` означает лаконичную концептуальную визуализацию с простой композицией, ясными подписями, ограниченным числом элементов и акцентом на архитектурный смысл. Это не означает намеренно небрежный или декоративно рукописный рисунок.
 
-Deliverable visualization может перестраивать композицию canonical diagram под страницу или слайд, но не должна менять архитектурный смысл, добавлять отсутствующие связи или скрывать существенные ограничения ради оформления.
+Каждая deliverable diagram должна иметь явную коммуникационную цель: показать system boundary, interaction, flow, responsibility, lifecycle, dependency, information movement или decision. Если схема только декоративно повторяет список блоков из соседнего текста, ее не следует создавать. Для major diagram рядом с ней должно быть кратко объяснено, что именно важно увидеть и какой вывод должен сделать читатель.
+
+Для `sketch` действуют обязательные layout/readability требования:
+
+- текст не перекрывает другой текст, nodes, icons или connectors;
+- labels и callouts не обрезаются и имеют безопасные margins;
+- connectors не проходят через читаемый текст, если это ухудшает понимание;
+- количество nodes ограничивается реальной читаемостью в финальном размере страницы/слайда;
+- перегруженная схема разбивается на несколько views или переводится в `clean`;
+- generative illustration не используется как надежный способ отрисовки содержательных labels: геометрия/illustration и текст должны компоноваться раздельно, когда это необходимо для гарантии точности и читаемости;
+- схема проверяется после финального render в составе DOCX/PPTX, а не только как отдельный исходник.
+
+Deliverable visualization может перестраивать композицию canonical diagram под страницу или слайд, но не должна менять архитектурный смысл, добавлять отсутствующие связи или скрывать существенные ограничения ради оформления. Presentation-level bounded synthesis, разрешенный разделом 20.12, может показывать вероятную связь только с понятной маркировкой уровня уверенности и не превращает ее в canonical FACT.
 
 ## 19. Стандартная итерация
 
@@ -1076,6 +1090,19 @@ Handoff должен содержать:
 - текущий source/source family;
 - ближайшее рекомендуемое действие.
 
+`CHAT_HANDOFF.md` является chat-transfer metadata и **не является файлом repository/Git**. Нормативная структура handoff-архива:
+
+```text
+assessment-handoff-...zip
+├── CHAT_HANDOFF.md
+└── assessment/
+    ├── README.md
+    ├── ASSESSMENT_PROTOCOL.md
+    └── ... repository files ...
+```
+
+При сборке `/handoff` файл `assessment/CHAT_HANDOFF.md` должен явно исключаться, даже если он физически присутствует в рабочем каталоге из-за предыдущего handoff. Quality gate handoff должен подтвердить, что `CHAT_HANDOFF.md` находится только в корне handoff-архива, а каталог `assessment/` соответствует фактическому repository/WIP state.
+
 Raw `sources/` и `deliverables/` по умолчанию не включаются.
 
 Handoff не является `/snapshot`, `/published` или commit и может содержать WIP.
@@ -1089,27 +1116,47 @@ Handoff не является `/snapshot`, `/published` или commit и мож�
 - форматы;
 - языки;
 - доступные визуальные стили (`--visual`);
+- доступные режимы synthesis (`--synthesis`);
 - допустимые и рекомендуемые комбинации;
-- рекомендуемый visual style для каждой комбинации;
+- рекомендуемые visual style и synthesis mode для каждой комбинации;
 - примеры команд;
 - готовность каждого варианта на текущем published baseline.
 
 Базовая матрица:
 
-| type | audience | formats | recommended visual |
-|---|---|---|---|
-| `as-is` | `owner` | `docx`, `pptx` | `sketch` |
-| `as-is` | `developer` | `docx`, `pptx` | `mixed` |
-| `to-be-concept` | `owner` | `docx`, `pptx` | `sketch` |
-| `to-be-concept` | `developer` | `docx`, `pptx` | `mixed` |
-| `to-be-detailed` | `developer` | `docx` | `mixed` |
-| `presales` | `owner` | `pptx` | `sketch` |
+| type | audience | formats | recommended visual | recommended synthesis |
+|---|---|---|---|---|
+| `as-is` | `owner` | `docx`, `pptx` | `sketch` | `probable` |
+| `as-is` | `developer` | `docx`, `pptx` | `mixed` | `strict` |
+| `to-be-concept` | `owner` | `docx`, `pptx` | `sketch` | `strict` for AS-IS claims |
+| `to-be-concept` | `developer` | `docx`, `pptx` | `mixed` | `strict` |
+| `to-be-detailed` | `developer` | `docx` | `mixed` | `strict` |
+| `presales` | `owner` | `pptx` | `sketch` | `strict` for AS-IS claims |
 
 Если проект еще не готов для конкретного материала, `/deliverable` должен показать причину, например незавершенный AS-IS или отсутствие published baseline.
 
-### 20.12. `/deliverable <type> <audience> <language> <format> [--visual <style>]`
+### 20.12. `/deliverable <type> <audience> <language> <format> [--visual <style>] [--synthesis <strict|probable>]`
 
 Создает формальный material только из последнего `/published` baseline. Current WIP не включается.
+
+`--synthesis` управляет тем, насколько deliverable может восстанавливать связи между опубликованными знаниями:
+
+```text
+strict    показывать только явно подтвержденные canonical relationships
+probable  разрешить bounded synthesis наиболее вероятной связной картины
+```
+
+`probable` не ослабляет canonical evidence discipline. Он может соединять опубликованные FACT, INFERENCE, ASSUMPTION и structured relationships в presentation-level AS-IS interpretation, только если такая связь совместима с available evidence и не скрывает активные contradictions. Новая deliverable-local интерпретация не записывается обратно в canonical model, не получает статус FACT и не используется как evidence для findings/risks/recommendations.
+
+Если существует несколько существенно различающихся правдоподобных вариантов, deliverable показывает наиболее вероятный как `Likely` и кратко указывает существенную альтернативу или сохраняет `Unknown`, если выбор недостаточно обоснован.
+
+Default synthesis policy:
+
+```text
+as-is + owner       probable
+as-is + developer   strict
+other combinations  strict, если пользователь явно не выбрал probable для AS-IS части материала
+```
 
 `language` предпочтительно задается ISO 639-1 кодом, например:
 
@@ -1118,6 +1165,8 @@ ru
 az
 en
 ```
+
+Выбранный `language` применяется ко всему deliverable в соответствии с разделом 3. Для `en` весь пользовательский текст, включая diagram labels и captions, должен быть английским, кроме допустимых неизменяемых technical/system names и source literals.
 
 Допустимые визуальные стили:
 
@@ -1150,9 +1199,10 @@ presales                                   sketch
 Примеры:
 
 ```text
-/deliverable as-is owner az docx --visual sketch
-/deliverable as-is developer ru docx --visual mixed
-/deliverable to-be-concept owner ru pptx --visual sketch
+/deliverable as-is owner en docx --visual sketch --synthesis probable
+/deliverable as-is owner az docx --visual sketch --synthesis probable
+/deliverable as-is developer ru docx --visual mixed --synthesis strict
+/deliverable to-be-concept owner en pptx --visual sketch
 /deliverable to-be-detailed developer ru docx --visual mixed
 /deliverable presales owner az pptx --visual sketch
 ```
@@ -1272,6 +1322,25 @@ fix:
 
 AS-IS freeze не означает полного знания системы. Он означает, что оставшаяся неопределенность явно видима и управляется.
 
+### 23.4. Deliverable gate
+
+Ни один formal DOCX/PPTX не считается завершенным только потому, что файл технически создан. До выдачи пользователю требуется post-render QA финального material.
+
+Проверяется по возможности каждый финально отрендеренный page/slide:
+
+- выбранный language lock соблюден во всем пользовательском тексте, включая diagrams/captions/headers/footers; для `en` отсутствует необъясненная кириллица;
+- нет text overlap, clipping, unreadable labels, broken tables, orphan headings, случайно пустых или чрезмерно пустых областей;
+- captions и объяснения не оторваны от соответствующих visuals;
+- отсутствуют raw Mermaid artifacts или Mermaid-render, не соответствующий presentation quality;
+- diagram labels читаемы в фактическом физическом размере страницы/слайда;
+- connectors и graphical elements не перекрывают содержательный текст;
+- owner-facing narrative не содержит необъясненных internal assessment IDs и не выглядит как dump canonical records;
+- при `--synthesis probable` вероятные связи представлены как вероятные, active contradictions/существенные альтернативы не скрыты, а deliverable-local synthesis не выдан за FACT;
+- каждая major diagram добавляет relationship/flow insight, а не только повторяет список entities;
+- общий материал образует coherent narrative для выбранной аудитории, а не просто последовательность корректных секций.
+
+Если post-render QA выявляет дефект, material исправляется и рендерится повторно до выдачи.
+
 ## 24. Проектирование TO-BE
 
 До AS-IS freeze разрешено собирать V2 capability backlog, но не фиксировать полноценную target architecture как принятую.
@@ -1331,7 +1400,21 @@ L5  Implementation / Deployment / Detailed Mechanics
 
 Без отдельной причины не раскрывает полную service decomposition, internal contracts, detailed DB schema, CI/CD internals, detailed deployment/migration mechanics, internal ADR и reusable implementation know-how.
 
-Owner-facing material должен быть содержательным и профессиональным, а не искусственно пустым.
+Owner-facing material должен быть содержательным и профессиональным, а не искусственно пустым. Он не должен быть механическим экспортом canonical domains или последовательностью независимых facts. Основная задача - объяснить систему как связную историю: purpose -> actors -> end-to-end operation -> architectural building blocks -> interactions -> data movement -> operational lifecycle -> security/operations -> uncertainty -> implications for owner. Требование краткости не должно приводить к потере связей: owner DOCX должен давать достаточное объяснение причинно-следственных связей, dependencies, переходов между domains и практического смысла архитектуры. Краткий executive summary не заменяет развернутый основной narrative.
+
+Для каждого major architectural block материал по возможности объясняет его роль, основные входы/выходы, зависимости и место в общем flow. Если published baseline позволяет, owner-facing AS-IS включает несколько cross-domain views, которые восстанавливают связи между domains: например system context, основной business/transaction flow, integration/data flow и operational-day lifecycle.
+
+Internal assessment IDs (`FACT-*`, `EV-*`, `INF-*`, `ASM-*`, `Q-*`, `FIND-*`, `RISK-*`, `REC-*`, `CONTR-*` и аналогичные governance IDs) по умолчанию не используются в основном owner narrative, таблицах или диаграммах. Вместо ID дается понятное человеку объяснение источника, уровня уверенности, проблемы или ограничения. При необходимости полная traceability может быть сохранена во внутреннем metadata или отдельном technical appendix, который не включается в owner material по умолчанию. Реальные system/API/database/interface identifiers этим правилом не запрещаются.
+
+Неопределенность в owner-facing material описывается простой семантикой:
+
+```text
+Confirmed  прямо подтверждено доступным evidence
+Likely     восстановлено из согласующихся evidence, но не подтверждено независимо в current runtime
+Unknown    существенная неопределенность требует подтверждения
+```
+
+Эти reader-facing labels не заменяют canonical FACT/INFERENCE/ASSUMPTION и не изменяют их статус.
 
 ### 25.2. Developer-facing
 
@@ -1343,26 +1426,30 @@ Owner-facing material должен быть содержательным и пр
 
 ### 26.1. AS-IS DOCX
 
-Для owner-facing материала обзорные архитектурные схемы по умолчанию используют `sketch`; для developer-facing материала применяется `auto`/`mixed` в зависимости от детализации.
+Для owner-facing материала обзорные архитектурные схемы по умолчанию используют `sketch`; default synthesis mode - `probable`. Для developer-facing материала применяется `auto`/`mixed` в зависимости от детализации, а default synthesis mode - `strict`.
+
+Owner-facing AS-IS должен читаться как архитектурный рассказ о наиболее вероятном текущем устройстве системы, а не как каталог доменных утверждений. Внутри разделов необходимо явно восстанавливать подтвержденные и вероятные cross-domain связи и объяснять, почему они важны владельцу. Существенные gaps показываются рядом с соответствующим flow/block понятными `Confirmed` / `Likely` / `Unknown`, а не только отдельным списком internal IDs.
 
 Типовая структура:
 
-1. Executive summary.
-2. Scope и ограничения assessment.
-3. Назначение и capabilities системы.
-4. System context и ключевые actors.
-5. Архитектура и подсистемы.
-6. Интеграции и контракты.
-7. Данные.
-8. Security.
-9. Operations/deployment/observability.
-10. Основные findings и risks.
-11. Recommendations и приоритеты.
-12. Unknowns/limitations assessment.
+1. Executive summary и общая картина системы.
+2. Scope, evidence coverage и ограничения assessment.
+3. Назначение, actors и ключевые capabilities.
+4. End-to-end business/operational flow.
+5. System context, boundaries и major architectural building blocks.
+6. Взаимодействия между подсистемами, интеграции и contracts на уровне, нужном аудитории.
+7. Data movement, ownership и ключевые information dependencies.
+8. Operational lifecycle, включая operational day, deployment/operations/observability в доступной глубине.
+9. Security и control model.
+10. Основные findings/risks и их влияние на работу системы.
+11. Recommendations и приоритеты, если они допустимы текущей стадией assessment.
+12. Существенные uncertainty/limitations и что требуется подтвердить.
+
+Структура может адаптироваться под реальную систему. Запрещено сохранять этот список как формальную секционную сетку, если он приводит к повторению одних и тех же facts без связного synthesis.
 
 ### 26.2. AS-IS PPTX
 
-Краткая управленческая версия AS-IS с акцентом на архитектуру, основные ограничения, risks и приоритеты улучшения. Для owner-facing варианта default visual style - `sketch`; для developer-facing - `auto`/`mixed`.
+Краткая управленческая версия AS-IS с акцентом на связную архитектурную историю, end-to-end flows, основные ограничения, risks и приоритеты улучшения. Для owner-facing варианта default visual style - `sketch`, default synthesis mode - `probable`; для developer-facing - `auto`/`mixed` и `strict`. Слайды не должны быть механическим сокращением DOCX или набором независимых фактов по domains.
 
 ### 26.3. TO-BE Concept DOCX/PPTX
 
@@ -1530,6 +1617,9 @@ AI и архитекторы не должны:
 - использовать второй diagram DSL параллельно Mermaid;
 - делать финальный DOCX/PPTX source of truth;
 - включать current WIP в formal deliverable;
+- выдавать deliverable-local bounded synthesis за canonical FACT или записывать его обратно в canonical model без отдельного evidence/model update;
+- использовать internal assessment IDs как основной язык owner-facing narrative вместо понятного объяснения;
+- выдавать formal deliverable без post-render QA;
 - раскрывать owner-facing TO-BE как implementation blueprint без явного решения;
 - автоматически применять предложения `/ideas`, `/questions`, `/plan`, `/diagram`, `/protocol`;
 - автоматически менять protocol после `/protocol` без `--fix`;

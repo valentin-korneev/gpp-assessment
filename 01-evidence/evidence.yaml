@@ -1313,6 +1313,23 @@ evidence:
   statement_ru: 'Контракт 2025 указывает: INVOICE_PAY_APUS отправляется по расписанию (на момент документа интервал 30 секунд),
     DAY_PAYMENTS и DAY_PAYMENTS_FROM_BANK - в конце операционного дня GPP; service organization сверяет bank credit notification
     с аналогичной информацией от GPP.'
+- id: EV-INT-021
+  source: SRC-INT-001
+  page: 7
+  section: 2.1.1 Biznes prosesin sxemi
+  locator:
+    type: process-diagram
+    value: payer-identification-debt-advance-payment-flow
+  evidence_type: diagram
+  provenance: documented
+  statement_ru: >-
+    Схема бизнес-процесса показывает единый HÖP-mediated payer journey: плательщик выбирает организацию/услугу
+    и тип идентификации в платежном интерфейсе, после предварительной проверки запрос направляется в HÖP; HÖP выполняет
+    идентификацию через сервисную организацию либо IAMAS/AVIS, проверяет и регистрирует полученные данные плательщика, затем
+    запрашивает у XT сведения о задолженности и возвращает их плательщику. При выборе advance services соответствующий запрос
+    также направляется XT. После завершения платежа HÖP регистрирует платеж и передает сведения о нем XT, где они фиксируются
+    во внутренних системах сервисной организации.
+
 - id: EV-BDA-027
   source: SRC-BDA-002
   page: 46-47

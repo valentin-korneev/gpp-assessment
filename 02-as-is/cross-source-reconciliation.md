@@ -202,6 +202,7 @@ Scope:
 - HÖP -> XT interaction раскрывается как отдельный SOAP `ServiceCompanyWS` (`IF-GPP-009`), а завершение XT-initiated payment - как отдельный callback SOAP `SCVirtualCabinetWS` (`IF-GPP-010`). Это важное разделение направлений и responsibilities, которого component list 2023 не давал.
 - Reconciliation payment information (`IF-GPP-011`) подтвержден как HTTP POST/XML с explicit retry/ack semantics. Его нельзя смешивать с `Loader Generators` file interfaces: новый source описывает другой transport contract и не связывает его с `CMP-GPP-009`.
 - IAMAS/AVIS boundary теперь имеет достаточное evidence для system-level interface objects `IF-GPP-013`/`IF-GPP-014`, но protocol и responsible internal component остаются unknown.
+- Business-process diagram на странице 7 дополнительно связывает identification, debt retrieval, optional advance-service lookup и payment notification в один HÖP-mediated payer journey. Это закрывает presentation gap между отдельными interface contracts, не доказывая конкретный internal orchestrator или точное operation-to-step mapping.
 
 Документ 2025 имеет более высокую temporal relevance именно для integration contract semantics, но не используется для автоматического объявления всех named modules 2023 текущими production components. WSDL/endpoint references также не считаются доказательством runtime availability.
 

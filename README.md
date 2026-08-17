@@ -84,9 +84,9 @@ Initial governance commit с `README.md`, `ASSESSMENT_PROTOCOL.md` и `.gitignor
 | `/published` | Подтвердить, что последний snapshot опубликован без изменений |
 | `/handoff` | Подготовить самодостаточную передачу работы в новый чат |
 | `/deliverable` | Показать допустимые итоговые материалы и их готовность |
-| `/deliverable <type> <audience> <language> <format> [--visual <style>]` | Собрать формальный DOCX/PPTX из published baseline с выбранным визуальным стилем |
+| `/deliverable <type> <audience> <language> <format> [--visual <style>] [--synthesis <strict|probable>]` | Собрать формальный DOCX/PPTX из published baseline с выбранным visual style и режимом synthesis |
 
-Точная семантика каждой команды определена в `ASSESSMENT_PROTOCOL.md`. `/questions` всегда формирует короткую приоритетную выборку для текущего момента и не является просмотром `questions.yaml`. `/deliverable` без параметров также показывает рекомендуемые визуальные стили; Mermaid остается инженерным исходником, а не обязательным видом диаграммы в DOCX/PPTX.
+Точная семантика каждой команды определена в `ASSESSMENT_PROTOCOL.md`. `/questions` всегда формирует короткую приоритетную выборку для текущего момента и не является просмотром `questions.yaml`. `/deliverable` без параметров также показывает рекомендуемые visual/synthesis режимы; Mermaid остается инженерным исходником, а не обязательным видом диаграммы в DOCX/PPTX. Для owner-facing AS-IS default synthesis mode - `probable`, чтобы материал восстанавливал наиболее вероятные связи между опубликованными знаниями без превращения их в canonical FACT. Для developer-facing AS-IS default - `strict`.
 
 ## 5. Типичная итерация
 
@@ -147,7 +147,16 @@ fix: исправлена интерпретация роли компонент
 
 Предпочтительный способ - `/handoff`.
 
-Handoff содержит актуальный repository и `CHAT_HANDOFF.md` с текущей фазой, baseline, WIP, открытыми вопросами, важными решениями и ближайшим следующим действием. Raw sources по умолчанию в handoff не включаются.
+Handoff содержит актуальный repository и `CHAT_HANDOFF.md` с текущей фазой, baseline, WIP, открытыми вопросами, важными решениями и ближайшим следующим действием. `CHAT_HANDOFF.md` не входит в Git repository и в handoff-архиве располагается рядом с каталогом `assessment/`, а не внутри него:
+
+```text
+assessment-handoff-...zip
+├── CHAT_HANDOFF.md
+└── assessment/
+    └── ... repository files ...
+```
+
+Raw sources по умолчанию в handoff не включаются.
 
 Минимальное сообщение новому AI-чату:
 
@@ -172,4 +181,19 @@ PPTX  презентации и препродажные материалы
 
 PDF процесс не формирует. При необходимости пользователь создает PDF отдельно после дополнительного оформления.
 
-Команда `/deliverable` без параметров показывает доступную матрицу типов, аудиторий, языков, форматов и visual styles, рекомендуемые комбинации и готовность материалов на текущем baseline. Mermaid остается инженерным исходником; итоговые диаграммы формируются как presentation-quality визуализации.
+Команда `/deliverable` без параметров показывает доступную матрицу типов, аудиторий, языков, форматов, visual styles и synthesis modes, рекомендуемые комбинации и готовность материалов на текущем baseline. Mermaid остается инженерным исходником; итоговые диаграммы формируются как presentation-quality визуализации.
+
+Ключевые правила formal deliverables:
+
+- выбранный `language` действует на весь материал; для `en` narrative, headings, captions и diagram labels должны быть английскими, кроме неизменяемых technical/system names и source literals;
+- owner-facing материал должен объяснять связную систему и end-to-end flows, а не экспортировать facts по domains;
+- owner-facing AS-IS по умолчанию использует `--synthesis probable`, developer-facing AS-IS - `--synthesis strict`;
+- internal assessment IDs не используются как основной язык owner-facing текста; вместо них дается понятное объяснение;
+- `sketch` должен проходить layout/readability QA без наложения текста и clipping;
+- перед выдачей DOCX/PPTX выполняется post-render QA всего материала.
+
+Базовый английский пример:
+
+```text
+/deliverable as-is owner en docx --visual sketch --synthesis probable
+```
