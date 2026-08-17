@@ -176,3 +176,15 @@ contradictions:
     документации/UNKNOWN; физическая колонка не выдумывается.
   related_questions:
   - Q-BDA-004
+- id: CONTR-BDA-006
+  area: bda-process-catalog
+  statement_ru: BDA version history 0.0.2 утверждает добавление MX processes; при этом опубликованный TYPE/PROCESS_TYPE enum
+    их не перечисляет, а APPLICATION_TYPE отдельно говорит, что process type mx использует REST, остальные DESKTOP.
+  evidence:
+  - EV-BDA-027
+  - EV-BDA-028
+  status: active
+  handling_ru: Не выводить конкретные MX process names из APPLICATION_TYPE rule и не считать enumerated list полным. Базовый
+    documented list сохраняется как fact, а authoritative MX catalog остается Q-BDA-002.
+  related_questions:
+  - Q-BDA-002

@@ -87,3 +87,12 @@ Canonical model сохраняет только архитектурный см�
 - `XÖHK` подтвержден как опечатка для `XÖHKS`; canonical model использует только `XÖHKS`.
 - `IAMAS` и `AVIS` до обратного evidence считаются external systems GPP; точные interface/component ownership остаются неизвестными.
 - Reviewer/editorial comments считаются важными leads. Технически значимые комментарии сгруппированы в `Q-ID-001`, `Q-CFG-001`, `Q-PAY-001`, `Q-SETTLE-001`, `Q-IPS-001`, `Q-FEE-001`, `Q-PAY-002`, `Q-PAY-003`, `Q-PSP-001`, `Q-BIN-001`. Чисто UI-предложения (например, popup/layout) не превращаются автоматически в findings или architecture proposals.
+
+
+## Повторный question-driven pass - 17.08.2026
+
+Повторная сверка reviewer-enriched configuration tables закрыла на дату source четыре semantic gaps: centralized identification types vs organization properties (`Q-ID-001`), base `MaxPaymentAmount` precedence (`Q-PAY-001`), `IpsTransitAccountConsent`/`SignedPain001` semantics (`Q-IPS-001`) и `supported_psp_code_list` (`Q-PSP-001`).
+
+Дополнительно подтверждены intended role `VirtualBranchID`, влияние `IncludeServiceCode`, base semantics `IgnoreServiceFee`/`IgnoreVatCalculationOnReport`, `Whole_payment` и BIN field format. Эти элементы не повышаются до current 2026 автоматически: reviewer comments о желаемом изменении/удалении остаются editorial, а runtime currentness отслеживается отдельными questions.
+
+Для discount/penalty source по-прежнему сам содержит вопрос об актуальном использовании без ответа. Это сохраняется как explicit unknown, а не как неполнота extraction.

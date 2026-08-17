@@ -79,11 +79,14 @@ interfaces:
   to_external: Система мгновенных платежей
   evidence:
   - EV-FS-015
+  - EV-PUB-012
   status: active
   temporal_scope:
     currentness: current-at-source-date
   contract_source:
     status: not-referenced
+  notes_ru: Current CBA site подтверждает GPP<->IPS relation на system level, но не называет internal component. Поэтому mapping
+    к CMP-GPP-011 IPSClient остается current-at-source-date 2023, а system-level integration имеет более поздний public signal.
 - id: IF-GPP-008
   name: Интернет-/мобильные ресурсы сервисной организации - GPPPaymentWS
   interface_type: soap

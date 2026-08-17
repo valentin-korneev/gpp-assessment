@@ -17,12 +17,16 @@ questions:
 - id: Q-VND-001
   area: vendor-ownership
   question_ru: Какова текущая роль SINAM в сопровождении, развитии или эксплуатации GPP?
-  reason_ru: Публичный сайт SINAM подтверждает историческое участие в разработке, но не подтверждает текущую роль. 
-    Ожидается отдельный документ по сопровождению, который должен иметь более высокий приоритет для ответа.
+  reason_ru: Публичный сайт SINAM подтверждает историческую разработку GPP и отдельно проект AniPay для CBA в 2022-2024 с
+    требованием интеграции GPP, но не подтверждает сопровождение, развитие или эксплуатацию самого GPP после 2024 года.
   priority: important
   status: open
   related_sources:
   - SRC-PUB-004
+  - SRC-PUB-007
+  related_facts:
+  - FACT-GPP-005
+  - FACT-GPP-073
 - id: Q-SRC-001
   area: source-versioning
   question_ru: Являются ли SRC-FS-001 и SRC-FS-002 независимыми рабочими документами или редакциями одной версии, и 
@@ -54,12 +58,11 @@ questions:
   - FACT-GPP-027
 - id: Q-CUR-001
   area: currentness
-  question_ru: Какие из модулей, описанных функциональной спецификацией 05.05.2023, остаются в текущем production state 
-    и в каком виде?
-  reason_ru: WebPortal и mobile app подтвержденно прекращены в 2024 году, а system-level обработка платежей через GPP 
-    подтверждена за 2025 год. Исторический source 2015 года добавляет deployment, security и technology context, но не 
-    повышает currentness этих деталей. Для остальных named modules и operational mechanisms актуальность после дат их 
-    источников по-прежнему не подтверждена.
+  question_ru: Какие из модулей, описанных функциональной спецификацией 05.05.2023, остаются в текущем production state и
+    в каком виде?
+  reason_ru: WebPortal и mobile app подтвержденно прекращены в 2024 году, system-level обработка платежей подтверждена за
+    2025 год, а текущий сайт CBA продолжает описывать GPP<->IPS integration. Это не подтверждает component-level continuity
+    named modules 2023 года, включая то, что current implementation по-прежнему использует именно IPSClient.
   priority: important
   status: open
   related_sources:
@@ -67,6 +70,7 @@ questions:
   - SRC-FS-002
   - SRC-PUB-005
   - SRC-OPS-001
+  - SRC-PUB-006
   related_facts:
   - FACT-GPP-003
   - FACT-GPP-008
@@ -108,108 +112,176 @@ questions:
   question_ru: 'Как в текущей реализации организовано управление identification types: централизованно или через повторяющиеся
     organization properties, и должны ли GetOnlineStatementsAfterIAMAS/AVIS-подобные настройки быть связаны с конкретным identification
     type?'
-  reason_ru: Reviewer comments указывают на дублирование configuration и риск ошибок при раздельных properties. Более 
-    актуального подтверждения пока нет.
+  reason_ru: Reviewer comments указывают на дублирование configuration и риск ошибок при раздельных properties. Более актуального
+    подтверждения пока нет.
   priority: important
-  status: open
+  status: resolved
   related_evidence:
   - EV-FS-020
+  - EV-FS-026
+  resolution_ru: 'На дату specification 2023 используются оба механизма: AdminConsole имеет отдельное централизованное управление
+    identification types (SC/IAMAS/AVIS; ACC/DOC/MIX), а GetOnlineStatementsAfterIAMAS/AVIS существуют как organization-level
+    properties для последующего debt lookup. Reviewer предлагает привязать такие properties к identification type, но это
+    recommendation, не подтвержденная implementation. Currentness после 2023 покрывается Q-CUR-001.'
+  related_facts:
+  - FACT-GPP-060
 - id: Q-CFG-001
   area: organization-configuration
-  question_ru: Используется ли VirtualBranchID в текущей реализации и для каких organization types он действительно 
-    необходим?
-  reason_ru: Reviewer comment предлагает отказаться от property, но source одновременно описывает его назначение для 
-    организаций без real branch.
+  question_ru: Используется ли VirtualBranchID в текущей реализации и для каких organization types он действительно необходим?
+  reason_ru: 'Назначение property уточнено: он используется для организации без реального филиала и связывает счет с virtual
+    branch. Reviewer предлагает удалить property, но current runtime use и точный набор organization types после 2023 не подтверждены.'
   priority: important
   status: open
   related_evidence:
   - EV-FS-021
+  - EV-FS-029
+  related_facts:
+  - FACT-GPP-063
 - id: Q-PAY-001
   area: payment-rules
-  question_ru: Каков точный precedence MaxPaymentAmount между лимитом организации и максимальной суммой, возвращенной в 
-    invoice/debt response?
-  reason_ru: Источник описывает сравнение лимитов, но reviewer comment требует более точного объяснения взаимодействия с
-    похожими properties.
+  question_ru: Каков точный precedence MaxPaymentAmount между лимитом организации и максимальной суммой, возвращенной в invoice/debt
+    response?
+  reason_ru: Источник описывает сравнение лимитов, но reviewer comment требует более точного объяснения взаимодействия с похожими
+    properties.
   priority: important
-  status: open
+  status: resolved
   related_evidence:
   - EV-FS-021
+  - EV-FS-027
+  - EV-INT-019
+  resolution_ru: 'Functional specification 2023 прямо описывает precedence: сначала учитывается maximum из invoice/debt response,
+    затем organization MaxPaymentAmount, применяется меньшее ограничение. Более поздний contract 2025 ввел channel-specific
+    maxAllowedAmountForCash/Card/BankAccount; их взаимодействие с organization limit вынесено в Q-PAY-004.'
+  related_facts:
+  - FACT-GPP-061
+  - FACT-GPP-068
 - id: Q-SETTLE-001
   area: settlement-reporting
-  question_ru: Как IncludeServiceCode влияет на MT/file outputs и какой default value является фактическим для текущей 
-    реализации?
-  reason_ru: Reviewer comment требует уточнить связь property с MT и утверждает необходимость default=true; 
-    authoritative semantics пока не подтверждены.
+  question_ru: Каков фактический current default IncludeServiceCode и сохраняется ли в текущей реализации документированная
+    2023 mapping semantics для BANK_INV_PAY_APUS/DAY_PAYMENTS и MT outputs?
+  reason_ru: 'Impact semantics теперь документирована: ServiceCode включается в BANK_INV_PAY_APUS/DAY_PAYMENTS, а MT mapping
+    переключается между budgetcode/budgetlevelcode и spBudgetLevelCode. Не закрыт только runtime/current default: default=true
+    содержится в reviewer recommendation, а не в authoritative runtime evidence.'
   priority: important
   status: open
   related_evidence:
   - EV-FS-021
+  - EV-FS-028
+  related_facts:
+  - FACT-GPP-062
 - id: Q-IPS-001
   area: ips-integration
-  question_ru: Каково точное назначение IpsTransitAccountConsent, для каких организаций property применяется и какие 
-    модули/flows оно изменяет?
-  reason_ru: Reviewer comment прямо отмечает недостаточность описания scope и impact; source приводит только частичное 
-    объяснение TopUp authentication/consent. Cross-source reconciliation показывает, что operational settlement model 
-    2015 года явно опиралась на XÖHKS, тогда как IPS появляется отдельным integration concern только в specification 
-    2023; relationship IPS к XÖHKS и payment lifecycle не установлен.
+  question_ru: Каково точное назначение IpsTransitAccountConsent, для каких организаций property применяется и какие модули/flows
+    оно изменяет?
+  reason_ru: Reviewer comment прямо отмечает недостаточность описания scope и impact; source приводит только частичное объяснение
+    TopUp authentication/consent. Cross-source reconciliation показывает, что operational settlement model 2015 года явно
+    опиралась на XÖHKS, тогда как IPS появляется отдельным integration concern только в specification 2023; relationship IPS
+    к XÖHKS и payment lifecycle не установлен.
   priority: important
-  status: open
+  status: resolved
   related_evidence:
   - EV-FS-022
+  - EV-FS-030
+  resolution_ru: 'На дату specification 2023 IpsTransitAccountConsent используется для TopUp flows через web/mobile/operator
+    workplace, когда debtor bank требует consent: выбирается authentication type consent, а property value передается как
+    verification code. Отдельная SignedPain001-конфигурация различает XÖHKS и IPS/AÖS варианты юридического payment flow с/без
+    payer signature. Current component/runtime continuity остается Q-CUR-001.'
+  related_facts:
+  - FACT-GPP-064
+  - FACT-GPP-072
 - id: Q-FEE-001
   area: fees-tax
-  question_ru: Каковы фактические текущие semantics IgnoreServiceFee и IgnoreVatCalculationOnReport, включая влияние на 
-    generators, reports и invoice generation?
-  reason_ru: Reviewer comments уточняют/оспаривают текст спецификации, а одна из формулировок отмечена как непонятная.
+  question_ru: Сохраняется ли в current implementation документированная 2023 semantics IgnoreServiceFee/IgnoreVatCalculationOnReport
+    и как именно fee/VAT отражаются во всех reports и invoice outputs?
+  reason_ru: 'Основное назначение уточнено: IgnoreServiceFee исключает организацию из Service_Fee generator, IgnoreVatCalculationOnReport
+    меняет расчет payment amount в AdminConsole reports. Однако reviewer comment по report semantics неполон, а current runtime
+    behavior после 2023 не подтвержден.'
   priority: important
   status: open
   related_evidence:
   - EV-FS-022
+  - EV-FS-031
+  related_facts:
+  - FACT-GPP-065
 - id: Q-PAY-002
   area: invoice-state
-  question_ru: Используется ли еще настройка архивирования invoice, или она действительно заменена концепцией 
-    Whole_payment?
-  reason_ru: PDF содержит явную редакционную пометку о необходимости отменить прежний concept и заменить его full 
-    payment, но не подтверждает факт внедрения.
+  question_ru: Была ли фактически внедрена заявленная замена invoice-archive configuration концепцией Whole_payment и сохраняется
+    ли это поведение в current implementation?
+  reason_ru: 'Semantics Whole_payment теперь ясна: после полной оплаты statement переводится в Filed, повторная попытка получает
+    already-paid из GPP DB без запроса SC. Но пометка удалить прежний archive concept является редакционной и не подтверждает
+    deployment/migration.'
   priority: important
   status: open
   related_evidence:
   - EV-FS-017
+  - EV-FS-034
+  related_facts:
+  - FACT-GPP-067
 - id: Q-PAY-003
   area: discount-penalty
   question_ru: Используются ли в текущей реализации discount/penalty fields и соответствующие формулы/периоды расчета?
-  reason_ru: PDF несколько раз содержит редакционный вопрос о текущем использовании этих fields, без ответа.
+  reason_ru: Specification 2023 сама оставляет вопрос об использовании discount/penalty без ответа. Integration contract 1.16
+    от 18.08.2025 по-прежнему содержит penaltyAmount/discountAmount в invoice schema, что подтверждает contract presence,
+    но не runtime use, formula execution или configuration currentness.
   priority: important
   status: open
   related_evidence:
   - EV-FS-017
-- id: Q-PSP-001
-  area: psp-integration
-  question_ru: Какова точная semantics supported_psp_code_list и означает ли она разрешение PSP отправлять payment 
-    request от имени банка, а не acquiring relationship?
-  reason_ru: Reviewer comment явно исправляет потенциальную интерпретацию property; contract-level подтверждения пока 
-    нет.
+  - EV-FS-035
+  - EV-INT-019
+  related_facts:
+  - FACT-GPP-068
+- id: Q-PAY-004
+  area: payment-rules
+  question_ru: Как в current implementation комбинируются organization MaxPaymentAmount с invoice maxAllowedAmount и channel-specific
+    maxAllowedAmountForCash/Card/BankAccount, добавленными в integration contract 2024/2025?
+  reason_ru: Базовый precedence organization limit vs invoice maximum документирован в specification 2023, но contract 1.13+
+    добавляет отдельные channel-specific maxima и не описывает их место в общей последовательности ограничений.
   priority: important
   status: open
+  related_sources:
+  - SRC-FS-001
+  - SRC-INT-001
+  related_evidence:
+  - EV-FS-027
+  - EV-INT-019
+  related_facts:
+  - FACT-GPP-061
+  - FACT-GPP-068
+- id: Q-PSP-001
+  area: psp-integration
+  question_ru: Какова точная semantics supported_psp_code_list и означает ли она разрешение PSP отправлять payment request
+    от имени банка, а не acquiring relationship?
+  reason_ru: Reviewer comment явно исправляет потенциальную интерпретацию property; contract-level подтверждения пока нет.
+  priority: important
+  status: resolved
   related_evidence:
   - EV-FS-023
+  - EV-FS-032
+  resolution_ru: Specification 2023 прямо описывает supported_psp_code_list как список PSP, которым разрешено отправлять payment
+    request от имени банка. При различии psoCode и userID список валидируется; отсутствие PSP для банка приводит к ошибке.
+    Reviewer отдельно уточняет, что это не acquiring-bank relationship.
+  related_facts:
+  - FACT-GPP-066
 - id: Q-BIN-001
   area: card-configuration
   question_ru: Где в текущей реализации управляются BIN codes и какая роль имеет право их редактировать?
-  reason_ru: Reviewer comment утверждает, что отдельный functional уже существует, но Central Bank users требуется edit 
-    capability; текущая implementation/permission model не подтверждена.
+  reason_ru: 'Формат уточнен: Cardnumber{index} хранит первые шесть цифр карты. Reviewer сообщает, что отдельный functional
+    уже существует и предлагает дать CBA employees edit capability, но не называет модуль/экран и не подтверждает фактическую
+    current permission model.'
   priority: important
   status: open
   related_evidence:
   - EV-FS-023
+  - EV-FS-033
 - id: Q-OPS-001
   area: operations
-  question_ru: Каковы текущие временные границы операционного/бизнес-дня GPP, окна отчетности и расчетов следующего 
-    рабочего дня и точная роль XÖHKS в оркестрации относительно BDA?
-  reason_ru: Исторические правила 2015 года задают 00:00-24:00 и фиксированные окна следующего рабочего дня. Источники 
-    BDA 2025 года подтверждают жизненный цикл операционного дня, REST-управление выполнением и хранение 
-    состояния/параметров процессов, но не определяют текущую временную границу, расписание расчетов или точное владение 
-    последующим расчетом XÖHKS.
+  question_ru: Каковы текущие временные границы операционного/бизнес-дня GPP, окна отчетности и расчетов следующего рабочего
+    дня и точная роль XÖHKS в оркестрации относительно BDA?
+  reason_ru: Исторические правила 2015 задают 00:00-24:00 и фиксированные next-business-day windows. Более поздний contract
+    2025 подтверждает DAY_PAYMENTS/DAY_PAYMENTS_FROM_BANK в конце операционного дня, а BDA 2025 показывает monitoring lifecycle
+    planned -> bank -> clearing -> settled -> participant notified и XÖHKS monitoring. Не установлены current day boundary/clock
+    windows и точное ownership исполнения settlement/XÖHKS stages.
   priority: important
   status: open
   related_sources:
@@ -227,6 +299,8 @@ questions:
   - FACT-GPP-048
   - FACT-GPP-053
   - FACT-GPP-054
+  - FACT-GPP-069
+  - FACT-GPP-071
 - id: Q-SEC-001
   area: security-access
   question_ru: Как устроены текущие authentication/authorization и segregation-of-duties для 
@@ -411,10 +485,11 @@ questions:
   - EV-BDA-016
 - id: Q-BDA-002
   area: bda-process-catalog
-  question_ru: Каков авторитетный полный каталог процессов/команд BDA, их типов, параметров и семантики исполнения?
-  reason_ru: Руководство пользователя ссылается на недоступный Process-Commands.txt. Технический источник показывает 
-    типы процессов и несколько чувствительных примеров команд, но не подтверждает полноту и авторитетность каталога; 
-    точные команды сознательно не переносятся в репозиторий.
+  question_ru: Каков authoritative полный каталог BDA processes/commands/parameters, включая точные MX process types и их
+    execution semantics?
+  reason_ru: Технический source уже перечисляет базовые process types и подтверждает хранение process command, но version
+    history говорит о добавлении MX processes, тогда как enum list MX не содержит и лишь APPLICATION_TYPE ссылается на process
+    type mx. Process-Commands.txt недоступен, поэтому полнота и MX semantics не подтверждены.
   priority: important
   status: open
   related_sources:
@@ -424,10 +499,12 @@ questions:
   - EV-BDA-003
   - EV-BDA-011
   - EV-BDA-016
-  - EV-BDA-026
+  - EV-BDA-027
+  - EV-BDA-028
   related_facts:
   - FACT-GPP-049
   - FACT-GPP-053
+  - FACT-GPP-070
 - id: Q-BDA-003
   area: bda-authentication
   question_ru: 'Как именно JWT BDA передается и валидируется в защищенных REST-вызовах и каков его жизненный цикл: заголовок/схема,

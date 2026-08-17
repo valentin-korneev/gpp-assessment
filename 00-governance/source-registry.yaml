@@ -2,14 +2,15 @@ source_families:
 - id: gpp-public-bootstrap
   title_ru: Базовый публичный контекст GPP
   relationship_ru: 'Связанное семейство открытых источников: официальные страницы Центрального банка используются для статуса,
-    назначения и эволюции GPP; страница SINAM используется только как self-report поставщика о своем историческом участии
-    в разработке.'
+    назначения и эволюции GPP; страницы SINAM используются только как vendor self-report об исторических GPP/AniPay project periods и не подтверждают current support/operations.'
   sources:
   - SRC-PUB-001
   - SRC-PUB-002
   - SRC-PUB-003
   - SRC-PUB-004
   - SRC-PUB-005
+  - SRC-PUB-006
+  - SRC-PUB-007
 - id: gpp-functional-specification-2023
   title_ru: Функциональное описание GPP - семейство рабочих редакций
   relationship_ru: Два сильно перекрывающихся внутренних артефакта с неоднозначным relationship. Имена файлов содержат 
@@ -380,3 +381,41 @@ sources:
     handling: redacted-not-copied
   - kind: internal-network-address-or-url
     handling: redacted-not-copied
+- id: SRC-PUB-006
+  title: Instant Payments System (IPS)
+  publisher: Central Bank of the Republic of Azerbaijan
+  url: https://www.cbar.az/page-479/instant-payments-system-ips?language=en
+  source_family: gpp-public-bootstrap
+  relationship: official-current-site-system-integration-description
+  version: null
+  date: null
+  version_confidence: low
+  ingest_profile: public-source
+  authority: primary-official
+  currentness: unverified
+  sensitivity: public
+  visual_review_mode: not-required
+  normalization_requirements: none
+  retrieved_at: '2026-08-17'
+  notes_ru: Текущая страница CBA по IPS прямо описывает интеграцию GPP с IPS и возможность оплаты более 1000 подключенных
+    к GPP услуг через IPS. Страница не имеет явной даты редакции, поэтому используется как сильный current-site signal, но
+    не как доказательство неизменности внутреннего компонента IPSClient.
+- id: SRC-PUB-007
+  title: AniPay
+  publisher: SINAM Ltd
+  url: https://www.sinam.net/en/solutions/anipay
+  source_family: gpp-public-bootstrap
+  relationship: vendor-adjacent-project-case-study
+  version: null
+  date: 2022-2024
+  version_confidence: medium
+  ingest_profile: public-source
+  authority: vendor-self-report
+  currentness: historical
+  sensitivity: public
+  visual_review_mode: not-required
+  normalization_requirements: none
+  retrieved_at: '2026-08-17'
+  notes_ru: SINAM self-report по проекту AniPay для CBA за 2022-2024 включает требование интеграции с GPP. Это расширяет temporal
+    evidence участия SINAM в соседнем платежном контуре, но не подтверждает сопровождение или эксплуатацию самого GPP после
+    2024 года.

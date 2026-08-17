@@ -54,10 +54,13 @@ capabilities:
     currentness: current-at-source-date
 - id: CAP-ASIS-007
   name_ru: Управление типами идентификации плательщика
-  statement_ru: GPP поддерживает конфигурацию типов идентификации ACC/DOC/MIX и источников SC/IAMAS/AVIS.
+  statement_ru: GPP поддерживает централизованную конфигурацию identification types ACC/DOC/MIX и sources SC/IAMAS/AVIS; для
+    MIX документируются состав, приоритет и primary identification. Organization properties могут отдельно управлять последующим
+    lookup после IAMAS/AVIS.
   evidence:
   - EV-FS-009
   - EV-FS-013
+  - EV-FS-026
   temporal_scope:
     currentness: current-at-source-date
 - id: CAP-ASIS-008
@@ -95,10 +98,12 @@ capabilities:
     currentness: current-at-source-date
 - id: CAP-ASIS-012
   name_ru: Отчетность и выгрузка данных для расчетов
-  statement_ru: Loader Generators формирует отчеты для участников и связанные с расчетами файлы MT150/152; LVPCSS и 
-    IPSClient обеспечивают обмен с внешними платежными системами.
+  statement_ru: Loader Generators формирует отчеты и связанные с расчетами MT150/152; LVPCSS и IPSClient документируют обмен
+    с XÖHKS/IPS на дату 2023 source. Текущий сайт CBA отдельно подтверждает на system level интеграцию GPP с IPS, не подтверждая
+    current component name IPSClient.
   evidence:
   - EV-FS-015
+  - EV-PUB-012
   temporal_scope:
     currentness: current-at-source-date
 - id: CAP-ASIS-013
@@ -177,13 +182,14 @@ capabilities:
     currentness: current-at-source-date
 - id: CAP-ASIS-019
   name_ru: Операционный мониторинг расчетов и файлов
-  statement_ru: BDA предоставляет представления мониторинга файлов XÖHKS и успешных платежей, состояния платежей между 
-    предыдущим и текущим операционными днями, неотправленных файлов и MT-файлов.
+  statement_ru: BDA предоставляет мониторинг XÖHKS/files/MT и платежей между предыдущим и текущим операционными днями, включая
+    стадии planned, bank, clearing, settlement completed и organization notified.
   evidence:
   - EV-BDA-009
   - EV-BDA-010
   - EV-BDA-014
   - EV-BDA-021
+  - EV-BDA-029
   temporal_scope:
     source_date: '2025-04-02'
     currentness: current-at-source-date

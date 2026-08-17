@@ -141,3 +141,12 @@
 Отсутствие физического звена не считается автоматически дефектом системы: если источник не дает достаточного подтверждения, это фиксируется как пробел документации или `UNKNOWN`.
 
 Каноническая межслойная модель: `02-as-is/bda-cross-layer-model.yaml`.
+
+
+## Повторный pass - 17.08.2026
+
+Повторная сверка process model позволила повысить точность orchestration interpretation. `BDA.PROCESS` прямо хранит process command, а TYPE/PROCESS_TYPE перечисляет day-payment, MT, service-fee, beneficiary-summary и resend workloads. В сочетании с asynchronous start, template/day sequencing и execution monitoring это поддерживает `INF-ARCH-013`: BDA рассматривается как administrative/job-orchestration control plane, а не как доказанный core online payment processor.
+
+Выявлена новая source inconsistency `CONTR-BDA-006`: version history 0.0.2 говорит о добавлении MX processes, но опубликованный TYPE/PROCESS_TYPE list не содержит MX/mx, при этом `APPLICATION_TYPE` отдельно определяет REST для process type `mx` и DESKTOP для остальных. Поэтому конкретные MX process names не реконструируются, а `Q-BDA-002` остается открытым.
+
+`StatusAndPrice` дает более сильную settlement-monitoring semantics для предыдущего/current operational day: planned -> bank -> account-not-confirmed -> clearing -> settlement-completed -> organization-notified. Это подтверждает observed lifecycle, но не ownership каждой стадии.

@@ -1160,3 +1160,190 @@ evidence:
   statement_ru: Техническая спецификация содержит примеры, похожие на реальные JWT, команды с учетными данными и 
     внутренние сетевые адреса/URL. Каноническая нормализация использует редактирование и заполнители и не переносит 
     исходные чувствительные значения.
+- id: EV-PUB-012
+  source: SRC-PUB-006
+  section: Instant Payments System (IPS)
+  locator:
+    type: section
+    value: GPP integration
+  evidence_type: text
+  provenance: documented
+  statement_ru: На текущем сайте CBA в описании IPS указано, что GPP интегрирован с IPS и через IPS доступны платежи более
+    чем за 1000 услуг организаций, подключенных к GPP.
+- id: EV-PUB-013
+  source: SRC-PUB-007
+  section: 'Case Study: AniPay'
+  locator:
+    type: section
+    value: Client/Project Period 2022-2024 / GPP integration
+  evidence_type: text
+  provenance: documented
+  statement_ru: SINAM указывает проект AniPay для Central Bank за 2022-2024 и среди требований проекта называет интеграцию
+    Government Payment Portal для бюджетных, коммунальных и иных платежей.
+- id: EV-FS-026
+  source: SRC-FS-001
+  section: 3.3 Identification type management
+  locator:
+    type: field
+    value: Source / Type / MIX composition
+  evidence_type: text
+  provenance: documented
+  statement_ru: 'AdminConsole отдельно документирует централизованное управление identification types: источники SC/IAMAS/AVIS,
+    типы ACC/DOC/MIX, а для MIX - состав идентификаторов, приоритет и primary identification.'
+- id: EV-FS-027
+  source: SRC-FS-001
+  section: 3.1.2 - organization properties
+  locator:
+    type: field
+    value: MaxPaymentAmount
+  evidence_type: text
+  provenance: documented
+  statement_ru: 'Для MaxPaymentAmount источник описывает порядок проверки: сначала учитывается максимальная сумма, возвращенная
+    в invoice/debt response, затем лимит организации в GPP; фактически применяется меньшее из ограничений.'
+- id: EV-FS-028
+  source: SRC-FS-001
+  section: 3.1.2 - organization properties
+  locator:
+    type: field
+    value: IncludeServiceCode
+  evidence_type: text
+  provenance: documented
+  statement_ru: IncludeServiceCode=true включает ServiceCode в BANK_INV_PAY_APUS и DAY_PAYMENTS; для MT при true передаются
+    budgetcode и budgetlevelcode, а при отсутствии/false используется spBudgetLevelCode в зависимости от TmpForceSpBudgetLevel.
+    Reviewer comment рекомендует default=true, но не доказывает runtime default.
+- id: EV-FS-029
+  source: SRC-FS-001
+  section: 3.1.2 - organization properties
+  locator:
+    type: field
+    value: VirtualBranchID
+  evidence_type: text
+  provenance: documented
+  statement_ru: VirtualBranchID описан как виртуальный филиал для организации без реального филиала, к которому привязывается
+    счет; reviewer comment предлагает отказаться от property, не подтверждая факт удаления.
+- id: EV-FS-030
+  source: SRC-FS-001
+  section: 3.1.2 - organization properties / IPS
+  locator:
+    type: field
+    value: IpsTransitAccountConsent / SignedPain001
+  evidence_type: text
+  provenance: documented
+  statement_ru: 'IpsTransitAccountConsent применяется, когда debtor bank требует consent: для TopUp через web/mobile/operator
+    workplace выбирается authentication type consent и значение property передается как verification code. Отдельная SignedPain001-конфигурация
+    различает XÖHKS и IPS/AÖS flows с/без подписи payer для юридических лиц.'
+- id: EV-FS-031
+  source: SRC-FS-001
+  section: 3.1.2 - organization properties
+  locator:
+    type: field
+    value: IgnoreServiceFee / IgnoreVatCalculationOnReport
+  evidence_type: text
+  provenance: documented
+  statement_ru: IgnoreServiceFee=true исключает организацию из обработки Service_Fee generator, при этом reviewer comment
+    указывает, что fee продолжает учитываться в reports; IgnoreVatCalculationOnReport=true используется в AdminConsole reports
+    для исключения VAT amount из payment amount. Часть редакционного комментария по report semantics остается неполной.
+- id: EV-FS-032
+  source: SRC-FS-001
+  section: 3.1.2.3 - bank properties
+  locator:
+    type: field
+    value: supported_psp_code_list
+  evidence_type: text
+  provenance: documented
+  statement_ru: supported_psp_code_list задает список PSP, которым разрешено отправлять payment request от имени соответствующего
+    банка; если psoCode и userID различаются, список валидируется. Reviewer explicitly уточняет, что это не acquiring-bank
+    relation.
+- id: EV-FS-033
+  source: SRC-FS-001
+  section: 3.1.2.3 - bank properties
+  locator:
+    type: field
+    value: Cardnumber{index}
+  evidence_type: text
+  provenance: documented
+  statement_ru: BIN codes документируются в Cardnumber{index} как первые шесть цифр карты. Reviewer сообщает о наличии отдельного
+    functional для такого управления и предлагает предоставить сотрудникам CBA edit capability, но точный модуль и текущая
+    permission model не указаны.
+- id: EV-FS-034
+  source: SRC-FS-002
+  page: 47-48
+  section: 3.2 - service type/payment behavior
+  locator:
+    type: field
+    value: invoice archiving / Whole_payment
+  evidence_type: text
+  provenance: documented
+  statement_ru: Спецификация перечисляет варианты archive behavior invoice, после чего содержит редакционную пометку удалить
+    этот concept в пользу Whole_payment. Whole_payment=true означает перевод statement в Filed после полной оплаты задолженности
+    одной или несколькими частичными оплатами и возврат already-paid из GPP DB при повторной попытке без нового запроса в
+    service company.
+- id: EV-FS-035
+  source: SRC-FS-002
+  page: 47-48
+  section: 3.2 / service fee configuration
+  locator:
+    type: field
+    value: discount / penalty
+  evidence_type: text
+  provenance: documented
+  statement_ru: Спецификация содержит discount/penalty mode, периоды и формулы, но рядом неоднократно оставлен редакционный
+    вопрос, используются ли эти поля сейчас; источник не дает ответа.
+- id: EV-INT-019
+  source: SRC-INT-001
+  page: 1-2, 59-60
+  section: version history / invoice model
+  locator:
+    type: field
+    value: maxAllowedAmountForCash/Card/BankAccount; penaltyAmount; discountAmount
+  evidence_type: text
+  provenance: documented
+  statement_ru: Версия 1.13 от 19.07.2024 добавила в invoice отдельные maxAllowedAmountForBankAccount/Card/Cash; в schema
+    версии 1.16 от 18.08.2025 также сохраняются generic maxAllowedAmount, penaltyAmount и discountAmount. Наличие полей не
+    доказывает их фактическое runtime usage или precedence.
+- id: EV-INT-020
+  source: SRC-INT-001
+  page: 78
+  section: reconciliation information exchange
+  locator:
+    type: table
+    value: INVOICE_PAY_APUS / DAY_PAYMENTS / DAY_PAYMENTS_FROM_BANK schedule
+  evidence_type: table
+  provenance: documented
+  statement_ru: 'Контракт 2025 указывает: INVOICE_PAY_APUS отправляется по расписанию (на момент документа интервал 30 секунд),
+    DAY_PAYMENTS и DAY_PAYMENTS_FROM_BANK - в конце операционного дня GPP; service organization сверяет bank credit notification
+    с аналогичной информацией от GPP.'
+- id: EV-BDA-027
+  source: SRC-BDA-002
+  page: 46-47
+  section: 3.4 PROCESS / 3.2 OPERATION_PROCESS
+  locator:
+    type: field
+    value: PROCESS_RUN_COMMAND / TYPE / PROCESS_TYPE / APPLICATION_TYPE
+  evidence_type: table
+  provenance: documented
+  statement_ru: BDA.PROCESS хранит PROCESS_RUN_COMMAND как команду процесса; schema перечисляет типы DAY_PAYMENTS, DAY_PAYMENTS_FOR_PAC,
+    DAY_PAYMENTS_FROM_BANK, MT150, MT152, SERVICE_FEE, PAYMENT_SUMMARY_FOR_BENEFICIARY и RESEND; отдельно APPLICATION_TYPE
+    описан как REST для process type mx и DESKTOP для остальных.
+- id: EV-BDA-028
+  source: SRC-BDA-002
+  page: 2
+  section: version history 0.0.2
+  locator:
+    type: section
+    value: MX processes
+  evidence_type: text
+  provenance: documented
+  statement_ru: Version history 0.0.2 говорит, что в список процессов добавлены MX processes, однако опубликованный enumerated
+    PROCESS_TYPE/TYPE list не содержит значения MX/mx, хотя APPLICATION_TYPE отдельно ссылается на process type mx.
+- id: EV-BDA-029
+  source: SRC-BDA-002
+  page: 39, 60
+  section: 2.35 StatusAndPrice / 4.12
+  locator:
+    type: model
+    value: StatusAndPrice
+  evidence_type: text
+  provenance: documented
+  statement_ru: 'BDA endpoint для платежей между предыдущим и текущим операционными днями использует стадии Planned, At bank,
+    Account not confirmed, In clearing, Settlement completed и Organization notified (source literals: 1_Planlasdirilib..6_Teskilata_bildirilib).'

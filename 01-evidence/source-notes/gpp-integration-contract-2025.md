@@ -98,3 +98,14 @@ Endpoint, профиль authentication/TLS, timeout, предел числа re
 4. XSD сверки делает `BranchID` обязательным и ограничивает `amount` двумя знаками после запятой и десятью цифрами всего, тогда как field table/examples противоречат этим ограничениям (`CONTR-INT-004`).
 
 Нормализация сохраняет наблюдаемые формы источника и фиксирует ограничения, а не исправляет их молча.
+
+
+## Повторный pass - 17.08.2026
+
+Version history и schema были повторно проверены против gaps функциональной спецификации. Contract evolution 1.10-1.16 подтверждает активные изменения integration surface до 18.08.2025: `paymentReceiverList`/`prePaidServiceCodeList`, замена `PaymentAuthData` на `tellerInfo`, channel-specific invoice maxima, `getBankList`, исправление `NotifyAboutPayment`, описание `Payee`.
+
+Важное уточнение для payment-limit model: версии 1.13+ добавляют `maxAllowedAmountForCash`, `maxAllowedAmountForCard`, `maxAllowedAmountForBankAccount` при сохранении generic `maxAllowedAmount`; contract не задает полный precedence этих лимитов с organization-level `MaxPaymentAmount`, поэтому создан `Q-PAY-004`.
+
+Day-end reconciliation semantics также подтверждена непосредственно: `DAY_PAYMENTS` и `DAY_PAYMENTS_FROM_BANK` формируются в конце operational day, а `INVOICE_PAY_APUS` имеет параметризованный период генерации (30 секунд в source example/state). Это существенно сужает `Q-OPS-001`, но не задает current clock boundary или owner settlement execution.
+
+Debt-notification objects повторно проверены: source по-прежнему дает только model/type fragments без operation/service/direction. `Q-INT-001` сохраняется открытым.

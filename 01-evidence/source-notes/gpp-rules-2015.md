@@ -43,3 +43,8 @@ Source не используется как подтверждение current p
 ## Sensitive-data handling
 
 Raw source содержит concrete operational host/path/command examples. Они просмотрены в объеме, необходимом для понимания procedures, но не копируются в canonical evidence, facts, diagrams или analysis, поскольку точные значения не нужны для подтверждения архитектурного смысла.
+
+
+## Повторный pass - 17.08.2026
+
+Rules 2015 остаются наиболее подробным source для historical operating schedule, access roles, backup и DR procedures. Более поздние 2025 sources подтверждают сохранение operational-day/day-end settlement concern, но не подтверждают точные `00:00-24:00` и next-business-day clock windows 2015, current backup technology/retention, current DR topology/RTO/RPO или certificate-based authentication. Поэтому `Q-OPS-001`, `Q-SEC-001`, `Q-BCK-001` и `Q-DR-001` не закрываются историческим документом.

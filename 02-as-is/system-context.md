@@ -4,7 +4,7 @@
 
 Контекст построен по published public baseline, повторно проверенному public-source family `gpp-public-bootstrap`, source family `gpp-functional-specification-2023` и историческому нормативно-operational source `SRC-OPS-001` от 13.08.2015.
 
-Дополнительно учтены руководство пользователя BDA `SRC-BDA-001` от 10.03.2025 и техническая спецификация `SRC-BDA-002` версии 0.0.2 от 02.04.2025.
+Дополнительно учтены интеграционный контракт `SRC-INT-001` версии 1.16 от 18.08.2025, руководство пользователя BDA `SRC-BDA-001` от 10.03.2025, техническая спецификация `SRC-BDA-002` версии 0.0.2 от 02.04.2025 и повторно проверенные public sources CBA/SINAM.
 
 `SRC-OPS-001` используется для ролей, access/administration rules, operational day semantics, backup/DR expectations и historical deployment/technology context. Он не считается доказательством current infrastructure или current technology stack.
 
@@ -69,7 +69,7 @@ GPP является единой платежной платформой для
 ### Внешние платежные / расчетные системы
 
 - `XÖHKS` - взаимодействие через `LVPCSS` и MT150/152 files от `Loader Generators`; вариант `XÖHK` в source нормализован как опечатка по stakeholder confirmation;
-- `Instant Payment System` - взаимодействие через `IPSClient`;
+- `Instant Payment System / AÖS` - функциональная спецификация 2023 связывает его с `IPSClient`, а текущая страница CBA отдельно подтверждает GPP↔IPS integration на system level; current continuity внутреннего имени/component `IPSClient` не доказана;
 - payment authorization centers - взаимодействие через `PacPmtProc`.
 
 ### Внешние системы идентификации
@@ -114,7 +114,7 @@ Management tools дополнительно показывают participant org
 
 Для аутентификации подтверждены вход по `username/password`, JWT + authorities и хранение паролей в виде bcrypt-хэшей; точный механизм передачи и жизненный цикл JWT остаются в `Q-BDA-003`. REST-модели мониторинга не имеют документированного сопоставления с физическими таблицами BDA, поэтому источники данных остаются `UNKNOWN`, а не приписываются основному хранилищу BDA.
 
-Точная временная граница операционного дня и расчетные окна по-прежнему остаются `Q-OPS-001`.
+Integration contract 1.16 дополнительно подтверждает формирование `DAY_PAYMENTS` и `DAY_PAYMENTS_FROM_BANK` в конце operational day, а BDA показывает settlement-monitoring progression. Поэтому в `Q-OPS-001` остаются прежде всего точная текущая clock boundary/windows и ownership исполнения settlement/XÖHKS stages, а не само существование day-end semantics.
 
 
 ## Исторический нормативно-операционный контекст 2015

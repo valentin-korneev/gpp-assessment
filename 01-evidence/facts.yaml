@@ -739,6 +739,177 @@ facts:
     source_date: '2025-04-02'
     currentness: current-at-source-date
   status: active
+- id: FACT-GPP-060
+  area: identification-management
+  statement_ru: На дату functional specification 2023 GPP одновременно имеет централизованное управление identification types
+    (SC/IAMAS/AVIS, ACC/DOC/MIX) и organization-level properties, управляющие последующим debt lookup после IAMAS/AVIS.
+  evidence:
+  - EV-FS-026
+  - EV-FS-020
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+  notes_ru: Reviewer comment рекомендует связывать такие свойства с конкретным identification type; это редакционное предложение,
+    а не подтверждение реализованной связи.
+- id: FACT-GPP-061
+  area: payment-rules
+  statement_ru: 'В functional specification 2023 для MaxPaymentAmount документирован precedence: сначала учитывается лимит
+    из invoice/debt response, затем лимит организации GPP, и применяется меньшее ограничение.'
+  evidence:
+  - EV-FS-027
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+- id: FACT-GPP-062
+  area: settlement-reporting
+  statement_ru: IncludeServiceCode управляет включением ServiceCode в BANK_INV_PAY_APUS/DAY_PAYMENTS и выбором budgetcode/budgetlevelcode
+    против spBudgetLevelCode для MT output.
+  evidence:
+  - EV-FS-028
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+  notes_ru: Предложение reviewer установить default=true не считается подтверждением фактического default.
+- id: FACT-GPP-063
+  area: organization-configuration
+  statement_ru: VirtualBranchID предназначен для привязки счета организации, у которой нет реального филиала, к виртуальному
+    филиалу.
+  evidence:
+  - EV-FS-029
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+  notes_ru: Reviewer предлагает отказаться от property; current implementation status не подтвержден.
+- id: FACT-GPP-064
+  area: ips-integration
+  statement_ru: В configuration model 2023 IpsTransitAccountConsent изменяет TopUp authentication для debtor banks, требующих
+    consent, а SignedPain001 задает отдельные варианты юридического payment flow для XÖHKS и IPS/AÖS с или без payer signature.
+  evidence:
+  - EV-FS-030
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+- id: FACT-GPP-065
+  area: fees-tax
+  statement_ru: В specification 2023 IgnoreServiceFee исключает организацию из обработки Service_Fee generator, а IgnoreVatCalculationOnReport
+    используется в AdminConsole reports для исключения VAT amount из payment amount.
+  evidence:
+  - EV-FS-031
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+  notes_ru: Полная report/invoice semantics и current runtime behavior остаются не полностью подтверждены.
+- id: FACT-GPP-066
+  area: psp-integration
+  statement_ru: supported_psp_code_list задает PSP, которым разрешено отправлять payment request от имени банка; это не acquiring-bank
+    relationship.
+  evidence:
+  - EV-FS-032
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+- id: FACT-GPP-067
+  area: invoice-state
+  statement_ru: В specification 2023 Whole_payment=true означает перевод statement в Filed после полной оплаты задолженности
+    и возврат already-paid из GPP DB при повторной попытке без повторного запроса service company; прежний invoice-archive
+    concept помечен к удалению в пользу Whole_payment.
+  evidence:
+  - EV-FS-034
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2023-05-05'
+    currentness: current-at-source-date
+  status: active
+  notes_ru: Редакционная пометка о замене concept не доказывает, что migration уже была внедрена в runtime.
+- id: FACT-GPP-068
+  area: integration-contract-evolution
+  statement_ru: Integration contract 2025 содержит generic и channel-specific maximum payable amounts для invoice и продолжает
+    включать penalty/discount fields.
+  evidence:
+  - EV-INT-019
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2025-08-18'
+    currentness: current-at-source-date
+  status: active
+  notes_ru: Поля контракта не доказывают фактическое использование discount/penalty или precedence между channel-specific
+    лимитами и organization configuration.
+- id: FACT-GPP-069
+  area: operational-day
+  statement_ru: Контракт сверки 2025 привязывает DAY_PAYMENTS и DAY_PAYMENTS_FROM_BANK к концу операционного дня GPP, тогда
+    как INVOICE_PAY_APUS отправляется периодически; bank-credit information должна сверяться service organization с информацией
+    GPP.
+  evidence:
+  - EV-INT-020
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2025-08-18'
+    currentness: current-at-source-date
+  status: active
+- id: FACT-GPP-070
+  area: bda-process-catalog
+  statement_ru: BDA technical specification 2025 документирует набор process types DAY_PAYMENTS, DAY_PAYMENTS_FOR_PAC, DAY_PAYMENTS_FROM_BANK,
+    MT150, MT152, SERVICE_FEE, PAYMENT_SUMMARY_FOR_BENEFICIARY и RESEND и хранит команду запуска процесса в BDA.PROCESS.
+  evidence:
+  - EV-BDA-027
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2025-04-02'
+    currentness: current-at-source-date
+  status: active
+  notes_ru: Полный authoritative command/parameter catalog не доказан; MX semantics противоречива в том же source.
+- id: FACT-GPP-071
+  area: settlement-monitoring
+  statement_ru: BDA 2025 моделирует платежи между предыдущим и текущим операционными днями как последовательность состояний
+    от planned и bank stage через clearing до settlement completed и organization notified.
+  evidence:
+  - EV-BDA-029
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2025-04-02'
+    currentness: current-at-source-date
+  status: active
+  notes_ru: Модель мониторинга не доказывает, что BDA владеет исполнением всех стадий.
+- id: FACT-GPP-072
+  area: ips-integration-public
+  statement_ru: На текущем сайте CBA GPP описан как интегрированный с IPS, через который доступны платежи более чем за 1000
+    услуг организаций GPP.
+  evidence:
+  - EV-PUB-012
+  confidence: confirmed
+  temporal_scope:
+    source_date: null
+    currentness: unverified
+  status: active
+  notes_ru: Это сильный current-site signal системной интеграции, но страница не имеет явной даты редакции и не подтверждает,
+    что внутренний компонент по-прежнему называется IPSClient.
+- id: FACT-GPP-073
+  area: vendor-history
+  statement_ru: SINAM self-report по проекту AniPay для CBA указывает период 2022-2024 и включает интеграцию GPP как одно
+    из требований проекта.
+  evidence:
+  - EV-PUB-013
+  confidence: confirmed
+  temporal_scope:
+    source_date: 2022-2024
+    currentness: historical
+  status: active
+  notes_ru: Факт подтверждает участие SINAM в соседнем IPS/AniPay контуре с GPP integration, но не текущую роль в сопровождении
+    или эксплуатации GPP.
 inferences:
 - id: INF-ARCH-001
   area: architecture
@@ -965,3 +1136,39 @@ inferences:
   status: active
   limitations_ru: Отсутствие отображения в спецификации не доказывает физическое отсутствие таблиц/представлений; точные
     поставщики остаются UNKNOWN.
+- id: INF-ARCH-013
+  area: bda-boundary
+  statement_ru: 'BDA лучше моделируется как administrative/job-orchestration control plane для batch/settlement-related процессов,
+    а не как центральный online payment processor: процесс хранит executable command, catalog включает day-payment/MT/service-fee/resend
+    jobs, запуск асинхронный, а BDA наблюдает XÖHKS и settlement states.'
+  based_on_facts:
+  - FACT-GPP-053
+  - FACT-GPP-070
+  - FACT-GPP-071
+  evidence:
+  - EV-BDA-016
+  - EV-BDA-027
+  - EV-BDA-029
+  confidence: supported
+  status: active
+  limitations_ru: Источник не идентифицирует command-runner как отдельный component и не доказывает ownership core payment
+    processing; deployment boundary BDA остается Q-BDA-001.
+- id: INF-ARCH-014
+  area: settlement-integration
+  statement_ru: 'Cross-source model поддерживает сосуществование как минимум двух разных settlement/payment-path concerns:
+    end-of-operational-day reconciliation/XÖHKS-oriented processing и отдельный instant IPS/AÖS path. IPS нельзя трактовать
+    как простую замену XÖHKS.'
+  based_on_facts:
+  - FACT-GPP-024
+  - FACT-GPP-064
+  - FACT-GPP-069
+  - FACT-GPP-072
+  evidence:
+  - EV-OPS-004
+  - EV-FS-030
+  - EV-INT-020
+  - EV-PUB-012
+  confidence: supported
+  status: active
+  limitations_ru: Не установлено, используют ли оба path общий core ledger/state, как выбирается route для всех типов платежей
+    и какова current component topology.

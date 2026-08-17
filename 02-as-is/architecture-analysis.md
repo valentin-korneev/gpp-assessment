@@ -324,3 +324,47 @@ Section 4 определяет `PAYMENT_DATA_AGGR_DAY` и `PAYMENT_DATA_AGGR_LAS
 То же относится к XML-артефакту процесса: операции экспорта и просмотра подробностей подтверждены, но физическое хранение не документировано.
 
 Полная трассировка сохранена в `bda-cross-layer-model.yaml`.
+
+
+## 17. Повторный cross-source pass: уточненная целостная AS-IS картина
+
+Повторная сверка всех предоставленных source families и актуальных публичных материалов не меняет system boundary, но заметно повышает точность нескольких внутренних областей. Главное изменение состоит не в появлении нового названного «core» component, а в лучшем разделении **каналов, integration contracts, configuration/control, operational-day orchestration, settlement/reconciliation и instant-payment path**.
+
+### 17.1. Логические плоскости системы
+
+На текущем evidence level GPP рационально моделировать следующими логическими плоскостями, не превращая их автоматически в deployable components:
+
+1. **Access/payment channels.** Собственные `gpp.az` и mobile app superseded с 10.01.2024; дальнейший доступ подтвержден через интегрированные банковские и небанковские PSP channels (`FACT-GPP-003/004`).
+2. **Integration/service layer.** `PaymentService`/`WebPortalVC` и contract family 2025 описывают двунаправленный SOAP exchange с service organizations и отдельный HTTP/XML reconciliation path (`IF-GPP-008..011`).
+3. **Core online payment/state area.** Существование централизованной обработки payment/invoice/state подтверждено на уровне системы, но named component, deployment topology и current physical persistence по-прежнему не определены (`Q-ARCH-001`, `Q-DB-001`).
+4. **Configuration/control plane.** `AdminConsole` и organization/service configuration управляют identification, limits, PSP delegation, fee/reporting, payment-state и routing semantics (`INF-ARCH-001/002`, `FACT-GPP-060..067`).
+5. **Operational-day job/orchestration plane.** BDA хранит process definitions, process commands, parameters, templates, operational-day state, execution state и monitoring (`FACT-GPP-049..059`, `FACT-GPP-070/071`).
+6. **Settlement/reconciliation plane.** Источники 2015, 2023 и 2025 последовательно показывают day-end/next-business-day reporting and settlement concerns, включая XÖHKS, MT flows, DAY_PAYMENTS и bank-account-credit reconciliation (`FACT-GPP-024`, `FACT-GPP-069/071`).
+7. **Instant-payment path.** AÖS/IPS является отдельным real-time payment path; functional configuration 2023 различает XÖHKS и AÖS scenarios, а current CBA site подтверждает system-level GPP integration with IPS (`FACT-GPP-064/072`). Это не позволяет отождествить current internal implementation с named `IPSClient` 2023 года.
+8. **Historical persistence plane.** `CF Transaction DB` и `APUS Reporting DB` являются документированным physical baseline 2015, но не current production schema (`Q-DB-001`).
+
+Эта структура является **архитектурной декомпозицией**, а не finding/recommendation и не утверждением о количестве runtime services.
+
+### 17.2. BDA как administrative/job-orchestration control plane
+
+Повторная сверка усиливает `INF-ARCH-013`: BDA значительно лучше объясняется как административная плоскость управления operational-day jobs, чем как core online payment processor. Основание: BDA хранит `PROCESS_RUN_COMMAND`, имеет process types для day-payment, MT, service-fee, beneficiary-summary и resend workloads, поддерживает template/day sequencing, asynchronous process start и отдельный monitoring lifecycle. При этом source не показывает, что BDA владеет online payment state machine или settlement engine.
+
+Точный command runner/deployment boundary остается неизвестным. Дополнительно выявлена source inconsistency `CONTR-BDA-006`: version history 0.0.2 говорит о добавлении MX processes, но опубликованный TYPE/PROCESS_TYPE list их не перечисляет, хотя `APPLICATION_TYPE` отдельно ссылается на process type `mx`. Поэтому полный каталог и execution semantics остаются `Q-BDA-002`.
+
+### 17.3. XÖHKS и IPS/AÖS: coexistence вместо replacement
+
+`INF-ARCH-014` теперь поддерживается несколькими независимыми слоями evidence. Functional source 2023 прямо различает XÖHKS и AÖS payment scenarios в `SignedPain001`, а `IpsTransitAccountConsent` описывает consent-authentication для TopUp по AÖS-related flow. BDA 2025 продолжает мониторить XÖHKS и day-boundary settlement states. Integration contract 2025 фиксирует `DAY_PAYMENTS` и `DAY_PAYMENTS_FROM_BANK` в конце operational day. Публичная страница CBA одновременно описывает GPP как интегрированный с IPS.
+
+Следовательно, текущая canonical interpretation не трактует IPS как простую замену XÖHKS: это разные payment/settlement concerns с возможным пересечением в общей GPP state/configuration area. Точный routing и shared-core ownership остаются `UNKNOWN`.
+
+### 17.4. Что повторный pass закрыл на уровне source-date
+
+Четыре ранее открытых вопроса теперь имеют достаточный direct evidence для resolution на дату соответствующего source: `Q-ID-001`, `Q-PAY-001`, `Q-IPS-001`, `Q-PSP-001`. Это не повышает их semantics автоматически до current 2026; component/runtime currentness остается в `Q-CUR-001` и связанных current questions.
+
+Другие вопросы существенно сужены: `Q-CFG-001`, `Q-SETTLE-001`, `Q-FEE-001`, `Q-PAY-002`, `Q-PAY-003`, `Q-BIN-001`, `Q-OPS-001`, `Q-BDA-002`. Для channel-specific payment limits добавлен отдельный `Q-PAY-004`, поскольку contract 1.13+ расширяет invoice maximums, но не задает их полный precedence относительно organization-level `MaxPaymentAmount`.
+
+### 17.5. Остаточный AS-IS uncertainty perimeter
+
+После повторной проверки наиболее существенные пробелы находятся уже не в общей business semantics, а в **current physical/operational implementation**: named core processing/persistence components; production status modules 2023; current CF/APUS or successor database model; current auth/PKI/SoD; current backup/DR; exact operational-day clock windows; authoritative WSDL/runtime endpoints; BDA deployment/runner and full MX command catalog; точная deployed JWT transport/lifecycle.
+
+Эти пробелы не заполняются историческими данными 2015 года, reviewer comments или реконструированными contracts. Они должны оставаться explicit `UNKNOWN` либо быть закрыты новыми operational/deployment artifacts.

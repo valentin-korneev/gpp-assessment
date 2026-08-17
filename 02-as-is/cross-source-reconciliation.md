@@ -20,13 +20,13 @@ Temporal labels используются в смысле `ASSESSMENT_PROTOCOL.md
 | System-level назначение и эксплуатация | Нормативно описана эксплуатация GPP и проведение операций (`FACT-GPP-022..027`) | GPP описан как единая платформа приема, обработки и расчетов (`FACT-GPP-008`, `CAP-ASIS-004`) | Закрыты только собственные `gpp.az` и mobile app (`FACT-GPP-003/004`) | Подтверждена system-level обработка 114,4 млн платежей (`FACT-GPP-020`) | GPP как система подтверждено функционировал в 2025; currentness конкретных modules остается `Q-CUR-001` |
 | Пользовательские/payment channels | Платежи регистрировались через финансовые service points участников в рамках operational day (`FACT-GPP-024`) | WebPortal, mobile apps, TellerWP, PaymentService и другие modules перечислены как элементы infrastructure (`FACT-GPP-008`) | `gpp.az` и mobile app discontinued; платежи доступны через интегрированные bank/non-bank PSP channels (`FACT-GPP-003/004`) | System-level operation подтверждена, channel decomposition не раскрыта | Current digital access через внешние интегрированные channels подтвержден; status TellerWP/PaymentService/WebPortalVC и др. после 2023 - `UNKNOWN` |
 | Administrative roles и control plane | Раздельные system/security/certificate/participant administrator и operator roles; certificate + username/password access (`FACT-GPP-022/023`) | AdminConsole roles: CBA system administrator, participant administrator, bank security administrator, bank controller, KXM administrator; UI содержит permissions и dual authorization (`FACT-GPP-009/011`) | Нет релевантного evidence | Нет релевантного evidence | Administrative/security domain сохраняется как архитектурно значимый, но current role mapping и authentication scheme - `Q-SEC-001` |
-| Operational day и settlement cadence | `00:00-24:00`; next-business-day reporting и settlement через XÖHKS по фиксированным окнам (`FACT-GPP-024`) | XÖHKS представлен через Loader Generators/LVPCSS, отдельно появился IPSClient (`FACT-GPP-015`) | Нет schedule evidence | Нет schedule evidence | Exact current day boundary, windows и orchestration - `Q-OPS-001`; наличие XÖHKS integration подтверждено только `current-at-source-date` 2023 |
+| Operational day и settlement cadence | `00:00-24:00`; next-business-day reporting и settlement через XÖHKS по фиксированным окнам (`FACT-GPP-024`) | XÖHKS представлен через Loader Generators/LVPCSS, отдельно появился IPSClient (`FACT-GPP-015`) | Нет schedule evidence | Contract 1.16 подтверждает `DAY_PAYMENTS`/`DAY_PAYMENTS_FROM_BANK` в конце operational day; BDA показывает XÖHKS monitoring и settlement-state progression (`FACT-GPP-069/071`) | Exact current clock boundary/windows и execution ownership остаются `Q-OPS-001`; сама day-end settlement/reconciliation semantics подтверждена позднее 2015 года |
 | Payment processing lifecycle | Регистрация платежа, participant information exchange, next-day settlement/reporting (`FACT-GPP-024`) | Единая платформа приема/обработки/расчетов; PacPmtProc authorization; Loader/LVPCSS/IPSClient downstream integration (`FACT-GPP-008/015/018`) | Own web/mobile channels прекращены, а платежи направлены в integrated PSP services (`FACT-GPP-003/004`) | System-level volume подтверждает продолжающуюся обработку | Логические стадии payment acceptance/processing и downstream reporting/settlement подтверждены cross-source, но current component orchestration и timing неизвестны (`Q-ARCH-001`, `Q-OPS-001`) |
 | Persistence/data state | Operational source подтверждает Oracle persistence/replication, а `SRC-DB-001` отдельно документирует historical CF/APUS physical schema (`FACT-GPP-025..027`, `FACT-GPP-035..040`) | Есть configuration/payment-state semantics, но current physical DB/core processing component не назван (`FACT-GPP-017/018`) | Нет physical persistence evidence | Integration contract повторяет часть message/domain vocabulary, но не physical schema | Historical CF/APUS model хранится отдельно; current physical persistence/core processing topology остается `Q-ARCH-001`/`Q-DB-001` |
 | Backup/archive | Формализованы Oracle/TSM backup, archive и offline media procedures (`FACT-GPP-025`) | В текущем canonical evidence 2023 отдельная backup model не описана | Нет evidence | Нет evidence | Только historical semantics; current backup/retention/restore - `Q-BCK-001` |
 | DR/deployment | Three-site Main/Alternative/Backup topology, cluster failover и remote DR/failback (`FACT-GPP-026`) | Functional module list не дает physical deployment topology (`FACT-GPP-008`) | Нет evidence | Нет evidence | Current DR/deployment topology и RTO/RPO - `Q-DR-001`; 2015 topology остается отдельной historical reconstruction |
 | Technology stack | UNIX/Windows, Oracle/ExaData, WebLogic, Tomcat, Active MQ, Apache, TSM (`FACT-GPP-027`) | Specification перечисляет functional/infrastructure modules, но не подтверждает continuity platform technologies 2015 | Нет evidence | Нет evidence | Ни одна technology 2015 не считается current без дополнительного evidence |
-| External identification | В `SRC-OPS-001` IAMAS/AVIS не являются ключевым подтверждением текущей integration model | Identification configuration включает SC/IAMAS/AVIS (`CAP-ASIS-007`) | Нет релевантного dated evidence | Нет нового evidence | Недатированная public page подтверждает внешнюю природу IAMAS/AVIS (`FACT-GPP-019`, currentness `unverified`); current contracts/component ownership - `UNKNOWN` |
+| External identification | В `SRC-OPS-001` IAMAS/AVIS не являются ключевым подтверждением текущей integration model | Централизованное управление identification types включает SC/IAMAS/AVIS и ACC/DOC/MIX; organization properties отдельно управляют post-IAMAS/AVIS debt lookup (`FACT-GPP-060`) | Нет релевантного dated evidence | Contract 2025 подтверждает IAMAS/AVIS как external identification calls, но protocol/component ownership не раскрывает | `Q-ID-001` закрыт на source-date; current contract/component ownership остается `UNKNOWN` |
 
 ## 2.1. Уточнение модели операционного дня по руководству BDA от 10.03.2025
 
@@ -100,8 +100,8 @@ Cross-source evidence показывает устойчивость самого
 | 4. Core processing / payment state | GPP регистрирует операции; physical core не выделен в rules | GPP принимает/обрабатывает платежи; service config управляет partial/full/advance payment state (`CAP-ASIS-004`, `FACT-GPP-018`) | System-level processing подтверждено в 2025 (`FACT-GPP-020`), physical core/persistence - `Q-ARCH-001` |
 | 5. Participant information/reporting | Payment information передается участникам; next-day summaries формализованы (`FACT-GPP-024`) | Loader Generators формирует participant reports (`FACT-GPP-015`) | Public page также говорит о real-time participant information и end-of-day reconciliation, но currentness `unverified` (`FACT-GPP-006`) |
 | 6. Clearing/settlement | Next-business-day settlement через XÖHKS (`FACT-GPP-024`) | Loader Generators формирует MT150/152 для XÖHKS; LVPCSS взаимодействует с XÖHKS (`FACT-GPP-015`, `IF-GPP-005/006`) | Current schedule и exact orchestration - `Q-OPS-001`/`Q-SETTLE-001` |
-| 7. Instant-payment integration | Не подтверждена extracted historical model | IPSClient взаимодействует с Instant Payment System (`FACT-GPP-015`, `IF-GPP-007`) | Нельзя считать IPS replacement или successor XÖHKS; scope/flow остается `Q-IPS-001` |
-| 8. Reconciliation / account-credit information | После settlement участникам передается информация о credited funds (`FACT-GPP-024`) | Reporting/export capability присутствует (`CAP-ASIS-012`) | Current reconciliation timing/mechanism не подтвержден |
+| 7. Instant-payment integration | Не подтверждена extracted historical model | IPSClient взаимодействует с Instant Payment System; `SignedPain001`/`IpsTransitAccountConsent` различают AÖS/XÖHKS и consent/signature scenarios (`FACT-GPP-015/064`) | Current CBA site подтверждает system-level GPP↔IPS integration (`FACT-GPP-072`); IPS не моделируется как replacement XÖHKS, а exact internal component/routing остается `Q-CUR-001`/`Q-ARCH-001` |
+| 8. Reconciliation / account-credit information | После settlement участникам передается информация о credited funds (`FACT-GPP-024`) | Reporting/export capability присутствует (`CAP-ASIS-012`) | Contract 1.16 подтверждает `INVOICE_PAY_APUS` по параметризованному schedule и `DAY_PAYMENTS`/`DAY_PAYMENTS_FROM_BANK` в конце operational day, включая reconciliation bank-credit data (`FACT-GPP-069`) |
 
 ### 5.2. Архитектурный вывод
 
@@ -118,12 +118,14 @@ Cross-source evidence поддерживает логическое раздел
 - Следствие: XÖHKS является устойчивым integration concern как минимум между source dates 2015 и 2023 (`INF-ARCH-005`).
 - Ограничение: это не подтверждает current 2026 integration, не доказывает неизменность contract, settlement windows или orchestration.
 
-### IPS
+### IPS / AÖS
 
 - В extracted 2015 model Instant Payment System не зафиксирован.
 - В 2023 появляется отдельный IPSClient (`FACT-GPP-015`, `IF-GPP-007`).
-- Нет evidence, что IPS заменяет XÖHKS, выполняет ту же settlement роль или относится к тому же lifecycle stage.
-- Поэтому `Q-IPS-001` остается открытым, а XÖHKS и IPS моделируются как разные external integration concerns.
+- Тот же functional source различает XÖHKS и AÖS scenarios в `SignedPain001`, а `IpsTransitAccountConsent` задает consent-authentication для TopUp flows (`FACT-GPP-064`). Поэтому исходный semantic вопрос `Q-IPS-001` закрыт на дату source.
+- Текущий сайт CBA прямо описывает GPP как интегрированный с IPS и доступность через IPS более 1000 GPP-connected services (`FACT-GPP-072`).
+- При этом evidence не доказывает, что внутренний current component все еще называется `IPSClient`, и не дает полной routing/orchestration map. Поэтому component-level currentness остается `Q-CUR-001`, а core/routing ownership - `Q-ARCH-001`.
+- Cross-source interpretation закреплена как `INF-ARCH-014`: XÖHKS-oriented day-end settlement concern и real-time IPS/AÖS path сосуществуют; replacement relationship не предполагается.
 
 ## 7. Currentness / confidence view
 
@@ -131,6 +133,8 @@ Cross-source evidence поддерживает логическое раздел
 
 - `FACT-GPP-003/004` - с 10.01.2024 собственные `gpp.az` и mobile app прекращены; integrated bank/non-bank PSP channels остаются путем доступа.
 - `FACT-GPP-020` / `CAP-ASIS-001` - system-level payment processing через GPP подтверждено за 2025 год.
+- `FACT-GPP-069/071` - integration contract и BDA 2025 подтверждают day-end reconciliation semantics, XÖHKS monitoring и settlement-state progression.
+- `FACT-GPP-072` - текущая CBA IPS page дает сильный current-site signal GPP↔IPS integration, без переноса currentness на внутреннее имя `IPSClient`.
 
 ### 7.2. `current-at-source-date` 05.05.2023
 
@@ -161,7 +165,7 @@ Cross-source evidence поддерживает логическое раздел
 
 - физический component/topology основной обработки платежей и persistence - `Q-ARCH-001`;
 - current status большинства modules 2023 - `Q-CUR-001`;
-- расписание операционного дня/settlement - `Q-OPS-001`;
+- exact clock boundaries/settlement execution ownership - `Q-OPS-001`;
 - аутентификация/авторизация/SoD - `Q-SEC-001`;
 - резервное копирование/retention/RPO - `Q-BCK-001`;
 - топология DR, RTO/RPO и failover - `Q-DR-001`;
@@ -236,3 +240,16 @@ Scope:
 Физическая модель BDA 2025 является отдельным более поздним техническим подтверждением и **не** заменяет автоматически историческую модель `CF/APUS` 2015 года: это разные области. Нельзя делать вывод, что таблицы BDA представляют всю текущую модель данных GPP.
 
 Аутентификация BDA подтверждает локальный контур JWT/authority и хранение паролей в виде bcrypt-хэшей, но не закрывает общий `Q-SEC-001` и не доказывает общесистемную модель идентификации.
+
+
+## 11. Повторный question-driven pass по всем источникам
+
+Повторная проверка была выполнена не только по новым keywords, а по каждому существенному открытому question cluster. Результат показывает, что часть прежних UNKNOWN была вызвана не отсутствием данных вообще, а тем, что semantics находилась в reviewer-enriched configuration tables и не была связана с другими source layers.
+
+Прямым source evidence закрыты на дату specification: `Q-ID-001` (централизованные identification types сосуществуют с organization-level post-identification properties), `Q-PAY-001` (берется меньшее из invoice maximum и organization `MaxPaymentAmount`), `Q-IPS-001` (consent/TopUp и signed pain.001 scenarios), `Q-PSP-001` (`supported_psp_code_list` как delegation allow-list, не acquiring relationship).
+
+Существенно сужены, но не закрыты current questions по `VirtualBranchID`, `IncludeServiceCode`, fee/VAT reporting, `Whole_payment`, discount/penalty, BIN administration, operational-day timing и BDA process catalog. Для новых channel-specific maxima из integration contract 1.13+ введен `Q-PAY-004`.
+
+Отдельно повторный pass **не нашел** достаточного evidence для current core deployment/persistence (`Q-ARCH-001`, `Q-DB-001`), current auth/SoD (`Q-SEC-001`), backup/DR (`Q-BCK-001`, `Q-DR-001`), debt-notification operation binding (`Q-INT-001`), authoritative WSDL/runtime contract (`Q-INT-002`), BDA-to-AdminConsole deployment mapping (`Q-BDA-001`) и complete MX/process-command catalog (`Q-BDA-002`). Эти gaps сохраняются как explicit UNKNOWN, а не заполняются extrapolation из 2015/2023 sources.
+
+В BDA дополнительно зафиксирована `CONTR-BDA-006`: change history заявляет MX processes, но enumerated process list их не содержит, при том что `APPLICATION_TYPE` отдельно ссылается на `mx`. Это является source inconsistency, а не основанием реконструировать отсутствующие process names.
