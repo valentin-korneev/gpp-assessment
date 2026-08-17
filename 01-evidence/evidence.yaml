@@ -86,6 +86,43 @@ evidence:
   statement_ru: Общая страница GPP на сайте CBA утверждает, что некоторые платежи могут выполняться через официальный Internet
     resource GPP, что требует temporal reconciliation с уведомлением 2024 года.
 
+- id: EV-PUB-009
+  source: SRC-PUB-001
+  section: Hökumət Ödəniş Portalı (HÖP) - Azerbaijani original
+  locator:
+    type: section
+    value: identification-systems
+  evidence_type: text
+  provenance: documented
+  statement_ru: Азербайджанская версия страницы CBA явно называет IAMAS межведомственной автоматизированной
+    информационно-поисковой системой Министерства внутренних дел, используемой для идентификации физических лиц,
+    а AVIS - автоматизированной налоговой информационной системой Министерства налогов, используемой для идентификации
+    индивидуальных предпринимателей и юридических лиц. Текущая организационная принадлежность систем отдельно не подтверждена.
+
+- id: EV-PUB-010
+  source: SRC-PUB-005
+  page: 8
+  section: 2.4. Digər komponentlər
+  locator:
+    type: section
+    value: gpp-2025-processing-volume-and-count
+  evidence_type: text
+  provenance: documented
+  statement_ru: В обзоре цифровых платежей за 2025 год CBA сообщает, что через GPP выполнено 114,4 млн платежей
+    на сумму 8,6 млрд манатов; объем платежей вырос на 6,6% к 2024 году, а объем безналичных платежей - на 9,3%.
+
+- id: EV-PUB-011
+  source: SRC-PUB-001
+  section: The Government Payment Portal (GPP)
+  locator:
+    type: section
+    value: centralized-bank-requisites-and-classifier
+  evidence_type: text
+  provenance: documented
+  statement_ru: CBA описывает централизованное хранение в базе данных портала банковских реквизитов интегрированных
+    организаций, а также кодов уровня бюджета, классификации бюджетных доходов и других реквизитов в виде централизованного
+    классификатора с автоматическим добавлением этих данных в платежные транзакции; текущая реализация отдельно не подтверждена.
+
 - id: EV-FS-001
   source: SRC-FS-002
   page: 4

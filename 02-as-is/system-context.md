@@ -2,9 +2,9 @@
 
 ## Evidence basis
 
-Контекст построен по published public baseline и source family `gpp-functional-specification-2023`.
+Контекст построен по published public baseline, повторно проверенному public-source family `gpp-public-bootstrap` и source family `gpp-functional-specification-2023`.
 
-Функциональная спецификация описывает состояние на 05.05.2023. Поэтому все technical elements, кроме отдельно подтвержденных более поздними sources, имеют currentness `current-at-source-date` или `unverified`.
+Функциональная спецификация описывает состояние на 05.05.2023. Поэтому component-level technical elements, кроме отдельно подтвержденных более поздними sources, имеют currentness `current-at-source-date` или `unverified`. Официальный обзор цифровых платежей CBA за 2025 год подтверждает, что GPP как system-level payment-processing platform продолжал фактически обрабатывать платежи в 2025 году, но не подтверждает currentness конкретных modules из спецификации 2023 года.
 
 ## Назначение
 
@@ -67,23 +67,24 @@ GPP является единой платежной платформой для
 - `Instant Payment System` - взаимодействие через `IPSClient`;
 - payment authorization centers - взаимодействие через `PacPmtProc`.
 
-### External identification systems - working boundary
+### External identification systems
 
-- `IAMAS`;
-- `AVIS`.
+- `IAMAS / İAMAS` - CBA раскрывает как межведомственную автоматизированную информационно-поисковую систему Министерства внутренних дел;
+- `AVIS / AVİS` - CBA раскрывает как автоматизированную налоговую информационную систему и связывает с налоговым ведомством.
 
-Спецификация использует IAMAS/AVIS как identification `Source` и описывает получение от них данных. По согласованной рабочей классификации они считаются внешними системами до получения обратного evidence (`ASM-EXT-001`). Ответственный internal GPP component и interface contract пока не установлены, поэтому отдельные `IF-*` для них преждевременно не создаются.
+Functional specification использует IAMAS/AVIS как identification `Source` и описывает получение от них данных. Повторный public-source pass подтвердил, что это внешние по отношению к GPP государственные информационные системы (`FACT-GPP-019`), поэтому `ASM-EXT-001` superseded. При этом ответственный internal GPP component, protocol и interface contract по-прежнему не установлены, поэтому отдельные `IF-*` для них преждевременно не создаются. Текущая организационная принадлежность систем отдельно не подтверждена.
 
 ## Temporal reconciliation каналов
 
-Functional specification 2023 описывает `WebPortal` и mobile applications как infrastructure elements. Более позднее official CBA notice подтверждает прекращение `gpp.az` и mobile application с 10.01.2024.
+Functional specification 2023 описывает `WebPortal` и mobile applications как infrastructure elements. Более позднее official CBA notice подтверждает прекращение `gpp.az` и mobile application с 10.01.2024. Официальный CBA review за 2025 год при этом фиксирует 114,4 млн платежей через GPP на сумму 8,6 млрд манатов.
 
 Поэтому:
 
 - `WebPortal` и mobile applications сохраняются в historical architecture;
 - они не отображаются как действующие current AS-IS channels;
-- текущий status `MobilApi` не выводится автоматически из закрытия client application;
-- действующий user access подтвержден через integrated bank/non-bank PSP internet/mobile channels.
+- прекращение first-party web/mobile channels не означает прекращение GPP как payment-processing platform: system-level эксплуатация подтверждена за 2025 год;
+- текущий status `MobilApi` не выводится автоматически ни из закрытия client application, ни из system-level activity GPP;
+- действующий user access после закрытия first-party channels подтвержден через integrated bank/non-bank PSP internet/mobile channels.
 
 ## Administrative context
 

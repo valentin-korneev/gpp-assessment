@@ -9,6 +9,7 @@ source_families:
   - SRC-PUB-002
   - SRC-PUB-003
   - SRC-PUB-004
+  - SRC-PUB-005
 
 - id: gpp-functional-specification-2023
   title_ru: Функциональное описание GPP - семейство рабочих редакций
@@ -45,7 +46,8 @@ sources:
   retrieved_at: 2026-08-17
   notes_ru: Страница доступна на текущем сайте CBA, но содержит упоминание официального Internet resource GPP, которое
     конфликтует по времени с отдельным уведомлением о прекращении gpp.az с 10.01.2024. Поэтому технические утверждения
-    страницы не считаются автоматически current production state.
+    страницы не считаются автоматически current production state. Source registration охватывает локализованные AZ/EN
+    варианты той же страницы; AZ variant повторно просмотрен для исходных сокращений и расшифровки IAMAS/AVIS.
 
 - id: SRC-PUB-002
   title: Payment systems
@@ -100,6 +102,25 @@ sources:
   retrieved_at: 2026-08-17
   notes_ru: Источник подтверждает только заявленное SINAM историческое участие в проекте. Он не используется как
     подтверждение текущей роли SINAM в сопровождении, развитии или эксплуатации GPP.
+
+- id: SRC-PUB-005
+  title: Rəqəmsal ödənişlər icmalı - 2025
+  publisher: Central Bank of the Republic of Azerbaijan
+  url: https://uploads.cbar.az/assets/4b03440d5e80a48c2e7430c1f.pdf
+  source_family: gpp-public-bootstrap
+  relationship: official-operational-review
+  version: '2025'
+  date: '2025'
+  version_confidence: high
+  ingest_profile: public-source
+  authority: primary-official
+  currentness: current-at-source-date
+  sensitivity: public
+  visual_review_mode: targeted
+  normalization_requirements: none
+  retrieved_at: 2026-08-17
+  notes_ru: Отчет подтверждает фактическую обработку платежей через GPP в течение 2025 года. Он не подтверждает
+    component-level currentness модулей из functional specification 2023 года и не доказывает состояние после отчетного периода.
 
 - id: SRC-FS-001
   title: HÖKUMƏT ÖDƏNİŞ PORTALI - sistemin funksional təsviri

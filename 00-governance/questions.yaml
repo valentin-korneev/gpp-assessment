@@ -44,27 +44,31 @@ questions:
   area: architecture
   question_ru: Какие компоненты реализуют центральную обработку платежей, состояние счетов/инвойсов и persistence,
     если они не названы в перечне infrastructure modules?
-  reason_ru: Система как целое принимает и обрабатывает платежи, но функциональная спецификация перечисляет преимущественно
-    channels, integration и administration modules, не называя core processing/storage components.
+  reason_ru: Система как целое принимает и обрабатывает платежи. Публичное описание дополнительно подтверждает централизованное
+    хранение reference/master data в базе данных портала, но функциональная спецификация не называет core processing/storage
+    components и не связывает physical persistence с конкретным module.
   priority: important
   status: open
   related_facts:
   - FACT-GPP-008
+  - FACT-GPP-021
 
 - id: Q-CUR-001
   area: currentness
   question_ru: Какие из модулей, описанных функциональной спецификацией 05.05.2023, остаются в текущем production
     state и в каком виде?
-  reason_ru: WebPortal и mobile app уже подтвержденно прекращены в 2024 году; для остальных модулей актуальность
-    после даты спецификации пока не подтверждена.
+  reason_ru: WebPortal и mobile app подтвержденно прекращены в 2024 году, а system-level обработка платежей через GPP
+    подтверждена за 2025 год. Для остальных named modules актуальность после даты спецификации по-прежнему не подтверждена.
   priority: important
   status: open
   related_sources:
   - SRC-FS-001
   - SRC-FS-002
+  - SRC-PUB-005
   related_facts:
   - FACT-GPP-003
   - FACT-GPP-008
+  - FACT-GPP-020
 
 - id: Q-EXT-001
   area: external-systems
@@ -85,14 +89,19 @@ questions:
   reason_ru: Спецификация использует их как identification Source, но формальная system boundary не описана.
   priority: important
   status: resolved
-  resolution_ru: В рабочей AS-IS модели считать IAMAS и AVIS внешними системами до получения обратного подтверждения;
-    классификация остается tentative через ASM-EXT-001.
+  resolution_ru: Да. Публичная страница CBA прямо идентифицирует IAMAS и AVIS как информационные системы внешних
+    государственных ведомств, используемые GPP для идентификации. Точный GPP component, protocol и contract остаются неизвестными.
   related_assumptions:
   - ASM-EXT-001
   related_sources:
+  - SRC-PUB-001
   - SRC-FS-001
   - SRC-FS-002
   - SRC-STK-001
+  related_evidence:
+  - EV-PUB-009
+  related_facts:
+  - FACT-GPP-019
 
 - id: Q-ID-001
   area: identification-management

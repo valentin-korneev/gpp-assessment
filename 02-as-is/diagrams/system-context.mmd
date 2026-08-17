@@ -7,10 +7,10 @@ flowchart LR
     AUTH["Центры авторизации платежей"]
     XOHKS["XÖHKS"]
     IPS["Instant Payment System"]
-    IAMAS["IAMAS<br/>(внешняя система - предположение ASM-EXT-001)"]:::assumption
-    AVIS["AVIS<br/>(внешняя система - предположение ASM-EXT-001)"]:::assumption
+    IAMAS["IAMAS / İAMAS<br/>внешний источник идентификационных данных<br/>система МВД по public CBA source"]:::external
+    AVIS["AVIS / AVİS<br/>внешний источник идентификационных данных<br/>налоговая информационная система по public CBA source"]:::external
 
-    subgraph GPP["GPP - временной срез AS-IS"]
+    subgraph GPP["GPP - system-level эксплуатация подтверждена за 2025; component map в основном 05.05.2023"]
         WP["WebPortal<br/>документирован в 2023<br/>выведен из эксплуатации 10.01.2024"]:::historical
         MA["Mobile applications<br/>документированы в 2023<br/>выведены из эксплуатации 10.01.2024"]:::historical
         MAPI["MobilApi<br/>документирован в 2023<br/>текущий статус не подтвержден"]:::unverified
@@ -23,7 +23,7 @@ flowchart LR
         LV["LVPCSS<br/>документирован в 2023"]:::source2023
         IP["IPSClient<br/>документирован в 2023"]:::source2023
         CORE["Центральная обработка платежей / хранение состояния<br/>компонент не идентифицирован<br/>Q-ARCH-001"]:::unknown
-        IDBOUND["Граница интеграции идентификации<br/>внутренний компонент неизвестен<br/>ASM-EXT-001"]:::assumption
+        IDBOUND["Граница интеграции идентификации<br/>внутренний компонент / protocol неизвестны"]:::unknown
     end
 
     PAYER -->|"подтвержденный исторический канал"| WP
@@ -40,18 +40,18 @@ flowchart LR
     LV <--> XOHKS
     IP <--> IPS
 
-    IAMAS -. "предполагаемая связь, ASM-EXT-001" .-> IDBOUND
-    AVIS -. "предполагаемая связь, ASM-EXT-001" .-> IDBOUND
+    IAMAS -->|"identification data; точный interface неизвестен"| IDBOUND
+    AVIS -->|"identification data; точный interface неизвестен"| IDBOUND
 
     LEG1["Документировано на 05.05.2023<br/>актуальность после даты источника не подтверждена"]:::source2023
     LEG2["Выведено из эксплуатации по более позднему подтверждению"]:::historical
     LEG3["Текущий статус специально не подтвержден"]:::unverified
-    LEG4["Предположение / неизвестная граница"]:::assumption
-    LEG5["Пунктирная стрелка = ASM/INF, а не подтвержденный интерфейс"]:::assumption
+    LEG4["Неизвестная внутренняя граница / component"]:::unknown
+    LEG5["System-level GPP activity подтверждена за 2025; component-level currentness не следует автоматически"]:::current
 
     classDef current stroke-width:3px;
     classDef source2023 stroke-dasharray:4 2;
     classDef historical stroke-dasharray:9 5;
     classDef unverified stroke-dasharray:2 3;
-    classDef assumption stroke-dasharray:1 5;
+    classDef external stroke-width:2px;
     classDef unknown stroke-dasharray:1 3;

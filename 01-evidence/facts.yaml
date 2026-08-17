@@ -224,6 +224,47 @@ facts:
     currentness: current-at-source-date
   status: active
 
+- id: FACT-GPP-019
+  area: external-identification
+  statement_ru: Публичная страница CBA идентифицирует IAMAS и AVIS как внешние государственные информационные системы,
+    используемые GPP как источники данных для идентификации плательщиков.
+  evidence:
+  - EV-PUB-009
+  confidence: confirmed
+  temporal_scope:
+    source_date: null
+    currentness: unverified
+  status: active
+  notes_ru: Источник подтверждает внешнюю природу систем относительно GPP, но не используется как доказательство
+    актуальной организационной принадлежности или interface contract в 2026 году.
+
+- id: FACT-GPP-020
+  area: operations-currentness
+  statement_ru: В течение 2025 года через GPP было выполнено 114,4 млн платежей на сумму 8,6 млрд манатов.
+  evidence:
+  - EV-PUB-010
+  confidence: confirmed
+  temporal_scope:
+    source_date: '2025'
+    currentness: current-at-source-date
+  status: active
+  notes_ru: Факт подтверждает system-level эксплуатацию GPP в 2025 году после прекращения gpp.az и mobile app,
+    но не подтверждает currentness конкретных модулей из спецификации 2023 года.
+
+- id: FACT-GPP-021
+  area: data-persistence
+  statement_ru: Публичное описание CBA фиксирует централизованное хранение в базе данных GPP банковских реквизитов
+    интегрированных организаций и централизованного бюджетного классификатора, используемого при формировании платежных транзакций.
+  evidence:
+  - EV-PUB-011
+  confidence: confirmed
+  temporal_scope:
+    source_date: null
+    currentness: unverified
+  status: active
+  notes_ru: Факт подтверждает наличие логического централизованного хранилища reference/master data в публично описанной
+    архитектуре, но не идентифицирует physical database component и не доказывает текущую реализацию.
+
 inferences:
 - id: INF-ARCH-001
   area: architecture

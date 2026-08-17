@@ -70,20 +70,24 @@ terms:
 
 - id: TERM-GPP-009
   term: IAMAS
-  name_ru: IAMAS
-  definition_ru: Внешняя в рабочей AS-IS boundary система/источник идентификационных данных, упоминаемый в функциональной
-    спецификации как Source для identification и как источник данных перед последующим debt lookup. Расшифровка,
-    ownership и contract пока не подтверждены.
+  name_ru: IAMAS / İAMAS
+  definition_ru: Внешняя по отношению к GPP система идентификационных данных. Азербайджанская версия публичной страницы
+    CBA раскрывает ее как İdarələrarası Avtomatlaşdırılmış Məlumat Axtarış Sistemi Министерства внутренних дел;
+    functional specification использует IAMAS как Source для identification и как источник данных перед последующим debt lookup.
+    Точный interface contract и current organizational ownership не подтверждены.
   sources:
+  - SRC-PUB-001
   - SRC-FS-001
   - SRC-FS-002
 
 - id: TERM-GPP-010
   term: AVIS
-  name_ru: AVIS
-  definition_ru: Внешняя в рабочей AS-IS boundary система/источник идентификационных данных, упоминаемый в функциональной
-    спецификации как Source для identification и как источник данных перед последующим debt lookup. Расшифровка,
-    ownership и contract пока не подтверждены.
+  name_ru: AVIS / AVİS
+  definition_ru: Внешняя по отношению к GPP система идентификационных данных. Азербайджанская версия публичной страницы
+    CBA раскрывает ее как Avtomatlaşdırılmış Vergi İnformasiya Sistemi и связывает с налоговым ведомством; functional
+    specification использует AVIS как Source для identification и как источник данных перед последующим debt lookup.
+    Точный interface contract и current organizational ownership не подтверждены.
   sources:
+  - SRC-PUB-001
   - SRC-FS-001
   - SRC-FS-002

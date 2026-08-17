@@ -91,21 +91,26 @@ Components:
 
 ## 8. Core payment processing - неизвестная внутренняя область
 
-System-level source подтверждает прием, обработку и settlement payments, а field tables содержат semantics account/invoice/statement/payment state.
+System-level sources подтверждают прием и обработку payments, а field tables содержат semantics account/invoice/statement/payment state. Повторный public-source pass дополнительно выявил официальное описание централизованного хранения в базе данных портала банковских реквизитов integrated organizations и бюджетного классификатора (`FACT-GPP-021`). Это подтверждает наличие логического centralized persistence для reference/master data в публично описанной архитектуре.
 
-Однако named module list не идентифицирует component(s), отвечающие за:
+Однако named module list по-прежнему не идентифицирует component(s), отвечающие за:
 
 - central payment orchestration;
 - account/invoice state;
 - transaction persistence;
-- core database;
+- physical core database;
 - settlement state machine.
 
-До появления evidence эта область не создается как `CMP-*`; она отслеживается через `Q-ARCH-001`.
+Публичное упоминание portal database не позволяет создать отдельный physical `CMP-*` и не доказывает текущую topology. Неизвестная область продолжает отслеживаться через `Q-ARCH-001`.
 
-## 9. Внешние identification systems - рабочая классификация
+## 9. Внешние identification systems
 
-`IAMAS` и `AVIS` рассматриваются как external systems (`ASM-EXT-001`). Functional specification использует их как identification sources и описывает получение данных до последующего debt lookup, но не указывает конкретный GPP component, protocol или authoritative contract. Поэтому system-context nodes добавлены, а interface objects пока не создаются.
+`IAMAS / İAMAS` и `AVIS / AVİS` подтверждены как external systems (`FACT-GPP-019`): публичная страница CBA связывает их соответственно с системой Министерства внутренних дел и автоматизированной налоговой информационной системой. Functional specification использует их как identification sources и описывает получение данных до последующего debt lookup. `ASM-EXT-001` superseded, но конкретный GPP component, protocol и authoritative contract по-прежнему неизвестны. Поэтому system-context nodes остаются, а interface objects пока не создаются.
+
+
+### FACT-GPP-020 - system-level эксплуатация GPP подтверждена за 2025 год
+
+Официальный CBA review за 2025 год фиксирует 114,4 млн платежей через GPP на сумму 8,6 млрд манатов. Это снимает неоднозначность, могла ли остановка `gpp.az` и mobile app в 2024 году означать остановку платформы целиком: не означала. При этом данный факт не переносит currentness на отдельные modules из functional specification 2023 года, поэтому `Q-CUR-001` остается открытым.
 
 ## Source-family caveat
 

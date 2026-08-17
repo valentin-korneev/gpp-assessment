@@ -36,12 +36,17 @@ assumptions:
   statement_ru: IAMAS и AVIS рассматриваются как внешние по отношению к GPP системы/источники идентификационных
     данных до получения evidence, показывающего иную boundary.
   confidence: tentative
-  status: active
+  status: superseded
   reason_ru: Спецификация использует IAMAS и AVIS как значения Source и описывает получение от них данных, но не
-    фиксирует формальную ownership/boundary модель. Рабочая классификация подтверждена архитектором assessment.
+    фиксирует формальную ownership/boundary модель. Рабочая классификация была подтверждена архитектором assessment.
   related_sources:
   - SRC-FS-001
   - SRC-FS-002
   - SRC-STK-001
+  - SRC-PUB-001
   related_questions:
   - Q-EXT-002
+  superseded_by:
+  - FACT-GPP-019
+  notes_ru: Повторный public-source pass выявил прямое официальное описание IAMAS и AVIS как систем внешних государственных
+    ведомств, используемых GPP для идентификации. Точная interface/component ownership остается неизвестной.

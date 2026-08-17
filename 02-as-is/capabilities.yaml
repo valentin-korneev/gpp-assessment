@@ -2,11 +2,13 @@ capabilities:
 - id: CAP-ASIS-001
   name_ru: Централизованный сбор бюджетных и массовых платежей
   statement_ru: GPP предоставляет единую инфраструктуру для электронного сбора бюджетных платежей и платежей за
-    массовые услуги.
+    массовые услуги; system-level обработка платежей через GPP подтверждена за 2025 год.
   evidence:
   - EV-PUB-001
+  - EV-PUB-010
   temporal_scope:
-    currentness: unverified
+    source_date: '2025'
+    currentness: current-at-source-date
 
 - id: CAP-ASIS-002
   name_ru: Доступ к платежам через интегрированные внешние цифровые каналы

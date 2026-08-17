@@ -2,7 +2,7 @@
 
 ## Текущая фаза
 
-AS-IS evidence collection. Published baseline `SNAPSHOT-001` дополнен WIP по первой внутренней source family функциональной спецификации GPP.
+AS-IS evidence collection. Published baseline `SNAPSHOT-003` дополнен текущим WIP по ограниченному повторному public-source pass: уточнены external identification sources, system-level эксплуатация GPP в 2025 году и логическое централизованное хранение reference/master data.
 
 ## Объект assessment
 
@@ -25,6 +25,7 @@ Government Payment Portal (GPP / HÖP) Азербайджана рассматр
 - Собственные пользовательские каналы `gpp.az` и mobile app прекращены с 10.01.2024 и не входят в текущий AS-IS как действующие каналы.
 - Для `MobilApi` и остальных modules из specification 2023 года текущий production status требует подтверждения (`Q-CUR-001`).
 - После прекращения собственных web/mobile channels платежи через GPP продолжают быть доступны через интегрированные internet/mobile services банков и небанковских PSP.
+- System-level эксплуатация GPP подтверждена официальным обзором CBA за 2025 год: через GPP выполнено 114,4 млн платежей на сумму 8,6 млрд манатов. Это не подтверждает component-level currentness модулей из specification 2023 года.
 
 ## Source-family constraint
 
